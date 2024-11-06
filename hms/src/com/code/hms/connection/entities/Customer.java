@@ -40,5 +40,7 @@ public class Customer implements Serializable {
     @Column(name="Country")
     private String Country;
 
+    public Customer(){}
+
     
 }
