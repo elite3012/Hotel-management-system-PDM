@@ -106,4 +106,43 @@ public class Reservation implements Serializable {
         this.RoomNumber = RoomNumber;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Reservation other = (Reservation) obj;
+        if (this.Reservation_id != other.Reservation_id) {
+            return false;
+        }
+        if (this.Room_id != other.Room_id) {
+            return false;
+        }
+        if (this.Service_id != other.Service_id) {
+            return false;
+        }
+        if (this.TotalDays != other.TotalDays) {
+            return false;
+        }
+        if (this.Customer_id != other.Customer_id) {
+            return false;
+        }
+        if (!Objects.equals(this.RoomNumber, other.RoomNumber)) {
+            return false;
+        }
+        if (!Objects.equals(this.CheckinDate, other.CheckinDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.CheckoutDate, other.CheckoutDate)) {
+            return false;
+        }
+        return true;
+    }
+
 }
