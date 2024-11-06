@@ -50,5 +50,12 @@ public class Customer implements Serializable {
         this.Customer_id = Customer_id;
     }
 
+    public String getFirstName(){
+        return First_name;
+    }
+
+    public void setFirstName(String First_name){
+        this.First_name=First_name;
+    }
     
 }
