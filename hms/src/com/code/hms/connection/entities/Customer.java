@@ -46,5 +46,9 @@ public class Customer implements Serializable {
         return Customer_id;
     }
 
+    public void setCustomerID(int Customer_id){
+        this.Customer_id = Customer_id;
+    }
+
     
 }
