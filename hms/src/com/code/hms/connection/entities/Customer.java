@@ -66,8 +66,44 @@ public class Customer implements Serializable {
         this.Last_name=Last_name;
     }
 
-    
+    public String getGender(){
+        return Gender;
+    }
 
+    public void setGender(String Gender){
+        this.Gender=Gender;
+    }
 
-    
+    public String getEmail(){
+        return Email;
+    }
+
+    public void setEmail(String Email){
+        this.Email=Email;
+    }
+
+    public String getPhone(){
+        return Phone;
+    }
+
+    public void setPhone(String Phone){
+        this.Phone=Phone;
+    }
+
+    public Date getDateOfBirth(){
+        return Date_Of_Birth;
+    }
+
+    public void setDateOfBirth(Date Date_Of_Birth){
+        this.Date_Of_Birth=Date_Of_Birth;
+    }
+
+    public String getCountry(){
+        return Country;
+    }
+
+    public void setCountry(String Country){
+        this.Country=Country;
+    }
+
 }
