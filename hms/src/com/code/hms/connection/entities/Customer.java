@@ -106,4 +106,16 @@ public class Customer implements Serializable {
         this.Country=Country;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        return Customer_id == customer.Customer_id &&
+            (Email != null ? Email.equals(customer.Email) : customer.Email == null) &&
+            (Phone != null ? Phone.equals(customer.Phone) : customer.Phone == null);
+    }
+
 }
