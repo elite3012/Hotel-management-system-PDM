@@ -39,5 +39,6 @@ public class Reservation implements Serializable {
     
     @Column(name="RoomNumber")
     private String RoomNumber;
-    
+
+    public Reservation(){}
 }
