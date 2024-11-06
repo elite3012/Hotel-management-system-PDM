@@ -57,5 +57,17 @@ public class Customer implements Serializable {
     public void setFirstName(String First_name){
         this.First_name=First_name;
     }
+
+    public String getLastName(){
+        return Last_name;
+    }
+
+    public void setLastName(String First_name){
+        this.Last_name=Last_name;
+    }
+
+    
+
+
     
 }
