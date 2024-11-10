@@ -108,9 +108,7 @@ public class Reservation implements Serializable {
     }
 
     @Override
-    
-    //Check if the Customer_id,Email,and Phone fields are equal between the two Customer objects
-
+    //The equals method checks whether two Reservation objects represent the same reservation by comparing the values of their fields
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
