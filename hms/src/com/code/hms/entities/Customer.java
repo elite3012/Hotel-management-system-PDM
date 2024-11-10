@@ -106,7 +106,7 @@ public class Customer implements Serializable {
         this.Country=Country;
     }
 
-    
+    //Check if the Customer_id,Email,and Phone fields are equal between the two Customer objects
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
