@@ -1,9 +1,7 @@
-package com.code.hms.connection.entities;
+package com.code.hms.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
-
-import javax.annotation.processing.Generated;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
