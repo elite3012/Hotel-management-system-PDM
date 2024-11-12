@@ -1,108 +1,105 @@
 package com.code.hms.entities;
 
 import java.io.Serializable;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Room")
 public class Room implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name = "Room_ID")
-    private int Room_ID;
+    private int roomId;
 
     @Column(name = "Room_Type")
-    private String Room_Type;
+    private String roomType;
 
     @Column(name = "Price")
-    private double Price;
+    private double price;
 
     @Column(name = "Room_Status")
-    private String Room_Status;
+    private String roomStatus;
 
     @Column(name = "Cleaning_Status")
-    private String Cleaning_Status;
+    private String cleaningStatus;
 
     @Column(name = "Room_Capacity")
-    private int Room_Capacity;
+    private int roomCapacity;
 
-    public Room(int room_ID, String room_Type, double price, String room_Status, String cleaning_Status,
-            int room_Capacity) {
-        Room_ID = room_ID;
-        Room_Type = room_Type;
-        Price = price;
-        Room_Status = room_Status;
-        Cleaning_Status = cleaning_Status;
-        Room_Capacity = room_Capacity;
+    // No-args constructor
+    public Room() {}
+
+    // Parameterized constructor
+    public Room(int roomId, String roomType, double price, String roomStatus, String cleaningStatus, int roomCapacity) {
+        this.roomId = roomId;
+        this.roomType = roomType;
+        this.price = price;
+        this.roomStatus = roomStatus;
+        this.cleaningStatus = cleaningStatus;
+        this.roomCapacity = roomCapacity;
     }
 
-    public int getRoom_ID() {
-        return Room_ID;
+    // Getters and setters
+    public int getRoomId() {
+        return roomId;
     }
 
-    public void setRoom_ID(int room_ID) {
-        Room_ID = room_ID;
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
     }
 
-    public String getRoom_Type() {
-        return Room_Type;
+    public String getRoomType() {
+        return roomType;
     }
 
-    public void setRoom_Type(String room_Type) {
-        Room_Type = room_Type;
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
 
     public double getPrice() {
-        return Price;
+        return price;
     }
 
     public void setPrice(double price) {
-        Price = price;
+        this.price = price;
     }
 
-    public String getRoom_Status() {
-        return Room_Status;
+    public String getRoomStatus() {
+        return roomStatus;
     }
 
-    public void setRoom_Status(String room_Status) {
-        Room_Status = room_Status;
+    public void setRoomStatus(String roomStatus) {
+        this.roomStatus = roomStatus;
     }
 
-    public String getCleaning_Status() {
-        return Cleaning_Status;
+    public String getCleaningStatus() {
+        return cleaningStatus;
     }
 
-    public void setCleaning_Status(String cleaning_Status) {
-        Cleaning_Status = cleaning_Status;
+    public void setCleaningStatus(String cleaningStatus) {
+        this.cleaningStatus = cleaningStatus;
     }
 
-    public int getRoom_Capacity() {
-        return Room_Capacity;
+    public int getRoomCapacity() {
+        return roomCapacity;
     }
 
-    public void setRoom_Capacity(int room_Capacity) {
-        Room_Capacity = room_Capacity;
+    public void setRoomCapacity(int roomCapacity) {
+        this.roomCapacity = roomCapacity;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Room_ID;
-        result = prime * result + ((Room_Type == null) ? 0 : Room_Type.hashCode());
+        result = prime * result + roomId;
+        result = prime * result + ((roomType == null) ? 0 : roomType.hashCode());
         long temp;
-        temp = Double.doubleToLongBits(Price);
+        temp = Double.doubleToLongBits(price);
         result = prime * result + (int) (temp ^ (temp >>> 32));
-        result = prime * result + ((Room_Status == null) ? 0 : Room_Status.hashCode());
-        result = prime * result + ((Cleaning_Status == null) ? 0 : Cleaning_Status.hashCode());
-        result = prime * result + Room_Capacity;
+        result = prime * result + ((roomStatus == null) ? 0 : roomStatus.hashCode());
+        result = prime * result + ((cleaningStatus == null) ? 0 : cleaningStatus.hashCode());
+        result = prime * result + roomCapacity;
         return result;
     }
 
@@ -115,33 +112,33 @@ public class Room implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         Room other = (Room) obj;
-        if (Room_ID != other.Room_ID)
+        if (roomId != other.roomId)
             return false;
-        if (Room_Type == null) {
-            if (other.Room_Type != null)
+        if (roomType == null) {
+            if (other.roomType != null)
                 return false;
-        } else if (!Room_Type.equals(other.Room_Type))
+        } else if (!roomType.equals(other.roomType))
             return false;
-        if (Double.doubleToLongBits(Price) != Double.doubleToLongBits(other.Price))
+        if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
             return false;
-        if (Room_Status == null) {
-            if (other.Room_Status != null)
+        if (roomStatus == null) {
+            if (other.roomStatus != null)
                 return false;
-        } else if (!Room_Status.equals(other.Room_Status))
+        } else if (!roomStatus.equals(other.roomStatus))
             return false;
-        if (Cleaning_Status == null) {
-            if (other.Cleaning_Status != null)
+        if (cleaningStatus == null) {
+            if (other.cleaningStatus != null)
                 return false;
-        } else if (!Cleaning_Status.equals(other.Cleaning_Status))
+        } else if (!cleaningStatus.equals(other.cleaningStatus))
             return false;
-        if (Room_Capacity != other.Room_Capacity)
+        if (roomCapacity != other.roomCapacity)
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Room [Room_ID=" + Room_ID + ", Room_Type=" + Room_Type + ", Price=" + Price + ", Room_Status="
-                + Room_Status + ", Cleaning_Status=" + Cleaning_Status + ", Room_Capacity=" + Room_Capacity + "]";
+        return "Room [Room_ID=" + roomId + ", Room_Type=" + roomType + ", Price=" + price + ", Room_Status="
+                + roomStatus + ", Cleaning_Status=" + cleaningStatus + ", Room_Capacity=" + roomCapacity + "]";
     }
 }
