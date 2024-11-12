@@ -60,7 +60,7 @@ public class Customer implements Serializable {
         return Last_name;
     }
 
-    public void setLastName(String First_name){
+    public void setLastName(String Last_name){
         this.Last_name=Last_name;
     }
 
