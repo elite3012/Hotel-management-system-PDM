@@ -120,4 +120,10 @@ public class Billing implements Serializable {
             return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Billing [Billing_ID=" + Billing_ID + ", Reservation_ID=" + Reservation_ID + ", Amount=" + Amount
+                + ", Payment_Method=" + Payment_Method + ", date=" + date + "]";
+    }
 }
