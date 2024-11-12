@@ -116,5 +116,4 @@ public class Customer implements Serializable {
             (Email != null ? Email.equals(customer.Email) : customer.Email == null) &&
             (Phone != null ? Phone.equals(customer.Phone) : customer.Phone == null);
     }
-
 }
