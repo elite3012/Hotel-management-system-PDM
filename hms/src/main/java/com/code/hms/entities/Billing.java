@@ -2,73 +2,79 @@ package com.code.hms.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Billing")
 public class Billing implements Serializable {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name = "Billing_ID")
-    private int Billing_ID;
+    private int billingId;
 
-    @Column(name = "Reservation_ID")
-    private int Reservation_ID;
+    @ManyToOne
+    @JoinColumn(name = "Reservation_ID", nullable = false)
+    private Reservation reservation;
 
     @Column(name = "Amount")
-    private double Amount;
-    
+    private double amount;
+
     @Column(name = "Payment_Method")
-    private String Payment_Method;
+    private String paymentMethod;
 
     @Column(name = "Date")
     private Date date;
 
-    public Billing(int billing_ID, int reservation_ID, double amount, String payment_Method, Date date) {
-        Billing_ID = billing_ID;
-        Reservation_ID = reservation_ID;
-        Amount = amount;
-        Payment_Method = payment_Method;
+    // No-argument constructor for JPA
+    public Billing() {}
+
+    // Parameterized constructor
+    public Billing(int billingId, Reservation reservation, double amount, String paymentMethod, Date date) {
+        this.billingId = billingId;
+        this.reservation = reservation;
+        this.amount = amount;
+        this.paymentMethod = paymentMethod;
         this.date = date;
     }
 
-    public int getBilling_ID() {
-        return Billing_ID;
+    public int getBillingId() {
+        return billingId;
     }
 
-    public void setBilling_ID(int billing_ID) {
-        Billing_ID = billing_ID;
+    public void setBillingId(int billingId) {
+        this.billingId = billingId;
     }
 
-    public int getReservation_ID() {
-        return Reservation_ID;
+    public Reservation getReservation() {
+        return reservation;
     }
 
-    public void setReservation_ID(int reservation_ID) {
-        Reservation_ID = reservation_ID;
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
     }
 
     public double getAmount() {
-        return Amount;
+        return amount;
     }
 
     public void setAmount(double amount) {
-        Amount = amount;
+        this.amount = amount;
     }
 
-    public String getPayment_Method() {
-        return Payment_Method;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setPayment_Method(String payment_Method) {
-        Payment_Method = payment_Method;
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     public Date getDate() {
@@ -83,12 +89,12 @@ public class Billing implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Billing_ID;
-        result = prime * result + Reservation_ID;
+        result = prime * result + billingId;
+        result = prime * result + ((reservation == null) ? 0 : reservation.hashCode());
         long temp;
-        temp = Double.doubleToLongBits(Amount);
+        temp = Double.doubleToLongBits(amount);
         result = prime * result + (int) (temp ^ (temp >>> 32));
-        result = prime * result + ((Payment_Method == null) ? 0 : Payment_Method.hashCode());
+        result = prime * result + ((paymentMethod == null) ? 0 : paymentMethod.hashCode());
         result = prime * result + ((date == null) ? 0 : date.hashCode());
         return result;
     }
@@ -102,16 +108,19 @@ public class Billing implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         Billing other = (Billing) obj;
-        if (Billing_ID != other.Billing_ID)
+        if (billingId != other.billingId)
             return false;
-        if (Reservation_ID != other.Reservation_ID)
-            return false;
-        if (Double.doubleToLongBits(Amount) != Double.doubleToLongBits(other.Amount))
-            return false;
-        if (Payment_Method == null) {
-            if (other.Payment_Method != null)
+        if (reservation == null) {
+            if (other.reservation != null)
                 return false;
-        } else if (!Payment_Method.equals(other.Payment_Method))
+        } else if (!reservation.equals(other.reservation))
+            return false;
+        if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
+            return false;
+        if (paymentMethod == null) {
+            if (other.paymentMethod != null)
+                return false;
+        } else if (!paymentMethod.equals(other.paymentMethod))
             return false;
         if (date == null) {
             if (other.date != null)
@@ -123,7 +132,7 @@ public class Billing implements Serializable {
 
     @Override
     public String toString() {
-        return "Billing [Billing_ID=" + Billing_ID + ", Reservation_ID=" + Reservation_ID + ", Amount=" + Amount
-                + ", Payment_Method=" + Payment_Method + ", date=" + date + "]";
+        return "Billing [billingId=" + billingId + ", reservation=" + reservation + ", amount=" + amount
+                + ", paymentMethod=" + paymentMethod + ", date=" + date + "]";
     }
 }
