@@ -18,7 +18,7 @@ public class StaffUI {
 
     public StaffUI() {
         /*Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose: Receptionist(1)/Housekeeper(2)/Admin(3)\n");
+        System.out.println("Choose: Receptionist(1)/Housekeeper(2)/ServiceStaff(3)/Admin(4)\n");
         int choice = scanner.nextInt();
 
         switch (choice) {
@@ -29,6 +29,9 @@ public class StaffUI {
                 createHousekeeperUI();
                 break;
             case 3:
+                createServiceStaffUI();
+                break;
+            case 4:
                 createAdminUI();
                 break;
             default:
@@ -61,22 +64,25 @@ public class StaffUI {
         RoomManagementTab.setForeground(new Color(43, 42, 38));
         RoomManagementTab.setVisible(true);
         panel.add(RoomManagementTab);
+        new Interaction(RoomManagementTab);
 
         // ReservationTab setup
         ReservationTab = new JLabel("RESERVATIONS");
         ReservationTab.setFont(new Font("Mulish", Font.BOLD, 23));
         ReservationTab.setBounds(32, 162, 235, 33);
-        ReservationTab.setForeground(new Color(43, 42, 38));
+        ReservationTab.setForeground(new Color(245, 242, 233));
         ReservationTab.setVisible(true);
         panel.add(ReservationTab);
+        new Interaction(ReservationTab);
 
         // CurrencyExchangeTab setup
         CurrencyExchangeTab = new JLabel("CURRENCY EXCH.");
         CurrencyExchangeTab.setFont(new Font("Mulish", Font.BOLD, 23));
         CurrencyExchangeTab.setBounds(32, 209, 235, 33);
-        CurrencyExchangeTab.setForeground(new Color(43, 42, 38));
+        CurrencyExchangeTab.setForeground(new Color(245, 242, 233));
         CurrencyExchangeTab.setVisible(true);
         panel.add(CurrencyExchangeTab);
+        new Interaction(CurrencyExchangeTab);
 
         //main menu button
         main_menu = new JButton(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Main_menu_Button.png",175,28));
