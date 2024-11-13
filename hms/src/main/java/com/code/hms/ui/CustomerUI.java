@@ -41,21 +41,21 @@ import java.awt.*;
             RoomTab = new JLabel("ROOM BOOKING");
             RoomTab.setFont(new Font("Mulish", Font.BOLD, 23));
             RoomTab.setBounds(32, 162, 235, 33);
-            RoomTab.setForeground(new Color(43, 42, 38));
+            RoomTab.setForeground(new Color(245, 242, 233));
             panel.add(RoomTab);
 
             // ServiceTab setup
             ServiceTab = new JLabel("SERVICE BOOKING");
             ServiceTab.setFont(new Font("Mulish", Font.BOLD, 23));
             ServiceTab.setBounds(32, 209, 235, 33);
-            ServiceTab.setForeground(new Color(43, 42, 38));
+            ServiceTab.setForeground(new Color(245, 242, 233));
             panel.add(ServiceTab);
 
             // ReviewTab setup
             ReviewTab = new JLabel("REVIEW");
             ReviewTab.setFont(new Font("Mulish", Font.BOLD, 23));
             ReviewTab.setBounds(32, 256, 235, 33);
-            ReviewTab.setForeground(new Color(43, 42, 38));
+            ReviewTab.setForeground(new Color(245, 242, 233));
             panel.add(ReviewTab);
 
             new Interaction(RoomTab, ServiceTab, ReviewTab);

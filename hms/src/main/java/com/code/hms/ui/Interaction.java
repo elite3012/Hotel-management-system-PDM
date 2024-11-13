@@ -11,12 +11,12 @@ public class Interaction {
             label.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    label.setForeground(new Color(245, 242, 233)); // Change color on hover
+                    label.setForeground(new Color(43, 42, 38)); // Change color on hover
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    label.setForeground(new Color(43, 42, 38)); // Reset color when not hovering
+                    label.setForeground(new Color(245, 242, 233)); // Reset color when not hovering
                 }
             });
         }
