@@ -11,6 +11,7 @@ public class StaffUI {
     static JPanel panel;
     static JButton main_menu;
     static JLabel available_unavailable;
+    static JLabel RoomManagementTab;
 
 
     public StaffUI() {
@@ -54,6 +55,12 @@ public class StaffUI {
         background.setBounds(0, 0, 1440, 900);
         background.setVisible(true);
         panel.add(background);
+
+        // RoomManagementTab setup
+        RoomManagementTab = new JLabel("ROOMS");
+        RoomManagementTab.setFont(new Font("Mulish", Font.BOLD, 25));
+        RoomManagementTab.setBounds(35, 145, 250, 60);
+        panel.add(RoomManagementTab);
 
         //main menu button
         main_menu = new JButton(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Main_menu_Button.png",197,38));
