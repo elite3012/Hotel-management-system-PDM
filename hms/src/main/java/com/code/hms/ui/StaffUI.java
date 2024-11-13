@@ -13,6 +13,7 @@ public class StaffUI {
     static JLabel available_unavailable;
     static JLabel RoomManagementTab;
     static JLabel ReservationTab;
+    static JLabel CurrencyExchangeTab;
 
 
     public StaffUI() {
@@ -66,6 +67,13 @@ public class StaffUI {
         ReservationTab.setBounds(32, 162, 235, 33);
         ReservationTab.setVisible(true);
         panel.add(ReservationTab);
+
+        // CurrencyExchangeTab setup
+        CurrencyExchangeTab = new JLabel("CURRENCY EXCH.");
+        CurrencyExchangeTab.setFont(new Font("Mulish", Font.BOLD, 23));
+        CurrencyExchangeTab.setBounds(32, 209, 235, 33);
+        CurrencyExchangeTab.setVisible(true);
+        panel.add(CurrencyExchangeTab);
 
         //main menu button
         main_menu = new JButton(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Main_menu_Button.png",175,28));
