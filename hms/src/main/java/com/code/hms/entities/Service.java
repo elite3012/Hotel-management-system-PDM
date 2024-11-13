@@ -1,18 +1,32 @@
 package com.code.hms.entities;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Service")
 public class Service {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Service_ID")
     private int serviceId;
+
+    @Column(name = "ServiceName")
     private String serviceName;
+
+    @Column(name = "ServiceAvailability")
     private String serviceAvailability;
-    private String price;
+
+    @Column(name = "Price")
     private double Price;
+
+    @Column(name = "TypeMax")
     private int typeMax;
 
     public Service(int serviceId, String serviceName, String serviceAvailability, String price, double price1, int typeMax) {
         this.serviceId = serviceId;
         this.serviceName = serviceName;
         this.serviceAvailability = serviceAvailability;
-        this.price = price;
         Price = price1;
         this.typeMax = typeMax;
     }
@@ -41,10 +55,6 @@ public class Service {
         this.serviceAvailability = serviceAvailability;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
     public void setPrice(double price) {
         Price = price;
     }
@@ -57,9 +67,6 @@ public class Service {
         this.typeMax = typeMax;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
 
     @Override
     public String toString() {
@@ -67,7 +74,6 @@ public class Service {
                 "serviceId=" + serviceId +
                 ", serviceName='" + serviceName + '\'' +
                 ", serviceAvailability='" + serviceAvailability + '\'' +
-                ", price='" + price + '\'' +
                 ", Price=" + Price +
                 ", typeMax=" + typeMax +
                 '}';
