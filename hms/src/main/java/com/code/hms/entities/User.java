@@ -1,18 +1,47 @@
 package com.code.hms.entities;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "User")
 public class User {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "User_ID")
     private int userId;
+
+    @Column(name = "Username", nullable = false)
     private String username;
+
+    @Column(name = "Password", nullable = false)
     private String password;
+
+    @Column(name = "FirstName")
     private String firstName;
+
+    @Column(name = "LastName")
     private String lastName;
+
+    @Column(name = "Email", unique = true)
     private String email;
+
+    @Column(name = "Phone")
     private String phone;
+
+    @Column(name = "Role")
     private String role;
 
-    public User(int userID, String username, String password, String firstName, String lastName, String email, String phone, String role) {
+    public User() {}
+
+    public User(int userId, String username, String password, String firstName, String lastName, String email, String phone, String role) {
         this.userId = userId;
-        this.username = username; 
+        this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -20,6 +49,8 @@ public class User {
         this.phone = phone;
         this.role = role;
     }
+
+    // Getters and Setters
 
     public int getUserId() {
         return userId;
@@ -91,8 +122,4 @@ public class User {
                 + firstName + ", lastName=" + lastName + ", email=" + email + ", phone=" + phone + ", role=" + role
                 + "]";
     }
-
-
-
-
 }
