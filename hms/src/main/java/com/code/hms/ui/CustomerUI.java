@@ -55,6 +55,8 @@ public class CustomerUI {
             ReviewTab.setBounds(35, 295, 100, 60);
             ReviewTab.setForeground(new Color(43, 42, 38));
             panel.add(ReviewTab);
+
+            new Interaction(RoomTab, ServiceTab, ReviewTab);
         }
     }
 }
