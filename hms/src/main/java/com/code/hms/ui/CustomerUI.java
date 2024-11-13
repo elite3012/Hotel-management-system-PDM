@@ -10,6 +10,7 @@ public class CustomerUI {
         static JLabel HotelInfoTab;
         static JLabel RoomTab;
         static JLabel ServiceTab;
+        static JLabel ReviewTab;
 
         public HotelInfoGUI() {
             createMainGUI();
@@ -47,6 +48,13 @@ public class CustomerUI {
             ServiceTab.setBounds(35, 245, 239, 60);
             ServiceTab.setForeground(new Color(43, 42, 38));
             panel.add(ServiceTab);
+
+            // ReviewTab setup
+            ReviewTab = new JLabel("REVIEW");
+            ReviewTab.setFont(new Font("Mulish", Font.BOLD, 25));
+            ReviewTab.setBounds(35, 295, 100, 60);
+            ReviewTab.setForeground(new Color(43, 42, 38));
+            panel.add(ReviewTab);
         }
     }
 }
