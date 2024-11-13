@@ -11,6 +11,7 @@ public class CustomerUI {
         static JLabel RoomTab;
         static JLabel ServiceTab;
         static JLabel ReviewTab;
+        static JLabel Hotel_background;
 
         public HotelInfoGUI() {
             createMainGUI();
@@ -57,6 +58,15 @@ public class CustomerUI {
             panel.add(ReviewTab);
 
             new Interaction(RoomTab, ServiceTab, ReviewTab);
+
+            // Background setup
+            Hotel_background = new JLabel(LoadImage.loadScaledImage("src/Assets/Hotel_Background.png"));
+            Hotel_background.setBounds(0, 0, 1440, 900);
+            panel.add(Hotel_background);
+
+            // Make frame visible
+            frame.setVisible(true);
+
         }
     }
 }
