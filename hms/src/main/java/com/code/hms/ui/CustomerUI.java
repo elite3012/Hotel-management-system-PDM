@@ -60,7 +60,7 @@ public class CustomerUI {
             new Interaction(RoomTab, ServiceTab, ReviewTab);
 
             // Background setup
-            Hotel_background = new JLabel(LoadImage.loadScaledImage("src/Assets/Hotel_Background.png"));
+            Hotel_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/HotelInfo_Background.png", 1440, 900));
             Hotel_background.setBounds(0, 0, 1440, 900);
             panel.add(Hotel_background);
 
