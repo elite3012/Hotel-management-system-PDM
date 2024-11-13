@@ -33,10 +33,11 @@ public class StaffUI {
                 System.out.println("Invalid choice!");
                 System.exit(0);
         }*/
+        initializeUI();
         createReceptionistUI();
     }
 
-    private void createReceptionistUI () {
+    private void initializeUI(){
         //frame
         frame = new JFrame();
         frame.setVisible(true);
@@ -49,7 +50,8 @@ public class StaffUI {
         panel = new JPanel();
         panel.setLayout(null);
         frame.getContentPane().add(panel);
-
+    }
+    private void createReceptionistUI () {
         //background
         background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Rooms_BG.png",1440,900));
         background.setBounds(0, 0, 1440, 900);
