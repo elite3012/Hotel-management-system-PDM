@@ -1,6 +1,7 @@
 package com.code.hms.ui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Scanner;
 
 
@@ -9,6 +10,7 @@ public class StaffUI {
     static JFrame frame;
     static JPanel panel;
     static JButton main_menu;
+    static JLabel available_unavailable;
 
 
     public StaffUI() {
@@ -61,5 +63,11 @@ public class StaffUI {
         main_menu.setHorizontalAlignment(SwingConstants.CENTER);
         main_menu.setVerticalAlignment(SwingConstants.CENTER);
         panel.add(main_menu);
+
+        //available_unavailable labels
+        available_unavailable = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Rooms_Available_Unavailable.png", 447, 47));
+        available_unavailable.setBounds(647,800,447,47);
+        available_unavailable.setVisible(true);
+        panel.add(available_unavailable);
     }
 }
