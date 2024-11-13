@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 
 public class StaffUI {
-    static JLabel background;
+    static JLabel Tab1_background;
     static JFrame frame;
     static JPanel panel;
     static JButton main_menu;
@@ -91,9 +91,9 @@ public class StaffUI {
         panel.add(available_unavailable);
 
         //background
-        background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Rooms_BG.png",1280,672));
-        background.setBounds(0, 0, 1280,672);
-        background.setVisible(true);
-        panel.add(background);
+        Tab1_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab1_BG.png",1280,672));
+        Tab1_background.setBounds(0, 0, 1280,672);
+        Tab1_background.setVisible(true);
+        panel.add(Tab1_background);
     }
 }
