@@ -8,6 +8,7 @@ public class CustomerUI {
         static JFrame frame;
         static JPanel panel;
         static JLabel HotelInfoTab;
+        static JLabel RoomTab;
 
         public HotelInfoGUI() {
             createMainGUI();
@@ -31,6 +32,13 @@ public class CustomerUI {
             HotelInfoTab.setFont(new Font("Mulish", Font.BOLD, 25));
             HotelInfoTab.setBounds(35, 145, 250, 60);
             panel.add(HotelInfoTab);
+
+            //RoomTab setup
+            RoomTab = new JLabel("ROOM BOOKING");
+            RoomTab.setFont(new Font("Mulish", Font.BOLD, 25));
+            RoomTab.setBounds(35, 195, 210, 60);
+            RoomTab.setForeground(new Color(43, 42, 38));
+            panel.add(RoomTab);
         }
     }
 }
