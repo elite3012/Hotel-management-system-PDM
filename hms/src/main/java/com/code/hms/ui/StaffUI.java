@@ -70,7 +70,7 @@ public class StaffUI {
         ReservationTab = new JLabel("RESERVATIONS");
         ReservationTab.setFont(new Font("Mulish", Font.BOLD, 23));
         ReservationTab.setBounds(32, 162, 235, 33);
-        ReservationTab.setForeground(new Color(43, 42, 38));
+        ReservationTab.setForeground(new Color(245, 242, 233));
         ReservationTab.setVisible(true);
         panel.add(ReservationTab);
         new Interaction(ReservationTab);
@@ -79,7 +79,7 @@ public class StaffUI {
         CurrencyExchangeTab = new JLabel("CURRENCY EXCH.");
         CurrencyExchangeTab.setFont(new Font("Mulish", Font.BOLD, 23));
         CurrencyExchangeTab.setBounds(32, 209, 235, 33);
-        CurrencyExchangeTab.setForeground(new Color(43, 42, 38));
+        CurrencyExchangeTab.setForeground(new Color(245, 242, 233));
         CurrencyExchangeTab.setVisible(true);
         panel.add(CurrencyExchangeTab);
         new Interaction(CurrencyExchangeTab);
