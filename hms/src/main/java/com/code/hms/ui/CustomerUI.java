@@ -9,6 +9,7 @@ public class CustomerUI {
         static JPanel panel;
         static JLabel HotelInfoTab;
         static JLabel RoomTab;
+        static JLabel ServiceTab;
 
         public HotelInfoGUI() {
             createMainGUI();
@@ -39,6 +40,13 @@ public class CustomerUI {
             RoomTab.setBounds(35, 195, 210, 60);
             RoomTab.setForeground(new Color(43, 42, 38));
             panel.add(RoomTab);
+
+            // ServiceTab setup
+            ServiceTab = new JLabel("SERVICE BOOKING");
+            ServiceTab.setFont(new Font("Mulish", Font.BOLD, 25));
+            ServiceTab.setBounds(35, 245, 239, 60);
+            ServiceTab.setForeground(new Color(43, 42, 38));
+            panel.add(ServiceTab);
         }
     }
 }
