@@ -46,5 +46,11 @@ public class StaffUI {
         panel = new JPanel();
         panel.setLayout(null);
         frame.getContentPane().add(panel);
+
+        //background
+        background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Rooms_BG.png",1440,900));
+        background.setBounds(0, 0, 1440, 900);
+        background.setVisible(true);
+        panel.add(background);
     }
 }
