@@ -14,6 +14,7 @@ public class StaffUI {
     static JLabel RoomManagementTab;
     static JLabel ReservationTab;
     static JLabel CurrencyExchangeTab;
+    static JButton ReservationButton;
 
 
     public StaffUI() {
@@ -74,6 +75,15 @@ public class StaffUI {
         ReservationTab.setVisible(true);
         panel.add(ReservationTab);
         new Interaction(ReservationTab);
+
+        // ReservationButton setup
+        ReservationButton = new JButton();
+        ReservationButton.setBounds(32, 162, 235, 33);
+        ReservationButton.setOpaque(false);  // Makes the button background transparent
+        ReservationButton.setContentAreaFilled(false);  // Removes the button's content area background
+        ReservationButton.setBorderPainted(false);  // Removes the button border (optional)
+        ReservationButton.setVisible(true);
+        panel.add(ReservationButton);
 
         // CurrencyExchangeTab setup
         CurrencyExchangeTab = new JLabel("CURRENCY EXCH.");
