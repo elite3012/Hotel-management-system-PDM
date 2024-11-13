@@ -65,13 +65,14 @@ public class StaffUI {
         RoomManagementTab.setForeground(new Color(43, 42, 38));
         RoomManagementTab.setVisible(true);
         panel.add(RoomManagementTab);
-        new Interaction(RoomManagementTab);
 
         // ReservationTab setup
         ReservationTab = new JLabel("RESERVATIONS");
         ReservationTab.setFont(new Font("Mulish", Font.BOLD, 23));
         ReservationTab.setBounds(32, 162, 235, 33);
         ReservationTab.setForeground(new Color(245, 242, 233));
+        ReservationTab.setOpaque(false);
+        ReservationTab.setFocusable(false);
         ReservationTab.setVisible(true);
         panel.add(ReservationTab);
         new Interaction(ReservationTab);
