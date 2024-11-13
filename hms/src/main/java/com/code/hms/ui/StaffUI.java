@@ -84,16 +84,6 @@ public class StaffUI {
         panel.add(CurrencyExchangeTab);
         new Interaction(CurrencyExchangeTab);
 
-        //main menu button
-        main_menu = new JButton(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Main_menu_Button.png",175,28));
-        main_menu.setBounds(19,17,175,28);
-        main_menu.setBorderPainted(false);       // Remove border
-        main_menu.setBackground(null);
-        main_menu.setHorizontalAlignment(SwingConstants.CENTER);
-        main_menu.setVerticalAlignment(SwingConstants.CENTER);
-        main_menu.setVisible(true);
-        panel.add(main_menu);
-
         //available_unavailable labels
         available_unavailable = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Rooms_Available_Unavailable.png", 298,28));
         available_unavailable.setBounds(576, 576, 399, 35);
