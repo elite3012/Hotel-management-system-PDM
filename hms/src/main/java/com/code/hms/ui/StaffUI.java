@@ -60,6 +60,13 @@ public class StaffUI {
         RoomManagementTab.setVisible(true);
         panel.add(RoomManagementTab);
 
+        // ReservationTab setup
+        ReservationTab = new JLabel("RESERVATIONS");
+        ReservationTab.setFont(new Font("Mulish", Font.BOLD, 23));
+        ReservationTab.setBounds(32, 162, 235, 33);
+        ReservationTab.setVisible(true);
+        panel.add(ReservationTab);
+
         //main menu button
         main_menu = new JButton(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Main_menu_Button.png",175,28));
         main_menu.setBounds(19,17,175,28);
