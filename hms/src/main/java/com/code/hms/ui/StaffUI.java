@@ -52,12 +52,6 @@ public class StaffUI {
         frame.getContentPane().add(panel);
     }
     private void createReceptionistUI () {
-        //background
-        background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Rooms_BG.png",1440,900));
-        background.setBounds(0, 0, 1440, 900);
-        background.setVisible(true);
-        panel.add(background);
-
         // RoomManagementTab setup
         RoomManagementTab = new JLabel("ROOMS");
         RoomManagementTab.setFont(new Font("Mulish", Font.BOLD, 25));
@@ -78,5 +72,9 @@ public class StaffUI {
         available_unavailable.setBounds(647,800,447,47);
         available_unavailable.setVisible(true);
         panel.add(available_unavailable);
+        background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Rooms_BG.png",1440,900));
+        background.setBounds(0, 0, 1440, 900);
+        background.setVisible(true);
+        panel.add(background);
     }
 }
