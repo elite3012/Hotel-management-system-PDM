@@ -102,7 +102,7 @@ public class StaffUI {
         available_unavailable.setVisible(true);
         panel.add(available_unavailable);
 
-        //background
+        //Tab1_background
         Tab1_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab1_BG.png",1280,672));
         Tab1_background.setBounds(0, 0, 1280,672);
         Tab1_background.setVisible(true);
