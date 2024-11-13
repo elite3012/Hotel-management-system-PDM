@@ -52,5 +52,14 @@ public class StaffUI {
         background.setBounds(0, 0, 1440, 900);
         background.setVisible(true);
         panel.add(background);
+
+        //main menu button
+        main_menu = new JButton(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Main_menu_Button.png",197,38));
+        main_menu.setBounds(21, 23, 197, 38);
+        main_menu.setBorderPainted(false);       // Remove border
+        main_menu.setBackground(null);
+        main_menu.setHorizontalAlignment(SwingConstants.CENTER);
+        main_menu.setVerticalAlignment(SwingConstants.CENTER);
+        panel.add(main_menu);
     }
 }
