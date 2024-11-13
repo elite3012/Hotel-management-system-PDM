@@ -1,10 +1,11 @@
 package com.code.hms.ui;
 
+import com.code.hms.entities.Customer;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class CustomerUI {
-    public static class HotelInfoGUI {
+    public class CustomerUI {
         static JFrame frame;
         static JPanel panel;
         static JLabel HotelInfoTab;
@@ -13,7 +14,7 @@ public class CustomerUI {
         static JLabel ReviewTab;
         static JLabel Hotel_background;
 
-        public HotelInfoGUI() {
+        public CustomerUI() {
             createMainGUI();
         }
 
@@ -69,4 +70,3 @@ public class CustomerUI {
 
         }
     }
-}
