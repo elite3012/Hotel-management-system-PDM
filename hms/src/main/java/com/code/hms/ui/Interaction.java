@@ -18,6 +18,21 @@ public class Interaction {public Interaction(JLabel roomTab, JLabel serviceTab, 
             roomTab.setForeground(new Color(43, 42, 38)); // Reset color when not hovering
         }
     });
-    
+    serviceTab.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            serviceTab.setForeground(new Color(245, 242, 233)); // Change color on hover
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            serviceTab.setForeground(new Color(43, 42, 38)); // Reset color when not hovering
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            // Optionally handle click events here
+        }
+    });
     }
 }
