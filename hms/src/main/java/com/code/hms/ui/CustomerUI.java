@@ -151,6 +151,19 @@ public class CustomerUI {
             Restaurant.setBounds(800, 150, 350, 200);
             Restaurant.setVisible(false);
             panel.add(Restaurant);
+            Restaurant.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Tab1_background.setVisible(false);
+                    Tab2_background.setVisible(false);
+                    Tab3_background.setVisible(true);
+                    Tab4_background.setVisible(false);
+                    Restaurant.setVisible(false);
+                    Spa.setVisible(false);
+                    RoomCleaning.setVisible(false);
+                    MusicLounge.setVisible((false));
+                }
+            });
 
             RoomCleaning = new JButton();
             RoomCleaning.setFocusable(false);
