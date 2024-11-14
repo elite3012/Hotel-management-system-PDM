@@ -37,15 +37,41 @@ import java.awt.event.ActionListener;
             frame.getContentPane().add(panel);
 
             // HotelInfoTab setup
-            HotelInfoTab = new JLabel("OUR HOTEL");
-            HotelInfoTab.setFont(new Font("Mulish", Font.BOLD, 23));
-            HotelInfoTab.setBounds(32, 115, 235, 33);
-            panel.add(HotelInfoTab);
 
             //RoomTab setup
             RoomTab = new JLabel("ROOM BOOKING");
             RoomTab.setFont(new Font("Mulish", Font.BOLD, 23));
             RoomTab.setBounds(32, 162, 235, 33);
+            OurHotelTab = new JButton();
+            OurHotelTab.setFocusable(false);
+            OurHotelTab.setBackground(new Color(244, 242, 235));
+            OurHotelTab.setBorderPainted(false);
+            OurHotelTab.setText("OUR HOTEL");
+            OurHotelTab.setFont(new Font("Mulish", Font.BOLD, 21));
+            OurHotelTab.setBounds(16, 115, 235, 33);
+            OurHotelTab.setForeground(new Color(43, 42, 38));
+            OurHotelTab.setHorizontalTextPosition(SwingConstants.LEFT);
+            OurHotelTab.setHorizontalAlignment(SwingConstants.LEFT);
+            OurHotelTab.setVisible(true);
+            new Interaction(OurHotelTab,true);
+            panel.add(OurHotelTab);
+            OurHotelTab.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Tab1_background.setVisible(true);
+                    Tab2_background.setVisible(false);
+                    Tab3_background.setVisible(false);
+                    Tab4_background.setVisible(false);
+                    OurHotelTab.setBackground(new Color(244, 242, 235));
+                    RoomTab.setBackground(new Color(132, 121, 102));
+                    ServiceTab.setBackground(new Color(132, 121, 102));
+                    ReviewTab.setBackground(new Color(132,121, 102));
+                    OurHotelTab.setForeground(new Color(43, 42, 38));
+                    RoomTab.setForeground(new Color(245, 242, 233));
+                    ServiceTab.setForeground(new Color(245, 242, 233));
+                    ReviewTab.setForeground(new Color(245, 242,233));
+                }
+            });
             RoomTab.setForeground(new Color(245, 242, 233));
             panel.add(RoomTab);
 
