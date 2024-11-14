@@ -37,11 +37,6 @@ import java.awt.event.ActionListener;
             frame.getContentPane().add(panel);
 
             // HotelInfoTab setup
-
-            //RoomTab setup
-            RoomTab = new JLabel("ROOM BOOKING");
-            RoomTab.setFont(new Font("Mulish", Font.BOLD, 23));
-            RoomTab.setBounds(32, 162, 235, 33);
             OurHotelTab = new JButton();
             OurHotelTab.setFocusable(false);
             OurHotelTab.setBackground(new Color(244, 242, 235));
@@ -72,8 +67,38 @@ import java.awt.event.ActionListener;
                     ReviewTab.setForeground(new Color(245, 242,233));
                 }
             });
+
+            // ReservationTab setup
+            RoomTab = new JButton();
+            RoomTab.setFocusable(false);
+            RoomTab.setBackground(new Color(132, 121, 102));
+            RoomTab.setBorderPainted(false);
+            RoomTab.setText("ROOM BOOKING");
+            RoomTab.setFont(new Font("Mulish", Font.BOLD, 21));
+            RoomTab.setBounds(16, 162, 235, 33);
             RoomTab.setForeground(new Color(245, 242, 233));
+            RoomTab.setHorizontalTextPosition(SwingConstants.LEFT);
+            RoomTab.setHorizontalAlignment(SwingConstants.LEFT);
+            RoomTab.setVisible(true);
+            new Interaction(RoomTab,false);
             panel.add(RoomTab);
+            RoomTab.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Tab1_background.setVisible(false);
+                    Tab2_background.setVisible(true);
+                    Tab3_background.setVisible(false);
+                    Tab4_background.setVisible(false);
+                    OurHotelTab.setBackground(new Color(132, 121, 102));
+                    RoomTab.setBackground(new Color(244, 242, 235));
+                    ServiceTab.setBackground(new Color(132, 121, 102));
+                    ReviewTab.setBackground(new Color(132, 121,102));
+                    RoomTab.setForeground(new Color(43, 42, 38));
+                    OurHotelTab.setForeground(new Color(245, 242, 233));
+                    ServiceTab.setForeground(new Color(245, 242, 233));
+                    ReviewTab.setForeground(new Color(245,242,233));
+                }
+            });
 
             // ServiceTab setup
             ServiceTab = new JLabel("SERVICE BOOKING");
