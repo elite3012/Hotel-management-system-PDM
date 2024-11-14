@@ -169,6 +169,7 @@ public class StaffUI {
                 roomButton.setPreferredSize(new Dimension(96,71));
                 roomButton.setBackground(Color.decode("#E3DFD5"));
                 roomButton.setFont(new Font("Mulish", Font.BOLD, 20));
+                roomButton.setForeground(Color.decode("#434238"));
                 roomButton.setOpaque(true);
                 roomButton.setBorderPainted(true);
                 roomButton.setFocusable(false);
@@ -179,9 +180,11 @@ public class StaffUI {
                     public void actionPerformed(ActionEvent e) {
                         if (roomButton.getBackground().equals(Color.decode("#E3DFD5"))) {
                             roomButton.setBackground(Color.decode("#E1756E"));
+                            roomButton.setForeground(Color.decode("#F5F2E9"));
                         }
                         else {
                             roomButton.setBackground(Color.decode("#E3DFD5"));
+                            roomButton.setForeground(Color.decode("#000000"));
                         }
                     }
                 });
