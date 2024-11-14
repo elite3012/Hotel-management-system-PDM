@@ -2,6 +2,8 @@ package com.code.hms.ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Scanner;
 
 
@@ -13,11 +15,9 @@ public class StaffUI {
     static JPanel panel;
     static JButton main_menu;
     static JLabel available_unavailable;
-    static JLabel RoomManagementTab;
-    static JLabel ReservationTab;
-    static JLabel CurrencyExchangeTab;
-    static JButton ReservationButton;
-
+    static JButton RoomManagementTab;
+    static JButton ReservationTab;
+    static JButton CurrencyExchangeTab;
 
     public StaffUI() {
         /*Scanner scanner = new Scanner(System.in);
@@ -60,42 +60,92 @@ public class StaffUI {
         frame.getContentPane().add(panel);
     }
     private void createReceptionistUI () {
-        // RoomManagementTab setup
-        RoomManagementTab = new JLabel("ROOMS");
+        // ReservationTab setup
+        RoomManagementTab = new JButton();
+        RoomManagementTab.setFocusable(false);
+        RoomManagementTab.setBackground(new Color(244, 242, 235));
+        RoomManagementTab.setBorderPainted(false);
+        RoomManagementTab.setText("ROOMS");
         RoomManagementTab.setFont(new Font("Mulish", Font.BOLD, 23));
-        RoomManagementTab.setBounds(32, 115, 235, 33);
+        RoomManagementTab.setBounds(16, 115, 235, 33);
         RoomManagementTab.setForeground(new Color(43, 42, 38));
+        RoomManagementTab.setHorizontalTextPosition(SwingConstants.LEFT);
+        RoomManagementTab.setHorizontalAlignment(SwingConstants.LEFT);
         RoomManagementTab.setVisible(true);
+        new Interaction(RoomManagementTab,true);
         panel.add(RoomManagementTab);
+        RoomManagementTab.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tab1_background.setVisible(true);
+                Tab2_background.setVisible(false);
+                Tab3_background.setVisible(false);
+                RoomManagementTab.setBackground(new Color(244, 242, 235));
+                ReservationTab.setBackground(new Color(132, 121, 102));
+                CurrencyExchangeTab.setBackground(new Color(132, 121, 102));
+                RoomManagementTab.setForeground(new Color(43, 42, 38));
+                ReservationTab.setForeground(new Color(245, 242, 233));
+                CurrencyExchangeTab.setForeground(new Color(245, 242, 233));
+            }
+        });
 
         // ReservationTab setup
-        ReservationTab = new JLabel("RESERVATIONS");
-        ReservationTab.setFont(new Font("Mulish", Font.BOLD, 23));
-        ReservationTab.setBounds(32, 162, 235, 33);
-        ReservationTab.setForeground(new Color(245, 242, 233));
-        ReservationTab.setOpaque(false);
+        ReservationTab = new JButton();
         ReservationTab.setFocusable(false);
+        ReservationTab.setBackground(new Color(132, 121, 102));
+        ReservationTab.setBorderPainted(false);
+        ReservationTab.setText("RESERVATIONS");
+        ReservationTab.setFont(new Font("Mulish", Font.BOLD, 23));
+        ReservationTab.setBounds(16, 162, 235, 33);
+        ReservationTab.setForeground(new Color(245, 242, 233));
+        ReservationTab.setHorizontalTextPosition(SwingConstants.LEFT);
+        ReservationTab.setHorizontalAlignment(SwingConstants.LEFT);
         ReservationTab.setVisible(true);
+        new Interaction(ReservationTab,false);
         panel.add(ReservationTab);
-        new Interaction(ReservationTab);
+        ReservationTab.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tab1_background.setVisible(false);
+                Tab2_background.setVisible(true);
+                Tab3_background.setVisible(false);
+                RoomManagementTab.setBackground(new Color(132, 121, 102));
+                ReservationTab.setBackground(new Color(244, 242, 235));
+                CurrencyExchangeTab.setBackground(new Color(132, 121, 102));
+                ReservationTab.setForeground(new Color(43, 42, 38));
+                RoomManagementTab.setForeground(new Color(245, 242, 233));
+                CurrencyExchangeTab.setForeground(new Color(245, 242, 233));
+            }
+        });
 
-        // ReservationButton setup
-        ReservationButton = new JButton();
-        ReservationButton.setBounds(32, 162, 235, 33);
-        ReservationButton.setOpaque(false);  // Makes the button background transparent
-        ReservationButton.setContentAreaFilled(false);  // Removes the button's content area background
-        ReservationButton.setBorderPainted(false);  // Removes the button border (optional)
-        ReservationButton.setVisible(true);
-        panel.add(ReservationButton);
-
-        // CurrencyExchangeTab setup
-        CurrencyExchangeTab = new JLabel("CURRENCY EXCH.");
+        // ReservationTab setup
+        CurrencyExchangeTab = new JButton();
+        CurrencyExchangeTab.setFocusable(false);
+        CurrencyExchangeTab.setBackground(new Color(132, 121, 102));
+        CurrencyExchangeTab.setBorderPainted(false);
+        CurrencyExchangeTab.setText("CURRENCY EX.");
         CurrencyExchangeTab.setFont(new Font("Mulish", Font.BOLD, 23));
-        CurrencyExchangeTab.setBounds(32, 209, 235, 33);
+        CurrencyExchangeTab.setBounds(16, 209, 235, 33);
         CurrencyExchangeTab.setForeground(new Color(245, 242, 233));
+        CurrencyExchangeTab.setHorizontalTextPosition(SwingConstants.LEFT);
+        CurrencyExchangeTab.setHorizontalAlignment(SwingConstants.LEFT);
         CurrencyExchangeTab.setVisible(true);
+        new Interaction(CurrencyExchangeTab,false);
         panel.add(CurrencyExchangeTab);
-        new Interaction(CurrencyExchangeTab);
+        CurrencyExchangeTab.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tab1_background.setVisible(false);
+                Tab2_background.setVisible(false);
+                Tab3_background.setVisible(true);
+                RoomManagementTab.setBackground(new Color(132, 121, 102));
+                ReservationTab.setBackground(new Color(132, 121, 102));
+                CurrencyExchangeTab.setBackground(new Color(244, 242, 235));
+                CurrencyExchangeTab.setForeground(new Color(43, 42, 38));
+                RoomManagementTab.setForeground(new Color(245, 242, 233));
+                ReservationTab.setForeground(new Color(245, 242, 233));
+            }
+        });
 
         //available_unavailable labels
         available_unavailable = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Rooms_Available_Unavailable.png", 298,28));
