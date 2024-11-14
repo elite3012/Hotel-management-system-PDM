@@ -150,13 +150,27 @@ public class StaffUI {
                 removeRoomTabComponents();
             }
         });
+        addRoomPanel();
 
-        //available_unavailable labels
-        available_unavailable = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Rooms_Available_Unavailable.png", 298,28));
-        available_unavailable.setBounds(576, 576, 399, 35);
-        available_unavailable.setVisible(true);
-        panel.add(available_unavailable);
+        //Tab1_background
+        Tab1_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab1_BG.png",1280,672));
+        Tab1_background.setBounds(0, 0, 1280,672);
+        Tab1_background.setVisible(true);
+        panel.add(Tab1_background);
 
+        //Tab2_background
+        Tab2_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab2_BG.png",1280,672));
+        Tab2_background.setBounds(0, 0, 1280,672);
+        Tab2_background.setVisible(false);
+        panel.add(Tab2_background);
+
+        //Tab3_background
+        Tab3_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab3_BG.png",1280,672));
+        Tab3_background.setBounds(0, 0, 1280,672);
+        Tab3_background.setVisible(false);
+        panel.add(Tab3_background);
+    }
+    private void addRoomPanel(){
         // Create panel with grid layout
         roomPanel = new JPanel();
         roomPanel.setLayout(new GridLayout(6, 6, 27, 27)); // 6x6 grid with padding
@@ -192,23 +206,11 @@ public class StaffUI {
         }
         panel.add(roomPanel);
 
-        //Tab1_background
-        Tab1_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab1_BG.png",1280,672));
-        Tab1_background.setBounds(0, 0, 1280,672);
-        Tab1_background.setVisible(true);
-        panel.add(Tab1_background);
-
-        //Tab2_background
-        Tab2_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab2_BG.png",1280,672));
-        Tab2_background.setBounds(0, 0, 1280,672);
-        Tab2_background.setVisible(false);
-        panel.add(Tab2_background);
-
-        //Tab3_background
-        Tab3_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab3_BG.png",1280,672));
-        Tab3_background.setBounds(0, 0, 1280,672);
-        Tab3_background.setVisible(false);
-        panel.add(Tab3_background);
+        //available_unavailable labels
+        available_unavailable = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Rooms_Available_Unavailable.png", 298,28));
+        available_unavailable.setBounds(576, 576, 399, 35);
+        available_unavailable.setVisible(true);
+        panel.add(available_unavailable);
     }
     private void addRoomTabComponents(){
         roomPanel.setVisible(true);
