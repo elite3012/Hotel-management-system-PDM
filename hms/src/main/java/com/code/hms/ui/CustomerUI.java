@@ -191,6 +191,19 @@ public class CustomerUI {
             MusicLounge.setBounds(800, 380, 350, 200);
             MusicLounge.setVisible(false);
             panel.add(MusicLounge);
+            MusicLounge.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Tab1_background.setVisible(false);
+                    Tab2_background.setVisible(false);
+                    Tab3_background.setVisible(true);
+                    Tab4_background.setVisible(false);
+                    Restaurant.setVisible(false);
+                    Spa.setVisible(false);
+                    RoomCleaning.setVisible(false);
+                    MusicLounge.setVisible((false));
+                }
+            });
 
             ServiceTab = new JButton();
             ServiceTab.setFocusable(false);
