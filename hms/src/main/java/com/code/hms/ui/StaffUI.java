@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class StaffUI {
     static JLabel Tab1_background;
     static JLabel Tab2_background;
+    static JLabel Tab3_background;
     static JFrame frame;
     static JPanel panel;
     static JButton main_menu;
@@ -113,5 +114,11 @@ public class StaffUI {
         Tab2_background.setBounds(0, 0, 1280,672);
         Tab2_background.setVisible(false);
         panel.add(Tab2_background);
+
+        //Tab3_background
+        Tab3_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab3_BG.png",1280,672));
+        Tab3_background.setBounds(0, 0, 1280,672);
+        Tab3_background.setVisible(false);
+        panel.add(Tab3_background);
     }
 }
