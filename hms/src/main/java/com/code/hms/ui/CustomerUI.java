@@ -100,11 +100,19 @@ import java.awt.event.ActionListener;
                 }
             });
 
-            // ServiceTab setup
-            ServiceTab = new JLabel("SERVICE BOOKING");
-            ServiceTab.setFont(new Font("Mulish", Font.BOLD, 23));
-            ServiceTab.setBounds(32, 209, 235, 33);
+            // ReservationTab setup
+            ServiceTab = new JButton();
+            ServiceTab.setFocusable(false);
+            ServiceTab.setBackground(new Color(132, 121, 102));
+            ServiceTab.setBorderPainted(false);
+            ServiceTab.setText("SERVICE BOOKING");
+            ServiceTab.setFont(new Font("Mulish", Font.BOLD, 21));
+            ServiceTab.setBounds(16, 209, 235, 33);
             ServiceTab.setForeground(new Color(245, 242, 233));
+            ServiceTab.setHorizontalTextPosition(SwingConstants.LEFT);
+            ServiceTab.setHorizontalAlignment(SwingConstants.LEFT);
+            ServiceTab.setVisible(true);
+            new Interaction(ServiceTab,false);
             panel.add(ServiceTab);
 
             // ReviewTab setup
