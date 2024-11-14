@@ -12,7 +12,7 @@ import java.awt.*;
         static JLabel RoomTab;
         static JLabel ServiceTab;
         static JLabel ReviewTab;
-        static JLabel Hotel_background;
+        static JLabel Tab1_background;
 
         public CustomerUI() {
             createMainGUI();
@@ -60,10 +60,10 @@ import java.awt.*;
 
             new Interaction(RoomTab, ServiceTab, ReviewTab);
 
-            // Tab1_background 
-            Hotel_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab1_BG.png", 1280, 672));
-            Hotel_background.setBounds(0, 0, 1280, 672);
-            panel.add(Hotel_background);
+            // Tab1_background
+            Tab1_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab1_BG.png", 1280, 672));
+            Tab1_background.setBounds(0, 0, 1280, 672);
+            panel.add(Tab1_background);
 
             // Make frame visible
             frame.setVisible(true);
