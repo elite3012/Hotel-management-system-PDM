@@ -10,10 +10,10 @@ import java.awt.event.ActionListener;
     public class CustomerUI {
         static JFrame frame;
         static JPanel panel;
-        static JLabel HotelInfoTab;
-        static JLabel RoomTab;
-        static JLabel ServiceTab;
-        static JLabel ReviewTab;
+        static JButton OurHotelTab;
+        static JButton RoomTab;
+        static JButton ServiceTab;
+        static JButton ReviewTab;
         static JLabel Tab1_background;
         static JLabel Tab2_background;
         static JLabel Tab3_background;
