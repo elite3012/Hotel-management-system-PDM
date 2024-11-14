@@ -72,7 +72,15 @@ public class Room_Reservation {
     
     private Date date;
     private Time time;
+    
+    public Room_Reservation_Pk getPk() {
+        return pk;
+    }
 
+    public void setPk(Room_Reservation_Pk pk) {
+        this.pk = pk;
+    }
+    
     // Getter and Setter for room
     public Room getRoom() {
         return room;
@@ -114,7 +122,7 @@ Example:
 Room_Reservation_Pk compositeKey = new Room_Reservation_Pk
 (roomId, reservationId);
 Room_Reservation roomReservation = new Room_Reservation();
-roomReservation.setId(compositeKey);
+roomReservation.setPk(compositeKey);
 roomReservation.setDate(someDate);
 roomReservation.setTime(someTime);
  */
