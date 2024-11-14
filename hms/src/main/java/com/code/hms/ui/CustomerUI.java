@@ -60,8 +60,8 @@ import java.awt.*;
 
             new Interaction(RoomTab, ServiceTab, ReviewTab);
 
-            // Background setup
-            Hotel_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/HotelInfo_Background.png", 1280, 672));
+            // Tab1_background 
+            Hotel_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab1_BG.png", 1280, 672));
             Hotel_background.setBounds(0, 0, 1280, 672);
             panel.add(Hotel_background);
 
