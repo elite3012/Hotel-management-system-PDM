@@ -87,6 +87,7 @@ public class StaffUI {
                 RoomManagementTab.setForeground(new Color(43, 42, 38));
                 ReservationTab.setForeground(new Color(245, 242, 233));
                 CurrencyExchangeTab.setForeground(new Color(245, 242, 233));
+                addRoomTabComponents();
             }
         });
 
@@ -116,6 +117,7 @@ public class StaffUI {
                 ReservationTab.setForeground(new Color(43, 42, 38));
                 RoomManagementTab.setForeground(new Color(245, 242, 233));
                 CurrencyExchangeTab.setForeground(new Color(245, 242, 233));
+                removeRoomTabComponents();
             }
         });
 
@@ -145,6 +147,7 @@ public class StaffUI {
                 CurrencyExchangeTab.setForeground(new Color(43, 42, 38));
                 RoomManagementTab.setForeground(new Color(245, 242, 233));
                 ReservationTab.setForeground(new Color(245, 242, 233));
+                removeRoomTabComponents();
             }
         });
 
@@ -206,5 +209,13 @@ public class StaffUI {
         Tab3_background.setBounds(0, 0, 1280,672);
         Tab3_background.setVisible(false);
         panel.add(Tab3_background);
+    }
+    private void addRoomTabComponents(){
+        roomPanel.setVisible(true);
+        available_unavailable.setVisible(true);
+    }
+    private void removeRoomTabComponents(){
+        roomPanel.setVisible(false);
+        available_unavailable.setVisible(false);
     }
 }
