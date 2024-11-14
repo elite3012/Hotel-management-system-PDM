@@ -171,6 +171,19 @@ public class CustomerUI {
             RoomCleaning.setBounds(400, 380, 350, 200);
             RoomCleaning.setVisible(false);
             panel.add(RoomCleaning);
+            RoomCleaning.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Tab1_background.setVisible(false);
+                    Tab2_background.setVisible(false);
+                    Tab3_background.setVisible(true);
+                    Tab4_background.setVisible(false);
+                    Restaurant.setVisible(false);
+                    Spa.setVisible(false);
+                    RoomCleaning.setVisible(false);
+                    MusicLounge.setVisible((false));
+                }
+            });
 
             MusicLounge = new JButton();
             MusicLounge.setFocusable(false);
