@@ -66,6 +66,7 @@ public class CustomerUI {
                     Spa.setVisible(false);
                     Restaurant.setVisible(false);
                     RoomCleaning.setVisible(false);
+                    MusicLounge.setVisible(false);
                     OurHotelTab.setBackground(new Color(244, 242, 235));
                     RoomTab.setBackground(new Color(132, 121, 102));
                     ServiceTab.setBackground(new Color(132, 121, 102));
@@ -102,6 +103,7 @@ public class CustomerUI {
                     Spa.setVisible(false);
                     Restaurant.setVisible(false);
                     RoomCleaning.setVisible(false);
+                    MusicLounge.setVisible(false);
                     OurHotelTab.setBackground(new Color(132, 121, 102));
                     RoomTab.setBackground(new Color(244, 242, 235));
                     ServiceTab.setBackground(new Color(132, 121, 102));
@@ -143,6 +145,13 @@ public class CustomerUI {
             RoomCleaning.setVisible(false);
             panel.add(RoomCleaning);
 
+            MusicLounge = new JButton();
+            MusicLounge.setFocusable(false);
+            MusicLounge.setBackground(new Color(217, 217, 217));
+            MusicLounge.setBounds(800, 380, 350, 200);
+            MusicLounge.setVisible(false);
+            panel.add(MusicLounge);
+
             ServiceTab = new JButton();
             ServiceTab.setFocusable(false);
             ServiceTab.setBackground(new Color(132, 121, 102));
@@ -167,6 +176,7 @@ public class CustomerUI {
                     Spa.setVisible(true);
                     Restaurant.setVisible(true);
                     RoomCleaning.setVisible(true);
+                    MusicLounge.setVisible(true);
                     OurHotelTab.setBackground(new Color(132, 121, 102));
                     RoomTab.setBackground(new Color(132, 121, 102));
                     ServiceTab.setBackground(new Color(244, 242, 235));
@@ -201,6 +211,7 @@ public class CustomerUI {
                     Spa.setVisible(false);
                     Restaurant.setVisible(false);
                     RoomCleaning.setVisible(false);
+                    MusicLounge.setVisible(false);
                     OurHotelTab.setBackground(new Color(132, 121, 102));
                     RoomTab.setBackground(new Color(132, 121, 102));
                     ServiceTab.setBackground(new Color(132, 121, 102));
