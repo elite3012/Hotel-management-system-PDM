@@ -2,149 +2,139 @@ package com.code.hms.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.Objects;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Reservation")
 public class Reservation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Reservation_ID")
+    private int reservationId;
 
-    @Column(name="Reservation_id")
-    private int Reservation_id;
+    @Column(name = "User_ID")
+    private int userId;
 
-    @Column(name="Customer_id")
-    private int Customer_id;
+    @Column(name = "Checkin_Date")
+    private Date checkinDate;
 
-    @Column(name="Room_id")
-    private int Room_id;
+    @Column(name = "Checkout_Date")
+    private Date checkoutDate;
 
-    @Column(name="Service_id")
-    private int Service_id;
+    @Column(name = "Total_Days")
+    private int totalDays;
 
-    @Column(name="CheckinDate")
-    private Date CheckinDate;
+    @Column(name = "Num_of_guests")
+    private int numOfGuests;
 
-    @Column(name="CheckoutDate")
-    private Date CheckoutDate;
+    // No-args constructor
+    public Reservation() {}
 
-    @Column(name="TotalDays")
-    private int TotalDays;
-    
-    @Column(name="RoomNumber")
-    private String RoomNumber;
-
-    public Reservation(){}
-
-    public int getReservationID() {
-        return Reservation_id;
+    // Parameterized constructor
+    public Reservation(int reservationId, int userId, Date checkinDate, Date checkoutDate, int totalDays, int numOfGuests) {
+        this.reservationId = reservationId;
+        this.userId = userId;
+        this.checkinDate = checkinDate;
+        this.checkoutDate = checkoutDate;
+        this.totalDays = totalDays;
+        this.numOfGuests = numOfGuests;
     }
 
-    public void setReservationID(int Reservation_id) {
-        this.Reservation_id = Reservation_id;
+    // Getters and setters
+    public int getReservationId() {
+        return reservationId;
     }
 
-    public int getCustomerID() {
-        return Customer_id;
+    public void setReservationId(int reservationId) {
+        this.reservationId = reservationId;
     }
 
-    public void setCustomerID(int Customer_id) {
-        this.Customer_id = Customer_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public int getRoomID() {
-        return Room_id;
-    }
-
-    public void setRoomId(int Room_id) {
-        this.Room_id = Room_id;
-    }
-
-    public int getServiceId() {
-        return Service_id;
-    }
-
-    public void setServiceId(int Service_id) {
-        this.Service_id = Service_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public Date getCheckinDate() {
-        return CheckinDate;
+        return checkinDate;
     }
 
-    public void setCheckinDate(Date CheckinDate) {
-        this.CheckinDate = CheckinDate;
+    public void setCheckinDate(Date checkinDate) {
+        this.checkinDate = checkinDate;
     }
 
     public Date getCheckoutDate() {
-        return CheckoutDate;
+        return checkoutDate;
     }
 
-    public void setCheckoutDate(Date CheckoutDate) {
-        this.CheckoutDate = CheckoutDate;
+    public void setCheckoutDate(Date checkoutDate) {
+        this.checkoutDate = checkoutDate;
     }
 
     public int getTotalDays() {
-        return TotalDays;
+        return totalDays;
     }
 
-    public void setTotalDays(int TotalDays) {
-        this.TotalDays = TotalDays;
+    public void setTotalDays(int totalDays) {
+        this.totalDays = totalDays;
     }
 
-    public String getRoomNumber() {
-        return RoomNumber;
+    public int getNumOfGuests() {
+        return numOfGuests;
     }
 
-    public void setRoomNumber(String RoomNumber) {
-        this.RoomNumber = RoomNumber;
+    public void setNumOfGuests(int numOfGuests) {
+        this.numOfGuests = numOfGuests;
     }
 
     @Override
-    //The equals method checks whether two Reservation objects represent the same reservation by comparing the values of their fields
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + reservationId;
+        result = prime * result + userId;
+        result = prime * result + ((checkinDate == null) ? 0 : checkinDate.hashCode());
+        result = prime * result + ((checkoutDate == null) ? 0 : checkoutDate.hashCode());
+        result = prime * result + totalDays;
+        result = prime * result + numOfGuests;
+        return result;
+    }
+
+    @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
-        final Reservation other = (Reservation) obj;
-        if (this.Reservation_id != other.Reservation_id) {
+        Reservation other = (Reservation) obj;
+        if (reservationId != other.reservationId)
             return false;
-        }
-        if (this.Room_id != other.Room_id) {
+        if (userId != other.userId)
             return false;
-        }
-        if (this.Service_id != other.Service_id) {
+        if (checkinDate == null) {
+            if (other.checkinDate != null)
+                return false;
+        } else if (!checkinDate.equals(other.checkinDate))
             return false;
-        }
-        if (this.TotalDays != other.TotalDays) {
+        if (checkoutDate == null) {
+            if (other.checkoutDate != null)
+                return false;
+        } else if (!checkoutDate.equals(other.checkoutDate))
             return false;
-        }
-        if (this.Customer_id != other.Customer_id) {
+        if (totalDays != other.totalDays)
             return false;
-        }
-        if (!Objects.equals(this.RoomNumber, other.RoomNumber)) {
+        if (numOfGuests != other.numOfGuests)
             return false;
-        }
-        if (!Objects.equals(this.CheckinDate, other.CheckinDate)) {
-            return false;
-        }
-        if (!Objects.equals(this.CheckoutDate, other.CheckoutDate)) {
-            return false;
-        }
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Reservation [reservationId=" + reservationId + ", userId=" + userId + ", checkinDate=" + checkinDate
+                + ", checkoutDate=" + checkoutDate + ", totalDays=" + totalDays + ", numOfGuests=" + numOfGuests + "]";
+    }
 }
