@@ -13,6 +13,7 @@ public class StaffUI {
     static JLabel Tab3_background;
     static JFrame frame;
     static JPanel panel;
+    static JPanel roomPanel;
     static JButton main_menu;
     static JLabel available_unavailable;
     static JButton RoomManagementTab;
@@ -152,6 +153,42 @@ public class StaffUI {
         available_unavailable.setBounds(576, 576, 399, 35);
         available_unavailable.setVisible(true);
         panel.add(available_unavailable);
+
+        // Create panel with grid layout
+        roomPanel = new JPanel();
+        roomPanel.setLayout(new GridLayout(6, 6, 27, 27)); // 6x6 grid with padding
+        roomPanel.setBounds(417,40,713,530);
+
+        // Generate buttons
+        for (int floor = 1; floor <= 6; floor++) {
+            for (int room = 1; room <= 6; room++) {
+                int roomNumber = floor * 100 + room;
+                JButton roomButton = new JButton(String.valueOf(roomNumber));
+                roomButton.setPreferredSize(new Dimension(96,71));
+                roomButton.setBackground(Color.decode("#E3DFD5"));
+                roomButton.setFont(new Font("Mulish", Font.BOLD, 20));
+                roomButton.setOpaque(true);
+                roomButton.setBorderPainted(true);
+                roomButton.setFocusable(false);
+
+                // Add action listener to change color on click
+                roomButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (roomButton.getBackground().equals(Color.decode("#E3DFD5"))) {
+                            roomButton.setBackground(Color.decode("#E1756E"));
+                        }
+                        else {
+                            roomButton.setBackground(Color.decode("#E3DFD5"));
+                        }
+                    }
+                });
+
+                roomPanel.add(roomButton);
+            }
+        }
+
+        panel.add(roomPanel);
 
         //Tab1_background
         Tab1_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab1_BG.png",1280,672));
