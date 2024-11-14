@@ -64,6 +64,7 @@ public class CustomerUI {
                     Tab4_background.setVisible(false);
                     ServiceMenu.setVisible(false);
                     Spa.setVisible(false);
+                    Restaurant.setVisible(false);
                     OurHotelTab.setBackground(new Color(244, 242, 235));
                     RoomTab.setBackground(new Color(132, 121, 102));
                     ServiceTab.setBackground(new Color(132, 121, 102));
@@ -98,6 +99,7 @@ public class CustomerUI {
                     Tab4_background.setVisible(false);
                     ServiceMenu.setVisible(false);
                     Spa.setVisible(false);
+                    Restaurant.setVisible(false);
                     OurHotelTab.setBackground(new Color(132, 121, 102));
                     RoomTab.setBackground(new Color(244, 242, 235));
                     ServiceTab.setBackground(new Color(132, 121, 102));
@@ -121,9 +123,16 @@ public class CustomerUI {
             Spa = new JButton();
             Spa.setFocusable(false);
             Spa.setBackground(new Color(217, 217, 217));
-            Spa.setBounds(400, 150, 300, 150);
+            Spa.setBounds(400, 150, 350, 200);
             Spa.setVisible(false);
             panel.add(Spa);
+
+            Restaurant = new JButton();
+            Restaurant.setFocusable(false);
+            Restaurant.setBackground(new Color(217, 217, 217));
+            Restaurant.setBounds(800, 150, 350, 200);
+            Restaurant.setVisible(false);
+            panel.add(Restaurant);
 
             ServiceTab = new JButton();
             ServiceTab.setFocusable(false);
@@ -147,6 +156,7 @@ public class CustomerUI {
                     Tab4_background.setVisible(false);
                     ServiceMenu.setVisible(true);
                     Spa.setVisible(true);
+                    Restaurant.setVisible(true);
                     OurHotelTab.setBackground(new Color(132, 121, 102));
                     RoomTab.setBackground(new Color(132, 121, 102));
                     ServiceTab.setBackground(new Color(244, 242, 235));
@@ -179,6 +189,7 @@ public class CustomerUI {
                     Tab4_background.setVisible(true);
                     ServiceMenu.setVisible(false);
                     Spa.setVisible(false);
+                    Restaurant.setVisible(false);
                     OurHotelTab.setBackground(new Color(132, 121, 102));
                     RoomTab.setBackground(new Color(132, 121, 102));
                     ServiceTab.setBackground(new Color(132, 121, 102));
