@@ -11,6 +11,8 @@ public class StaffUI {
     static JLabel Tab1_background;
     static JLabel Tab2_background;
     static JLabel Tab3_background;
+    static JLabel Tab4_background;
+    static JLabel Tab5_background;
     static JFrame frame;
     static JPanel panel;
     static JPanel roomPanel;
@@ -151,24 +153,7 @@ public class StaffUI {
             }
         });
         addRoomPanel();
-
-        //Tab1_background
-        Tab1_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab1_BG.png",1280,672));
-        Tab1_background.setBounds(0, 0, 1280,672);
-        Tab1_background.setVisible(true);
-        panel.add(Tab1_background);
-
-        //Tab2_background
-        Tab2_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab2_BG.png",1280,672));
-        Tab2_background.setBounds(0, 0, 1280,672);
-        Tab2_background.setVisible(false);
-        panel.add(Tab2_background);
-
-        //Tab3_background
-        Tab3_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab3_BG.png",1280,672));
-        Tab3_background.setBounds(0, 0, 1280,672);
-        Tab3_background.setVisible(false);
-        panel.add(Tab3_background);
+        createAllBackgrounds();
     }
     private void addRoomPanel(){
         // Create panel with grid layout
@@ -219,5 +204,36 @@ public class StaffUI {
     private void removeRoomTabComponents(){
         roomPanel.setVisible(false);
         available_unavailable.setVisible(false);
+    }
+    private void createAllBackgrounds(){
+        //Tab1_background
+        Tab1_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab1_BG.png",1280,672));
+        Tab1_background.setBounds(0, 0, 1280,672);
+        Tab1_background.setVisible(true);
+        panel.add(Tab1_background);
+
+        //Tab2_background
+        Tab2_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab2_BG.png",1280,672));
+        Tab2_background.setBounds(0, 0, 1280,672);
+        Tab2_background.setVisible(false);
+        panel.add(Tab2_background);
+
+        //Tab3_background
+        Tab3_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab3_BG.png",1280,672));
+        Tab3_background.setBounds(0, 0, 1280,672);
+        Tab3_background.setVisible(false);
+        panel.add(Tab3_background);
+
+        //Tab4_background
+        Tab4_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab4_BG.png",1280,672));
+        Tab4_background.setBounds(0, 0, 1280,672);
+        Tab4_background.setVisible(false);
+        panel.add(Tab4_background);
+
+        //Tab5_background
+        Tab5_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab5_BG.png",1280,672));
+        Tab5_background.setBounds(0, 0, 1280,672);
+        Tab5_background.setVisible(false);
+        panel.add(Tab5_background);
     }
 }
