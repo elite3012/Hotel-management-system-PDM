@@ -16,11 +16,13 @@ public class StaffUI {
     static JFrame frame;
     static JPanel panel;
     static JPanel roomPanel;
+    static JPanel roomCleaningPanel;
     static JButton main_menu;
     static JLabel available_unavailable;
     static JButton RoomManagementTab;
     static JButton ReservationTab;
     static JButton CurrencyExchangeTab;
+    static JButton TaskListTab;
 
     public StaffUI() {
         /*Scanner scanner = new Scanner(System.in);
@@ -45,7 +47,8 @@ public class StaffUI {
                 System.exit(0);
         }*/
         initializeUI();
-        createReceptionistUI();
+        //createReceptionistUI();
+        createHousekeeperUI();
     }
 
     private void initializeUI(){
@@ -114,6 +117,35 @@ public class StaffUI {
             }
         });
         addRoomPanel();
+        createAllBackgrounds();
+    }
+    private void createHousekeeperUI(){
+        createRoomTab();
+        RoomManagementTab.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tab1_background.setVisible(true);
+                Tab2_background.setVisible(false);
+                RoomManagementTab.setBackground(new Color(244, 242, 235));
+                TaskListTab.setBackground(new Color(132, 121, 102));
+                RoomManagementTab.setForeground(new Color(43, 42, 38));
+                TaskListTab.setForeground(new Color(245, 242, 233));
+                //addRoomTabComponents();
+            }
+        });
+        createTaskListTab();
+        TaskListTab.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tab1_background.setVisible(false);
+                Tab2_background.setVisible(true);
+                RoomManagementTab.setBackground(new Color(132, 121, 102));
+                TaskListTab.setBackground(new Color(244, 242, 235));
+                TaskListTab.setForeground(new Color(43, 42, 38));
+                RoomManagementTab.setForeground(new Color(245, 242, 233));
+                //removeRoomTabComponents();
+            }
+        });
         createAllBackgrounds();
     }
     private void addRoomPanel(){
@@ -209,6 +241,21 @@ public class StaffUI {
         new Interaction(CurrencyExchangeTab,false);
         panel.add(CurrencyExchangeTab);
     }
+    private void createTaskListTab(){
+        TaskListTab = new JButton();
+        TaskListTab.setFocusable(false);
+        TaskListTab.setBackground(new Color(132, 121, 102));
+        TaskListTab.setBorderPainted(false);
+        TaskListTab.setText("TASK LIST");
+        TaskListTab.setFont(new Font("Mulish", Font.BOLD, 21));
+        TaskListTab.setBounds(16, 162, 235, 33);
+        TaskListTab.setForeground(new Color(245, 242, 233));
+        TaskListTab.setHorizontalTextPosition(SwingConstants.LEFT);
+        TaskListTab.setHorizontalAlignment(SwingConstants.LEFT);
+        TaskListTab.setVisible(true);
+        new Interaction(TaskListTab,false);
+        panel.add(TaskListTab);
+    }
     private void createAllBackgrounds(){
         //Tab1_background
         Tab1_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab1_BG.png",1280,672));
@@ -239,6 +286,51 @@ public class StaffUI {
         Tab5_background.setBounds(0, 0, 1280,672);
         Tab5_background.setVisible(false);
         panel.add(Tab5_background);
+    }
+    private void addRoomCleaningPanel(){
+        // Create panel with grid layout
+        roomCleaningPanel = new JPanel();
+        roomCleaningPanel.setLayout(new GridLayout(6, 6, 27, 27)); // 6x6 grid with padding
+        roomCleaningPanel.setBounds(417,40,713,530);
+
+        // Generate buttons
+        for (int floor = 1; floor <= 6; floor++) {
+            for (int room = 1; room <= 6; room++) {
+                int roomNumber = floor * 100 + room;
+                JButton roomButton = new JButton(String.valueOf(roomNumber));
+                roomButton.setPreferredSize(new Dimension(96,71));
+                roomButton.setBackground(Color.decode("#E3DFD5"));
+                roomButton.setFont(new Font("Mulish", Font.BOLD, 20));
+                roomButton.setForeground(Color.decode("#434238"));
+                roomButton.setOpaque(true);
+                roomButton.setBorderPainted(true);
+                roomButton.setFocusable(false);
+
+                // Add action listener to change color on click
+                roomButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (roomButton.getBackground().equals(Color.decode("#E3DFD5"))) {
+                            roomButton.setBackground(Color.decode("#E1756E"));
+                            roomButton.setForeground(Color.decode("#F5F2E9"));
+                        }
+                        else {
+                            roomButton.setBackground(Color.decode("#E3DFD5"));
+                            roomButton.setForeground(Color.decode("#000000"));
+                        }
+                    }
+                });
+
+                roomCleaningPanel.add(roomButton);
+            }
+        }
+        panel.add(roomPanel);
+
+        //available_unavailable labels
+        available_unavailable = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Rooms_Available_Unavailable.png", 298,28));
+        available_unavailable.setBounds(576, 576, 399, 35);
+        available_unavailable.setVisible(true);
+        panel.add(available_unavailable);
     }
     private void addRoomTabComponents(){
         roomPanel.setVisible(true);
