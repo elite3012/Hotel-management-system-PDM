@@ -19,6 +19,10 @@ import java.awt.event.ActionListener;
         static JLabel Tab3_background;
         static JLabel Tab4_background;
         static JLabel ServiceMenu;
+        static JButton Spa;
+        static JButton Restaurant;
+        static JButton RoomCleaning;
+        static JButton MusicLounge;
 
         public CustomerUI() {
             createMainGUI();
