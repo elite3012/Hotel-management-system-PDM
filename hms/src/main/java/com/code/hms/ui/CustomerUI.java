@@ -13,6 +13,7 @@ import java.awt.*;
         static JLabel ServiceTab;
         static JLabel ReviewTab;
         static JLabel Tab1_background;
+        static JLabel Tab2_background;
 
         public CustomerUI() {
             createMainGUI();
@@ -64,6 +65,10 @@ import java.awt.*;
             Tab1_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab1_BG.png", 1280, 672));
             Tab1_background.setBounds(0, 0, 1280, 672);
             panel.add(Tab1_background);
+
+            Tab2_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab2_BG.png", 1280, 672));
+            Tab2_background.setBounds(0, 0, 1280, 672);
+            panel.add(Tab2_background);
 
             // Make frame visible
             frame.setVisible(true);
