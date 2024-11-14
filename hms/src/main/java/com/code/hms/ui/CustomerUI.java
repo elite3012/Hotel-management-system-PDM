@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-    public class CustomerUI {
+public class CustomerUI {
         static JFrame frame;
         static JPanel panel;
         static JButton OurHotelTab;
@@ -63,6 +63,7 @@ import java.awt.event.ActionListener;
                     Tab3_background.setVisible(false);
                     Tab4_background.setVisible(false);
                     ServiceMenu.setVisible(false);
+                    Spa.setVisible(false);
                     OurHotelTab.setBackground(new Color(244, 242, 235));
                     RoomTab.setBackground(new Color(132, 121, 102));
                     ServiceTab.setBackground(new Color(132, 121, 102));
@@ -96,6 +97,7 @@ import java.awt.event.ActionListener;
                     Tab3_background.setVisible(false);
                     Tab4_background.setVisible(false);
                     ServiceMenu.setVisible(false);
+                    Spa.setVisible(false);
                     OurHotelTab.setBackground(new Color(132, 121, 102));
                     RoomTab.setBackground(new Color(244, 242, 235));
                     ServiceTab.setBackground(new Color(132, 121, 102));
@@ -115,6 +117,13 @@ import java.awt.event.ActionListener;
             ServiceMenu.setForeground(new Color(212, 158, 24));
             ServiceMenu.setVisible(false);
             panel.add(ServiceMenu);
+
+            Spa = new JButton();
+            Spa.setFocusable(false);
+            Spa.setBackground(new Color(217, 217, 217));
+            Spa.setBounds(400, 150, 300, 150);
+            Spa.setVisible(false);
+            panel.add(Spa);
 
             ServiceTab = new JButton();
             ServiceTab.setFocusable(false);
@@ -137,6 +146,7 @@ import java.awt.event.ActionListener;
                     Tab3_background.setVisible(true);
                     Tab4_background.setVisible(false);
                     ServiceMenu.setVisible(true);
+                    Spa.setVisible(true);
                     OurHotelTab.setBackground(new Color(132, 121, 102));
                     RoomTab.setBackground(new Color(132, 121, 102));
                     ServiceTab.setBackground(new Color(244, 242, 235));
@@ -168,6 +178,7 @@ import java.awt.event.ActionListener;
                     Tab3_background.setVisible(false);
                     Tab4_background.setVisible(true);
                     ServiceMenu.setVisible(false);
+                    Spa.setVisible(false);
                     OurHotelTab.setBackground(new Color(132, 121, 102));
                     RoomTab.setBackground(new Color(132, 121, 102));
                     ServiceTab.setBackground(new Color(132, 121, 102));
