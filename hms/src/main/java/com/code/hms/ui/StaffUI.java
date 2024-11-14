@@ -124,7 +124,7 @@ public class StaffUI {
         CurrencyExchangeTab.setFocusable(false);
         CurrencyExchangeTab.setBackground(new Color(132, 121, 102));
         CurrencyExchangeTab.setBorderPainted(false);
-        CurrencyExchangeTab.setText("CURRENCY EX.");
+        CurrencyExchangeTab.setText("CURRENCY EXCH.");
         CurrencyExchangeTab.setFont(new Font("Mulish", Font.BOLD, 21));
         CurrencyExchangeTab.setBounds(16, 209, 235, 33);
         CurrencyExchangeTab.setForeground(new Color(245, 242, 233));
