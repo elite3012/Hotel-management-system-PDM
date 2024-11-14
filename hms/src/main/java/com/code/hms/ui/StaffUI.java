@@ -67,7 +67,7 @@ public class StaffUI {
         RoomManagementTab.setBackground(new Color(244, 242, 235));
         RoomManagementTab.setBorderPainted(false);
         RoomManagementTab.setText("ROOMS");
-        RoomManagementTab.setFont(new Font("Mulish", Font.BOLD, 23));
+        RoomManagementTab.setFont(new Font("Mulish", Font.BOLD, 21));
         RoomManagementTab.setBounds(16, 115, 235, 33);
         RoomManagementTab.setForeground(new Color(43, 42, 38));
         RoomManagementTab.setHorizontalTextPosition(SwingConstants.LEFT);
@@ -96,7 +96,7 @@ public class StaffUI {
         ReservationTab.setBackground(new Color(132, 121, 102));
         ReservationTab.setBorderPainted(false);
         ReservationTab.setText("RESERVATIONS");
-        ReservationTab.setFont(new Font("Mulish", Font.BOLD, 23));
+        ReservationTab.setFont(new Font("Mulish", Font.BOLD, 21));
         ReservationTab.setBounds(16, 162, 235, 33);
         ReservationTab.setForeground(new Color(245, 242, 233));
         ReservationTab.setHorizontalTextPosition(SwingConstants.LEFT);
@@ -125,7 +125,7 @@ public class StaffUI {
         CurrencyExchangeTab.setBackground(new Color(132, 121, 102));
         CurrencyExchangeTab.setBorderPainted(false);
         CurrencyExchangeTab.setText("CURRENCY EX.");
-        CurrencyExchangeTab.setFont(new Font("Mulish", Font.BOLD, 23));
+        CurrencyExchangeTab.setFont(new Font("Mulish", Font.BOLD, 21));
         CurrencyExchangeTab.setBounds(16, 209, 235, 33);
         CurrencyExchangeTab.setForeground(new Color(245, 242, 233));
         CurrencyExchangeTab.setHorizontalTextPosition(SwingConstants.LEFT);
@@ -187,7 +187,6 @@ public class StaffUI {
                 roomPanel.add(roomButton);
             }
         }
-
         panel.add(roomPanel);
 
         //Tab1_background
