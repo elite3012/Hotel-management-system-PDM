@@ -114,15 +114,53 @@ import java.awt.event.ActionListener;
             ServiceTab.setVisible(true);
             new Interaction(ServiceTab,false);
             panel.add(ServiceTab);
-
-            // ReviewTab setup
-            ReviewTab = new JLabel("REVIEW");
-            ReviewTab.setFont(new Font("Mulish", Font.BOLD, 23));
-            ReviewTab.setBounds(32, 256, 235, 33);
+            ServiceTab.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Tab1_background.setVisible(false);
+                    Tab2_background.setVisible(false);
+                    Tab3_background.setVisible(true);
+                    Tab4_background.setVisible(false);
+                    OurHotelTab.setBackground(new Color(132, 121, 102));
+                    RoomTab.setBackground(new Color(132, 121, 102));
+                    ServiceTab.setBackground(new Color(244, 242, 235));
+                    ReviewTab.setBackground(new Color(132,121,102));
+                    ServiceTab.setForeground(new Color(43, 42, 38));
+                    OurHotelTab.setForeground(new Color(245, 242, 233));
+                    RoomTab.setForeground(new Color(245, 242, 233));
+                    ReviewTab.setForeground(new Color(245, 242,233));
+                }
+            });
+            ReviewTab = new JButton();
+            ReviewTab.setFocusable(false);
+            ReviewTab.setBackground(new Color(132, 121, 102));
+            ReviewTab.setBorderPainted(false);
+            ReviewTab.setText("REVIEW");
+            ReviewTab.setFont(new Font("Mulish", Font.BOLD, 21));
+            ReviewTab.setBounds(16, 256, 235, 33);
             ReviewTab.setForeground(new Color(245, 242, 233));
+            ReviewTab.setHorizontalTextPosition(SwingConstants.LEFT);
+            ReviewTab.setHorizontalAlignment(SwingConstants.LEFT);
+            ReviewTab.setVisible(true);
+            new Interaction(ReviewTab,false);
             panel.add(ReviewTab);
-
-            new Interaction(RoomTab, ServiceTab, ReviewTab);
+            ReviewTab.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Tab1_background.setVisible(false);
+                    Tab2_background.setVisible(false);
+                    Tab3_background.setVisible(false);
+                    Tab4_background.setVisible(true);
+                    OurHotelTab.setBackground(new Color(132, 121, 102));
+                    RoomTab.setBackground(new Color(132, 121, 102));
+                    ServiceTab.setBackground(new Color(132, 121, 102));
+                    ReviewTab.setBackground(new Color(244, 242, 235));
+                    OurHotelTab.setForeground(new Color(245, 242, 233));
+                    RoomTab.setForeground(new Color(245, 242, 233));
+                    ServiceTab.setForeground(new Color(245, 242, 233));
+                    ReviewTab.setForeground(new Color(43, 42, 38));
+                }
+            });
 
             // Tab1_background
             Tab1_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab1_BG.png", 1280, 672));
