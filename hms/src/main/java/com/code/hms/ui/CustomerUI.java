@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
         static JLabel Tab2_background;
         static JLabel Tab3_background;
         static JLabel Tab4_background;
+        static JLabel ServiceMenu;
 
         public CustomerUI() {
             createMainGUI();
@@ -57,6 +58,7 @@ import java.awt.event.ActionListener;
                     Tab2_background.setVisible(false);
                     Tab3_background.setVisible(false);
                     Tab4_background.setVisible(false);
+                    ServiceMenu.setVisible(false);
                     OurHotelTab.setBackground(new Color(244, 242, 235));
                     RoomTab.setBackground(new Color(132, 121, 102));
                     ServiceTab.setBackground(new Color(132, 121, 102));
@@ -89,6 +91,7 @@ import java.awt.event.ActionListener;
                     Tab2_background.setVisible(true);
                     Tab3_background.setVisible(false);
                     Tab4_background.setVisible(false);
+                    ServiceMenu.setVisible(false);
                     OurHotelTab.setBackground(new Color(132, 121, 102));
                     RoomTab.setBackground(new Color(244, 242, 235));
                     ServiceTab.setBackground(new Color(132, 121, 102));
@@ -101,6 +104,14 @@ import java.awt.event.ActionListener;
             });
 
             // ReservationTab setup
+            ServiceMenu = new JLabel();
+            ServiceMenu.setText("SERVICE MENU");
+            ServiceMenu.setFont(new Font("Mulish", Font.BOLD, 33));
+            ServiceMenu.setBounds(310, 20, 300, 33);
+            ServiceMenu.setForeground(new Color(212, 158, 24));
+            ServiceMenu.setVisible(false);
+            panel.add(ServiceMenu);
+
             ServiceTab = new JButton();
             ServiceTab.setFocusable(false);
             ServiceTab.setBackground(new Color(132, 121, 102));
@@ -121,6 +132,7 @@ import java.awt.event.ActionListener;
                     Tab2_background.setVisible(false);
                     Tab3_background.setVisible(true);
                     Tab4_background.setVisible(false);
+                    ServiceMenu.setVisible(true);
                     OurHotelTab.setBackground(new Color(132, 121, 102));
                     RoomTab.setBackground(new Color(132, 121, 102));
                     ServiceTab.setBackground(new Color(244, 242, 235));
@@ -151,6 +163,7 @@ import java.awt.event.ActionListener;
                     Tab2_background.setVisible(false);
                     Tab3_background.setVisible(false);
                     Tab4_background.setVisible(true);
+                    ServiceMenu.setVisible(false);
                     OurHotelTab.setBackground(new Color(132, 121, 102));
                     RoomTab.setBackground(new Color(132, 121, 102));
                     ServiceTab.setBackground(new Color(132, 121, 102));
