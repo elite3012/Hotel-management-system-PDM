@@ -129,7 +129,21 @@ public class CustomerUI {
             Spa.setBackground(new Color(217, 217, 217));
             Spa.setBounds(400, 150, 350, 200);
             Spa.setVisible(false);
+            new Interaction(Spa, false);
             panel.add(Spa);
+            Spa.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Tab1_background.setVisible(false);
+                    Tab2_background.setVisible(false);
+                    Tab3_background.setVisible(true);
+                    Tab4_background.setVisible(false);
+                    Restaurant.setVisible(false);
+                    Spa.setVisible(false);
+                    RoomCleaning.setVisible(false);
+                    MusicLounge.setVisible((false));
+                }
+            });
 
             Restaurant = new JButton();
             Restaurant.setFocusable(false);
@@ -187,6 +201,7 @@ public class CustomerUI {
                     ReviewTab.setForeground(new Color(245, 242,233));
                 }
             });
+
             ReviewTab = new JButton();
             ReviewTab.setFocusable(false);
             ReviewTab.setBackground(new Color(132, 121, 102));
