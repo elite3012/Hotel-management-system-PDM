@@ -378,6 +378,33 @@ public class StaffUI {
         cleaned_uncleaned.setVisible(true);
         panel.add(cleaned_uncleaned);
     }
+    private void createAdminRoomMenu(){
+        String adminRoomMenuOption[] = {"Availability","Cleaning"};
+        adminRoomMenu = new JComboBox(adminRoomMenuOption);
+        adminRoomMenu.setBounds(277, 6, 135, 36);
+        adminRoomMenu.setFont(new Font("Mulish", Font.BOLD, 16));
+        adminRoomMenu.setBackground(new Color(244, 242, 235));
+        adminRoomMenu.setFocusable(false);
+        adminRoomMenu.setVisible(true);
+        panel.add(adminRoomMenu);
+        // Add ActionListener to handle selection changes
+        adminRoomMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Get the selected option
+                String selectedOption = (String) adminRoomMenu.getSelectedItem();
+
+                // Show the appropriate panel based on the selection
+                if ("Availability".equals(selectedOption)) {
+                    addRoomTabComponents();
+                    removeRoomCleaningTabComponents();
+                } else if ("Cleaning".equals(selectedOption)) {
+                    addRoomCleaningTabComponents();
+                    removeRoomTabComponents();
+                }
+            }
+        });
+    }
     private void addRoomTabComponents(){
         roomPanel.setVisible(true);
         available_unavailable.setVisible(true);
