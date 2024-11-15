@@ -31,10 +31,16 @@ public class LoginWindow extends JFrame {
         panel.setLayout(null);
 
         // Background Label
-        LoadImage loader = new LoadImage("hms/bg img/bg.png", 1280, 672);
+        LoadImage loader = new LoadImage("hms/bg img/bg.png", getWidth(), getHeight());
         JLabel backgroundLbl = new JLabel(loader.getImageIcon());
-        backgroundLbl.setBounds(0, 0, 1280, 672);
+        backgroundLbl.setBounds(0, 0, getWidth(), getHeight());
         panel.add(backgroundLbl);
+
+        // Black semi-transparent Login Panel
+        JPanel loginPanel = new JPanel();
+        loginPanel.setLayout(null);
+        loginPanel.setBackground(new Color(0, 0, 0, 150));
+        loginPanel.setBounds(0, 0, 500, getHeight());
 
         // Add components
         usernameLbl = new JLabel("Username:");
@@ -58,14 +64,15 @@ public class LoginWindow extends JFrame {
         signUpButton.setBounds(200, 500, 100, 50);
         signUpButton.setForeground(Color.ORANGE);
 
-        panel.add(usernameLbl);
-        panel.add(usernameField);
-        panel.add(passwordLbl);
-        panel.add(passwordField);
-        panel.add(loginButton);
-        panel.add(forgotPasswordButton);
-        panel.add(signUpButton);
+        loginPanel.add(usernameLbl);
+        loginPanel.add(usernameField);
+        loginPanel.add(passwordLbl);
+        loginPanel.add(passwordField);
+        loginPanel.add(loginButton);
+        loginPanel.add(forgotPasswordButton);
+        loginPanel.add(signUpButton);
 
+        add(loginPanel);
         add(panel);
         panel.setComponentZOrder(backgroundLbl, panel.getComponentCount() - 1);
 
