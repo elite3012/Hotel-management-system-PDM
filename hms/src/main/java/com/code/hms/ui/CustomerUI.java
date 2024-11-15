@@ -21,6 +21,7 @@ public class CustomerUI {
         static JLabel EnterTextField;
         static JLabel ServiceMenu;
         static JLabel SpaCenter;
+        static JLabel CustomerInfo;
         static JButton Spa;
         static JButton Restaurant;
         static JButton RoomCleaning;
@@ -80,6 +81,8 @@ public class CustomerUI {
 
                     SpaCenter.setVisible(false);
 
+                    CustomerInfo.setVisible(false);
+                    EnterTextField.setVisible(false);
                 }
             });
 
@@ -119,6 +122,8 @@ public class CustomerUI {
                     ReviewTab.setForeground(new Color(245,242,233));
 
                     SpaCenter.setVisible(false);
+                    CustomerInfo.setVisible(false);
+                    EnterTextField.setVisible(false);
                 }
             });
 
@@ -138,6 +143,14 @@ public class CustomerUI {
             SpaCenter.setForeground(new Color(212, 158, 24));
             SpaCenter.setVisible(false);
             panel.add(SpaCenter);
+
+            CustomerInfo = new JLabel();
+            CustomerInfo.setText("I. CUSTOMER INFORMATION");
+            CustomerInfo.setFont(new Font("Mulish", Font.BOLD, 33));
+            CustomerInfo.setBounds(310, 150, 300, 33);
+            CustomerInfo.setForeground(new Color(212, 158, 24));
+            CustomerInfo.setVisible(false);
+            panel.add(CustomerInfo);
 
             Spa = new JButton();
             Spa.setFocusable(false);
@@ -159,10 +172,11 @@ public class CustomerUI {
 
                     ServiceMenu.setVisible(false);
                     SpaCenter.setVisible(true);
+                    CustomerInfo.setVisible(true);
                     EnterTextField.setVisible(true);
                 }
             });
-            
+
             EnterTextField = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Enter_Text.png",300,30));
             EnterTextField.setBounds(350, 200, 300,30);
             panel.add(EnterTextField);
@@ -185,6 +199,9 @@ public class CustomerUI {
                     Spa.setVisible(false);
                     RoomCleaning.setVisible(false);
                     MusicLounge.setVisible((false));
+
+                    CustomerInfo.setVisible(false);
+                    EnterTextField.setVisible(false);
                 }
             });
 
@@ -205,6 +222,9 @@ public class CustomerUI {
                     Spa.setVisible(false);
                     RoomCleaning.setVisible(false);
                     MusicLounge.setVisible((false));
+
+                    CustomerInfo.setVisible(false);
+                    EnterTextField.setVisible(false);
                 }
             });
 
@@ -225,6 +245,9 @@ public class CustomerUI {
                     Spa.setVisible(false);
                     RoomCleaning.setVisible(false);
                     MusicLounge.setVisible((false));
+
+                    CustomerInfo.setVisible(false);
+                    EnterTextField.setVisible(false);
                 }
             });
 
@@ -263,7 +286,8 @@ public class CustomerUI {
                     ReviewTab.setForeground(new Color(245, 242,233));
 
                     SpaCenter.setVisible(false);
-
+                    CustomerInfo.setVisible(false);
+                    EnterTextField.setVisible(false);
                 }
             });
 
@@ -302,6 +326,8 @@ public class CustomerUI {
                     ReviewTab.setForeground(new Color(43, 42, 38));
 
                     SpaCenter.setVisible(false);
+                    CustomerInfo.setVisible(false);
+                    EnterTextField.setVisible(false);
                 }
             });
 
