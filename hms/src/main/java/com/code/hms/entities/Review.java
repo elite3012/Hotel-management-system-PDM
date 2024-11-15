@@ -1,6 +1,6 @@
 package com.code.hms.entities;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,30 +11,36 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int reviewId;
 
-    @Column(name = "User_Id")
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name = "User_ID", nullable = false) // Specifies the foreign key column
+    private User user;
 
-    @Column(name = "Reservation_ID")
-    private int reservationId;
+    @ManyToOne
+    @JoinColumn(name = "Reservation_ID", nullable = false) // Specifies the foreign key column
+    private Reservation reservation;
 
-    @Column(name = "rating")
+    @Column(name = "Rating")
     private int rating;
 
-    @Column(name = "comment")
+    @Column(name = "Comment")
     private String comment;
 
     @Column(name = "ReviewDate")
-    private LocalDate reviewDate;
+    private Date reviewDate;
 
-    public Review(int reviewId, int userId, int reservationId, int rating, String comment, LocalDate reviewDate) {
-        this.reviewId = reviewId;
-        this.userId = userId;
-        this.reservationId = reservationId;
+    // No-argument constructor (required by JPA)
+    public Review() {
+    }
+
+    // Constructor
+    public Review(User user, Reservation reservation, int rating, String comment, Date reviewDate) {
+        this.user = user;
+        this.reservation = reservation;
         this.rating = rating;
         this.comment = comment;
         this.reviewDate = reviewDate;
     }
-
+    // Getters and Setters
     public int getReviewId() {
         return reviewId;
     }
@@ -43,20 +49,20 @@ public class Review {
         this.reviewId = reviewId;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getReservationId() {
-        return reservationId;
+    public Reservation getReservation() {
+        return reservation;
     }
 
-    public void setReservationId(int reservationId) {
-        this.reservationId = reservationId;
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
     }
 
     public int getRating() {
@@ -75,11 +81,11 @@ public class Review {
         this.comment = comment;
     }
 
-    public LocalDate getReviewDate() {
+    public Date getReviewDate() {
         return reviewDate;
     }
 
-    public void setReviewDate(LocalDate reviewDate) {
+    public void setReviewDate(Date reviewDate) {
         this.reviewDate = reviewDate;
     }
 
@@ -87,12 +93,11 @@ public class Review {
     public String toString() {
         return "Review{" +
                 "reviewId=" + reviewId +
-                ", userId=" + userId +
-                ", reservationId=" + reservationId +
+                ", userId=" + user.getUserId() +
+                ", reservationId=" + reservation.getReservationId() +
                 ", rating=" + rating +
                 ", comment='" + comment + '\'' +
                 ", reviewDate=" + reviewDate +
                 '}';
     }
 }
-
