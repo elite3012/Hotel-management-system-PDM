@@ -6,7 +6,7 @@ import com.code.hms.entities.Reservation;
 
 public interface ReservationDAO {
     // Find reservation by id
-    public void getReservationByID();
+    public Reservation getReservationByID(int reservationId);
 
     // Save to database
     public void saveReservation(Reservation reservation);
@@ -15,7 +15,7 @@ public interface ReservationDAO {
     public void updateReservation(Reservation reservation);
 
     // Find reservation by room number
-    public void getReservationByRoomNumber();
+    public Reservation getReservationByRoomNumber(int roomId);
 
     // Find all reservations
     public List<Reservation> getAllReservations();
