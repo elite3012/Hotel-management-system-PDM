@@ -23,6 +23,11 @@ public class Service {
     @Column(name = "TypeMax")
     private int typeMax;
 
+    // No-argument constructor (required for JPA)
+    public Service() {
+    }
+
+    // Constructor with fields (excluding the generated ID)
     public Service(int serviceId, String serviceName, String serviceAvailability, String price, double price1, int typeMax) {
         this.serviceId = serviceId;
         this.serviceName = serviceName;
