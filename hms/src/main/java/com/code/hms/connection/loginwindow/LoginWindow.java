@@ -30,10 +30,11 @@ public class LoginWindow extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
-        ImageIcon backgroundIcon = new ImageIcon("hms/bg img/bg.png");
-        JLabel backgroundLabel = new JLabel(backgroundIcon);
-        backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
-        panel.add(backgroundLabel);
+        // Background Label
+        LoadImage loader = new LoadImage("hms/bg img/bg.png", 1280, 672);
+        JLabel backgroundLbl = new JLabel(loader.getImageIcon());
+        backgroundLbl.setBounds(0, 0, 1280, 672);
+        panel.add(backgroundLbl);
 
         // Add components
         usernameLbl = new JLabel("Username:");
@@ -66,7 +67,7 @@ public class LoginWindow extends JFrame {
         panel.add(signUpButton);
 
         add(panel);
-        panel.setComponentZOrder(backgroundLabel, panel.getComponentCount() - 1);
+        panel.setComponentZOrder(backgroundLbl, panel.getComponentCount() - 1);
 
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
