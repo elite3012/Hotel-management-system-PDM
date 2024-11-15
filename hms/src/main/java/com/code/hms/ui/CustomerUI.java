@@ -18,6 +18,7 @@ public class CustomerUI {
         static JLabel Tab2_background;
         static JLabel Tab3_background;
         static JLabel Tab4_background;
+        static JLabel EnterTextField;
         static JLabel ServiceMenu;
         static JLabel SpaCenter;
         static JButton Spa;
@@ -158,8 +159,14 @@ public class CustomerUI {
 
                     ServiceMenu.setVisible(false);
                     SpaCenter.setVisible(true);
+                    EnterTextField.setVisible(true);
                 }
             });
+            
+            EnterTextField = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Enter_Text.png",300,30));
+            EnterTextField.setBounds(350, 200, 300,30);
+            panel.add(EnterTextField);
+            EnterTextField.setVisible(false);
 
             Restaurant = new JButton();
             Restaurant.setFocusable(false);
