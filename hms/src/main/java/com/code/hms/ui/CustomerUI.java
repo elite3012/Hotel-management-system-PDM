@@ -129,7 +129,6 @@ public class CustomerUI {
             Spa.setBackground(new Color(217, 217, 217));
             Spa.setBounds(400, 150, 350, 200);
             Spa.setVisible(false);
-            new Interaction(Spa, false);
             panel.add(Spa);
             Spa.addActionListener(new ActionListener() {
                 @Override
