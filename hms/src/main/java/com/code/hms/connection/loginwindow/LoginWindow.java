@@ -1,6 +1,7 @@
 package com.code.hms.connection.loginwindow;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class LoginWindow extends JFrame {
     static JTextField usernameField;
@@ -8,6 +9,10 @@ public class LoginWindow extends JFrame {
     static JLabel usernameLbl, passwordLbl;
     static JButton loginButton;
     static JLabel forgotPasswordButton, signUpButton;
+
+    public LoginWindow(GraphicsConfiguration gc) {
+        super(gc);
+    }
 
     public LoginWindow() {
 
@@ -34,5 +39,13 @@ public class LoginWindow extends JFrame {
 
         loginButton = new JButton("Login");
         loginButton.setBounds(100, 300, 300, 50);
+
+        panel.add(usernameLbl);
+        panel.add(usernameField);
+        panel.add(passwordLbl);
+        panel.add(passwordField);
+        panel.add(loginButton);
+
+        add(panel);
     }
 }
