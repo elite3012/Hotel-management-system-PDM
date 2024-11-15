@@ -19,6 +19,7 @@ public class CustomerUI {
         static JLabel Tab3_background;
         static JLabel Tab4_background;
         static JLabel ServiceMenu;
+        static JLabel SpaCenter;
         static JButton Spa;
         static JButton Restaurant;
         static JButton RoomCleaning;
@@ -75,6 +76,9 @@ public class CustomerUI {
                     RoomTab.setForeground(new Color(245, 242, 233));
                     ServiceTab.setForeground(new Color(245, 242, 233));
                     ReviewTab.setForeground(new Color(245, 242,233));
+
+                    SpaCenter.setVisible(false);
+
                 }
             });
 
@@ -112,6 +116,8 @@ public class CustomerUI {
                     OurHotelTab.setForeground(new Color(245, 242, 233));
                     ServiceTab.setForeground(new Color(245, 242, 233));
                     ReviewTab.setForeground(new Color(245,242,233));
+
+                    SpaCenter.setVisible(false);
                 }
             });
 
@@ -123,6 +129,14 @@ public class CustomerUI {
             ServiceMenu.setForeground(new Color(212, 158, 24));
             ServiceMenu.setVisible(false);
             panel.add(ServiceMenu);
+
+            SpaCenter = new JLabel();
+            SpaCenter.setText("SPA CENTER");
+            SpaCenter.setFont(new Font("Mulish", Font.BOLD, 33));
+            SpaCenter.setBounds(310, 20, 300, 33);
+            SpaCenter.setForeground(new Color(212, 158, 24));
+            SpaCenter.setVisible(false);
+            panel.add(SpaCenter);
 
             Spa = new JButton();
             Spa.setFocusable(false);
@@ -141,6 +155,9 @@ public class CustomerUI {
                     Spa.setVisible(false);
                     RoomCleaning.setVisible(false);
                     MusicLounge.setVisible((false));
+
+                    ServiceMenu.setVisible(false);
+                    SpaCenter.setVisible(true);
                 }
             });
 
@@ -237,6 +254,9 @@ public class CustomerUI {
                     OurHotelTab.setForeground(new Color(245, 242, 233));
                     RoomTab.setForeground(new Color(245, 242, 233));
                     ReviewTab.setForeground(new Color(245, 242,233));
+
+                    SpaCenter.setVisible(false);
+
                 }
             });
 
@@ -273,6 +293,8 @@ public class CustomerUI {
                     RoomTab.setForeground(new Color(245, 242, 233));
                     ServiceTab.setForeground(new Color(245, 242, 233));
                     ReviewTab.setForeground(new Color(43, 42, 38));
+
+                    SpaCenter.setVisible(false);
                 }
             });
 
