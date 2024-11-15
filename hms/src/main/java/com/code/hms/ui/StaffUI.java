@@ -25,6 +25,7 @@ public class StaffUI {
     static JButton CurrencyExchangeTab;
     static JButton TaskListTab;
     static JButton ServiceOrderTab;
+    static JButton FinancialTab;
 
     public StaffUI() {
         Scanner scanner = new Scanner(System.in);
@@ -267,6 +268,22 @@ public class StaffUI {
         ServiceOrderTab.setVisible(true);
         new Interaction(ServiceOrderTab,false);
         panel.add(ServiceOrderTab);
+    }
+    private void createFinancialTab(){
+        // FinancialTab setup
+        FinancialTab = new JButton();
+        FinancialTab.setFocusable(false);
+        FinancialTab.setBackground(new Color(132, 121, 102));
+        FinancialTab.setBorderPainted(false);
+        FinancialTab.setText("SERVICE ORDERS");
+        FinancialTab.setFont(new Font("Mulish", Font.BOLD, 21));
+        FinancialTab.setBounds(16, 256, 235, 33);
+        FinancialTab.setForeground(new Color(245, 242, 233));
+        FinancialTab.setHorizontalTextPosition(SwingConstants.LEFT);
+        FinancialTab.setHorizontalAlignment(SwingConstants.LEFT);
+        FinancialTab.setVisible(true);
+        new Interaction(FinancialTab,false);
+        panel.add(FinancialTab);
     }
     private void createAllBackgrounds(){
         //Tab1_background
