@@ -421,4 +421,10 @@ public class StaffUI {
         roomCleaningPanel.setVisible(false);
         cleaned_uncleaned.setVisible(false);
     }
+    private void addAdminRoomMenu(){
+        adminRoomMenu.setVisible(true);
+    }
+    private void removeAdminRoomMenu(){
+        adminRoomMenu.setVisible(false);
+    }
 }
