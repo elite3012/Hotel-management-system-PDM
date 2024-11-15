@@ -30,6 +30,11 @@ public class LoginWindow extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
+        ImageIcon backgroundIcon = new ImageIcon("hms/bg img/bg.png");
+        JLabel backgroundLabel = new JLabel(backgroundIcon);
+        backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
+        panel.add(backgroundLabel);
+
         // Add components
         usernameLbl = new JLabel("Username:");
         usernameLbl.setBounds(100, 50, 300, 50);
@@ -61,6 +66,7 @@ public class LoginWindow extends JFrame {
         panel.add(signUpButton);
 
         add(panel);
+        panel.setComponentZOrder(backgroundLabel, panel.getComponentCount() - 1);
 
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -73,7 +79,6 @@ public class LoginWindow extends JFrame {
         forgotPasswordButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Implement your "forgot password" action here
                 JOptionPane.showMessageDialog(null, "Forgot Password clicked");
             }
         });
@@ -81,11 +86,9 @@ public class LoginWindow extends JFrame {
         signUpButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Implement your "sign up" action here
                 JOptionPane.showMessageDialog(null, "Sign Up clicked");
             }
         });
-
     }
 
     public static void main(String[] args) {
