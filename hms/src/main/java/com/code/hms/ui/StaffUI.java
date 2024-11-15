@@ -146,6 +146,150 @@ public class StaffUI {
         addRoomCleaningPanel();
         createAllBackgrounds();
     }
+    private void createAdminUI(){
+        createRoomTab();
+        RoomManagementTab.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tab1_background.setVisible(true);
+                Tab2_background.setVisible(false);
+                Tab3_background.setVisible(false);
+                Tab4_background.setVisible(false);
+                Tab5_background.setVisible(false);
+
+                RoomManagementTab.setBackground(new Color(244, 242, 235));
+                ReservationTab.setBackground(new Color(132, 121, 102));
+                ServiceOrderTab.setBackground(new Color(132, 121, 102));
+                FinancialTab.setBackground(new Color(132, 121, 102));
+                UsersTab.setBackground(new Color(132, 121, 102));
+
+                RoomManagementTab.setForeground(new Color(43, 42, 38));
+                ReservationTab.setForeground(new Color(245, 242, 233));
+                ServiceOrderTab.setForeground(new Color(245, 242, 233));
+                FinancialTab.setForeground(new Color(245, 242, 233));
+                UsersTab.setForeground(new Color(245, 242, 233));
+
+                addRoomTabComponents();
+                addAdminRoomMenu();
+            }
+        });
+
+        createReservationTab();
+        ReservationTab.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tab1_background.setVisible(false);
+                Tab2_background.setVisible(true);
+                Tab3_background.setVisible(false);
+                Tab4_background.setVisible(false);
+                Tab5_background.setVisible(false);
+
+                RoomManagementTab.setBackground(new Color(132, 121, 102));
+                ReservationTab.setBackground(new Color(244, 242, 235));
+                ServiceOrderTab.setBackground(new Color(132, 121, 102));
+                FinancialTab.setBackground(new Color(132, 121, 102));
+                UsersTab.setBackground(new Color(132, 121, 102));
+
+                RoomManagementTab.setForeground(new Color(245, 242, 233));
+                ReservationTab.setForeground(new Color(43, 42, 38));
+                ServiceOrderTab.setForeground(new Color(245, 242, 233));
+                FinancialTab.setForeground(new Color(245, 242, 233));
+                UsersTab.setForeground(new Color(245, 242, 233));
+
+                removeRoomTabComponents();
+                removeAdminRoomMenu();
+            }
+        });
+
+        createServiceOrderTab();
+        ServiceOrderTab.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tab1_background.setVisible(false);
+                Tab2_background.setVisible(false);
+                Tab3_background.setVisible(true);
+                Tab4_background.setVisible(false);
+                Tab5_background.setVisible(false);
+
+                RoomManagementTab.setBackground(new Color(132, 121, 102));
+                ReservationTab.setBackground(new Color(132, 121, 102));
+                ServiceOrderTab.setBackground(new Color(244, 242, 235));
+                FinancialTab.setBackground(new Color(132, 121, 102));
+                UsersTab.setBackground(new Color(132, 121, 102));
+
+                RoomManagementTab.setForeground(new Color(245, 242, 233));
+                ReservationTab.setForeground(new Color(245, 242, 233));
+                ServiceOrderTab.setForeground(new Color(43, 42, 38));
+                FinancialTab.setForeground(new Color(245, 242, 233));
+                UsersTab.setForeground(new Color(245, 242, 233));
+
+                removeRoomTabComponents();
+                removeAdminRoomMenu();
+                //removeRoomCleaningTabComponents();
+            }
+        });
+
+        createFinancialTab();
+        FinancialTab.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tab1_background.setVisible(false);
+                Tab2_background.setVisible(false);
+                Tab3_background.setVisible(false);
+                Tab4_background.setVisible(true);
+                Tab5_background.setVisible(false);
+
+                RoomManagementTab.setBackground(new Color(132, 121, 102));
+                ReservationTab.setBackground(new Color(132, 121, 102));
+                ServiceOrderTab.setBackground(new Color(132, 121, 102));
+                FinancialTab.setBackground(new Color(244, 242, 235));
+                UsersTab.setBackground(new Color(132, 121, 102));
+
+                RoomManagementTab.setForeground(new Color(245, 242, 233));
+                ReservationTab.setForeground(new Color(245, 242, 233));
+                ServiceOrderTab.setForeground(new Color(245, 242, 233));
+                FinancialTab.setForeground(new Color(43, 42, 38));
+                UsersTab.setForeground(new Color(245, 242, 233));
+
+                removeRoomTabComponents();
+                removeAdminRoomMenu();
+                //removeRoomCleaningTabComponents();
+            }
+        });
+
+        createUsersTab();
+        UsersTab.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tab1_background.setVisible(false);
+                Tab2_background.setVisible(false);
+                Tab3_background.setVisible(false);
+                Tab4_background.setVisible(false);
+                Tab5_background.setVisible(true);
+
+                RoomManagementTab.setBackground(new Color(132, 121, 102));
+                ReservationTab.setBackground(new Color(132, 121, 102));
+                ServiceOrderTab.setBackground(new Color(132, 121, 102));
+                FinancialTab.setBackground(new Color(132, 121, 102));
+                UsersTab.setBackground(new Color(244, 242, 235));
+
+                RoomManagementTab.setForeground(new Color(245, 242, 233));
+                ReservationTab.setForeground(new Color(245, 242, 233));
+                ServiceOrderTab.setForeground(new Color(245, 242, 233));
+                FinancialTab.setForeground(new Color(245, 242, 233));
+                UsersTab.setForeground(new Color(43, 42, 38));
+
+                removeRoomTabComponents();
+                removeAdminRoomMenu();
+                //removeRoomCleaningTabComponents();
+            }
+        });
+        addRoomPanel();
+        addRoomCleaningPanel();
+        removeRoomCleaningTabComponents();
+        createAdminRoomMenu();
+        createAllBackgrounds();
+    }
     private void addRoomPanel(){
         // Create panel with grid layout
         roomPanel = new JPanel();
