@@ -24,6 +24,7 @@ public class StaffUI {
     static JButton ReservationTab;
     static JButton CurrencyExchangeTab;
     static JButton TaskListTab;
+    static JButton ServiceOrderTab;
 
     public StaffUI() {
         Scanner scanner = new Scanner(System.in);
@@ -250,6 +251,22 @@ public class StaffUI {
         TaskListTab.setVisible(true);
         new Interaction(TaskListTab,false);
         panel.add(TaskListTab);
+    }
+    private void createServiceOrderTab(){
+        // ServiceOrderTab setup
+        ServiceOrderTab = new JButton();
+        ServiceOrderTab.setFocusable(false);
+        ServiceOrderTab.setBackground(new Color(132, 121, 102));
+        ServiceOrderTab.setBorderPainted(false);
+        ServiceOrderTab.setText("SERVICE ORDERS");
+        ServiceOrderTab.setFont(new Font("Mulish", Font.BOLD, 21));
+        ServiceOrderTab.setBounds(16, 209, 235, 33);
+        ServiceOrderTab.setForeground(new Color(245, 242, 233));
+        ServiceOrderTab.setHorizontalTextPosition(SwingConstants.LEFT);
+        ServiceOrderTab.setHorizontalAlignment(SwingConstants.LEFT);
+        ServiceOrderTab.setVisible(true);
+        new Interaction(ServiceOrderTab,false);
+        panel.add(ServiceOrderTab);
     }
     private void createAllBackgrounds(){
         //Tab1_background
