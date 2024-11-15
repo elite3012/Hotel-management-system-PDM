@@ -42,11 +42,21 @@ public class LoginWindow extends JFrame {
         loginButton = new JButton("Login");
         loginButton.setBounds(100, 300, 300, 50);
 
+        forgotPasswordButton = new JLabel("Forgot Password");
+        forgotPasswordButton.setBounds(200, 400, 100, 50);
+        forgotPasswordButton.setForeground(Color.ORANGE);
+
+        signUpButton = new JLabel("Sign Up");
+        signUpButton.setBounds(200, 500, 100, 50);
+        signUpButton.setForeground(Color.ORANGE);
+
         panel.add(usernameLbl);
         panel.add(usernameField);
         panel.add(passwordLbl);
         panel.add(passwordField);
         panel.add(loginButton);
+        panel.add(forgotPasswordButton);
+        panel.add(signUpButton);
 
         add(panel);
 
@@ -57,5 +67,9 @@ public class LoginWindow extends JFrame {
                 JOptionPane.showMessageDialog(null, "Login attempt for: " + username);
             }
         });
+    }
+
+    public static void main(String[] args) {
+        new LoginWindow().setVisible(true);
     }
 }
