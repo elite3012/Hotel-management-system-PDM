@@ -147,7 +147,7 @@ public class CustomerUI {
             CustomerInfo = new JLabel();
             CustomerInfo.setText("I. CUSTOMER INFORMATION");
             CustomerInfo.setFont(new Font("Mulish", Font.BOLD, 33));
-            CustomerInfo.setBounds(310, 150, 300, 33);
+            CustomerInfo.setBounds(310, 115, 500, 33);
             CustomerInfo.setForeground(new Color(212, 158, 24));
             CustomerInfo.setVisible(false);
             panel.add(CustomerInfo);
