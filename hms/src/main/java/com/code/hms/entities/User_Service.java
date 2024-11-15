@@ -73,6 +73,14 @@ public class User_Service {
     private Date date;
     private Time time;
 
+    public User_Service_Pk getPk() {
+        return pk;
+    }
+
+    public void setPk(User_Service_Pk pk) {
+        this.pk = pk;
+    }
+
     // Getter and Setter for user
     public User getUser() {
         return user;
