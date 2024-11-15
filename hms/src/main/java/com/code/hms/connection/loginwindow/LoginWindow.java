@@ -30,13 +30,13 @@ public class LoginWindow extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
-        // Background Label
+        // Background label
         LoadImage loader = new LoadImage("hms/bg img/bg.png", getWidth(), getHeight());
         JLabel backgroundLbl = new JLabel(loader.getImageIcon());
         backgroundLbl.setBounds(0, 0, getWidth(), getHeight());
         panel.add(backgroundLbl);
 
-        // Black semi-transparent Login Panel
+        // Black semi-transparent login panel
         JPanel loginPanel = new JPanel();
         loginPanel.setLayout(null);
         loginPanel.setBackground(new Color(0, 0, 0, 150));
@@ -45,24 +45,28 @@ public class LoginWindow extends JFrame {
         // Add components
         usernameLbl = new JLabel("Username:");
         usernameLbl.setBounds(100, 50, 300, 50);
+        usernameLbl.setForeground(Color.WHITE);
         usernameField = new JTextField();
         usernameField.setBounds(100, 100, 300, 50);
 
         passwordLbl = new JLabel("Password:");
         passwordLbl.setBounds(100, 150, 300, 50);
+        passwordLbl.setForeground(Color.WHITE);
         passwordField = new JPasswordField();
         passwordField.setBounds(100, 200, 300, 50);
 
         loginButton = new JButton("Login");
         loginButton.setBounds(100, 300, 300, 50);
+        loginButton.setBackground(Color.decode("#847966"));
+        loginButton.setForeground(Color.WHITE);
 
         forgotPasswordButton = new JLabel("Forgot Password");
-        forgotPasswordButton.setBounds(200, 400, 100, 50);
-        forgotPasswordButton.setForeground(Color.ORANGE);
+        forgotPasswordButton.setBounds(250 - forgotPasswordButton.getPreferredSize().width / 2, 400, forgotPasswordButton.getPreferredSize().width, 50);
+        forgotPasswordButton.setForeground(Color.YELLOW);
 
         signUpButton = new JLabel("Sign Up");
-        signUpButton.setBounds(200, 500, 100, 50);
-        signUpButton.setForeground(Color.ORANGE);
+        signUpButton.setBounds(250 - signUpButton.getPreferredSize().width / 2, 500, signUpButton.getPreferredSize().width, 50);
+        signUpButton.setForeground(Color.YELLOW);
 
         loginPanel.add(usernameLbl);
         loginPanel.add(usernameField);
@@ -74,8 +78,8 @@ public class LoginWindow extends JFrame {
 
         add(loginPanel);
         add(panel);
-        panel.setComponentZOrder(backgroundLbl, panel.getComponentCount() - 1);
 
+        // Add ActionListener for buttons
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String username = usernameField.getText();
@@ -101,5 +105,7 @@ public class LoginWindow extends JFrame {
 
     public static void main(String[] args) {
         new LoginWindow().setVisible(true);
+        System.out.println(forgotPasswordButton.getWidth());
+        System.out.println(signUpButton.getWidth());
     }
 }
