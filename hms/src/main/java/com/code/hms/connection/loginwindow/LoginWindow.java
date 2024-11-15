@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class LoginWindow extends JFrame {
     static JTextField usernameField;
@@ -67,6 +69,23 @@ public class LoginWindow extends JFrame {
                 JOptionPane.showMessageDialog(null, "Login attempt for: " + username);
             }
         });
+
+        forgotPasswordButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Implement your "forgot password" action here
+                JOptionPane.showMessageDialog(null, "Forgot Password clicked");
+            }
+        });
+
+        signUpButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Implement your "sign up" action here
+                JOptionPane.showMessageDialog(null, "Sign Up clicked");
+            }
+        });
+
     }
 
     public static void main(String[] args) {
