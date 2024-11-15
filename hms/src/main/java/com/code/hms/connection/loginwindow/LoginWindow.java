@@ -2,6 +2,8 @@ package com.code.hms.connection.loginwindow;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginWindow extends JFrame {
     static JTextField usernameField;
@@ -16,7 +18,7 @@ public class LoginWindow extends JFrame {
 
     public LoginWindow() {
 
-        //set up frame
+        // Set up frame
         setTitle("Login");
         setSize(1280, 672);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,5 +49,13 @@ public class LoginWindow extends JFrame {
         panel.add(loginButton);
 
         add(panel);
+
+        loginButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
+                JOptionPane.showMessageDialog(null, "Login attempt for: " + username);
+            }
+        });
     }
 }
