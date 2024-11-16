@@ -18,8 +18,10 @@ public class CustomerUI {
     static JLabel Tab2_background;
     static JLabel Tab3_background;
     static JLabel Tab4_background;
-    static JLabel EnterTextFirstName;
-    static JLabel EnterTextLastName;
+    static JLabel EnterBoxFName;
+    static JLabel EnterBoxLName;
+    static JLabel EnterBoxPNumber;
+    static JLabel EnterBoxEmail;
     static JLabel ServiceMenu;
     static JLabel SpaCenter;
     static JLabel CustomerInfo;
@@ -36,6 +38,7 @@ public class CustomerUI {
     }
 
     private void createMainGUI() {
+
         // Frame setup
         frame = new JFrame();
         frame.setSize(1280, 672);
@@ -89,6 +92,10 @@ public class CustomerUI {
                 LastName.setVisible(false);
                 EnterTextFirstName.setVisible(false);
                 EnterTextLastName.setVisible(false);
+                EnterBoxFName.setVisible(false);
+                EnterBoxLName.setVisible(false);
+                EnterBoxPNumber.setVisible(false);
+                EnterBoxEmail.setVisible(false);
             }
         });
 
@@ -133,6 +140,10 @@ public class CustomerUI {
                 LastName.setVisible(false);
                 EnterTextFirstName.setVisible(false);
                 EnterTextLastName.setVisible(false);
+                EnterBoxFName.setVisible(false);
+                EnterBoxLName.setVisible(false);
+                EnterBoxPNumber.setVisible(false);
+                EnterBoxEmail.setVisible(false);
             }
         });
 
@@ -172,6 +183,10 @@ public class CustomerUI {
             public void actionPerformed(ActionEvent e) {
                 EnterTextFirstName.setVisible(true);
                 EnterTextLastName.setVisible(true);
+                EnterBoxFName.setVisible(true);
+                EnterBoxLName.setVisible(true);
+                EnterBoxPNumber.setVisible(true);
+                EnterBoxEmail.setVisible(true);
 
                 Tab1_background.setVisible(false);
                 Tab2_background.setVisible(false);
@@ -303,6 +318,10 @@ public class CustomerUI {
                 LastName.setVisible(false);
                 EnterTextFirstName.setVisible(false);
                 EnterTextLastName.setVisible(false);
+                EnterBoxFName.setVisible(false);
+                EnterBoxLName.setVisible(false);
+                EnterBoxPNumber.setVisible(false);
+                EnterBoxEmail.setVisible(false);
             }
         });
 
@@ -346,6 +365,10 @@ public class CustomerUI {
                 LastName.setVisible(false);
                 EnterTextFirstName.setVisible(false);
                 EnterTextLastName.setVisible(false);
+                EnterBoxFName.setVisible(false);
+                EnterBoxLName.setVisible(false);
+                EnterBoxPNumber.setVisible(false);
+                EnterBoxEmail.setVisible(false);
             }
         });
 
@@ -377,6 +400,12 @@ public class CustomerUI {
         panel.add(EnterTextFirstName);
         panel.setComponentZOrder(EnterTextFirstName, 0); // Brings it to the top of the component stack
         EnterTextFirstName.setVisible(false);
+        //box for first name
+        EnterBoxFName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        EnterBoxFName.setBounds(350, 200, 300, 30);
+        panel.add(EnterBoxFName);
+        panel.setComponentZOrder(EnterBoxFName, 0); // Brings it to the top of the component stack
+        EnterBoxFName.setVisible(false);
 
         FirstName = new JTextField();
         panel.add(FirstName);
@@ -385,11 +414,12 @@ public class CustomerUI {
         FirstName.setVisible(false);
         FirstName.setBorder(null);
 
-        EnterTextLastName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
-        EnterTextLastName.setBounds(750, 200, 300, 30);
-        panel.add(EnterTextLastName);
-        panel.setComponentZOrder(EnterTextLastName, 0); // Brings it to the top of the component stack
-        EnterTextLastName.setVisible(false);
+        //box for last name
+        EnterBoxLName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        EnterBoxLName.setBounds(750, 200, 300, 30);
+        panel.add(EnterBoxLName);
+        panel.setComponentZOrder(EnterBoxLName, 0); // Brings it to the top of the component stack
+        EnterBoxLName.setVisible(false);
 
         LastName = new JTextField();
         panel.add(LastName);
@@ -397,5 +427,33 @@ public class CustomerUI {
         LastName.setBackground(new Color(244, 242, 235));
         LastName.setVisible(false);
         LastName.setBorder(null);
+
+        //box for phone number
+        EnterBoxPNumber = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        EnterBoxPNumber.setBounds(350, 280, 300, 30);
+        panel.add(EnterBoxPNumber);
+        panel.setComponentZOrder(EnterBoxPNumber, 0); // Brings it to the top of the component stack
+        EnterBoxPNumber.setVisible(false);
+
+        PhoneNumber = new JTextField();
+        panel.add(PhoneNumber);
+        PhoneNumber.setBounds(352, 281, 295, 28);
+        PhoneNumber.setBackground(new Color(244, 242, 235));
+        PhoneNumber.setVisible(false);
+        PhoneNumber.setBorder(null);
+
+        //box for email
+        EnterBoxEmail = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        EnterBoxEmail.setBounds(750, 280, 300, 30);
+        panel.add(EnterBoxEmail);
+        panel.setComponentZOrder(EnterBoxEmail, 0); // Brings it to the top of the component stack
+        EnterBoxEmail.setVisible(false);
+
+        Email = new JTextField();
+        panel.add(Email);
+        Email.setBounds(752, 281, 295, 28);
+        Email.setBackground(new Color(244, 242, 235));
+        Email.setVisible(false);
+        Email.setBorder(null);
     }
 }
