@@ -28,4 +28,14 @@ public class ReservationDaoImpl implements ReservationDAO {
         }
         return theReservation;
     }
+
+    @Override
+    public void saveReservation(Reservation reservation) {
+        try {
+            entityManager.persist(reservation);
+            logging.setMessage("ReservationDAOImpl -> reservation saved successfully.");
+        } catch (Exception e) {
+            logging.setMessage("ReservationDAOImpl Error -> " + e.getLocalizedMessage());
+        }
+    }
 }
