@@ -33,6 +33,10 @@ public class CustomerUI {
     static JTextField LastName;
     static JTextField PhoneNumber;
     static JTextField Email;
+    static JLabel FNamePosition;
+    static JLabel LNamePosition;
+    static JLabel PNumberPosition;
+    static JLabel EmailPosition;
 
     public CustomerUI() {
         createMainGUI();
@@ -52,6 +56,39 @@ public class CustomerUI {
         panel = new JPanel();
         panel.setLayout(null);
         frame.getContentPane().add(panel);
+
+        //show customer box to enter correct information
+        FNamePosition = new JLabel();
+        FNamePosition.setText("First name");
+        FNamePosition.setFont(new Font("Mulish", Font.BOLD, 20));
+        FNamePosition.setBounds(350, 170, 500, 30);
+        FNamePosition.setForeground(new Color(136, 120, 81));
+        FNamePosition.setVisible(false);
+        panel.add(FNamePosition);
+
+        LNamePosition = new JLabel();
+        LNamePosition.setText("Last name");
+        LNamePosition.setFont(new Font("Mulish", Font.BOLD, 20));
+        LNamePosition.setBounds(750, 170, 500, 30);
+        LNamePosition.setForeground(new Color(136, 120, 81));
+        LNamePosition.setVisible(false);
+        panel.add(LNamePosition);
+
+        PNumberPosition = new JLabel();
+        PNumberPosition.setText("Phone Number");
+        PNumberPosition.setFont(new Font("Mulish", Font.BOLD, 20));
+        PNumberPosition.setBounds(350, 250, 500, 30);
+        PNumberPosition.setForeground(new Color(136, 120, 81));
+        PNumberPosition.setVisible(false);
+        panel.add(PNumberPosition);
+
+        EmailPosition = new JLabel();
+        EmailPosition.setText("Email");
+        EmailPosition.setFont(new Font("Mulish", Font.BOLD, 20));
+        EmailPosition.setBounds(750, 250, 500, 30);
+        EmailPosition.setForeground(new Color(136, 120, 81));
+        EmailPosition.setVisible(false);
+        panel.add(EmailPosition);
 
         // HotelInfoTab setup
         OurHotelTab = new JButton();
@@ -98,6 +135,11 @@ public class CustomerUI {
                 EnterBoxLName.setVisible(false);
                 EnterBoxPNumber.setVisible(false);
                 EnterBoxEmail.setVisible(false);
+
+                FNamePosition.setVisible(false);
+                LNamePosition.setVisible (false);
+                PNumberPosition.setVisible(false);
+                EmailPosition.setVisible(false);
             }
         });
 
@@ -146,6 +188,11 @@ public class CustomerUI {
                 EnterBoxLName.setVisible(false);
                 EnterBoxPNumber.setVisible(false);
                 EnterBoxEmail.setVisible(false);
+
+                FNamePosition.setVisible(false);
+                LNamePosition.setVisible (false);
+                PNumberPosition.setVisible(false);
+                EmailPosition.setVisible(false);
             }
         });
 
@@ -187,6 +234,11 @@ public class CustomerUI {
                 EnterBoxLName.setVisible(true);
                 EnterBoxPNumber.setVisible(true);
                 EnterBoxEmail.setVisible(true);
+
+                FNamePosition.setVisible(true);
+                LNamePosition.setVisible (true);
+                PNumberPosition.setVisible(true);
+                EmailPosition.setVisible(true);
 
                 Tab1_background.setVisible(false);
                 Tab2_background.setVisible(false);
@@ -231,6 +283,11 @@ public class CustomerUI {
                 LastName.setVisible(false);
                 PhoneNumber.setVisible(false);
                 Email.setVisible(false);
+
+                FNamePosition.setVisible(false);
+                LNamePosition.setVisible (false);
+                PNumberPosition.setVisible(false);
+                EmailPosition.setVisible(false);
             }
         });
 
@@ -257,6 +314,11 @@ public class CustomerUI {
                 LastName.setVisible(false);
                 PhoneNumber.setVisible(false);
                 Email.setVisible(false);
+
+                FNamePosition.setVisible(false);
+                LNamePosition.setVisible (false);
+                PNumberPosition.setVisible(false);
+                EmailPosition.setVisible(false);
             }
         });
 
@@ -283,6 +345,11 @@ public class CustomerUI {
                 LastName.setVisible(false);
                 PhoneNumber.setVisible(false);
                 Email.setVisible(false);
+
+                FNamePosition.setVisible(false);
+                LNamePosition.setVisible (false);
+                PNumberPosition.setVisible(false);
+                EmailPosition.setVisible(false);
             }
         });
 
@@ -330,6 +397,11 @@ public class CustomerUI {
                 EnterBoxLName.setVisible(false);
                 EnterBoxPNumber.setVisible(false);
                 EnterBoxEmail.setVisible(false);
+
+                FNamePosition.setVisible(false);
+                LNamePosition.setVisible (false);
+                PNumberPosition.setVisible(false);
+                EmailPosition.setVisible(false);
             }
         });
 
@@ -377,6 +449,11 @@ public class CustomerUI {
                 EnterBoxLName.setVisible(false);
                 EnterBoxPNumber.setVisible(false);
                 EnterBoxEmail.setVisible(false);
+
+                FNamePosition.setVisible(false);
+                LNamePosition.setVisible (false);
+                PNumberPosition.setVisible(false);
+                EmailPosition.setVisible(false);
             }
         });
 
