@@ -1,9 +1,11 @@
 package com.code.hms.daoImpl;
 
 import com.code.hms.dao.ReservationDAO;
+import com.code.hms.entities.Reservation;
 import com.code.hms.utils.LoggingEngine;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 
 public class ReservationDaoImpl implements ReservationDAO {
@@ -13,5 +15,17 @@ public class ReservationDaoImpl implements ReservationDAO {
 
     public ReservationDaoImpl() {
         logging = LoggingEngine.getInstance();
+    }
+
+    @Override
+    public Reservation getReservationByID(int reservationId) {
+        Reservation theReservation = null;
+        try {
+            theReservation = entityManager.find(Reservation.class, reservationId);
+            logging.setMessage("ReservationDAOImpl -> fetching reservation by Id...");
+        } catch (NoResultException e) {
+            logging.setMessage("Error: There is no reservation with this agency reference number!");
+        }
+        return theReservation;
     }
 }
