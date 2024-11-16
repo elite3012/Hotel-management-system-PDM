@@ -28,6 +28,7 @@ public class CustomerUI {
     static JButton RoomCleaning;
     static JButton MusicLounge;
     static JTextField FirstName;
+    static JTextField LastName;
 
     public CustomerUI() {
         createMainGUI();
@@ -85,6 +86,7 @@ public class CustomerUI {
                 SpaCenter.setVisible(false);
                 CustomerInfo.setVisible(false);
                 FirstName.setVisible(false);
+                LastName.setVisible(false);
                 EnterTextFirstName.setVisible(false);
                 EnterTextLastName.setVisible(false);
             }
@@ -128,6 +130,7 @@ public class CustomerUI {
                 SpaCenter.setVisible(false);
                 CustomerInfo.setVisible(false);
                 FirstName.setVisible(false);
+                LastName.setVisible(false);
                 EnterTextFirstName.setVisible(false);
                 EnterTextLastName.setVisible(false);
             }
@@ -184,6 +187,7 @@ public class CustomerUI {
                 SpaCenter.setVisible(true);
                 CustomerInfo.setVisible(true);
                 FirstName.setVisible(true);
+                LastName.setVisible(true);
             }
         });
 
@@ -207,6 +211,7 @@ public class CustomerUI {
 
                 CustomerInfo.setVisible(false);
                 FirstName.setVisible(false);
+                LastName.setVisible(false);
             }
         });
 
@@ -230,6 +235,7 @@ public class CustomerUI {
 
                 CustomerInfo.setVisible(false);
                 FirstName.setVisible(false);
+                LastName.setVisible(false);
             }
         });
 
@@ -253,6 +259,7 @@ public class CustomerUI {
 
                 CustomerInfo.setVisible(false);
                 FirstName.setVisible(false);
+                LastName.setVisible(false);
             }
         });
 
@@ -293,6 +300,7 @@ public class CustomerUI {
                 SpaCenter.setVisible(false);
                 CustomerInfo.setVisible(false);
                 FirstName.setVisible(false);
+                LastName.setVisible(false);
                 EnterTextFirstName.setVisible(false);
                 EnterTextLastName.setVisible(false);
             }
@@ -335,6 +343,7 @@ public class CustomerUI {
                 SpaCenter.setVisible(false);
                 CustomerInfo.setVisible(false);
                 FirstName.setVisible(false);
+                LastName.setVisible(false);
                 EnterTextFirstName.setVisible(false);
                 EnterTextLastName.setVisible(false);
             }
@@ -381,5 +390,12 @@ public class CustomerUI {
         panel.add(EnterTextLastName);
         panel.setComponentZOrder(EnterTextLastName, 0); // Brings it to the top of the component stack
         EnterTextLastName.setVisible(false);
+
+        LastName = new JTextField();
+        panel.add(LastName);
+        LastName.setBounds(752, 201, 295, 28);
+        LastName.setBackground(new Color(244, 242, 235));
+        LastName.setVisible(false);
+        LastName.setBorder(null);
     }
 }
