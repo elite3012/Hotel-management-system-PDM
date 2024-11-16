@@ -31,6 +31,8 @@ public class CustomerUI {
     static JButton MusicLounge;
     static JTextField FirstName;
     static JTextField LastName;
+    static JTextField PhoneNumber;
+    static JTextField Email;
 
     public CustomerUI() {
         createMainGUI();
@@ -90,8 +92,8 @@ public class CustomerUI {
                 CustomerInfo.setVisible(false);
                 FirstName.setVisible(false);
                 LastName.setVisible(false);
-                EnterTextFirstName.setVisible(false);
-                EnterTextLastName.setVisible(false);
+                PhoneNumber.setVisible(false);
+                Email.setVisible(false);
                 EnterBoxFName.setVisible(false);
                 EnterBoxLName.setVisible(false);
                 EnterBoxPNumber.setVisible(false);
@@ -138,8 +140,8 @@ public class CustomerUI {
                 CustomerInfo.setVisible(false);
                 FirstName.setVisible(false);
                 LastName.setVisible(false);
-                EnterTextFirstName.setVisible(false);
-                EnterTextLastName.setVisible(false);
+                PhoneNumber.setVisible(false);
+                Email.setVisible(false);
                 EnterBoxFName.setVisible(false);
                 EnterBoxLName.setVisible(false);
                 EnterBoxPNumber.setVisible(false);
@@ -181,8 +183,6 @@ public class CustomerUI {
         Spa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EnterTextFirstName.setVisible(true);
-                EnterTextLastName.setVisible(true);
                 EnterBoxFName.setVisible(true);
                 EnterBoxLName.setVisible(true);
                 EnterBoxPNumber.setVisible(true);
@@ -203,6 +203,8 @@ public class CustomerUI {
                 CustomerInfo.setVisible(true);
                 FirstName.setVisible(true);
                 LastName.setVisible(true);
+                PhoneNumber.setVisible(true);
+                Email.setVisible(true);
             }
         });
 
@@ -227,6 +229,8 @@ public class CustomerUI {
                 CustomerInfo.setVisible(false);
                 FirstName.setVisible(false);
                 LastName.setVisible(false);
+                PhoneNumber.setVisible(false);
+                Email.setVisible(false);
             }
         });
 
@@ -251,6 +255,8 @@ public class CustomerUI {
                 CustomerInfo.setVisible(false);
                 FirstName.setVisible(false);
                 LastName.setVisible(false);
+                PhoneNumber.setVisible(false);
+                Email.setVisible(false);
             }
         });
 
@@ -275,6 +281,8 @@ public class CustomerUI {
                 CustomerInfo.setVisible(false);
                 FirstName.setVisible(false);
                 LastName.setVisible(false);
+                PhoneNumber.setVisible(false);
+                Email.setVisible(false);
             }
         });
 
@@ -316,8 +324,8 @@ public class CustomerUI {
                 CustomerInfo.setVisible(false);
                 FirstName.setVisible(false);
                 LastName.setVisible(false);
-                EnterTextFirstName.setVisible(false);
-                EnterTextLastName.setVisible(false);
+                PhoneNumber.setVisible(false);
+                Email.setVisible(false);
                 EnterBoxFName.setVisible(false);
                 EnterBoxLName.setVisible(false);
                 EnterBoxPNumber.setVisible(false);
@@ -363,8 +371,8 @@ public class CustomerUI {
                 CustomerInfo.setVisible(false);
                 FirstName.setVisible(false);
                 LastName.setVisible(false);
-                EnterTextFirstName.setVisible(false);
-                EnterTextLastName.setVisible(false);
+                PhoneNumber.setVisible(false);
+                Email.setVisible(false);
                 EnterBoxFName.setVisible(false);
                 EnterBoxLName.setVisible(false);
                 EnterBoxPNumber.setVisible(false);
