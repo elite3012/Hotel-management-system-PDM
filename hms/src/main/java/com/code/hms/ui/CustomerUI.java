@@ -187,14 +187,6 @@ public class CustomerUI {
             }
         });
 
-        FirstName = new JTextField();
-        panel.add(FirstName);
-        FirstName.setBounds(352, 201, 295, 28);
-        FirstName.setBackground(new Color(244, 242, 235));
-        FirstName.setVisible(false);
-        FirstName.setBorder(null);
-
-
         Restaurant = new JButton();
         Restaurant.setFocusable(false);
         Restaurant.setBackground(new Color(217, 217, 217));
@@ -376,6 +368,13 @@ public class CustomerUI {
         panel.add(EnterTextFirstName);
         panel.setComponentZOrder(EnterTextFirstName, 0); // Brings it to the top of the component stack
         EnterTextFirstName.setVisible(false);
+
+        FirstName = new JTextField();
+        panel.add(FirstName);
+        FirstName.setBounds(352, 201, 295, 28);
+        FirstName.setBackground(new Color(244, 242, 235));
+        FirstName.setVisible(false);
+        FirstName.setBorder(null);
 
         EnterTextLastName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
         EnterTextLastName.setBounds(750, 200, 300, 30);
