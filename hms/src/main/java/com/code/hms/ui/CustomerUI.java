@@ -353,3 +353,17 @@ public class CustomerUI {
 
         }
     }
+    public void CreateEnterInfoBox() {
+        EnterTextFirstName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        EnterTextFirstName.setBounds(350, 200, 300, 30);
+        panel.add(EnterTextFirstName);
+        panel.setComponentZOrder(EnterTextFirstName, 0); // Brings it to the top of the component stack
+        EnterTextFirstName.setVisible(false);
+
+        EnterTextLastName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        EnterTextLastName.setBounds(750, 200, 300, 30);
+        panel.add(EnterTextLastName);
+        panel.setComponentZOrder(EnterTextLastName, 0); // Brings it to the top of the component stack
+        EnterTextLastName.setVisible(false);
+    }
+}
