@@ -1,5 +1,7 @@
 package com.code.hms.daoImpl;
 
+import java.util.List;
+
 import com.code.hms.dao.ReservationDAO;
 import com.code.hms.entities.Reservation;
 import com.code.hms.utils.LoggingEngine;
@@ -7,6 +9,7 @@ import com.code.hms.utils.LoggingEngine;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 
 public class ReservationDaoImpl implements ReservationDAO {
     @PersistenceContext
@@ -49,5 +52,19 @@ public class ReservationDaoImpl implements ReservationDAO {
         }
     }
 
-    
+    @Override
+    public List<Reservation> getAllReservations() {
+        List<Reservation> reservations = null;
+        try {
+            Query query = entityManager.createQuery("SELECT r FROM Reservation r");
+            reservations = query.getResultList();
+            logging.setMessage("ReservationDAOImpl -> fetched all reservations successfully.");
+        } catch (Exception e) {
+            logging.setMessage("ReservationDAOImpl Error -> " + e.getLocalizedMessage());
+        }
+        return reservations;
+    }
 }
+
+    
+
