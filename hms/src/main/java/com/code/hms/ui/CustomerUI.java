@@ -60,6 +60,7 @@ public class CustomerUI {
 
     static JLabel ServiceMenu;
     static JLabel SpaCenter;
+    static JLabel RestaurantCenter;
     static JLabel CustomerInfo;
 
     static JButton Spa;
@@ -141,6 +142,72 @@ public class CustomerUI {
         OurHotelTab.setVisible(true);
         new Interaction(OurHotelTab, true);
         panel.add(OurHotelTab);
+        OurHotelTab.addActionListener(e -> {
+            Tab1_background.setVisible(true);
+            Tab2_background.setVisible(false);
+            Tab3_background.setVisible(false);
+            Tab4_background.setVisible(false);
+            ServiceMenu.setVisible(false);
+            Spa.setVisible(false);
+            Restaurant.setVisible(false);
+            RoomCleaning.setVisible(false);
+            MusicLounge.setVisible(false);
+            OurHotelTab.setBackground(new Color(244, 242, 235));
+            RoomTab.setBackground(new Color(132, 121, 102));
+            ServiceTab.setBackground(new Color(132, 121, 102));
+            ReviewTab.setBackground(new Color(132, 121, 102));
+            OurHotelTab.setForeground(new Color(43, 42, 38));
+            RoomTab.setForeground(new Color(245, 242, 233));
+            ServiceTab.setForeground(new Color(245, 242, 233));
+            ReviewTab.setForeground(new Color(245, 242, 233));
+
+            SpaCenter.setVisible(false);
+            CustomerInfo.setVisible(false);
+
+            SpaFirstName.setVisible(false);
+            SpaLastName.setVisible(false);
+            SpaPhoneNumber.setVisible(false);
+            SpaEmail.setVisible(false);
+
+            SpaEnterBoxFName.setVisible(false);
+            SpaEnterBoxLName.setVisible(false);
+            SpaEnterBoxPNumber.setVisible(false);
+            SpaEnterBoxEmail.setVisible(false);
+
+            RestaurantFirstName.setVisible(false);
+            RestaurantLastName.setVisible(false);
+            RestaurantPhoneNumber.setVisible(false);
+            RestaurantEmail.setVisible(false);
+
+            RestaurantEnterBoxFName.setVisible(false);
+            RestaurantEnterBoxLName.setVisible(false);
+            RestaurantEnterBoxPNumber.setVisible(false);
+            RestaurantEnterBoxEmail.setVisible(false);
+
+            RoomCleaningFirstName.setVisible(false);
+            RoomCleaningLastName.setVisible(false);
+            RoomCleaningPhoneNumber.setVisible(false);
+            RoomCleaningEmail.setVisible(false);
+
+            RoomCleaningEnterBoxFName.setVisible(false);
+            RoomCleaningEnterBoxLName.setVisible(false);
+            RoomCleaningEnterBoxPNumber.setVisible(false);
+            RoomCleaningEnterBoxEmail.setVisible(false);
+
+            MusicLoungeFirstName.setVisible(false);
+            MusicLoungeLastName.setVisible(false);
+            MusicLoungePhoneNumber.setVisible(false);
+            MusicLoungeEmail.setVisible(false);
+
+            MusicLoungeEnterBoxFName.setVisible(false);
+            MusicLoungeEnterBoxLName.setVisible(false);
+            MusicLoungeEnterBoxPNumber.setVisible(false);
+            MusicLoungeEnterBoxEmail.setVisible(false);
+
+            FNamePosition.setVisible(false);
+            LNamePosition.setVisible (false);
+            PNumberPosition.setVisible(false);
+            EmailPosition.setVisible(false);
         });
 
         // ReservationTab setup
@@ -157,55 +224,72 @@ public class CustomerUI {
         RoomTab.setVisible(true);
         new Interaction(RoomTab, false);
         panel.add(RoomTab);
-        RoomTab.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Tab1_background.setVisible(false);
-                Tab2_background.setVisible(true);
-                Tab3_background.setVisible(false);
-                Tab4_background.setVisible(false);
-                ServiceMenu.setVisible(false);
-                Spa.setVisible(false);
-                Restaurant.setVisible(false);
-                RoomCleaning.setVisible(false);
-                MusicLounge.setVisible(false);
-                OurHotelTab.setBackground(new Color(132, 121, 102));
-                RoomTab.setBackground(new Color(244, 242, 235));
-                ServiceTab.setBackground(new Color(132, 121, 102));
-                ReviewTab.setBackground(new Color(132, 121, 102));
-                RoomTab.setForeground(new Color(43, 42, 38));
-                OurHotelTab.setForeground(new Color(245, 242, 233));
-                ServiceTab.setForeground(new Color(245, 242, 233));
-                ReviewTab.setForeground(new Color(245, 242, 233));
+        RoomTab.addActionListener(e -> {
+            Tab1_background.setVisible(false);
+            Tab2_background.setVisible(true);
+            Tab3_background.setVisible(false);
+            Tab4_background.setVisible(false);
+            ServiceMenu.setVisible(false);
+            Spa.setVisible(false);
+            Restaurant.setVisible(false);
+            RoomCleaning.setVisible(false);
+            MusicLounge.setVisible(false);
+            OurHotelTab.setBackground(new Color(132, 121, 102));
+            RoomTab.setBackground(new Color(244, 242, 235));
+            ServiceTab.setBackground(new Color(132, 121, 102));
+            ReviewTab.setBackground(new Color(132, 121, 102));
+            RoomTab.setForeground(new Color(43, 42, 38));
+            OurHotelTab.setForeground(new Color(245, 242, 233));
+            ServiceTab.setForeground(new Color(245, 242, 233));
+            ReviewTab.setForeground(new Color(245, 242, 233));
 
-                SpaCenter.setVisible(false);
-                CustomerInfo.setVisible(false);
+            SpaCenter.setVisible(false);
+            CustomerInfo.setVisible(false);
 
-                SpaFirstName.setVisible(false);
-                SpaLastName.setVisible(false);
-                SpaPhoneNumber.setVisible(false);
-                SpaEmail.setVisible(false);
+            SpaFirstName.setVisible(false);
+            SpaLastName.setVisible(false);
+            SpaPhoneNumber.setVisible(false);
+            SpaEmail.setVisible(false);
 
-                SpaEnterBoxFName.setVisible(false);
-                SpaEnterBoxLName.setVisible(false);
-                SpaEnterBoxPNumber.setVisible(false);
-                SpaEnterBoxEmail.setVisible(false);
+            SpaEnterBoxFName.setVisible(false);
+            SpaEnterBoxLName.setVisible(false);
+            SpaEnterBoxPNumber.setVisible(false);
+            SpaEnterBoxEmail.setVisible(false);
 
-                RestaurantFirstName.setVisible(false);
-                RestaurantLastName.setVisible(false);
-                RestaurantPhoneNumber.setVisible(false);
-                RestaurantEmail.setVisible(false);
+            RestaurantFirstName.setVisible(false);
+            RestaurantLastName.setVisible(false);
+            RestaurantPhoneNumber.setVisible(false);
+            RestaurantEmail.setVisible(false);
 
-                RestaurantEnterBoxFName.setVisible(false);
-                RestaurantEnterBoxLName.setVisible(false);
-                RestaurantEnterBoxPNumber.setVisible(false);
-                RestaurantEnterBoxEmail.setVisible(false);
+            RestaurantEnterBoxFName.setVisible(false);
+            RestaurantEnterBoxLName.setVisible(false);
+            RestaurantEnterBoxPNumber.setVisible(false);
+            RestaurantEnterBoxEmail.setVisible(false);
 
-                FNamePosition.setVisible(false);
-                LNamePosition.setVisible (false);
-                PNumberPosition.setVisible(false);
-                EmailPosition.setVisible(false);
-            }
+            RoomCleaningFirstName.setVisible(false);
+            RoomCleaningLastName.setVisible(false);
+            RoomCleaningPhoneNumber.setVisible(false);
+            RoomCleaningEmail.setVisible(false);
+
+            RoomCleaningEnterBoxFName.setVisible(false);
+            RoomCleaningEnterBoxLName.setVisible(false);
+            RoomCleaningEnterBoxPNumber.setVisible(false);
+            RoomCleaningEnterBoxEmail.setVisible(false);
+
+            MusicLoungeFirstName.setVisible(false);
+            MusicLoungeLastName.setVisible(false);
+            MusicLoungePhoneNumber.setVisible(false);
+            MusicLoungeEmail.setVisible(false);
+
+            MusicLoungeEnterBoxFName.setVisible(false);
+            MusicLoungeEnterBoxLName.setVisible(false);
+            MusicLoungeEnterBoxPNumber.setVisible(false);
+            MusicLoungeEnterBoxEmail.setVisible(false);
+
+            FNamePosition.setVisible(false);
+            LNamePosition.setVisible (false);
+            PNumberPosition.setVisible(false);
+            EmailPosition.setVisible(false);
         });
 
         // ReservationTab setup
@@ -239,49 +323,74 @@ public class CustomerUI {
         Spa.setBounds(400, 150, 350, 200);
         Spa.setVisible(false);
         panel.add(Spa);
-        Spa.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FNamePosition.setVisible(true);
-                LNamePosition.setVisible (true);
-                PNumberPosition.setVisible(true);
-                EmailPosition.setVisible(true);
+        Spa.addActionListener(e -> {
+            FNamePosition.setVisible(true);
+            LNamePosition.setVisible (true);
+            PNumberPosition.setVisible(true);
+            EmailPosition.setVisible(true);
 
-                Tab1_background.setVisible(false);
-                Tab2_background.setVisible(false);
-                Tab3_background.setVisible(true);
-                Tab4_background.setVisible(false);
+            Tab1_background.setVisible(false);
+            Tab2_background.setVisible(false);
+            Tab3_background.setVisible(true);
+            Tab4_background.setVisible(false);
 
-                Restaurant.setVisible(false);
-                Spa.setVisible(false);
-                RoomCleaning.setVisible(false);
-                MusicLounge.setVisible((false));
+            Restaurant.setVisible(false);
+            Spa.setVisible(false);
+            RoomCleaning.setVisible(false);
+            MusicLounge.setVisible((false));
 
-                ServiceMenu.setVisible(false);
-                SpaCenter.setVisible(true);
-                CustomerInfo.setVisible(true);
+            ServiceMenu.setVisible(false);
+            SpaCenter.setVisible(true);
+            CustomerInfo.setVisible(true);
 
-                SpaEnterBoxFName.setVisible(true);
-                SpaEnterBoxLName.setVisible(true);
-                SpaEnterBoxPNumber.setVisible(true);
-                SpaEnterBoxEmail.setVisible(true);
+            SpaEnterBoxFName.setVisible(true);
+            SpaEnterBoxLName.setVisible(true);
+            SpaEnterBoxPNumber.setVisible(true);
+            SpaEnterBoxEmail.setVisible(true);
 
-                SpaFirstName.setVisible(true);
-                SpaLastName.setVisible(true);
-                SpaPhoneNumber.setVisible(true);
-                SpaEmail.setVisible(true);
+            SpaFirstName.setVisible(true);
+            SpaLastName.setVisible(true);
+            SpaPhoneNumber.setVisible(true);
+            SpaEmail.setVisible(true);
 
-                RestaurantFirstName.setVisible(false);
-                RestaurantLastName.setVisible(false);
-                RestaurantPhoneNumber.setVisible(false);
-                RestaurantEmail.setVisible(false);
+            RestaurantFirstName.setVisible(false);
+            RestaurantLastName.setVisible(false);
+            RestaurantPhoneNumber.setVisible(false);
+            RestaurantEmail.setVisible(false);
 
-                RestaurantEnterBoxFName.setVisible(false);
-                RestaurantEnterBoxLName.setVisible(false);
-                RestaurantEnterBoxPNumber.setVisible(false);
-                RestaurantEnterBoxEmail.setVisible(false);
-            }
+            RestaurantEnterBoxFName.setVisible(false);
+            RestaurantEnterBoxLName.setVisible(false);
+            RestaurantEnterBoxPNumber.setVisible(false);
+            RestaurantEnterBoxEmail.setVisible(false);
+
+            RoomCleaningFirstName.setVisible(false);
+            RoomCleaningLastName.setVisible(false);
+            RoomCleaningPhoneNumber.setVisible(false);
+            RoomCleaningEmail.setVisible(false);
+
+            RoomCleaningEnterBoxFName.setVisible(false);
+            RoomCleaningEnterBoxLName.setVisible(false);
+            RoomCleaningEnterBoxPNumber.setVisible(false);
+            RoomCleaningEnterBoxEmail.setVisible(false);
+
+            MusicLoungeFirstName.setVisible(false);
+            MusicLoungeLastName.setVisible(false);
+            MusicLoungePhoneNumber.setVisible(false);
+            MusicLoungeEmail.setVisible(false);
+
+            MusicLoungeEnterBoxFName.setVisible(false);
+            MusicLoungeEnterBoxLName.setVisible(false);
+            MusicLoungeEnterBoxPNumber.setVisible(false);
+            MusicLoungeEnterBoxEmail.setVisible(false);
         });
+
+        RestaurantCenter = new JLabel();
+        RestaurantCenter.setText("RESTAURANT");
+        RestaurantCenter.setFont(new Font("Mulish", Font.BOLD, 33));
+        RestaurantCenter.setBounds(310, 20, 300, 33);
+        RestaurantCenter.setForeground(new Color(212, 158, 24));
+        RestaurantCenter.setVisible(false);
+        panel.add(RestaurantCenter);
 
         Restaurant = new JButton();
         Restaurant.setFocusable(false);
@@ -289,40 +398,64 @@ public class CustomerUI {
         Restaurant.setBounds(800, 150, 350, 200);
         Restaurant.setVisible(false);
         panel.add(Restaurant);
-        Restaurant.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Tab1_background.setVisible(false);
-                Tab2_background.setVisible(false);
-                Tab3_background.setVisible(true);
-                Tab4_background.setVisible(false);
-                Restaurant.setVisible(false);
-                Spa.setVisible(false);
-                RoomCleaning.setVisible(false);
-                MusicLounge.setVisible((false));
+        Restaurant.addActionListener(e -> {
+            Tab1_background.setVisible(false);
+            Tab2_background.setVisible(false);
+            Tab3_background.setVisible(true);
+            Tab4_background.setVisible(false);
+            Restaurant.setVisible(false);
+            Spa.setVisible(false);
+            RoomCleaning.setVisible(false);
+            MusicLounge.setVisible((false));
 
-                CustomerInfo.setVisible(true);
+            CustomerInfo.setVisible(true);
+            RestaurantCenter.setVisible(true);
+            ServiceMenu.setVisible(false);
 
-                SpaFirstName.setVisible(false);
-                SpaLastName.setVisible(false);
-                SpaPhoneNumber.setVisible(false);
-                SpaEmail.setVisible(false);
+            SpaEnterBoxFName.setVisible(false);
+            SpaEnterBoxLName.setVisible(false);
+            SpaEnterBoxPNumber.setVisible(false);
+            SpaEnterBoxEmail.setVisible(false);
 
-                RestaurantFirstName.setVisible(true);
-                RestaurantLastName.setVisible(true);
-                RestaurantPhoneNumber.setVisible(true);
-                RestaurantEmail.setVisible(true);
+            SpaFirstName.setVisible(false);
+            SpaLastName.setVisible(false);
+            SpaPhoneNumber.setVisible(false);
+            SpaEmail.setVisible(false);
 
-                RestaurantEnterBoxFName.setVisible(true);
-                RestaurantEnterBoxLName.setVisible(true);
-                RestaurantEnterBoxPNumber.setVisible(true);
-                RestaurantEnterBoxEmail.setVisible(true);
+            RestaurantFirstName.setVisible(true);
+            RestaurantLastName.setVisible(true);
+            RestaurantPhoneNumber.setVisible(true);
+            RestaurantEmail.setVisible(true);
 
-                FNamePosition.setVisible(true);
-                LNamePosition.setVisible (true);
-                PNumberPosition.setVisible(true);
-                EmailPosition.setVisible(true);
-            }
+            RestaurantEnterBoxFName.setVisible(true);
+            RestaurantEnterBoxLName.setVisible(true);
+            RestaurantEnterBoxPNumber.setVisible(true);
+            RestaurantEnterBoxEmail.setVisible(true);
+
+            RoomCleaningFirstName.setVisible(false);
+            RoomCleaningLastName.setVisible(false);
+            RoomCleaningPhoneNumber.setVisible(false);
+            RoomCleaningEmail.setVisible(false);
+
+            RoomCleaningEnterBoxFName.setVisible(false);
+            RoomCleaningEnterBoxLName.setVisible(false);
+            RoomCleaningEnterBoxPNumber.setVisible(false);
+            RoomCleaningEnterBoxEmail.setVisible(false);
+
+            MusicLoungeFirstName.setVisible(false);
+            MusicLoungeLastName.setVisible(false);
+            MusicLoungePhoneNumber.setVisible(false);
+            MusicLoungeEmail.setVisible(false);
+
+            MusicLoungeEnterBoxFName.setVisible(false);
+            MusicLoungeEnterBoxLName.setVisible(false);
+            MusicLoungeEnterBoxPNumber.setVisible(false);
+            MusicLoungeEnterBoxEmail.setVisible(false);
+
+            FNamePosition.setVisible(true);
+            LNamePosition.setVisible (true);
+            PNumberPosition.setVisible(true);
+            EmailPosition.setVisible(true);
         });
 
         RoomCleaning = new JButton();
@@ -331,40 +464,62 @@ public class CustomerUI {
         RoomCleaning.setBounds(400, 380, 350, 200);
         RoomCleaning.setVisible(false);
         panel.add(RoomCleaning);
-        RoomCleaning.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Tab1_background.setVisible(false);
-                Tab2_background.setVisible(false);
-                Tab3_background.setVisible(true);
-                Tab4_background.setVisible(false);
-                Restaurant.setVisible(false);
-                Spa.setVisible(false);
-                RoomCleaning.setVisible(false);
-                MusicLounge.setVisible((false));
+        RoomCleaning.addActionListener(e -> {
+            Tab1_background.setVisible(false);
+            Tab2_background.setVisible(false);
+            Tab3_background.setVisible(true);
+            Tab4_background.setVisible(false);
+            Restaurant.setVisible(false);
+            Spa.setVisible(false);
+            RoomCleaning.setVisible(false);
+            MusicLounge.setVisible((false));
 
-                CustomerInfo.setVisible(true);
+            CustomerInfo.setVisible(true);
 
-                SpaFirstName.setVisible(false);
-                SpaLastName.setVisible(false);
-                SpaPhoneNumber.setVisible(false);
-                SpaEmail.setVisible(false);
+            SpaEnterBoxFName.setVisible(false);
+            SpaEnterBoxLName.setVisible(false);
+            SpaEnterBoxPNumber.setVisible(false);
+            SpaEnterBoxEmail.setVisible(false);
 
-                RestaurantFirstName.setVisible(false);
-                RestaurantLastName.setVisible(false);
-                RestaurantPhoneNumber.setVisible(false);
-                RestaurantEmail.setVisible(false);
+            SpaFirstName.setVisible(false);
+            SpaLastName.setVisible(false);
+            SpaPhoneNumber.setVisible(false);
+            SpaEmail.setVisible(false);
 
-                RestaurantEnterBoxFName.setVisible(false);
-                RestaurantEnterBoxLName.setVisible(false);
-                RestaurantEnterBoxPNumber.setVisible(false);
-                RestaurantEnterBoxEmail.setVisible(false);
+            RestaurantFirstName.setVisible(false);
+            RestaurantLastName.setVisible(false);
+            RestaurantPhoneNumber.setVisible(false);
+            RestaurantEmail.setVisible(false);
 
-                FNamePosition.setVisible(true);
-                LNamePosition.setVisible (true);
-                PNumberPosition.setVisible(true);
-                EmailPosition.setVisible(true);
-            }
+            RestaurantEnterBoxFName.setVisible(false);
+            RestaurantEnterBoxLName.setVisible(false);
+            RestaurantEnterBoxPNumber.setVisible(false);
+            RestaurantEnterBoxEmail.setVisible(false);
+
+            RoomCleaningFirstName.setVisible(true);
+            RoomCleaningLastName.setVisible(true);
+            RoomCleaningPhoneNumber.setVisible(true);
+            RoomCleaningEmail.setVisible(true);
+
+            RoomCleaningEnterBoxFName.setVisible(true);
+            RoomCleaningEnterBoxLName.setVisible(true);
+            RoomCleaningEnterBoxPNumber.setVisible(true);
+            RoomCleaningEnterBoxEmail.setVisible(true);
+
+            MusicLoungeFirstName.setVisible(false);
+            MusicLoungeLastName.setVisible(false);
+            MusicLoungePhoneNumber.setVisible(false);
+            MusicLoungeEmail.setVisible(false);
+
+            MusicLoungeEnterBoxFName.setVisible(false);
+            MusicLoungeEnterBoxLName.setVisible(false);
+            MusicLoungeEnterBoxPNumber.setVisible(false);
+            MusicLoungeEnterBoxEmail.setVisible(false);
+
+            FNamePosition.setVisible(true);
+            LNamePosition.setVisible (true);
+            PNumberPosition.setVisible(true);
+            EmailPosition.setVisible(true);
         });
 
         MusicLounge = new JButton();
@@ -373,40 +528,62 @@ public class CustomerUI {
         MusicLounge.setBounds(800, 380, 350, 200);
         MusicLounge.setVisible(false);
         panel.add(MusicLounge);
-        MusicLounge.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Tab1_background.setVisible(false);
-                Tab2_background.setVisible(false);
-                Tab3_background.setVisible(true);
-                Tab4_background.setVisible(false);
-                Restaurant.setVisible(false);
-                Spa.setVisible(false);
-                RoomCleaning.setVisible(false);
-                MusicLounge.setVisible((false));
+        MusicLounge.addActionListener(e -> {
+            Tab1_background.setVisible(false);
+            Tab2_background.setVisible(false);
+            Tab3_background.setVisible(true);
+            Tab4_background.setVisible(false);
+            Restaurant.setVisible(false);
+            Spa.setVisible(false);
+            RoomCleaning.setVisible(false);
+            MusicLounge.setVisible((false));
 
-                CustomerInfo.setVisible(true);
+            CustomerInfo.setVisible(true);
 
-                SpaFirstName.setVisible(false);
-                SpaLastName.setVisible(false);
-                SpaPhoneNumber.setVisible(false);
-                SpaEmail.setVisible(false);
+            SpaEnterBoxFName.setVisible(false);
+            SpaEnterBoxLName.setVisible(false);
+            SpaEnterBoxPNumber.setVisible(false);
+            SpaEnterBoxEmail.setVisible(false);
 
-                RestaurantFirstName.setVisible(false);
-                RestaurantLastName.setVisible(false);
-                RestaurantPhoneNumber.setVisible(false);
-                RestaurantEmail.setVisible(false);
+            SpaFirstName.setVisible(false);
+            SpaLastName.setVisible(false);
+            SpaPhoneNumber.setVisible(false);
+            SpaEmail.setVisible(false);
 
-                RestaurantEnterBoxFName.setVisible(false);
-                RestaurantEnterBoxLName.setVisible(false);
-                RestaurantEnterBoxPNumber.setVisible(false);
-                RestaurantEnterBoxEmail.setVisible(false);
+            RestaurantFirstName.setVisible(false);
+            RestaurantLastName.setVisible(false);
+            RestaurantPhoneNumber.setVisible(false);
+            RestaurantEmail.setVisible(false);
 
-                FNamePosition.setVisible(true);
-                LNamePosition.setVisible (true);
-                PNumberPosition.setVisible(true);
-                EmailPosition.setVisible(true);
-            }
+            RestaurantEnterBoxFName.setVisible(false);
+            RestaurantEnterBoxLName.setVisible(false);
+            RestaurantEnterBoxPNumber.setVisible(false);
+            RestaurantEnterBoxEmail.setVisible(false);
+
+            RoomCleaningFirstName.setVisible(false);
+            RoomCleaningLastName.setVisible(false);
+            RoomCleaningPhoneNumber.setVisible(false);
+            RoomCleaningEmail.setVisible(false);
+
+            RoomCleaningEnterBoxFName.setVisible(false);
+            RoomCleaningEnterBoxLName.setVisible(false);
+            RoomCleaningEnterBoxPNumber.setVisible(false);
+            RoomCleaningEnterBoxEmail.setVisible(false);
+
+            MusicLoungeFirstName.setVisible(true);
+            MusicLoungeLastName.setVisible(true);
+            MusicLoungePhoneNumber.setVisible(true);
+            MusicLoungeEmail.setVisible(true);
+
+            MusicLoungeEnterBoxFName.setVisible(true);
+            MusicLoungeEnterBoxLName.setVisible(true);
+            MusicLoungeEnterBoxPNumber.setVisible(true);
+            MusicLoungeEnterBoxEmail.setVisible(true);
+
+            FNamePosition.setVisible(true);
+            LNamePosition.setVisible (true);
+            PNumberPosition.setVisible(true);
+            EmailPosition.setVisible(true);
         });
 
         ServiceTab = new JButton();
@@ -422,55 +599,73 @@ public class CustomerUI {
         ServiceTab.setVisible(true);
         new Interaction(ServiceTab, false);
         panel.add(ServiceTab);
-        ServiceTab.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Tab1_background.setVisible(false);
-                Tab2_background.setVisible(false);
-                Tab3_background.setVisible(true);
-                Tab4_background.setVisible(false);
-                ServiceMenu.setVisible(true);
-                Spa.setVisible(true);
-                Restaurant.setVisible(true);
-                RoomCleaning.setVisible(true);
-                MusicLounge.setVisible(true);
-                OurHotelTab.setBackground(new Color(132, 121, 102));
-                RoomTab.setBackground(new Color(132, 121, 102));
-                ServiceTab.setBackground(new Color(244, 242, 235));
-                ReviewTab.setBackground(new Color(132, 121, 102));
-                ServiceTab.setForeground(new Color(43, 42, 38));
-                OurHotelTab.setForeground(new Color(245, 242, 233));
-                RoomTab.setForeground(new Color(245, 242, 233));
-                ReviewTab.setForeground(new Color(245, 242, 233));
+        ServiceTab.addActionListener(e -> {
+            Tab1_background.setVisible(false);
+            Tab2_background.setVisible(false);
+            Tab3_background.setVisible(true);
+            Tab4_background.setVisible(false);
+            ServiceMenu.setVisible(true);
+            Spa.setVisible(true);
+            Restaurant.setVisible(true);
+            RoomCleaning.setVisible(true);
+            MusicLounge.setVisible(true);
+            OurHotelTab.setBackground(new Color(132, 121, 102));
+            RoomTab.setBackground(new Color(132, 121, 102));
+            ServiceTab.setBackground(new Color(244, 242, 235));
+            ReviewTab.setBackground(new Color(132, 121, 102));
+            ServiceTab.setForeground(new Color(43, 42, 38));
+            OurHotelTab.setForeground(new Color(245, 242, 233));
+            RoomTab.setForeground(new Color(245, 242, 233));
+            ReviewTab.setForeground(new Color(245, 242, 233));
 
-                SpaCenter.setVisible(false);
-                CustomerInfo.setVisible(false);
+            SpaCenter.setVisible(false);
+            CustomerInfo.setVisible(false);
+            RestaurantCenter.setVisible(false);
 
-                SpaFirstName.setVisible(false);
-                SpaLastName.setVisible(false);
-                SpaPhoneNumber.setVisible(false);
-                SpaEmail.setVisible(false);
+            SpaEnterBoxFName.setVisible(false);
+            SpaEnterBoxLName.setVisible(false);
+            SpaEnterBoxPNumber.setVisible(false);
+            SpaEnterBoxEmail.setVisible(false);
 
-                SpaEnterBoxFName.setVisible(false);
-                SpaEnterBoxLName.setVisible(false);
-                SpaEnterBoxPNumber.setVisible(false);
-                SpaEnterBoxEmail.setVisible(false);
+            SpaFirstName.setVisible(false);
+            SpaLastName.setVisible(false);
+            SpaPhoneNumber.setVisible(false);
+            SpaEmail.setVisible(false);
 
-                RestaurantFirstName.setVisible(false);
-                RestaurantLastName.setVisible(false);
-                RestaurantPhoneNumber.setVisible(false);
-                RestaurantEmail.setVisible(false);
+            RestaurantFirstName.setVisible(false);
+            RestaurantLastName.setVisible(false);
+            RestaurantPhoneNumber.setVisible(false);
+            RestaurantEmail.setVisible(false);
 
-                RestaurantEnterBoxFName.setVisible(false);
-                RestaurantEnterBoxLName.setVisible(false);
-                RestaurantEnterBoxPNumber.setVisible(false);
-                RestaurantEnterBoxEmail.setVisible(false);
+            RestaurantEnterBoxFName.setVisible(false);
+            RestaurantEnterBoxLName.setVisible(false);
+            RestaurantEnterBoxPNumber.setVisible(false);
+            RestaurantEnterBoxEmail.setVisible(false);
 
-                FNamePosition.setVisible(false);
-                LNamePosition.setVisible (false);
-                PNumberPosition.setVisible(false);
-                EmailPosition.setVisible(false);
-            }
+            RoomCleaningFirstName.setVisible(false);
+            RoomCleaningLastName.setVisible(false);
+            RoomCleaningPhoneNumber.setVisible(false);
+            RoomCleaningEmail.setVisible(false);
+
+            RoomCleaningEnterBoxFName.setVisible(false);
+            RoomCleaningEnterBoxLName.setVisible(false);
+            RoomCleaningEnterBoxPNumber.setVisible(false);
+            RoomCleaningEnterBoxEmail.setVisible(false);
+
+            MusicLoungeFirstName.setVisible(false);
+            MusicLoungeLastName.setVisible(false);
+            MusicLoungePhoneNumber.setVisible(false);
+            MusicLoungeEmail.setVisible(false);
+
+            MusicLoungeEnterBoxFName.setVisible(false);
+            MusicLoungeEnterBoxLName.setVisible(false);
+            MusicLoungeEnterBoxPNumber.setVisible(false);
+            MusicLoungeEnterBoxEmail.setVisible(false);
+
+            FNamePosition.setVisible(false);
+            LNamePosition.setVisible (false);
+            PNumberPosition.setVisible(false);
+            EmailPosition.setVisible(false);
         });
 
         ReviewTab = new JButton();
@@ -486,55 +681,72 @@ public class CustomerUI {
         ReviewTab.setVisible(true);
         new Interaction(ReviewTab, false);
         panel.add(ReviewTab);
-        ReviewTab.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Tab1_background.setVisible(false);
-                Tab2_background.setVisible(false);
-                Tab3_background.setVisible(false);
-                Tab4_background.setVisible(true);
-                ServiceMenu.setVisible(false);
-                Spa.setVisible(false);
-                Restaurant.setVisible(false);
-                RoomCleaning.setVisible(false);
-                MusicLounge.setVisible(false);
-                OurHotelTab.setBackground(new Color(132, 121, 102));
-                RoomTab.setBackground(new Color(132, 121, 102));
-                ServiceTab.setBackground(new Color(132, 121, 102));
-                ReviewTab.setBackground(new Color(244, 242, 235));
-                OurHotelTab.setForeground(new Color(245, 242, 233));
-                RoomTab.setForeground(new Color(245, 242, 233));
-                ServiceTab.setForeground(new Color(245, 242, 233));
-                ReviewTab.setForeground(new Color(43, 42, 38));
+        ReviewTab.addActionListener(e -> {
+            Tab1_background.setVisible(false);
+            Tab2_background.setVisible(false);
+            Tab3_background.setVisible(false);
+            Tab4_background.setVisible(true);
+            ServiceMenu.setVisible(false);
+            Spa.setVisible(false);
+            Restaurant.setVisible(false);
+            RoomCleaning.setVisible(false);
+            MusicLounge.setVisible(false);
+            OurHotelTab.setBackground(new Color(132, 121, 102));
+            RoomTab.setBackground(new Color(132, 121, 102));
+            ServiceTab.setBackground(new Color(132, 121, 102));
+            ReviewTab.setBackground(new Color(244, 242, 235));
+            OurHotelTab.setForeground(new Color(245, 242, 233));
+            RoomTab.setForeground(new Color(245, 242, 233));
+            ServiceTab.setForeground(new Color(245, 242, 233));
+            ReviewTab.setForeground(new Color(43, 42, 38));
 
-                SpaCenter.setVisible(false);
-                CustomerInfo.setVisible(false);
+            SpaCenter.setVisible(false);
+            CustomerInfo.setVisible(false);
 
-                SpaFirstName.setVisible(false);
-                SpaLastName.setVisible(false);
-                SpaPhoneNumber.setVisible(false);
-                SpaEmail.setVisible(false);
+            SpaFirstName.setVisible(false);
+            SpaLastName.setVisible(false);
+            SpaPhoneNumber.setVisible(false);
+            SpaEmail.setVisible(false);
 
-                SpaEnterBoxFName.setVisible(false);
-                SpaEnterBoxLName.setVisible(false);
-                SpaEnterBoxPNumber.setVisible(false);
-                SpaEnterBoxEmail.setVisible(false);
+            SpaEnterBoxFName.setVisible(false);
+            SpaEnterBoxLName.setVisible(false);
+            SpaEnterBoxPNumber.setVisible(false);
+            SpaEnterBoxEmail.setVisible(false);
 
-                RestaurantFirstName.setVisible(false);
-                RestaurantLastName.setVisible(false);
-                RestaurantPhoneNumber.setVisible(false);
-                RestaurantEmail.setVisible(false);
+            RestaurantFirstName.setVisible(false);
+            RestaurantLastName.setVisible(false);
+            RestaurantPhoneNumber.setVisible(false);
+            RestaurantEmail.setVisible(false);
 
-                RestaurantEnterBoxFName.setVisible(false);
-                RestaurantEnterBoxLName.setVisible(false);
-                RestaurantEnterBoxPNumber.setVisible(false);
-                RestaurantEnterBoxEmail.setVisible(false);
+            RestaurantEnterBoxFName.setVisible(false);
+            RestaurantEnterBoxLName.setVisible(false);
+            RestaurantEnterBoxPNumber.setVisible(false);
+            RestaurantEnterBoxEmail.setVisible(false);
 
-                FNamePosition.setVisible(false);
-                LNamePosition.setVisible (false);
-                PNumberPosition.setVisible(false);
-                EmailPosition.setVisible(false);
-            }
+            RoomCleaningFirstName.setVisible(false);
+            RoomCleaningLastName.setVisible(false);
+            RoomCleaningPhoneNumber.setVisible(false);
+            RoomCleaningEmail.setVisible(false);
+
+            RoomCleaningEnterBoxFName.setVisible(false);
+            RoomCleaningEnterBoxLName.setVisible(false);
+            RoomCleaningEnterBoxPNumber.setVisible(false);
+            RoomCleaningEnterBoxEmail.setVisible(false);
+
+            MusicLoungeFirstName.setVisible(false);
+            MusicLoungeLastName.setVisible(false);
+            MusicLoungePhoneNumber.setVisible(false);
+            MusicLoungeEmail.setVisible(false);
+
+            MusicLoungeEnterBoxFName.setVisible(false);
+            MusicLoungeEnterBoxLName.setVisible(false);
+            MusicLoungeEnterBoxPNumber.setVisible(false);
+            MusicLoungeEnterBoxEmail.setVisible(false);
+
+            FNamePosition.setVisible(false);
+            LNamePosition.setVisible (false);
+            PNumberPosition.setVisible(false);
+            EmailPosition.setVisible(false);
         });
 
         // Tab1_background
