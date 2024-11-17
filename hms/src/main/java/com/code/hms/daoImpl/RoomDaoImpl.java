@@ -160,7 +160,23 @@ public class RoomDaoImpl implements RoomDAO {
         }
     }
 
-
+@Override
+    public void setSingleRoomAsDNDByRoomID(int roomId) {
+        try {
+            Query query = entityManager.createQuery(
+                "UPDATE Room r SET r.roomStatus = 'DND' WHERE r.roomId = :roomId"
+            );
+            query.setParameter("roomId", roomId);
+            int rowsUpdated = query.executeUpdate();
+            if (rowsUpdated > 0) {
+                logging.setMessage("RoomDaoImpl -> Successfully set room as DND for room ID: " + roomId);
+            } else {
+                logging.setMessage("RoomDaoImpl -> No room found for the provided room ID.");
+            }
+        } catch (Exception e) {
+            logging.setMessage("RoomDaoImpl Error -> " + e.getLocalizedMessage());
+        }
+    }
 }
 
 
