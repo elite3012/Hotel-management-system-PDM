@@ -61,6 +61,8 @@ public class CustomerUI {
     static JLabel ServiceMenu;
     static JLabel SpaCenter;
     static JLabel RestaurantCenter;
+    static JLabel RoomCleaningCenter;
+    static JLabel MusicLoungeCenter;
     static JLabel CustomerInfo;
 
     static JButton Spa;
@@ -162,6 +164,9 @@ public class CustomerUI {
             ReviewTab.setForeground(new Color(245, 242, 233));
 
             SpaCenter.setVisible(false);
+            RestaurantCenter.setVisible(false);
+            RoomCleaningCenter.setVisible(false);
+            MusicLoungeCenter.setVisible(false);
             CustomerInfo.setVisible(false);
 
             SpaFirstName.setVisible(false);
@@ -244,6 +249,9 @@ public class CustomerUI {
             ReviewTab.setForeground(new Color(245, 242, 233));
 
             SpaCenter.setVisible(false);
+            RestaurantCenter.setVisible(false);
+            RoomCleaningCenter.setVisible(false);
+            MusicLoungeCenter.setVisible(false);
             CustomerInfo.setVisible(false);
 
             SpaFirstName.setVisible(false);
@@ -458,6 +466,14 @@ public class CustomerUI {
             EmailPosition.setVisible(true);
         });
 
+        RoomCleaningCenter = new JLabel();
+        RoomCleaningCenter.setText("ROOM CLEANING");
+        RoomCleaningCenter.setFont(new Font("Mulish", Font.BOLD, 33));
+        RoomCleaningCenter.setBounds(310, 20, 300, 33);
+        RoomCleaningCenter.setForeground(new Color(212, 158, 24));
+        RoomCleaningCenter.setVisible(false);
+        panel.add(RoomCleaningCenter);
+
         RoomCleaning = new JButton();
         RoomCleaning.setFocusable(false);
         RoomCleaning.setBackground(new Color(217, 217, 217));
@@ -475,6 +491,8 @@ public class CustomerUI {
             MusicLounge.setVisible((false));
 
             CustomerInfo.setVisible(true);
+            RoomCleaningCenter.setVisible(true);
+            ServiceMenu.setVisible(false);
 
             SpaEnterBoxFName.setVisible(false);
             SpaEnterBoxLName.setVisible(false);
@@ -522,6 +540,14 @@ public class CustomerUI {
             EmailPosition.setVisible(true);
         });
 
+        MusicLoungeCenter = new JLabel();
+        MusicLoungeCenter.setText("MUSIC LOUNGE");
+        MusicLoungeCenter.setFont(new Font("Mulish", Font.BOLD, 33));
+        MusicLoungeCenter.setBounds(310, 20, 300, 33);
+        MusicLoungeCenter.setForeground(new Color(212, 158, 24));
+        MusicLoungeCenter.setVisible(false);
+        panel.add(MusicLoungeCenter);
+
         MusicLounge = new JButton();
         MusicLounge.setFocusable(false);
         MusicLounge.setBackground(new Color(217, 217, 217));
@@ -539,6 +565,8 @@ public class CustomerUI {
             MusicLounge.setVisible((false));
 
             CustomerInfo.setVisible(true);
+            MusicLoungeCenter.setVisible(true);
+            ServiceMenu.setVisible(false);
 
             SpaEnterBoxFName.setVisible(false);
             SpaEnterBoxLName.setVisible(false);
@@ -621,6 +649,8 @@ public class CustomerUI {
             SpaCenter.setVisible(false);
             CustomerInfo.setVisible(false);
             RestaurantCenter.setVisible(false);
+            RoomCleaningCenter.setVisible(false);
+            MusicLoungeCenter.setVisible(false);
 
             SpaEnterBoxFName.setVisible(false);
             SpaEnterBoxLName.setVisible(false);
@@ -701,6 +731,9 @@ public class CustomerUI {
             ReviewTab.setForeground(new Color(43, 42, 38));
 
             SpaCenter.setVisible(false);
+            RestaurantCenter.setVisible(false);
+            RoomCleaningCenter.setVisible(false);
+            MusicLoungeCenter.setVisible(false);
             CustomerInfo.setVisible(false);
 
             SpaFirstName.setVisible(false);
