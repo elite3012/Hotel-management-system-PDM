@@ -14,9 +14,6 @@ public interface ReservationDAO {
     // Update the date or time of the reservation if the customer requests rescheduling
     public void updateReservation(Reservation reservation);
 
-    // Find reservation by room number
-    public Reservation getReservationByRoomNumber(int roomId);
-
     // Find all reservations
     public List<Reservation> getAllReservations();
 }
