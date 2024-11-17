@@ -33,17 +33,27 @@ public class RoomDaoImpl implements RoomDAO {
     }
 
     @Override
-public List<Room> getAllAvailableRooms() {
-    List<Room> availableRooms = null;
-    try {
-        // Update the query to check for Room_Status
-        Query query = entityManager.createQuery("SELECT r FROM Room r WHERE r.roomStatus = 'available'");
-        availableRooms = query.getResultList();
-        logging.setMessage("RoomDaoImpl -> Fetched all available rooms successfully.");
-    } catch (Exception e) {
-        logging.setMessage("RoomDaoImpl Error -> " + e.getLocalizedMessage());
-    }
-    return availableRooms;
+    public List<Room> getAllAvailableRooms() {
+        List<Room> availableRooms = null;
+        try {
+            // Update the query to check for Room_Status
+            Query query = entityManager.createQuery("SELECT r FROM Room r WHERE r.roomStatus = 'available'");
+            availableRooms = query.getResultList();
+            logging.setMessage("RoomDaoImpl -> Fetched all available rooms successfully.");
+        } catch (Exception e) {
+            logging.setMessage("RoomDaoImpl Error -> " + e.getLocalizedMessage());
+        }
+        return availableRooms;
 }
+
+@Override
+    public void saveRoom(Room room) {
+        try {
+            entityManager.persist(room);
+            logging.setMessage("RoomDaoImpl -> Room saved successfully.");
+        } catch (Exception e) {
+            logging.setMessage("RoomDaoImpl Error -> " + e.getLocalizedMessage());
+        }
+    }
 
 }
