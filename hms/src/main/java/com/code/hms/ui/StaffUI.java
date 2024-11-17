@@ -20,6 +20,7 @@ public class StaffUI {
     static JButton main_menu;
     static JLabel available_unavailable;
     static JLabel cleaned_uncleaned;
+    static JComboBox adminRoomMenu;
     static JButton RoomManagementTab;
     static JButton ReservationTab;
     static JButton CurrencyExchangeTab;
@@ -169,6 +170,7 @@ public class StaffUI {
                 FinancialTab.setForeground(new Color(245, 242, 233));
                 UsersTab.setForeground(new Color(245, 242, 233));
 
+                adminRoomMenu.setSelectedItem("Availability");
                 addRoomTabComponents();
                 addAdminRoomMenu();
             }
