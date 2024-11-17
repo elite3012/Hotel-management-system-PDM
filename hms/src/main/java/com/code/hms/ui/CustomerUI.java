@@ -38,6 +38,26 @@ public class CustomerUI {
     static JTextField RestaurantPhoneNumber;
     static JTextField RestaurantEmail;
 
+    static JLabel RoomCleaningEnterBoxFName;
+    static JLabel RoomCleaningEnterBoxLName;
+    static JLabel RoomCleaningEnterBoxPNumber;
+    static JLabel RoomCleaningEnterBoxEmail;
+
+    static JTextField RoomCleaningFirstName;
+    static JTextField RoomCleaningLastName;
+    static JTextField RoomCleaningPhoneNumber;
+    static JTextField RoomCleaningEmail;
+
+    static JLabel MusicLoungeEnterBoxFName;
+    static JLabel MusicLoungeEnterBoxLName;
+    static JLabel MusicLoungeEnterBoxPNumber;
+    static JLabel MusicLoungeEnterBoxEmail;
+
+    static JTextField MusicLoungeFirstName;
+    static JTextField MusicLoungeLastName;
+    static JTextField MusicLoungePhoneNumber;
+    static JTextField MusicLoungeEmail;
+
     static JLabel ServiceMenu;
     static JLabel SpaCenter;
     static JLabel CustomerInfo;
@@ -56,6 +76,8 @@ public class CustomerUI {
         createMainGUI();
         CreateSpaInfoBox();
         CreateRestaurantInfoBox();
+        CreateRoomCleaningInfoBox();
+        CreateMusicLoungeInfoBox();
     }
 
     private void createMainGUI() {
@@ -119,55 +141,6 @@ public class CustomerUI {
         OurHotelTab.setVisible(true);
         new Interaction(OurHotelTab, true);
         panel.add(OurHotelTab);
-        OurHotelTab.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Tab1_background.setVisible(true);
-                Tab2_background.setVisible(false);
-                Tab3_background.setVisible(false);
-                Tab4_background.setVisible(false);
-                ServiceMenu.setVisible(false);
-                Spa.setVisible(false);
-                Restaurant.setVisible(false);
-                RoomCleaning.setVisible(false);
-                MusicLounge.setVisible(false);
-                OurHotelTab.setBackground(new Color(244, 242, 235));
-                RoomTab.setBackground(new Color(132, 121, 102));
-                ServiceTab.setBackground(new Color(132, 121, 102));
-                ReviewTab.setBackground(new Color(132, 121, 102));
-                OurHotelTab.setForeground(new Color(43, 42, 38));
-                RoomTab.setForeground(new Color(245, 242, 233));
-                ServiceTab.setForeground(new Color(245, 242, 233));
-                ReviewTab.setForeground(new Color(245, 242, 233));
-
-                SpaCenter.setVisible(false);
-                CustomerInfo.setVisible(false);
-
-                SpaFirstName.setVisible(false);
-                SpaLastName.setVisible(false);
-                SpaPhoneNumber.setVisible(false);
-                SpaEmail.setVisible(false);
-
-                SpaEnterBoxFName.setVisible(false);
-                SpaEnterBoxLName.setVisible(false);
-                SpaEnterBoxPNumber.setVisible(false);
-                SpaEnterBoxEmail.setVisible(false);
-
-                RestaurantFirstName.setVisible(false);
-                RestaurantLastName.setVisible(false);
-                RestaurantPhoneNumber.setVisible(false);
-                RestaurantEmail.setVisible(false);
-
-                RestaurantEnterBoxFName.setVisible(false);
-                RestaurantEnterBoxLName.setVisible(false);
-                RestaurantEnterBoxPNumber.setVisible(false);
-                RestaurantEnterBoxEmail.setVisible(false);
-
-                FNamePosition.setVisible(false);
-                LNamePosition.setVisible (false);
-                PNumberPosition.setVisible(false);
-                EmailPosition.setVisible(false);
-            }
         });
 
         // ReservationTab setup
@@ -700,5 +673,121 @@ public class CustomerUI {
         RestaurantEmail.setBackground(new Color(244, 242, 235));
         RestaurantEmail.setVisible(false);
         RestaurantEmail.setBorder(null);
+    }
+
+    public void CreateRoomCleaningInfoBox() {
+        //box for first name
+        RoomCleaningEnterBoxFName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        RoomCleaningEnterBoxFName.setBounds(350, 200, 300, 30);
+        panel.add(RoomCleaningEnterBoxFName);
+        panel.setComponentZOrder(RoomCleaningEnterBoxFName, 0); // Brings it to the top of the component stack
+        RoomCleaningEnterBoxFName.setVisible(false);
+
+        RoomCleaningFirstName = new JTextField();
+        panel.add(RoomCleaningFirstName);
+        RoomCleaningFirstName.setBounds(352, 201, 295, 28);
+        RoomCleaningFirstName.setBackground(new Color(244, 242, 235));
+        RoomCleaningFirstName.setVisible(false);
+        RoomCleaningFirstName.setBorder(null);
+
+        //box for last name
+        RoomCleaningEnterBoxLName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        RoomCleaningEnterBoxLName.setBounds(750, 200, 300, 30);
+        panel.add(RoomCleaningEnterBoxLName);
+        panel.setComponentZOrder(RoomCleaningEnterBoxLName, 0); // Brings it to the top of the component stack
+        RoomCleaningEnterBoxLName.setVisible(false);
+
+        RoomCleaningLastName = new JTextField();
+        panel.add(RoomCleaningLastName);
+        RoomCleaningLastName.setBounds(752, 201, 295, 28);
+        RoomCleaningLastName.setBackground(new Color(244, 242, 235));
+        RoomCleaningLastName.setVisible(false);
+        RoomCleaningLastName.setBorder(null);
+
+        //box for phone number
+        RoomCleaningEnterBoxPNumber = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        RoomCleaningEnterBoxPNumber.setBounds(350, 280, 300, 30);
+        panel.add(RoomCleaningEnterBoxPNumber);
+        panel.setComponentZOrder(RoomCleaningEnterBoxPNumber, 0); // Brings it to the top of the component stack
+        RoomCleaningEnterBoxPNumber.setVisible(false);
+
+        RoomCleaningPhoneNumber = new JTextField();
+        panel.add(RoomCleaningPhoneNumber);
+        RoomCleaningPhoneNumber.setBounds(352, 281, 295, 28);
+        RoomCleaningPhoneNumber.setBackground(new Color(244, 242, 235));
+        RoomCleaningPhoneNumber.setVisible(false);
+        RoomCleaningPhoneNumber.setBorder(null);
+
+        //box for email
+        RoomCleaningEnterBoxEmail = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        RoomCleaningEnterBoxEmail.setBounds(750, 280, 300, 30);
+        panel.add(RoomCleaningEnterBoxEmail);
+        panel.setComponentZOrder(RoomCleaningEnterBoxEmail, 0); // Brings it to the top of the component stack
+        RoomCleaningEnterBoxEmail.setVisible(false);
+
+        RoomCleaningEmail = new JTextField();
+        panel.add(RoomCleaningEmail);
+        RoomCleaningEmail.setBounds(752, 281, 295, 28);
+        RoomCleaningEmail.setBackground(new Color(244, 242, 235));
+        RoomCleaningEmail.setVisible(false);
+        RoomCleaningEmail.setBorder(null);
+    }
+
+    public void CreateMusicLoungeInfoBox() {
+        //box for first name
+        MusicLoungeEnterBoxFName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        MusicLoungeEnterBoxFName.setBounds(350, 200, 300, 30);
+        panel.add(MusicLoungeEnterBoxFName);
+        panel.setComponentZOrder(MusicLoungeEnterBoxFName, 0); // Brings it to the top of the component stack
+        MusicLoungeEnterBoxFName.setVisible(false);
+
+        MusicLoungeFirstName = new JTextField();
+        panel.add(MusicLoungeFirstName);
+        MusicLoungeFirstName.setBounds(352, 201, 295, 28);
+        MusicLoungeFirstName.setBackground(new Color(244, 242, 235));
+        MusicLoungeFirstName.setVisible(false);
+        MusicLoungeFirstName.setBorder(null);
+
+        //box for last name
+        MusicLoungeEnterBoxLName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        MusicLoungeEnterBoxLName.setBounds(750, 200, 300, 30);
+        panel.add(MusicLoungeEnterBoxLName);
+        panel.setComponentZOrder(MusicLoungeEnterBoxLName, 0); // Brings it to the top of the component stack
+        MusicLoungeEnterBoxLName.setVisible(false);
+
+        MusicLoungeLastName = new JTextField();
+        panel.add(MusicLoungeLastName);
+        MusicLoungeLastName.setBounds(752, 201, 295, 28);
+        MusicLoungeLastName.setBackground(new Color(244, 242, 235));
+        MusicLoungeLastName.setVisible(false);
+        MusicLoungeLastName.setBorder(null);
+
+        //box for phone number
+        MusicLoungeEnterBoxPNumber = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        MusicLoungeEnterBoxPNumber.setBounds(350, 280, 300, 30);
+        panel.add(MusicLoungeEnterBoxPNumber);
+        panel.setComponentZOrder(MusicLoungeEnterBoxPNumber, 0); // Brings it to the top of the component stack
+        MusicLoungeEnterBoxPNumber.setVisible(false);
+
+        MusicLoungePhoneNumber = new JTextField();
+        panel.add(MusicLoungePhoneNumber);
+        MusicLoungePhoneNumber.setBounds(352, 281, 295, 28);
+        MusicLoungePhoneNumber.setBackground(new Color(244, 242, 235));
+        MusicLoungePhoneNumber.setVisible(false);
+        MusicLoungePhoneNumber.setBorder(null);
+
+        //box for email
+        MusicLoungeEnterBoxEmail = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        MusicLoungeEnterBoxEmail.setBounds(750, 280, 300, 30);
+        panel.add(MusicLoungeEnterBoxEmail);
+        panel.setComponentZOrder(MusicLoungeEnterBoxEmail, 0); // Brings it to the top of the component stack
+        MusicLoungeEnterBoxEmail.setVisible(false);
+
+        MusicLoungeEmail = new JTextField();
+        panel.add(MusicLoungeEmail);
+        MusicLoungeEmail.setBounds(752, 281, 295, 28);
+        MusicLoungeEmail.setBackground(new Color(244, 242, 235));
+        MusicLoungeEmail.setVisible(false);
+        MusicLoungeEmail.setBorder(null);
     }
 }
