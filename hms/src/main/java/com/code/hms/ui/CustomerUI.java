@@ -1,7 +1,5 @@
 package com.code.hms.ui;
 
-import com.code.hms.entities.Customer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,25 +12,41 @@ public class CustomerUI {
     static JButton RoomTab;
     static JButton ServiceTab;
     static JButton ReviewTab;
+
     static JLabel Tab1_background;
     static JLabel Tab2_background;
     static JLabel Tab3_background;
     static JLabel Tab4_background;
-    static JLabel EnterBoxFName;
-    static JLabel EnterBoxLName;
-    static JLabel EnterBoxPNumber;
-    static JLabel EnterBoxEmail;
+
+    static JLabel SpaEnterBoxFName;
+    static JLabel SpaEnterBoxLName;
+    static JLabel SpaEnterBoxPNumber;
+    static JLabel SpaEnterBoxEmail;
+
+    static JTextField SpaFirstName;
+    static JTextField SpaLastName;
+    static JTextField SpaPhoneNumber;
+    static JTextField SpaEmail;
+
+    static JLabel RestaurantEnterBoxFName;
+    static JLabel RestaurantEnterBoxLName;
+    static JLabel RestaurantEnterBoxPNumber;
+    static JLabel RestaurantEnterBoxEmail;
+
+    static JTextField RestaurantFirstName;
+    static JTextField RestaurantLastName;
+    static JTextField RestaurantPhoneNumber;
+    static JTextField RestaurantEmail;
+
     static JLabel ServiceMenu;
     static JLabel SpaCenter;
     static JLabel CustomerInfo;
+
     static JButton Spa;
     static JButton Restaurant;
     static JButton RoomCleaning;
     static JButton MusicLounge;
-    static JTextField FirstName;
-    static JTextField LastName;
-    static JTextField PhoneNumber;
-    static JTextField Email;
+
     static JLabel FNamePosition;
     static JLabel LNamePosition;
     static JLabel PNumberPosition;
