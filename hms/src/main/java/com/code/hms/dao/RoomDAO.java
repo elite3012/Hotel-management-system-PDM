@@ -19,20 +19,17 @@ public interface RoomDAO {
 	// Show all the room (including both empty and not empty)
 	public List<Room> getAllRooms();
 
-	// Find room by entering reservation id
-	public Room getRoomByReserveId(long id);
-
-	// Set room empty after check out
-	public void setRoomCheckedOut(String num);
+	// Set room availability after check out
+	public void setRoomCheckedOut(int reservationId);
 
 	// Set Clean
 	public void setAllRoomsAtClean(String clean);
-	public void setSingleRoomAsCleanByRoomNumber(String rowData);
+	public void setSingleRoomAsCleanByRoomID(int roomId);
 	
 	// Set Dirty
 	public void setAllRoomsAtDirty(String dirty);
-	public void setSingleRoomAsDirtyByRoomNumber(String roomNumber);
+	public void setSingleRoomAsDirtyByRoomID(int roomId);
 
 	// Set DND
-	public void setSingleRoomAsDNDByRoomNumber(String roomNumber);
+	public void setSingleRoomAsDNDByRoomID(int roomId);
 }
