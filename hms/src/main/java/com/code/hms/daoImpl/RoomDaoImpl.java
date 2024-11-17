@@ -66,4 +66,17 @@ public class RoomDaoImpl implements RoomDAO {
         }
     }
 
+@Override
+    public List<Room> getAllRooms() {
+        List<Room> rooms = null;
+        try {
+            Query query = entityManager.createQuery("SELECT r FROM Room r");
+            rooms = query.getResultList();
+            logging.setMessage("RoomDaoImpl -> Fetched all rooms successfully.");
+        } catch (Exception e) {
+            logging.setMessage("RoomDaoImpl Error -> " + e.getLocalizedMessage());
+        }
+        return rooms;
+    }
+
 }
