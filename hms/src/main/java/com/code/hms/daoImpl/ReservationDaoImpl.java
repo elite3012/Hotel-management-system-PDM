@@ -38,4 +38,16 @@ public class ReservationDaoImpl implements ReservationDAO {
             logging.setMessage("ReservationDAOImpl Error -> " + e.getLocalizedMessage());
         }
     }
+
+    @Override
+    public void updateReservation(Reservation reservation) {
+        try {
+            entityManager.merge(reservation);
+            logging.setMessage("ReservationDAOImpl -> reservation updated successfully.");
+        } catch (Exception e) {
+            logging.setMessage("ReservationDAOImpl Error -> " + e.getLocalizedMessage());
+        }
+    }
+
+    
 }
