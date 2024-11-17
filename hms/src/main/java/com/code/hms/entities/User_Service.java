@@ -56,7 +56,7 @@ class User_Service_Pk implements Serializable {
 }
 
 @Entity
-@Table(name="User_Service")
+@Table(name="Service_Order")
 public class User_Service {
 
     @EmbeddedId
