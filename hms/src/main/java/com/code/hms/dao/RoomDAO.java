@@ -6,6 +6,9 @@ import com.code.hms.entities.Room;
 public interface RoomDAO {
 	// Find room by room number
 	public Room getRoomByRoomNumber(String roomNumber);
+
+	// Find  all available rooms
+	public List<Room> getAllAvailableRooms();
 	
 	// Save to database
 	public void saveRoom(Room room);
