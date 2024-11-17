@@ -62,6 +62,7 @@ public class CustomerUI {
     static JLabel RoomCleaningCenter;
     static JLabel MusicLoungeCenter;
     static JLabel CustomerInfo;
+    static JLabel BookingInformation;
 
     static JButton Spa;
     static JButton Restaurant;
@@ -166,6 +167,7 @@ public class CustomerUI {
             RoomCleaningCenter.setVisible(false);
             MusicLoungeCenter.setVisible(false);
             CustomerInfo.setVisible(false);
+            BookingInformation.setVisible(false);
 
             SpaFirstName.setVisible(false);
             SpaLastName.setVisible(false);
@@ -251,6 +253,7 @@ public class CustomerUI {
             RoomCleaningCenter.setVisible(false);
             MusicLoungeCenter.setVisible(false);
             CustomerInfo.setVisible(false);
+            BookingInformation.setVisible(false);
 
             SpaFirstName.setVisible(false);
             SpaLastName.setVisible(false);
@@ -323,6 +326,14 @@ public class CustomerUI {
         CustomerInfo.setVisible(false);
         panel.add(CustomerInfo);
 
+        BookingInformation = new JLabel();
+        BookingInformation.setText("II. BOOKING INFORMATION");
+        BookingInformation.setFont(new Font("Mulish", Font.BOLD, 33));
+        BookingInformation.setBounds(310, 330, 500, 33);
+        BookingInformation.setForeground(new Color(136, 120, 81));
+        BookingInformation.setVisible(false);
+        panel.add(BookingInformation);
+
         Spa = new JButton();
         Spa.setFocusable(false);
         Spa.setBackground(new Color(217, 217, 217));
@@ -348,6 +359,7 @@ public class CustomerUI {
             ServiceMenu.setVisible(false);
             SpaCenter.setVisible(true);
             CustomerInfo.setVisible(true);
+            BookingInformation.setVisible(true);
 
             SpaEnterBoxFName.setVisible(true);
             SpaEnterBoxLName.setVisible(true);
@@ -415,6 +427,7 @@ public class CustomerUI {
             MusicLounge.setVisible((false));
 
             CustomerInfo.setVisible(true);
+            BookingInformation.setVisible(true);
             RestaurantCenter.setVisible(true);
             ServiceMenu.setVisible(false);
 
@@ -489,6 +502,7 @@ public class CustomerUI {
             MusicLounge.setVisible((false));
 
             CustomerInfo.setVisible(true);
+            BookingInformation.setVisible(true);
             RoomCleaningCenter.setVisible(true);
             ServiceMenu.setVisible(false);
 
@@ -563,6 +577,7 @@ public class CustomerUI {
             MusicLounge.setVisible((false));
 
             CustomerInfo.setVisible(true);
+            BookingInformation.setVisible(true);
             MusicLoungeCenter.setVisible(true);
             ServiceMenu.setVisible(false);
 
@@ -646,6 +661,7 @@ public class CustomerUI {
 
             SpaCenter.setVisible(false);
             CustomerInfo.setVisible(false);
+            BookingInformation.setVisible(false);
             RestaurantCenter.setVisible(false);
             RoomCleaningCenter.setVisible(false);
             MusicLoungeCenter.setVisible(false);
@@ -733,6 +749,7 @@ public class CustomerUI {
             RoomCleaningCenter.setVisible(false);
             MusicLoungeCenter.setVisible(false);
             CustomerInfo.setVisible(false);
+            BookingInformation.setVisible(false);
 
             SpaFirstName.setVisible(false);
             SpaLastName.setVisible(false);
