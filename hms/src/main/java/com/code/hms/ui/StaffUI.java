@@ -204,6 +204,7 @@ public class StaffUI {
 
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
+                removeRoomCleaningTabComponents();
             }
         });
 
@@ -231,7 +232,7 @@ public class StaffUI {
 
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
-                //removeRoomCleaningTabComponents();
+                removeRoomCleaningTabComponents();
             }
         });
 
@@ -259,7 +260,7 @@ public class StaffUI {
 
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
-                //removeRoomCleaningTabComponents();
+                removeRoomCleaningTabComponents();
             }
         });
 
@@ -287,7 +288,7 @@ public class StaffUI {
 
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
-                //removeRoomCleaningTabComponents();
+                removeRoomCleaningTabComponents();
             }
         });
         addRoomPanel();
