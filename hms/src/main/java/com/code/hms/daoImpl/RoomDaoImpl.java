@@ -128,6 +128,20 @@ public class RoomDaoImpl implements RoomDAO {
             logging.setMessage("RoomDaoImpl Error -> " + e.getLocalizedMessage());
         }
     }
+
+@Override
+    public void setAllRoomsAtDirty(String dirty) {
+        try {
+            Query query = entityManager.createQuery(
+                "UPDATE Room r SET r.cleaningStatus = :dirty"
+            );
+            query.setParameter("dirty", dirty);
+            int rowsUpdated = query.executeUpdate();
+            logging.setMessage("RoomDaoImpl -> Successfully set all rooms as dirty.");
+        } catch (Exception e) {
+            logging.setMessage("RoomDaoImpl Error -> " + e.getLocalizedMessage());
+        }
+    }    
 }
 
 
