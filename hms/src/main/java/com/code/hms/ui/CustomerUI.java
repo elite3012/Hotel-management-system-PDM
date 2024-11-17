@@ -54,7 +54,8 @@ public class CustomerUI {
 
     public CustomerUI() {
         createMainGUI();
-        CreateEnterInfoBox();
+        CreateSpaInfoBox();
+        CreateRestaurantInfoBox();
     }
 
     private void createMainGUI() {
@@ -152,6 +153,15 @@ public class CustomerUI {
                 SpaEnterBoxPNumber.setVisible(false);
                 SpaEnterBoxEmail.setVisible(false);
 
+                RestaurantFirstName.setVisible(false);
+                RestaurantLastName.setVisible(false);
+                RestaurantPhoneNumber.setVisible(false);
+                RestaurantEmail.setVisible(false);
+
+                RestaurantEnterBoxFName.setVisible(false);
+                RestaurantEnterBoxLName.setVisible(false);
+                RestaurantEnterBoxPNumber.setVisible(false);
+                RestaurantEnterBoxEmail.setVisible(false);
 
                 FNamePosition.setVisible(false);
                 LNamePosition.setVisible (false);
@@ -197,14 +207,6 @@ public class CustomerUI {
 
                 SpaCenter.setVisible(false);
                 CustomerInfo.setVisible(false);
-                FirstName.setVisible(false);
-                LastName.setVisible(false);
-                PhoneNumber.setVisible(false);
-                Email.setVisible(false);
-                EnterBoxFName.setVisible(false);
-                EnterBoxLName.setVisible(false);
-                EnterBoxPNumber.setVisible(false);
-                EnterBoxEmail.setVisible(false);
 
                 SpaFirstName.setVisible(false);
                 SpaLastName.setVisible(false);
@@ -216,6 +218,15 @@ public class CustomerUI {
                 SpaEnterBoxPNumber.setVisible(false);
                 SpaEnterBoxEmail.setVisible(false);
 
+                RestaurantFirstName.setVisible(false);
+                RestaurantLastName.setVisible(false);
+                RestaurantPhoneNumber.setVisible(false);
+                RestaurantEmail.setVisible(false);
+
+                RestaurantEnterBoxFName.setVisible(false);
+                RestaurantEnterBoxLName.setVisible(false);
+                RestaurantEnterBoxPNumber.setVisible(false);
+                RestaurantEnterBoxEmail.setVisible(false);
 
                 FNamePosition.setVisible(false);
                 LNamePosition.setVisible (false);
@@ -287,6 +298,15 @@ public class CustomerUI {
                 SpaPhoneNumber.setVisible(true);
                 SpaEmail.setVisible(true);
 
+                RestaurantFirstName.setVisible(false);
+                RestaurantLastName.setVisible(false);
+                RestaurantPhoneNumber.setVisible(false);
+                RestaurantEmail.setVisible(false);
+
+                RestaurantEnterBoxFName.setVisible(false);
+                RestaurantEnterBoxLName.setVisible(false);
+                RestaurantEnterBoxPNumber.setVisible(false);
+                RestaurantEnterBoxEmail.setVisible(false);
             }
         });
 
@@ -308,8 +328,27 @@ public class CustomerUI {
                 RoomCleaning.setVisible(false);
                 MusicLounge.setVisible((false));
 
-                CustomerInfo.setVisible(false);
+                CustomerInfo.setVisible(true);
 
+                SpaFirstName.setVisible(false);
+                SpaLastName.setVisible(false);
+                SpaPhoneNumber.setVisible(false);
+                SpaEmail.setVisible(false);
+
+                RestaurantFirstName.setVisible(true);
+                RestaurantLastName.setVisible(true);
+                RestaurantPhoneNumber.setVisible(true);
+                RestaurantEmail.setVisible(true);
+
+                RestaurantEnterBoxFName.setVisible(true);
+                RestaurantEnterBoxLName.setVisible(true);
+                RestaurantEnterBoxPNumber.setVisible(true);
+                RestaurantEnterBoxEmail.setVisible(true);
+
+                FNamePosition.setVisible(true);
+                LNamePosition.setVisible (true);
+                PNumberPosition.setVisible(true);
+                EmailPosition.setVisible(true);
             }
         });
 
@@ -331,18 +370,27 @@ public class CustomerUI {
                 RoomCleaning.setVisible(false);
                 MusicLounge.setVisible((false));
 
-                CustomerInfo.setVisible(false);
+                CustomerInfo.setVisible(true);
 
                 SpaFirstName.setVisible(false);
                 SpaLastName.setVisible(false);
                 SpaPhoneNumber.setVisible(false);
                 SpaEmail.setVisible(false);
 
-                RestaurantFirstName.setVisible(true);
-                RestaurantLastName.setVisible(true);
-                RestaurantPhoneNumber.setVisible(true);
-                RestaurantEmail.setVisible(true);
+                RestaurantFirstName.setVisible(false);
+                RestaurantLastName.setVisible(false);
+                RestaurantPhoneNumber.setVisible(false);
+                RestaurantEmail.setVisible(false);
 
+                RestaurantEnterBoxFName.setVisible(false);
+                RestaurantEnterBoxLName.setVisible(false);
+                RestaurantEnterBoxPNumber.setVisible(false);
+                RestaurantEnterBoxEmail.setVisible(false);
+
+                FNamePosition.setVisible(true);
+                LNamePosition.setVisible (true);
+                PNumberPosition.setVisible(true);
+                EmailPosition.setVisible(true);
             }
         });
 
@@ -364,13 +412,27 @@ public class CustomerUI {
                 RoomCleaning.setVisible(false);
                 MusicLounge.setVisible((false));
 
-                CustomerInfo.setVisible(false);
+                CustomerInfo.setVisible(true);
 
                 SpaFirstName.setVisible(false);
                 SpaLastName.setVisible(false);
                 SpaPhoneNumber.setVisible(false);
                 SpaEmail.setVisible(false);
 
+                RestaurantFirstName.setVisible(false);
+                RestaurantLastName.setVisible(false);
+                RestaurantPhoneNumber.setVisible(false);
+                RestaurantEmail.setVisible(false);
+
+                RestaurantEnterBoxFName.setVisible(false);
+                RestaurantEnterBoxLName.setVisible(false);
+                RestaurantEnterBoxPNumber.setVisible(false);
+                RestaurantEnterBoxEmail.setVisible(false);
+
+                FNamePosition.setVisible(true);
+                LNamePosition.setVisible (true);
+                PNumberPosition.setVisible(true);
+                EmailPosition.setVisible(true);
             }
         });
 
@@ -421,6 +483,15 @@ public class CustomerUI {
                 SpaEnterBoxPNumber.setVisible(false);
                 SpaEnterBoxEmail.setVisible(false);
 
+                RestaurantFirstName.setVisible(false);
+                RestaurantLastName.setVisible(false);
+                RestaurantPhoneNumber.setVisible(false);
+                RestaurantEmail.setVisible(false);
+
+                RestaurantEnterBoxFName.setVisible(false);
+                RestaurantEnterBoxLName.setVisible(false);
+                RestaurantEnterBoxPNumber.setVisible(false);
+                RestaurantEnterBoxEmail.setVisible(false);
 
                 FNamePosition.setVisible(false);
                 LNamePosition.setVisible (false);
@@ -476,6 +547,15 @@ public class CustomerUI {
                 SpaEnterBoxPNumber.setVisible(false);
                 SpaEnterBoxEmail.setVisible(false);
 
+                RestaurantFirstName.setVisible(false);
+                RestaurantLastName.setVisible(false);
+                RestaurantPhoneNumber.setVisible(false);
+                RestaurantEmail.setVisible(false);
+
+                RestaurantEnterBoxFName.setVisible(false);
+                RestaurantEnterBoxLName.setVisible(false);
+                RestaurantEnterBoxPNumber.setVisible(false);
+                RestaurantEnterBoxEmail.setVisible(false);
 
                 FNamePosition.setVisible(false);
                 LNamePosition.setVisible (false);
@@ -563,60 +643,62 @@ public class CustomerUI {
         SpaEmail.setVisible(false);
         SpaEmail.setBorder(null);
     }
-        //box for first name
-        EnterBoxFName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
-        EnterBoxFName.setBounds(350, 200, 300, 30);
-        panel.add(EnterBoxFName);
-        panel.setComponentZOrder(EnterBoxFName, 0); // Brings it to the top of the component stack
-        EnterBoxFName.setVisible(false);
 
-        FirstName = new JTextField();
-        panel.add(FirstName);
-        FirstName.setBounds(352, 201, 295, 28);
-        FirstName.setBackground(new Color(244, 242, 235));
-        FirstName.setVisible(false);
-        FirstName.setBorder(null);
+    public void CreateRestaurantInfoBox() {
+        //box for first name
+        RestaurantEnterBoxFName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        RestaurantEnterBoxFName.setBounds(350, 200, 300, 30);
+        panel.add(RestaurantEnterBoxFName);
+        panel.setComponentZOrder(RestaurantEnterBoxFName, 0); // Brings it to the top of the component stack
+        RestaurantEnterBoxFName.setVisible(false);
+
+        RestaurantFirstName = new JTextField();
+        panel.add(RestaurantFirstName);
+        RestaurantFirstName.setBounds(352, 201, 295, 28);
+        RestaurantFirstName.setBackground(new Color(244, 242, 235));
+        RestaurantFirstName.setVisible(false);
+        RestaurantFirstName.setBorder(null);
 
         //box for last name
-        EnterBoxLName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
-        EnterBoxLName.setBounds(750, 200, 300, 30);
-        panel.add(EnterBoxLName);
-        panel.setComponentZOrder(EnterBoxLName, 0); // Brings it to the top of the component stack
-        EnterBoxLName.setVisible(false);
+        RestaurantEnterBoxLName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        RestaurantEnterBoxLName.setBounds(750, 200, 300, 30);
+        panel.add(RestaurantEnterBoxLName);
+        panel.setComponentZOrder(RestaurantEnterBoxLName, 0); // Brings it to the top of the component stack
+        RestaurantEnterBoxLName.setVisible(false);
 
-        LastName = new JTextField();
-        panel.add(LastName);
-        LastName.setBounds(752, 201, 295, 28);
-        LastName.setBackground(new Color(244, 242, 235));
-        LastName.setVisible(false);
-        LastName.setBorder(null);
+        RestaurantLastName = new JTextField();
+        panel.add(RestaurantLastName);
+        RestaurantLastName.setBounds(752, 201, 295, 28);
+        RestaurantLastName.setBackground(new Color(244, 242, 235));
+        RestaurantLastName.setVisible(false);
+        RestaurantLastName.setBorder(null);
 
         //box for phone number
-        EnterBoxPNumber = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
-        EnterBoxPNumber.setBounds(350, 280, 300, 30);
-        panel.add(EnterBoxPNumber);
-        panel.setComponentZOrder(EnterBoxPNumber, 0); // Brings it to the top of the component stack
-        EnterBoxPNumber.setVisible(false);
+        RestaurantEnterBoxPNumber = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        RestaurantEnterBoxPNumber.setBounds(350, 280, 300, 30);
+        panel.add(RestaurantEnterBoxPNumber);
+        panel.setComponentZOrder(RestaurantEnterBoxPNumber, 0); // Brings it to the top of the component stack
+        RestaurantEnterBoxPNumber.setVisible(false);
 
-        PhoneNumber = new JTextField();
-        panel.add(PhoneNumber);
-        PhoneNumber.setBounds(352, 281, 295, 28);
-        PhoneNumber.setBackground(new Color(244, 242, 235));
-        PhoneNumber.setVisible(false);
-        PhoneNumber.setBorder(null);
+        RestaurantPhoneNumber = new JTextField();
+        panel.add(RestaurantPhoneNumber);
+        RestaurantPhoneNumber.setBounds(352, 281, 295, 28);
+        RestaurantPhoneNumber.setBackground(new Color(244, 242, 235));
+        RestaurantPhoneNumber.setVisible(false);
+        RestaurantPhoneNumber.setBorder(null);
 
         //box for email
-        EnterBoxEmail = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
-        EnterBoxEmail.setBounds(750, 280, 300, 30);
-        panel.add(EnterBoxEmail);
-        panel.setComponentZOrder(EnterBoxEmail, 0); // Brings it to the top of the component stack
-        EnterBoxEmail.setVisible(false);
+        RestaurantEnterBoxEmail = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        RestaurantEnterBoxEmail.setBounds(750, 280, 300, 30);
+        panel.add(RestaurantEnterBoxEmail);
+        panel.setComponentZOrder(RestaurantEnterBoxEmail, 0); // Brings it to the top of the component stack
+        RestaurantEnterBoxEmail.setVisible(false);
 
-        Email = new JTextField();
-        panel.add(Email);
-        Email.setBounds(752, 281, 295, 28);
-        Email.setBackground(new Color(244, 242, 235));
-        Email.setVisible(false);
-        Email.setBorder(null);
+        RestaurantEmail = new JTextField();
+        panel.add(RestaurantEmail);
+        RestaurantEmail.setBounds(752, 281, 295, 28);
+        RestaurantEmail.setBackground(new Color(244, 242, 235));
+        RestaurantEmail.setVisible(false);
+        RestaurantEmail.setBorder(null);
     }
 }
