@@ -79,4 +79,21 @@ public class RoomDaoImpl implements RoomDAO {
         return rooms;
     }
 
+@Override
+    public void setRoomCheckedOut(int reservationId) {
+        try {
+            Query query = entityManager.createQuery(
+                "UPDATE Room r SET r.roomStatus = 'Available' WHERE r.roomId = (SELECT res.roomId FROM Reservation res WHERE res.reservationId = :reservationId)"
+            );
+            query.setParameter("reservationId", reservationId);
+            int rowsUpdated = query.executeUpdate();
+            if (rowsUpdated > 0) {
+                logging.setMessage("RoomDaoImpl -> Successfully updated room to available after checkout.");
+            } else {
+                logging.setMessage("RoomDaoImpl -> No room found for the provided reservation ID.");
+            }
+        } catch (Exception e) {
+            logging.setMessage("RoomDaoImpl Error -> " + e.getLocalizedMessage());
+        }
+    }
 }
