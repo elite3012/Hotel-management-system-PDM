@@ -427,9 +427,9 @@ public class StaffUI {
         FinancialTab.setFocusable(false);
         FinancialTab.setBackground(new Color(132, 121, 102));
         FinancialTab.setBorderPainted(false);
-        FinancialTab.setText("SERVICE ORDERS");
+        FinancialTab.setText("FINANCIAL DATA");
         FinancialTab.setFont(new Font("Mulish", Font.BOLD, 21));
-        FinancialTab.setBounds(16, 256, 235, 33);
+        FinancialTab.setBounds(16, 253, 235, 33);
         FinancialTab.setForeground(new Color(245, 242, 233));
         FinancialTab.setHorizontalTextPosition(SwingConstants.LEFT);
         FinancialTab.setHorizontalAlignment(SwingConstants.LEFT);
@@ -443,9 +443,9 @@ public class StaffUI {
         UsersTab.setFocusable(false);
         UsersTab.setBackground(new Color(132, 121, 102));
         UsersTab.setBorderPainted(false);
-        UsersTab.setText("SERVICE ORDERS");
+        UsersTab.setText("USERS");
         UsersTab.setFont(new Font("Mulish", Font.BOLD, 21));
-        UsersTab.setBounds(16, 303, 235, 33);
+        UsersTab.setBounds(16, 300, 235, 33);
         UsersTab.setForeground(new Color(245, 242, 233));
         UsersTab.setHorizontalTextPosition(SwingConstants.LEFT);
         UsersTab.setHorizontalAlignment(SwingConstants.LEFT);
