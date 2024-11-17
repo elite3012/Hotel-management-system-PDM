@@ -141,14 +141,17 @@ public class CustomerUI {
 
                 SpaCenter.setVisible(false);
                 CustomerInfo.setVisible(false);
-                FirstName.setVisible(false);
-                LastName.setVisible(false);
-                PhoneNumber.setVisible(false);
-                Email.setVisible(false);
-                EnterBoxFName.setVisible(false);
-                EnterBoxLName.setVisible(false);
-                EnterBoxPNumber.setVisible(false);
-                EnterBoxEmail.setVisible(false);
+
+                SpaFirstName.setVisible(false);
+                SpaLastName.setVisible(false);
+                SpaPhoneNumber.setVisible(false);
+                SpaEmail.setVisible(false);
+
+                SpaEnterBoxFName.setVisible(false);
+                SpaEnterBoxLName.setVisible(false);
+                SpaEnterBoxPNumber.setVisible(false);
+                SpaEnterBoxEmail.setVisible(false);
+
 
                 FNamePosition.setVisible(false);
                 LNamePosition.setVisible (false);
@@ -203,6 +206,17 @@ public class CustomerUI {
                 EnterBoxPNumber.setVisible(false);
                 EnterBoxEmail.setVisible(false);
 
+                SpaFirstName.setVisible(false);
+                SpaLastName.setVisible(false);
+                SpaPhoneNumber.setVisible(false);
+                SpaEmail.setVisible(false);
+
+                SpaEnterBoxFName.setVisible(false);
+                SpaEnterBoxLName.setVisible(false);
+                SpaEnterBoxPNumber.setVisible(false);
+                SpaEnterBoxEmail.setVisible(false);
+
+
                 FNamePosition.setVisible(false);
                 LNamePosition.setVisible (false);
                 PNumberPosition.setVisible(false);
@@ -244,11 +258,6 @@ public class CustomerUI {
         Spa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EnterBoxFName.setVisible(true);
-                EnterBoxLName.setVisible(true);
-                EnterBoxPNumber.setVisible(true);
-                EnterBoxEmail.setVisible(true);
-
                 FNamePosition.setVisible(true);
                 LNamePosition.setVisible (true);
                 PNumberPosition.setVisible(true);
@@ -267,10 +276,17 @@ public class CustomerUI {
                 ServiceMenu.setVisible(false);
                 SpaCenter.setVisible(true);
                 CustomerInfo.setVisible(true);
-                FirstName.setVisible(true);
-                LastName.setVisible(true);
-                PhoneNumber.setVisible(true);
-                Email.setVisible(true);
+
+                SpaEnterBoxFName.setVisible(true);
+                SpaEnterBoxLName.setVisible(true);
+                SpaEnterBoxPNumber.setVisible(true);
+                SpaEnterBoxEmail.setVisible(true);
+
+                SpaFirstName.setVisible(true);
+                SpaLastName.setVisible(true);
+                SpaPhoneNumber.setVisible(true);
+                SpaEmail.setVisible(true);
+
             }
         });
 
@@ -293,15 +309,7 @@ public class CustomerUI {
                 MusicLounge.setVisible((false));
 
                 CustomerInfo.setVisible(false);
-                FirstName.setVisible(false);
-                LastName.setVisible(false);
-                PhoneNumber.setVisible(false);
-                Email.setVisible(false);
 
-                FNamePosition.setVisible(false);
-                LNamePosition.setVisible (false);
-                PNumberPosition.setVisible(false);
-                EmailPosition.setVisible(false);
             }
         });
 
@@ -324,15 +332,17 @@ public class CustomerUI {
                 MusicLounge.setVisible((false));
 
                 CustomerInfo.setVisible(false);
-                FirstName.setVisible(false);
-                LastName.setVisible(false);
-                PhoneNumber.setVisible(false);
-                Email.setVisible(false);
 
-                FNamePosition.setVisible(false);
-                LNamePosition.setVisible (false);
-                PNumberPosition.setVisible(false);
-                EmailPosition.setVisible(false);
+                SpaFirstName.setVisible(false);
+                SpaLastName.setVisible(false);
+                SpaPhoneNumber.setVisible(false);
+                SpaEmail.setVisible(false);
+
+                RestaurantFirstName.setVisible(true);
+                RestaurantLastName.setVisible(true);
+                RestaurantPhoneNumber.setVisible(true);
+                RestaurantEmail.setVisible(true);
+
             }
         });
 
@@ -355,15 +365,12 @@ public class CustomerUI {
                 MusicLounge.setVisible((false));
 
                 CustomerInfo.setVisible(false);
-                FirstName.setVisible(false);
-                LastName.setVisible(false);
-                PhoneNumber.setVisible(false);
-                Email.setVisible(false);
 
-                FNamePosition.setVisible(false);
-                LNamePosition.setVisible (false);
-                PNumberPosition.setVisible(false);
-                EmailPosition.setVisible(false);
+                SpaFirstName.setVisible(false);
+                SpaLastName.setVisible(false);
+                SpaPhoneNumber.setVisible(false);
+                SpaEmail.setVisible(false);
+
             }
         });
 
@@ -403,14 +410,17 @@ public class CustomerUI {
 
                 SpaCenter.setVisible(false);
                 CustomerInfo.setVisible(false);
-                FirstName.setVisible(false);
-                LastName.setVisible(false);
-                PhoneNumber.setVisible(false);
-                Email.setVisible(false);
-                EnterBoxFName.setVisible(false);
-                EnterBoxLName.setVisible(false);
-                EnterBoxPNumber.setVisible(false);
-                EnterBoxEmail.setVisible(false);
+
+                SpaFirstName.setVisible(false);
+                SpaLastName.setVisible(false);
+                SpaPhoneNumber.setVisible(false);
+                SpaEmail.setVisible(false);
+
+                SpaEnterBoxFName.setVisible(false);
+                SpaEnterBoxLName.setVisible(false);
+                SpaEnterBoxPNumber.setVisible(false);
+                SpaEnterBoxEmail.setVisible(false);
+
 
                 FNamePosition.setVisible(false);
                 LNamePosition.setVisible (false);
@@ -455,14 +465,17 @@ public class CustomerUI {
 
                 SpaCenter.setVisible(false);
                 CustomerInfo.setVisible(false);
-                FirstName.setVisible(false);
-                LastName.setVisible(false);
-                PhoneNumber.setVisible(false);
-                Email.setVisible(false);
-                EnterBoxFName.setVisible(false);
-                EnterBoxLName.setVisible(false);
-                EnterBoxPNumber.setVisible(false);
-                EnterBoxEmail.setVisible(false);
+
+                SpaFirstName.setVisible(false);
+                SpaLastName.setVisible(false);
+                SpaPhoneNumber.setVisible(false);
+                SpaEmail.setVisible(false);
+
+                SpaEnterBoxFName.setVisible(false);
+                SpaEnterBoxLName.setVisible(false);
+                SpaEnterBoxPNumber.setVisible(false);
+                SpaEnterBoxEmail.setVisible(false);
+
 
                 FNamePosition.setVisible(false);
                 LNamePosition.setVisible (false);
@@ -493,7 +506,63 @@ public class CustomerUI {
 
     }
 
-    public void CreateEnterInfoBox() {
+    public void CreateSpaInfoBox() {
+        //box for first name
+        SpaEnterBoxFName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        SpaEnterBoxFName.setBounds(350, 200, 300, 30);
+        panel.add(SpaEnterBoxFName);
+        panel.setComponentZOrder(SpaEnterBoxFName, 0); // Brings it to the top of the component stack
+        SpaEnterBoxFName.setVisible(false);
+
+        SpaFirstName = new JTextField();
+        panel.add(SpaFirstName);
+        SpaFirstName.setBounds(352, 201, 295, 28);
+        SpaFirstName.setBackground(new Color(244, 242, 235));
+        SpaFirstName.setVisible(false);
+        SpaFirstName.setBorder(null);
+
+        //box for last name
+        SpaEnterBoxLName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        SpaEnterBoxLName.setBounds(750, 200, 300, 30);
+        panel.add(SpaEnterBoxLName);
+        panel.setComponentZOrder(SpaEnterBoxLName, 0); // Brings it to the top of the component stack
+        SpaEnterBoxLName.setVisible(false);
+
+        SpaLastName = new JTextField();
+        panel.add(SpaLastName);
+        SpaLastName.setBounds(752, 201, 295, 28);
+        SpaLastName.setBackground(new Color(244, 242, 235));
+        SpaLastName.setVisible(false);
+        SpaLastName.setBorder(null);
+
+        //box for phone number
+        SpaEnterBoxPNumber = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        SpaEnterBoxPNumber.setBounds(350, 280, 300, 30);
+        panel.add(SpaEnterBoxPNumber);
+        panel.setComponentZOrder(SpaEnterBoxPNumber, 0); // Brings it to the top of the component stack
+        SpaEnterBoxPNumber.setVisible(false);
+
+        SpaPhoneNumber = new JTextField();
+        panel.add(SpaPhoneNumber);
+        SpaPhoneNumber.setBounds(352, 281, 295, 28);
+        SpaPhoneNumber.setBackground(new Color(244, 242, 235));
+        SpaPhoneNumber.setVisible(false);
+        SpaPhoneNumber.setBorder(null);
+
+        //box for email
+        SpaEnterBoxEmail = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        SpaEnterBoxEmail.setBounds(750, 280, 300, 30);
+        panel.add(SpaEnterBoxEmail);
+        panel.setComponentZOrder(SpaEnterBoxEmail, 0); // Brings it to the top of the component stack
+        SpaEnterBoxEmail.setVisible(false);
+
+        SpaEmail = new JTextField();
+        panel.add(SpaEmail);
+        SpaEmail.setBounds(752, 281, 295, 28);
+        SpaEmail.setBackground(new Color(244, 242, 235));
+        SpaEmail.setVisible(false);
+        SpaEmail.setBorder(null);
+    }
         //box for first name
         EnterBoxFName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
         EnterBoxFName.setBounds(350, 200, 300, 30);
