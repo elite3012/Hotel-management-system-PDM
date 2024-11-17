@@ -110,4 +110,24 @@ public class RoomDaoImpl implements RoomDAO {
             logging.setMessage("RoomDaoImpl Error -> " + e.getLocalizedMessage());
         }
     }
+
+@Override
+    public void setSingleRoomAsCleanByRoomID(int roomId) {
+        try {
+            Query query = entityManager.createQuery(
+                "UPDATE Room r SET r.cleaningStatus = 'Clean' WHERE r.roomId = :roomId"
+            );
+            query.setParameter("roomId", roomId);
+            int rowsUpdated = query.executeUpdate();
+            if (rowsUpdated > 0) {
+                logging.setMessage("RoomDaoImpl -> Successfully set room as clean for room ID: " + roomId);
+            } else {
+                logging.setMessage("RoomDaoImpl -> No room found for the provided room ID.");
+            }
+        } catch (Exception e) {
+            logging.setMessage("RoomDaoImpl Error -> " + e.getLocalizedMessage());
+        }
+    }
 }
+
+
