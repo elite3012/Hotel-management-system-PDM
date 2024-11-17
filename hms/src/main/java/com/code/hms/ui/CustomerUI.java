@@ -2,8 +2,6 @@ package com.code.hms.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class CustomerUI {
     static JFrame frame;
