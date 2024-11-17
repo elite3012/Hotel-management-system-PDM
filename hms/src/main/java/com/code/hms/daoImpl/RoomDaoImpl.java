@@ -56,4 +56,14 @@ public class RoomDaoImpl implements RoomDAO {
         }
     }
 
+@Override
+    public void updateRoom(Room room) {
+        try {
+            entityManager.merge(room);
+            logging.setMessage("RoomDaoImpl -> Room updated successfully.");
+        } catch (Exception e) {
+            logging.setMessage("RoomDaoImpl Error -> " + e.getLocalizedMessage());
+        }
+    }
+
 }
