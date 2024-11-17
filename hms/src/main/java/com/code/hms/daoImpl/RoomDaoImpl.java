@@ -21,13 +21,13 @@ public class RoomDaoImpl implements RoomDAO {
     }
 
     @Override
-    public Room getRoomByRoomNumber(int roomNumber) {
+    public Room getRoomByRoomID(int roomId) {
         Room room = null;
         try {
-            room = entityManager.find(Room.class, roomNumber);
-            logging.setMessage("RoomDaoImpl -> Room fetched successfully by room number.");
+            room = entityManager.find(Room.class, roomId);
+            logging.setMessage("RoomDaoImpl -> Room fetched successfully by id.");
         } catch (NoResultException e) {
-            logging.setMessage("Error: No room found with the given number !");
+            logging.setMessage("Error: No room found with the given id !");
         }
         return room;
     }
