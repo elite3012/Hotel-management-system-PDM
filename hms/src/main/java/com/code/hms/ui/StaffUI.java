@@ -43,6 +43,10 @@ public class StaffUI {
                 initializeUI();
                 createHousekeeperUI();
                 break;
+            case 4:
+                initializeUI();
+                createAdminUI();
+                break;
             default:
                 System.out.println("Invalid choice!");
                 System.exit(0);
