@@ -164,6 +164,14 @@ public class CustomerUI {
         TimePosition.setVisible(false);
         panel.add(TimePosition);
 
+        JLabel RateExp = new JLabel();
+        RateExp.setText("HOW WAS YOUR EXPERIENCE ?");
+        RateExp.setFont(new Font("Mulish", Font.BOLD, 33));
+        RateExp.setBounds(510, 30, 1000, 33);
+        RateExp.setForeground(new Color(212, 158, 24));
+        RateExp.setVisible(false);
+        panel.add(RateExp);
+
         // HotelInfoTab setup
         OurHotelTab = new JButton();
         OurHotelTab.setFocusable(false);
@@ -267,6 +275,7 @@ public class CustomerUI {
             MinuteEnter.setVisible(false);
             SecondEnter.setVisible(false);
 
+            RateExp.setVisible(false);
         });
 
         // ReservationTab setup
@@ -372,6 +381,7 @@ public class CustomerUI {
             MinuteEnter.setVisible(false);
             SecondEnter.setVisible(false);
 
+            RateExp.setVisible(false);
         });
 
         // ReservationTab setup
@@ -492,6 +502,7 @@ public class CustomerUI {
             MinuteEnter.setVisible(true);
             SecondEnter.setVisible(true);
 
+            RateExp.setVisible(false);
         });
 
         RestaurantCenter = new JLabel();
@@ -586,6 +597,7 @@ public class CustomerUI {
             MinuteEnter.setVisible(true);
             SecondEnter.setVisible(true);
 
+            RateExp.setVisible(false);
         });
 
         RoomCleaningCenter = new JLabel();
@@ -680,6 +692,7 @@ public class CustomerUI {
             MinuteEnter.setVisible(true);
             SecondEnter.setVisible(true);
 
+            RateExp.setVisible(false);
         });
 
         MusicLoungeCenter = new JLabel();
@@ -774,6 +787,7 @@ public class CustomerUI {
             MinuteEnter.setVisible(true);
             SecondEnter.setVisible(true);
 
+            RateExp.setVisible(false);
         });
 
         ServiceTab = new JButton();
@@ -878,6 +892,7 @@ public class CustomerUI {
             MinuteEnter.setVisible(false);
             SecondEnter.setVisible(false);
 
+            RateExp.setVisible(false);
         });
 
         ReviewTab = new JButton();
@@ -982,6 +997,7 @@ public class CustomerUI {
             MinuteEnter.setVisible(false);
             SecondEnter.setVisible(false);
 
+            RateExp.setVisible(true);
         });
 
         // Tab1_background
