@@ -56,6 +56,22 @@ public class CustomerUI {
     static JTextField MusicLoungePhoneNumber;
     static JTextField MusicLoungeEmail;
 
+    static JLabel Daybox;
+    static JLabel Monthbox;
+    static JLabel Yearbox;
+
+    static JLabel Hourbox;
+    static JLabel Minutebox;
+    static JLabel Secondbox;
+
+    static JTextField DayEnter;
+    static JTextField MonthEnter;
+    static JTextField YearEnter;
+
+    static JTextField HourEnter;
+    static JTextField MinuteEnter;
+    static JTextField SecondEnter;
+
     static JLabel ServiceMenu;
     static JLabel SpaCenter;
     static JLabel RestaurantCenter;
@@ -73,6 +89,8 @@ public class CustomerUI {
     static JLabel LNamePosition;
     static JLabel PNumberPosition;
     static JLabel EmailPosition;
+    static JLabel DatePosition;
+    static JLabel TimePosition;
 
     public CustomerUI() {
         createMainGUI();
@@ -80,6 +98,7 @@ public class CustomerUI {
         CreateRestaurantInfoBox();
         CreateRoomCleaningInfoBox();
         CreateMusicLoungeInfoBox();
+        CreateDate_TimeBox();
     }
 
     private void createMainGUI() {
@@ -128,6 +147,22 @@ public class CustomerUI {
         EmailPosition.setForeground(new Color(136, 120, 81));
         EmailPosition.setVisible(false);
         panel.add(EmailPosition);
+
+        DatePosition = new JLabel();
+        DatePosition.setText("Date");
+        DatePosition.setFont(new Font("Mulish", Font.BOLD, 20));
+        DatePosition.setBounds(350, 390, 500, 30);
+        DatePosition.setForeground(new Color(136, 120, 81));
+        DatePosition.setVisible(false);
+        panel.add(DatePosition);
+
+        TimePosition = new JLabel();
+        TimePosition.setText("Time");
+        TimePosition.setFont(new Font("Mulish", Font.BOLD, 20));
+        TimePosition.setBounds(798, 390, 500, 30);
+        TimePosition.setForeground(new Color(136, 120, 81));
+        TimePosition.setVisible(false);
+        panel.add(TimePosition);
 
         // HotelInfoTab setup
         OurHotelTab = new JButton();
@@ -213,6 +248,25 @@ public class CustomerUI {
             LNamePosition.setVisible (false);
             PNumberPosition.setVisible(false);
             EmailPosition.setVisible(false);
+            DatePosition.setVisible(false);
+            TimePosition.setVisible(false);
+
+            Daybox.setVisible(false);
+            Monthbox.setVisible(false);
+            Yearbox.setVisible(false);
+
+            DayEnter.setVisible(false);
+            MonthEnter.setVisible(false);
+            YearEnter.setVisible(false);
+
+            Hourbox.setVisible(false);
+            Minutebox.setVisible(false);
+            Secondbox.setVisible(false);
+
+            HourEnter.setVisible(false);
+            MinuteEnter.setVisible(false);
+            SecondEnter.setVisible(false);
+
         });
 
         // ReservationTab setup
@@ -299,6 +353,25 @@ public class CustomerUI {
             LNamePosition.setVisible (false);
             PNumberPosition.setVisible(false);
             EmailPosition.setVisible(false);
+            DatePosition.setVisible(false);
+            TimePosition.setVisible(false);
+
+            Daybox.setVisible(false);
+            Monthbox.setVisible(false);
+            Yearbox.setVisible(false);
+
+            Hourbox.setVisible(false);
+            Minutebox.setVisible(false);
+            Secondbox.setVisible(false);
+
+            DayEnter.setVisible(false);
+            MonthEnter.setVisible(false);
+            YearEnter.setVisible(false);
+
+            HourEnter.setVisible(false);
+            MinuteEnter.setVisible(false);
+            SecondEnter.setVisible(false);
+
         });
 
         // ReservationTab setup
@@ -345,6 +418,8 @@ public class CustomerUI {
             LNamePosition.setVisible (true);
             PNumberPosition.setVisible(true);
             EmailPosition.setVisible(true);
+            DatePosition.setVisible(true);
+            TimePosition.setVisible(true);
 
             Tab1_background.setVisible(false);
             Tab2_background.setVisible(false);
@@ -400,6 +475,23 @@ public class CustomerUI {
             MusicLoungeEnterBoxLName.setVisible(false);
             MusicLoungeEnterBoxPNumber.setVisible(false);
             MusicLoungeEnterBoxEmail.setVisible(false);
+
+            Daybox.setVisible(true);
+            Monthbox.setVisible(true);
+            Yearbox.setVisible(true);
+
+            Hourbox.setVisible(true);
+            Minutebox.setVisible(true);
+            Secondbox.setVisible(true);
+
+            DayEnter.setVisible(true);
+            MonthEnter.setVisible(true);
+            YearEnter.setVisible(true);
+
+            HourEnter.setVisible(true);
+            MinuteEnter.setVisible(true);
+            SecondEnter.setVisible(true);
+
         });
 
         RestaurantCenter = new JLabel();
@@ -475,6 +567,25 @@ public class CustomerUI {
             LNamePosition.setVisible (true);
             PNumberPosition.setVisible(true);
             EmailPosition.setVisible(true);
+            DatePosition.setVisible(true);
+            TimePosition.setVisible(true);
+
+            Daybox.setVisible(true);
+            Monthbox.setVisible(true);
+            Yearbox.setVisible(true);
+
+            Hourbox.setVisible(true);
+            Minutebox.setVisible(true);
+            Secondbox.setVisible(true);
+
+            DayEnter.setVisible(true);
+            MonthEnter.setVisible(true);
+            YearEnter.setVisible(false);
+
+            HourEnter.setVisible(true);
+            MinuteEnter.setVisible(true);
+            SecondEnter.setVisible(true);
+
         });
 
         RoomCleaningCenter = new JLabel();
@@ -550,6 +661,25 @@ public class CustomerUI {
             LNamePosition.setVisible (true);
             PNumberPosition.setVisible(true);
             EmailPosition.setVisible(true);
+            DatePosition.setVisible(true);
+            TimePosition.setVisible(true);
+
+            Daybox.setVisible(true);
+            Monthbox.setVisible(true);
+            Yearbox.setVisible(true);
+
+            Hourbox.setVisible(true);
+            Minutebox.setVisible(true);
+            Secondbox.setVisible(true);
+
+            DayEnter.setVisible(true);
+            MonthEnter.setVisible(true);
+            YearEnter.setVisible(true);
+
+            HourEnter.setVisible(true);
+            MinuteEnter.setVisible(true);
+            SecondEnter.setVisible(true);
+
         });
 
         MusicLoungeCenter = new JLabel();
@@ -625,6 +755,25 @@ public class CustomerUI {
             LNamePosition.setVisible (true);
             PNumberPosition.setVisible(true);
             EmailPosition.setVisible(true);
+            DatePosition.setVisible(true);
+            TimePosition.setVisible(true);
+
+            Daybox.setVisible(true);
+            Monthbox.setVisible(true);
+            Yearbox.setVisible(true);
+
+            Hourbox.setVisible(true);
+            Minutebox.setVisible(true);
+            Secondbox.setVisible(true);
+
+            DayEnter.setVisible(true);
+            MonthEnter.setVisible(true);
+            YearEnter.setVisible(true);
+
+            HourEnter.setVisible(true);
+            MinuteEnter.setVisible(true);
+            SecondEnter.setVisible(true);
+
         });
 
         ServiceTab = new JButton();
@@ -710,6 +859,25 @@ public class CustomerUI {
             LNamePosition.setVisible (false);
             PNumberPosition.setVisible(false);
             EmailPosition.setVisible(false);
+            DatePosition.setVisible(false);
+            TimePosition.setVisible(false);
+
+            Daybox.setVisible(false);
+            Monthbox.setVisible(false);
+            Yearbox.setVisible(false);
+
+            Hourbox.setVisible(false);
+            Minutebox.setVisible(false);
+            Secondbox.setVisible(false);
+
+            DayEnter.setVisible(false);
+            MonthEnter.setVisible(false);
+            YearEnter.setVisible(false);
+
+            HourEnter.setVisible(false);
+            MinuteEnter.setVisible(false);
+            SecondEnter.setVisible(false);
+
         });
 
         ReviewTab = new JButton();
@@ -795,6 +963,25 @@ public class CustomerUI {
             LNamePosition.setVisible (false);
             PNumberPosition.setVisible(false);
             EmailPosition.setVisible(false);
+            DatePosition.setVisible(false);
+            TimePosition.setVisible(false);
+
+            Daybox.setVisible(false);
+            Monthbox.setVisible(false);
+            Yearbox.setVisible(false);
+
+            Hourbox.setVisible(false);
+            Minutebox.setVisible(false);
+            Secondbox.setVisible(false);
+
+            DayEnter.setVisible(false);
+            MonthEnter.setVisible(false);
+            YearEnter.setVisible(false);
+
+            HourEnter.setVisible(false);
+            MinuteEnter.setVisible(false);
+            SecondEnter.setVisible(false);
+
         });
 
         // Tab1_background
@@ -1049,5 +1236,85 @@ public class CustomerUI {
         MusicLoungeEmail.setBackground(new Color(244, 242, 235));
         MusicLoungeEmail.setVisible(false);
         MusicLoungeEmail.setBorder(null);
+    }
+
+    public void CreateDate_TimeBox(){
+        Daybox = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/BookingBox.png", 100, 30));
+        Daybox.setBounds(350, 420, 100, 30);
+        panel.add(Daybox);
+        panel.setComponentZOrder(Daybox, 0); // Brings it to the top of the component stack
+        Daybox.setVisible(false);
+
+        DayEnter = new JTextField();
+        panel.add(DayEnter);
+        DayEnter.setBounds(351, 421, 98, 28);
+        DayEnter.setBackground(new Color(244, 242, 235));
+        DayEnter.setVisible(false);
+        DayEnter.setBorder(null);
+
+        Monthbox = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/BookingBox.png", 100, 30));
+        Monthbox.setBounds(460, 420, 100, 30);
+        panel.add(Monthbox);
+        panel.setComponentZOrder(Monthbox, 0); // Brings it to the top of the component stack
+        Monthbox.setVisible(false);
+
+        MonthEnter = new JTextField();
+        panel.add(MonthEnter);
+        MonthEnter.setBounds(461, 421, 98, 28);
+        MonthEnter.setBackground(new Color(244, 242, 235));
+        MonthEnter.setVisible(false);
+        MonthEnter.setBorder(null);
+
+        Yearbox = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/BookingBox.png", 100, 30));
+        Yearbox.setBounds(570, 420, 100, 30);
+        panel.add(Yearbox);
+        panel.setComponentZOrder(Yearbox, 0); // Brings it to the top of the component stack
+        Yearbox.setVisible(false);
+
+        YearEnter = new JTextField();
+        panel.add(YearEnter);
+        YearEnter.setBounds(571, 421, 98, 28);
+        YearEnter.setBackground(new Color(244, 242, 235));
+        YearEnter.setVisible(false);
+        YearEnter.setBorder(null);
+
+        Hourbox = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/BookingBox.png", 100, 30));
+        Hourbox.setBounds(800, 420, 100, 30);
+        panel.add(Hourbox);
+        panel.setComponentZOrder(Hourbox, 0); // Brings it to the top of the component stack
+        Hourbox.setVisible(false);
+
+        HourEnter = new JTextField();
+        panel.add(HourEnter);
+        HourEnter.setBounds(801, 421, 98, 28);
+        HourEnter.setBackground(new Color(244, 242, 235));
+        HourEnter.setVisible(false);
+        HourEnter.setBorder(null);
+
+        Minutebox = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/BookingBox.png", 100, 30));
+        Minutebox.setBounds(910, 420, 100, 30);
+        panel.add(Minutebox);
+        panel.setComponentZOrder(Minutebox, 0); // Brings it to the top of the component stack
+        Minutebox.setVisible(false);
+
+        MinuteEnter = new JTextField();
+        panel.add(MinuteEnter);
+        MinuteEnter.setBounds(911, 421, 98, 28);
+        MinuteEnter.setBackground(new Color(244, 242, 235));
+        MinuteEnter.setVisible(false);
+        MinuteEnter.setBorder(null);
+
+        Secondbox = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/BookingBox.png", 100, 30));
+        Secondbox.setBounds(1020, 420, 100, 30);
+        panel.add(Secondbox);
+        panel.setComponentZOrder(Secondbox, 0); // Brings it to the top of the component stack
+        Secondbox.setVisible(false);
+
+        SecondEnter = new JTextField();
+        panel.add(SecondEnter);
+        SecondEnter.setBounds(1021, 421, 98, 28);
+        SecondEnter.setBackground(new Color(244, 242, 235));
+        SecondEnter.setVisible(false);
+        SecondEnter.setBorder(null);
     }
 }
