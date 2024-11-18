@@ -172,6 +172,15 @@ public class CustomerUI {
         RateExp.setVisible(false);
         panel.add(RateExp);
 
+        RatingStars ratingStars = new RatingStars();
+        ratingStars.setBounds(585, 70, 500, 100); // Position and size
+        panel.add(ratingStars);
+        panel.setComponentZOrder(ratingStars,0);
+        // Force the panel to repaint immediately
+        panel.revalidate();
+        panel.repaint();
+        ratingStars.setVisible(false);
+
         // HotelInfoTab setup
         OurHotelTab = new JButton();
         OurHotelTab.setFocusable(false);
@@ -276,6 +285,7 @@ public class CustomerUI {
             SecondEnter.setVisible(false);
 
             RateExp.setVisible(false);
+            ratingStars.setVisible(false);
         });
 
         // ReservationTab setup
@@ -382,6 +392,7 @@ public class CustomerUI {
             SecondEnter.setVisible(false);
 
             RateExp.setVisible(false);
+            ratingStars.setVisible(false);
         });
 
         // ReservationTab setup
@@ -503,6 +514,7 @@ public class CustomerUI {
             SecondEnter.setVisible(true);
 
             RateExp.setVisible(false);
+            ratingStars.setVisible(false);
         });
 
         RestaurantCenter = new JLabel();
@@ -893,6 +905,7 @@ public class CustomerUI {
             SecondEnter.setVisible(false);
 
             RateExp.setVisible(false);
+            ratingStars.setVisible(false);
         });
 
         ReviewTab = new JButton();
@@ -998,6 +1011,7 @@ public class CustomerUI {
             SecondEnter.setVisible(false);
 
             RateExp.setVisible(true);
+            ratingStars.setVisible(true);
         });
 
         // Tab1_background
