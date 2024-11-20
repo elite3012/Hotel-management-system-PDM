@@ -1,10 +1,13 @@
-package com.code.hms.connection.loginwindow;
+package com.code.hms.loginwindow;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.io.*;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class LoadImage {
     private BufferedImage image;

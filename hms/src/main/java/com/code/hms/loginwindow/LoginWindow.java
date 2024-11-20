@@ -1,4 +1,4 @@
-package com.code.hms.connection.loginwindow;
+package com.code.hms.loginwindow;
 
 import javax.swing.*;
 import java.awt.*;
