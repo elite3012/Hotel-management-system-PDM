@@ -2,7 +2,8 @@ package com.code.hms.loginwindow;
 
 import javax.swing.*;
 import java.awt.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SignUpWindow extends JFrame {
 
@@ -40,5 +41,19 @@ public class SignUpWindow extends JFrame {
         setSize(1280, 672);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+
+        LoadImage loader = new LoadImage("hms/bg img/bg.png", getWidth(), getHeight());
+        JLabel backgroundLbl = new JLabel(loader.getImageIcon());
+        backgroundLbl.setBounds(0, 0, getWidth(), getHeight());
+        panel.add(backgroundLbl);
+
+        JPanel signUpPanel = new JPanel();
+        signUpPanel.setLayout(null);
+        signUpPanel.setBackground(new Color(0, 0, 0, 150));
+        signUpPanel.setBounds(0, 0, 1280, 672);
+    }
 
 }
