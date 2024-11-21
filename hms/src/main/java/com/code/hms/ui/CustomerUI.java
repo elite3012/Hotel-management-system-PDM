@@ -189,6 +189,28 @@ public class CustomerUI {
         panel.repaint();
         ratingStars.setVisible(false);
 
+        JLabel Feedback = new JLabel();
+        Feedback.setText("FEEDBACK");
+        Feedback.setFont(new Font("Mulish", Font.BOLD, 30));
+        Feedback.setBounds(300, 150, 500, 30);
+        Feedback.setForeground(new Color(212, 158, 24));
+        Feedback.setVisible(false);
+        panel.add(Feedback);
+
+        JTextArea WriteFeedback = new JTextArea();
+        panel.add(WriteFeedback);
+
+// Set bounds and appearance
+        WriteFeedback.setBounds(300, 180, 940, 400);
+        WriteFeedback.setBackground(new Color(244, 242, 235));
+        WriteFeedback.setVisible(false);
+        WriteFeedback.setLineWrap(true); // Enable word wrapping
+        WriteFeedback.setWrapStyleWord(true); // Wrap at word boundaries
+        WriteFeedback.setMargin(new Insets(5, 5, 5, 5)); // Add padding for better appearance
+        WriteFeedback.setFont(new Font("Mulish", Font.PLAIN, 16)); // Set the font size and style
+
+        WriteFeedback.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102), 1));
+
         // HotelInfoTab setup
         OurHotelTab = new JButton();
         OurHotelTab.setFocusable(false);
@@ -294,6 +316,9 @@ public class CustomerUI {
 
             RateExp.setVisible(false);
             ratingStars.setVisible(false);
+            WriteFeedback.setVisible(false);
+            Feedback.setVisible(false);
+
             RoomBooking.setVisible(false);
         });
 
@@ -402,6 +427,9 @@ public class CustomerUI {
 
             RateExp.setVisible(false);
             ratingStars.setVisible(false);
+            WriteFeedback.setVisible(false);
+            Feedback.setVisible(false);
+
             RoomBooking.setVisible(true);
         });
 
@@ -916,6 +944,9 @@ public class CustomerUI {
 
             RateExp.setVisible(false);
             ratingStars.setVisible(false);
+            WriteFeedback.setVisible(false);
+            Feedback.setVisible(false);
+
             RoomBooking.setVisible(false);
         });
 
@@ -1023,6 +1054,9 @@ public class CustomerUI {
 
             RateExp.setVisible(true);
             ratingStars.setVisible(true);
+            WriteFeedback.setVisible(true);
+            Feedback.setVisible(true);
+
             RoomBooking.setVisible(false);
         });
 
