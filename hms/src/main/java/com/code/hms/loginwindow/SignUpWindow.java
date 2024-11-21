@@ -45,6 +45,7 @@ public class SignUpWindow extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
+        // Background
         LoadImage loader = new LoadImage("hms/bg img/bg.png", getWidth(), getHeight());
         JLabel backgroundLbl = new JLabel(loader.getImageIcon());
         backgroundLbl.setBounds(0, 0, getWidth(), getHeight());
@@ -54,6 +55,61 @@ public class SignUpWindow extends JFrame {
         signUpPanel.setLayout(null);
         signUpPanel.setBackground(new Color(0, 0, 0, 150));
         signUpPanel.setBounds(0, 0, 1280, 672);
+
+        // Add components
+        int x1 = 170, x2 = 750, y = 100, width = 350, height = 40, gap = 70;
+
+        // First Name and Last Name
+        JLabel firstNameLbl = createLabel("First Name:", x1, y);
+        firstNameField = createTextField(x1, y + 20, width, height);
+        JLabel lastNameLbl = createLabel("Last Name:", x2, y);
+        lastNameField = createTextField(x2, y + 20, width, height);
+
+        // Date of Birth and Identification Number
+        y += gap;
+        JLabel dobLbl = createLabel("Date of Birth:", x1, y);
+        dateOfBirthField = createTextField(x1, y + 20, width, height);
+        JLabel idLbl = createLabel("Identification Number:", x2, y);
+        idNumberField = createTextField(x2, y + 20, width, height);
+
+        // Nationality and Address
+        y += gap;
+        JLabel nationalityLbl = createLabel("Nationality:", x1, y);
+        nationalityField = createTextField(x1, y + 20, width, height);
+        JLabel addressLbl = createLabel("Address:", x2, y);
+        addressField = createTextField(x2, y + 20, width, height);
+
+        // Phone Number and Email
+        y += gap;
+        JLabel phoneLbl = createLabel("Phone Number:", x1, y);
+        phoneNumberField = createTextField(x1, y + 20, width, height);
+        JLabel emailLbl = createLabel("Email:", x2, y);
+        emailField = createTextField(x2, y + 20, width, height);
+
+        // Username and Password
+        y += gap;
+        JLabel usernameLbl = createLabel("Username:", x1, y);
+        usernameField = createTextField(x1, y + 20, width, height);
+        JLabel passwordLbl = createLabel("Password:", x2, y);
+        passwordField = new JPasswordField();
+        passwordField.setBounds(x2, y + 20, width, height);
+
+        // Confirm Password and Role
+        y += gap;
+        JLabel confirmPasswordLbl = createLabel("Confirm Password:", x1, y);
+        confirmPasswordField = new JPasswordField();
+        confirmPasswordField.setBounds(x1, y + 20, width, height);
+        JLabel roleLbl = createLabel("Role:", x2, y);
+        roleField = createTextField(x2, y + 20, width, height);
+
+        // Sign-Up Button
+        y += gap;
+        JButton signUpButton = new JButton("Sign Up");
+        signUpButton.setBounds(490, y + 30, 300, 50);
+        signUpButton.setBackground(Color.decode("#847966"));
+        signUpButton.setForeground(Color.WHITE);
+
+
     }
 
 }
