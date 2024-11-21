@@ -57,7 +57,7 @@ public class SignUpWindow extends JFrame {
         signUpPanel.setBounds(0, 0, 1280, 672);
 
         // Add components
-        int x1 = 170, x2 = 750, y = 100, width = 350, height = 40, gap = 70;
+        int x1 = 175, x2 = 755, y = 100, width = 350, height = 40, gap = 70;
 
         // First Name and Last Name
         JLabel firstNameLbl = createLabel("First Name:", x1, y);
@@ -109,6 +109,40 @@ public class SignUpWindow extends JFrame {
         signUpButton.setBackground(Color.decode("#847966"));
         signUpButton.setForeground(Color.WHITE);
 
+        // Add components to the sign-up panel
+        signUpPanel.add(firstNameLbl);
+        signUpPanel.add(firstNameField);
+        signUpPanel.add(lastNameLbl);
+        signUpPanel.add(lastNameField);
+        signUpPanel.add(dobLbl);
+        signUpPanel.add(dateOfBirthField);
+        signUpPanel.add(idLbl);
+        signUpPanel.add(idNumberField);
+        signUpPanel.add(nationalityLbl);
+        signUpPanel.add(nationalityField);
+        signUpPanel.add(addressLbl);
+        signUpPanel.add(addressField);
+        signUpPanel.add(phoneLbl);
+        signUpPanel.add(phoneNumberField);
+        signUpPanel.add(emailLbl);
+        signUpPanel.add(emailField);
+        signUpPanel.add(usernameLbl);
+        signUpPanel.add(usernameField);
+        signUpPanel.add(passwordLbl);
+        signUpPanel.add(passwordField);
+        signUpPanel.add(confirmPasswordLbl);
+        signUpPanel.add(confirmPasswordField);
+        signUpPanel.add(roleLbl);
+        signUpPanel.add(roleField);
+        signUpPanel.add(signUpButton);
+
+        // Add panels to the frame
+        add(signUpPanel);
+        add(panel);
+
+
+    public static void main(String[] args) {
+        new SignUpWindow().setVisible(true);
 
     }
 
