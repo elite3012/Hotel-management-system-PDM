@@ -35,5 +35,10 @@ public class SignUpWindow extends JFrame {
 
     static JButton signInButton;
 
+    public SignUpWindow() {
+        setTitle("Sign Up");
+        setSize(1280, 672);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
 }
