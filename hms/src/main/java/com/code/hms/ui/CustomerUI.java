@@ -164,6 +164,14 @@ public class CustomerUI {
         TimePosition.setVisible(false);
         panel.add(TimePosition);
 
+        JLabel RoomBooking = new JLabel();
+        RoomBooking.setText("ROOM BOOKING");
+        RoomBooking.setFont(new Font("Mulish", Font.BOLD, 33));
+        RoomBooking.setBounds(650, 30, 1000, 33);
+        RoomBooking.setForeground(new Color(212, 158, 24));
+        RoomBooking.setVisible(false);
+        panel.add(RoomBooking);
+
         JLabel RateExp = new JLabel();
         RateExp.setText("HOW WAS YOUR EXPERIENCE ?");
         RateExp.setFont(new Font("Mulish", Font.BOLD, 33));
@@ -286,6 +294,7 @@ public class CustomerUI {
 
             RateExp.setVisible(false);
             ratingStars.setVisible(false);
+            RoomBooking.setVisible(false);
         });
 
         // ReservationTab setup
@@ -393,6 +402,7 @@ public class CustomerUI {
 
             RateExp.setVisible(false);
             ratingStars.setVisible(false);
+            RoomBooking.setVisible(true);
         });
 
         // ReservationTab setup
@@ -906,6 +916,7 @@ public class CustomerUI {
 
             RateExp.setVisible(false);
             ratingStars.setVisible(false);
+            RoomBooking.setVisible(false);
         });
 
         ReviewTab = new JButton();
@@ -1012,6 +1023,7 @@ public class CustomerUI {
 
             RateExp.setVisible(true);
             ratingStars.setVisible(true);
+            RoomBooking.setVisible(false);
         });
 
         // Tab1_background
