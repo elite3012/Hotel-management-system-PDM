@@ -139,6 +139,36 @@ public class SignUpWindow extends JFrame {
         // Add panels to the frame
         add(signUpPanel);
         add(panel);
+        // Add ActionListener for the sign-up button
+        signUpButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String firstName = firstNameField.getText();
+                String lastName = lastNameField.getText();
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
+                String confirmPassword = new String(confirmPasswordField.getPassword());
+
+                if (!password.equals(confirmPassword)) {
+                    JOptionPane.showMessageDialog(null, "Passwords do not match!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Sign-Up successful for: " + username);
+                }
+            }
+        });
+    }
+
+    private JLabel createLabel(String text, int x, int y) {
+        JLabel label = new JLabel(text);
+        label.setBounds(x, y, 300, 20);
+        label.setForeground(Color.WHITE);
+        return label;
+    }
+
+    private JTextField createTextField(int x, int y, int width, int height) {
+        JTextField textField = new JTextField();
+        textField.setBounds(x, y, width, height);
+        return textField;
+    }
 
 
     public static void main(String[] args) {
