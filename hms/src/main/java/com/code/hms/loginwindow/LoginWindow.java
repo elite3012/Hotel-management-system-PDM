@@ -1,26 +1,24 @@
 package com.code.hms.loginwindow;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 public class LoginWindow extends JFrame {
     static JTextField usernameField;
     static JPasswordField passwordField;
-    static JLabel usernameLbl, passwordLbl;
-    static JButton loginButton;
-    static JLabel forgotPasswordButton, signUpButton;
-
-    public LoginWindow(GraphicsConfiguration gc) {
-        super(gc);
-    }
 
     public LoginWindow() {
-
-        // Set up frame
         setTitle("Login");
         setSize(1280, 672);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,82 +28,93 @@ public class LoginWindow extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
-        // Background label
+        // Background
         LoadImage loader = new LoadImage("hms/bg img/bg.png", getWidth(), getHeight());
         JLabel backgroundLbl = new JLabel(loader.getImageIcon());
         backgroundLbl.setBounds(0, 0, getWidth(), getHeight());
         panel.add(backgroundLbl);
 
-        // Black semi-transparent login panel
+        // Login panel
         JPanel loginPanel = new JPanel();
         loginPanel.setLayout(null);
         loginPanel.setBackground(new Color(0, 0, 0, 150));
         loginPanel.setBounds(0, 0, 500, getHeight());
+        backgroundLbl.add(loginPanel);
 
-        // Add components
-        usernameLbl = new JLabel("Username:");
-        usernameLbl.setBounds(100, 50, 300, 50);
+        // Username
+        JLabel usernameLbl = new JLabel("Username:");
+        usernameLbl.setBounds(100, 50, 300, 30);
         usernameLbl.setForeground(Color.WHITE);
+        loginPanel.add(usernameLbl);
+
         usernameField = new JTextField();
-        usernameField.setBounds(100, 100, 300, 50);
+        usernameField.setBounds(100, 80, 300, 40);
+        loginPanel.add(usernameField);
 
-        passwordLbl = new JLabel("Password:");
-        passwordLbl.setBounds(100, 150, 300, 50);
+        // Password
+        JLabel passwordLbl = new JLabel("Password:");
+        passwordLbl.setBounds(100, 150, 300, 30);
         passwordLbl.setForeground(Color.WHITE);
-        passwordField = new JPasswordField();
-        passwordField.setBounds(100, 200, 300, 50);
+        loginPanel.add(passwordLbl);
 
-        loginButton = new JButton("Login");
-        loginButton.setBounds(100, 300, 300, 50);
+        passwordField = new JPasswordField();
+        passwordField.setBounds(100, 180, 300, 40);
+        loginPanel.add(passwordField);
+
+        // Login button
+        JButton loginButton = new JButton("Login");
+        loginButton.setBounds(100, 250, 300, 40);
         loginButton.setBackground(Color.decode("#847966"));
         loginButton.setForeground(Color.WHITE);
-
-        forgotPasswordButton = new JLabel("Forgot Password");
-        forgotPasswordButton.setBounds(250 - forgotPasswordButton.getPreferredSize().width / 2, 400, forgotPasswordButton.getPreferredSize().width, 50);
-        forgotPasswordButton.setForeground(Color.YELLOW);
-
-        signUpButton = new JLabel("Sign Up");
-        signUpButton.setBounds(250 - signUpButton.getPreferredSize().width / 2, 500, signUpButton.getPreferredSize().width, 50);
-        signUpButton.setForeground(Color.YELLOW);
-
-        loginPanel.add(usernameLbl);
-        loginPanel.add(usernameField);
-        loginPanel.add(passwordLbl);
-        loginPanel.add(passwordField);
         loginPanel.add(loginButton);
+
+        // Forgot Password
+        JLabel forgotPasswordButton = new JLabel("Forgot Password");
+        forgotPasswordButton.setForeground(Color.YELLOW);
+        forgotPasswordButton.setBounds(100, 320, 300, 30);
+        forgotPasswordButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         loginPanel.add(forgotPasswordButton);
+
+        // Sign-Up
+        JLabel signUpButton = new JLabel("Sign Up");
+        signUpButton.setForeground(Color.YELLOW);
+        signUpButton.setBounds(100, 350, 300, 30);
+        signUpButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         loginPanel.add(signUpButton);
 
-        add(loginPanel);
-        add(panel);
+        // Login logic
+        loginButton.addActionListener(e -> {
+            String username = usernameField.getText().trim();
+            String password = new String(passwordField.getPassword()).trim();
 
-        // Add ActionListener for buttons
-        loginButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
+            if (username.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Username or Password cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
                 JOptionPane.showMessageDialog(null, "Login attempt for: " + username);
             }
         });
 
+        // Forgot Password navigation
         forgotPasswordButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(null, "Forgot Password clicked");
+                new ForgotPasswordWindow().setVisible(true);
+                dispose();
             }
         });
 
+        // Sign-Up navigation
         signUpButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(null, "Sign Up clicked");
+                JOptionPane.showMessageDialog(null, "Redirecting to Sign-Up...");
             }
         });
+
+        add(panel);
     }
 
     public static void main(String[] args) {
-        new LoginWindow().setVisible(true);
-        System.out.println(forgotPasswordButton.getWidth());
-        System.out.println(signUpButton.getWidth());
+        SwingUtilities.invokeLater(() -> new LoginWindow().setVisible(true));
     }
 }
