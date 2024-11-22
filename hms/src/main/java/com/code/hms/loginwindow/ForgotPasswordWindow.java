@@ -79,7 +79,20 @@ public class ForgotPasswordWindow extends JFrame {
         backgroundLbl.add(forgotPasswordPanel);
         add(panel);
 
+        // Add ActionListener for reset password button
+        resetPasswordButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String username = usernameField.getText();
+                String emailOrPhone = emailField.getText();
 
+                if (username.isEmpty() || emailOrPhone.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please fill in all fields!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Reset link sent to: " + emailOrPhone);
+                }
+            }
+        });
+    }
 
     public static void main(String[] args) {
         new ForgotPasswordWindow().setVisible(true);
