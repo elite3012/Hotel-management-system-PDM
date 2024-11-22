@@ -34,6 +34,13 @@ public class ForgotPasswordWindow extends JFrame {
         forgotPasswordPanel.setBackground(new Color(0, 0, 0, 150));
         forgotPasswordPanel.setBounds(0, 0, 500, 672);
 
+        // Title
+        JLabel title = new JLabel("Forgot Password");
+        title.setFont(new Font("Serif", Font.BOLD, 30));
+        title.setForeground(Color.WHITE);
+        title.setBounds(150, 70, 300, 40);
+        forgotPasswordPanel.add(title);
+
 
 
     public static void main(String[] args) {
