@@ -1,40 +1,22 @@
 package com.code.hms.loginwindow;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 public class SignUpWindow extends JFrame {
 
-    static JTextField firstNameField;
-    static JTextField lastNameField;
-    static JTextField dateOfBirthField;
-    static JTextField idNumberField;
-    static JTextField nationalityField;
-    static JTextField addressField;
-    static JTextField phoneNumberField;
-    static JTextField emailField;
-    static JTextField usernameField;
-    static JTextField roleField;
-
-    static JPasswordField passwordField;
-    static JPasswordField confirmPasswordField;
-
-    static JLabel firstNameLabel;
-    static JLabel lastNameLabel;
-    static JLabel dateOfBirthLabel;
-    static JLabel idNumberLabel;
-    static JLabel nationalityLabel;
-    static JLabel addressLabel;
-    static JLabel phoneNumberLabel;
-    static JLabel emailLabel;
-    static JLabel usernameLabel;
-    static JLabel passwordLabel;
-    static JLabel confirmPasswordLabel;
-    static JLabel roleLabel;
-
-    static JButton signInButton;
+    private JTextField firstNameField, lastNameField, dateOfBirthField, idNumberField, nationalityField, addressField, phoneNumberField, emailField, usernameField;
+    private JPasswordField passwordField, confirmPasswordField;
+    private JComboBox<String> roleDropdown;
 
     public SignUpWindow() {
         setTitle("Sign Up");
@@ -54,126 +36,105 @@ public class SignUpWindow extends JFrame {
         JPanel signUpPanel = new JPanel();
         signUpPanel.setLayout(null);
         signUpPanel.setBackground(new Color(0, 0, 0, 150));
-        signUpPanel.setBounds(0, 0, 1280, 672);
+        signUpPanel.setBounds(50, 50, 1180, 572);
+        backgroundLbl.add(signUpPanel);
 
-        // Add components
-        int x1 = 175, x2 = 755, y = 100, width = 350, height = 40, gap = 70;
+        // Component Coordinates
+        int x1 = 75, x2 = 600, y = 50, width = 350, height = 30, gap = 50;
 
         // First Name and Last Name
-        JLabel firstNameLbl = createLabel("First Name:", x1, y);
-        firstNameField = createTextField(x1, y + 20, width, height);
-        JLabel lastNameLbl = createLabel("Last Name:", x2, y);
-        lastNameField = createTextField(x2, y + 20, width, height);
+        addFieldWithLabel("First Name:", x1, y, width, height, signUpPanel);
+        firstNameField = addTextField(x1, y + 25, width, height, signUpPanel);
+        addFieldWithLabel("Last Name:", x2, y, width, height, signUpPanel);
+        lastNameField = addTextField(x2, y + 25, width, height, signUpPanel);
 
         // Date of Birth and Identification Number
         y += gap;
-        JLabel dobLbl = createLabel("Date of Birth:", x1, y);
-        dateOfBirthField = createTextField(x1, y + 20, width, height);
-        JLabel idLbl = createLabel("Identification Number:", x2, y);
-        idNumberField = createTextField(x2, y + 20, width, height);
+        addFieldWithLabel("Date of Birth:", x1, y, width, height, signUpPanel);
+        dateOfBirthField = addTextField(x1, y + 25, width, height, signUpPanel);
+        addFieldWithLabel("ID Number:", x2, y, width, height, signUpPanel);
+        idNumberField = addTextField(x2, y + 25, width, height, signUpPanel);
 
         // Nationality and Address
         y += gap;
-        JLabel nationalityLbl = createLabel("Nationality:", x1, y);
-        nationalityField = createTextField(x1, y + 20, width, height);
-        JLabel addressLbl = createLabel("Address:", x2, y);
-        addressField = createTextField(x2, y + 20, width, height);
+        addFieldWithLabel("Nationality:", x1, y, width, height, signUpPanel);
+        nationalityField = addTextField(x1, y + 25, width, height, signUpPanel);
+        addFieldWithLabel("Address:", x2, y, width, height, signUpPanel);
+        addressField = addTextField(x2, y + 25, width, height, signUpPanel);
 
         // Phone Number and Email
         y += gap;
-        JLabel phoneLbl = createLabel("Phone Number:", x1, y);
-        phoneNumberField = createTextField(x1, y + 20, width, height);
-        JLabel emailLbl = createLabel("Email:", x2, y);
-        emailField = createTextField(x2, y + 20, width, height);
+        addFieldWithLabel("Phone Number:", x1, y, width, height, signUpPanel);
+        phoneNumberField = addTextField(x1, y + 25, width, height, signUpPanel);
+        addFieldWithLabel("Email:", x2, y, width, height, signUpPanel);
+        emailField = addTextField(x2, y + 25, width, height, signUpPanel);
 
         // Username and Password
         y += gap;
-        JLabel usernameLbl = createLabel("Username:", x1, y);
-        usernameField = createTextField(x1, y + 20, width, height);
-        JLabel passwordLbl = createLabel("Password:", x2, y);
+        addFieldWithLabel("Username:", x1, y, width, height, signUpPanel);
+        usernameField = addTextField(x1, y + 25, width, height, signUpPanel);
+        addFieldWithLabel("Password:", x2, y, width, height, signUpPanel);
         passwordField = new JPasswordField();
-        passwordField.setBounds(x2, y + 20, width, height);
+        passwordField.setBounds(x2, y + 25, width, height);
+        signUpPanel.add(passwordField);
 
         // Confirm Password and Role
         y += gap;
-        JLabel confirmPasswordLbl = createLabel("Confirm Password:", x1, y);
+        addFieldWithLabel("Confirm Password:", x1, y, width, height, signUpPanel);
         confirmPasswordField = new JPasswordField();
-        confirmPasswordField.setBounds(x1, y + 20, width, height);
-        JLabel roleLbl = createLabel("Role:", x2, y);
-        roleField = createTextField(x2, y + 20, width, height);
+        confirmPasswordField.setBounds(x1, y + 25, width, height);
+        signUpPanel.add(confirmPasswordField);
+        addFieldWithLabel("Role:", x2, y, width, height, signUpPanel);
+        roleDropdown = new JComboBox<>(new String[]{"Customer", "Admin", "Receptionist"});
+        roleDropdown.setBounds(x2, y + 25, width, height);
+        signUpPanel.add(roleDropdown);
 
         // Sign-Up Button
-        y += gap;
         JButton signUpButton = new JButton("Sign Up");
-        signUpButton.setBounds(490, y + 30, 300, 50);
+        signUpButton.setBounds(440, y + 75, 300, 40);
         signUpButton.setBackground(Color.decode("#847966"));
         signUpButton.setForeground(Color.WHITE);
-
-        // Add components to the sign-up panel
-        signUpPanel.add(firstNameLbl);
-        signUpPanel.add(firstNameField);
-        signUpPanel.add(lastNameLbl);
-        signUpPanel.add(lastNameField);
-        signUpPanel.add(dobLbl);
-        signUpPanel.add(dateOfBirthField);
-        signUpPanel.add(idLbl);
-        signUpPanel.add(idNumberField);
-        signUpPanel.add(nationalityLbl);
-        signUpPanel.add(nationalityField);
-        signUpPanel.add(addressLbl);
-        signUpPanel.add(addressField);
-        signUpPanel.add(phoneLbl);
-        signUpPanel.add(phoneNumberField);
-        signUpPanel.add(emailLbl);
-        signUpPanel.add(emailField);
-        signUpPanel.add(usernameLbl);
-        signUpPanel.add(usernameField);
-        signUpPanel.add(passwordLbl);
-        signUpPanel.add(passwordField);
-        signUpPanel.add(confirmPasswordLbl);
-        signUpPanel.add(confirmPasswordField);
-        signUpPanel.add(roleLbl);
-        signUpPanel.add(roleField);
         signUpPanel.add(signUpButton);
 
-        // Add panels to the frame
-        add(signUpPanel);
-        add(panel);
-        // Add ActionListener for the sign-up button
-        signUpButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String firstName = firstNameField.getText();
-                String lastName = lastNameField.getText();
-                String username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
-                String confirmPassword = new String(confirmPasswordField.getPassword());
+        // Action Listener
+        signUpButton.addActionListener(e -> validateAndSubmitForm());
 
-                if (!password.equals(confirmPassword)) {
-                    JOptionPane.showMessageDialog(null, "Passwords do not match!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Sign-Up successful for: " + username);
-                }
-            }
-        });
+        add(panel);
     }
 
-    private JLabel createLabel(String text, int x, int y) {
+    private void validateAndSubmitForm() {
+        String firstName = firstNameField.getText();
+        String lastName = lastNameField.getText();
+        String email = emailField.getText();
+        String username = usernameField.getText();
+        String password = new String(passwordField.getPassword());
+        String confirmPassword = new String(confirmPasswordField.getPassword());
+
+        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "All fields must be filled!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!password.equals(confirmPassword)) {
+            JOptionPane.showMessageDialog(this, "Passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Sign-Up successful for: " + username, "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private JLabel addFieldWithLabel(String text, int x, int y, int width, int height, JPanel panel) {
         JLabel label = new JLabel(text);
-        label.setBounds(x, y, 300, 20);
+        label.setBounds(x, y, width, height);
         label.setForeground(Color.WHITE);
+        panel.add(label);
         return label;
     }
 
-    private JTextField createTextField(int x, int y, int width, int height) {
+    private JTextField addTextField(int x, int y, int width, int height, JPanel panel) {
         JTextField textField = new JTextField();
         textField.setBounds(x, y, width, height);
+        panel.add(textField);
         return textField;
     }
 
-
     public static void main(String[] args) {
-        new SignUpWindow().setVisible(true);
-
+        SwingUtilities.invokeLater(() -> new SignUpWindow().setVisible(true));
     }
-
 }
