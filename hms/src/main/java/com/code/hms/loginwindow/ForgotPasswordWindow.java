@@ -41,6 +41,44 @@ public class ForgotPasswordWindow extends JFrame {
         title.setBounds(150, 70, 300, 40);
         forgotPasswordPanel.add(title);
 
+        // Username Label
+        JLabel usernameLbl = new JLabel("Username");
+        usernameLbl.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        usernameLbl.setForeground(Color.WHITE);
+        usernameLbl.setBounds(50, 150, 200, 30);
+        forgotPasswordPanel.add(usernameLbl);
+
+        // Username Text Field
+        usernameField = new JTextField();
+        usernameField.setBounds(50, 180, 400, 40);
+        usernameField.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        forgotPasswordPanel.add(usernameField);
+
+        // Email/Phone Label
+        JLabel emailLbl = new JLabel("Email / Phone Number");
+        emailLbl.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        emailLbl.setForeground(Color.WHITE);
+        emailLbl.setBounds(50, 250, 200, 30);
+        forgotPasswordPanel.add(emailLbl);
+
+        // Email/Phone Text Field
+        emailField = new JTextField();
+        emailField.setBounds(50, 280, 400, 40);
+        emailField.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        forgotPasswordPanel.add(emailField);
+
+        // Reset Password Button
+        resetPasswordButton = new JButton("Reset Password");
+        resetPasswordButton.setBounds(150, 380, 200, 50);
+        resetPasswordButton.setBackground(Color.decode("#847966"));
+        resetPasswordButton.setForeground(Color.WHITE);
+        resetPasswordButton.setFont(new Font("SansSerif", Font.BOLD, 18));
+        forgotPasswordPanel.add(resetPasswordButton);
+
+        // Add panels
+        backgroundLbl.add(forgotPasswordPanel);
+        add(panel);
+
 
 
     public static void main(String[] args) {
