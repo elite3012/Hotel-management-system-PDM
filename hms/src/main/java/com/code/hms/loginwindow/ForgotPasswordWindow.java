@@ -11,6 +11,29 @@ public class ForgotPasswordWindow extends JFrame {
     static JTextField usernameField, emailField;
     static JButton resetPasswordButton;
 
+    public ForgotPasswordWindow() {
+        // Set up frame
+        setTitle("Forgot Password");
+        setSize(1280, 672);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        // Create main panel
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+
+        // Load and set the background
+        LoadImage loader = new LoadImage("hms/bg img/bg.png", getWidth(), getHeight());
+        JLabel backgroundLbl = new JLabel(loader.getImageIcon());
+        backgroundLbl.setBounds(0, 0, getWidth(), getHeight());
+        panel.add(backgroundLbl);
+
+        // Semi-transparent form panel
+        JPanel forgotPasswordPanel = new JPanel();
+        forgotPasswordPanel.setLayout(null);
+        forgotPasswordPanel.setBackground(new Color(0, 0, 0, 150));
+        forgotPasswordPanel.setBounds(0, 0, 500, 672);
+
 
 
     public static void main(String[] args) {
