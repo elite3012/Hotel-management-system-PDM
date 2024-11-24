@@ -1,4 +1,4 @@
-package com.code.hms.daoImpl;
+package com.code.hms.daoimpl;
 
 import java.util.List;
 
