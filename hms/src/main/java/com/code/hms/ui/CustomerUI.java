@@ -2,6 +2,8 @@ package com.code.hms.ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CustomerUI {
     static JFrame frame;
@@ -49,13 +51,37 @@ public class CustomerUI {
     static JLabel Minutebox;
     static JLabel Secondbox;
 
-    static JTextField DayEnter;
-    static JTextField MonthEnter;
-    static JTextField YearEnter;
+    static JTextField SpaDayEnter;
+    static JTextField SpaMonthEnter;
+    static JTextField SpaYearEnter;
 
-    static JTextField HourEnter;
-    static JTextField MinuteEnter;
-    static JTextField SecondEnter;
+    static JTextField SpaHourEnter;
+    static JTextField SpaMinuteEnter;
+    static JTextField SpaSecondEnter;
+
+    static JTextField ResDayEnter;
+    static JTextField ResMonthEnter;
+    static JTextField ResYearEnter;
+
+    static JTextField ResHourEnter;
+    static JTextField ResMinuteEnter;
+    static JTextField ResSecondEnter;
+
+    static JTextField RoomCleanDayEnter;
+    static JTextField RoomCleanMonthEnter;
+    static JTextField RoomCleanYearEnter;
+
+    static JTextField RoomCleanHourEnter;
+    static JTextField RoomCleanMinuteEnter;
+    static JTextField RoomCleanSecondEnter;
+
+    static JTextField MusicLoungeDayEnter;
+    static JTextField MusicLoungeMonthEnter;
+    static JTextField MusicLoungeYearEnter;
+
+    static JTextField MusicLoungeHourEnter;
+    static JTextField MusicLoungeMinuteEnter;
+    static JTextField MusicLoungeSecondEnter;
 
     static JLabel ServiceMenu;
     static JLabel SpaCenter;
@@ -97,6 +123,8 @@ public class CustomerUI {
     static JTextField BookingExpDate;
     static JTextField BookingSecCode;
 
+    static JComboBox<String> spaPackageMenu;
+
     public CustomerUI() {
         createMainGUI();
         CreateSpaInfoBox();
@@ -105,6 +133,7 @@ public class CustomerUI {
         CreateMusicLoungeInfoBox();
         CreateDate_TimeBox();
         CreateBookingInfor();
+        createDropdown();
     }
 
     private void createMainGUI() {
@@ -267,7 +296,7 @@ public class CustomerUI {
         RatingStars ratingStars = new RatingStars();
         ratingStars.setBounds(585, 70, 500, 100); // Position and size
         panel.add(ratingStars);
-        panel.setComponentZOrder(ratingStars,0);
+        panel.setComponentZOrder(ratingStars, 0);
         // Force the panel to repaint immediately
         panel.revalidate();
         panel.repaint();
@@ -368,7 +397,7 @@ public class CustomerUI {
             EnterBoxEmail.setVisible(true);
 
             FNamePosition.setVisible(true);
-            LNamePosition.setVisible (true);
+            LNamePosition.setVisible(true);
             PNumberPosition.setVisible(true);
             EmailPosition.setVisible(true);
             DatePosition.setVisible(false);
@@ -382,13 +411,37 @@ public class CustomerUI {
             Minutebox.setVisible(false);
             Secondbox.setVisible(false);
 
-            DayEnter.setVisible(false);
-            MonthEnter.setVisible(false);
-            YearEnter.setVisible(false);
+            SpaDayEnter.setVisible(false);
+            SpaMonthEnter.setVisible(false);
+            SpaYearEnter.setVisible(false);
 
-            HourEnter.setVisible(false);
-            MinuteEnter.setVisible(false);
-            SecondEnter.setVisible(false);
+            SpaHourEnter.setVisible(false);
+            SpaMinuteEnter.setVisible(false);
+            SpaSecondEnter.setVisible(false);
+
+            ResDayEnter.setVisible(false);
+            ResMonthEnter.setVisible(false);
+            ResYearEnter.setVisible(false);
+
+            ResHourEnter.setVisible(false);
+            ResMinuteEnter.setVisible(false);
+            ResSecondEnter.setVisible(false);
+
+            RoomCleanDayEnter.setVisible(false);
+            RoomCleanMonthEnter.setVisible(false);
+            RoomCleanYearEnter.setVisible(false);
+
+            RoomCleanHourEnter.setVisible(false);
+            RoomCleanMinuteEnter.setVisible(false);
+            RoomCleanSecondEnter.setVisible(false);
+
+            MusicLoungeDayEnter.setVisible(false);
+            MusicLoungeMonthEnter.setVisible(false);
+            MusicLoungeYearEnter.setVisible(false);
+
+            MusicLoungeHourEnter.setVisible(false);
+            MusicLoungeMinuteEnter.setVisible(false);
+            MusicLoungeSecondEnter.setVisible(false);
 
             RateExp.setVisible(false);
             ratingStars.setVisible(false);
@@ -427,6 +480,8 @@ public class CustomerUI {
             BookingNamecard.setVisible(true);
             BookingExpDate.setVisible(true);
             BookingSecCode.setVisible(true);
+
+            spaPackageMenu.setVisible(false);
         });
 
         // HotelInfoTab setup
@@ -496,7 +551,7 @@ public class CustomerUI {
             MusicLoungeEmail.setVisible(false);
 
             FNamePosition.setVisible(false);
-            LNamePosition.setVisible (false);
+            LNamePosition.setVisible(false);
             PNumberPosition.setVisible(false);
             EmailPosition.setVisible(false);
             DatePosition.setVisible(false);
@@ -506,17 +561,45 @@ public class CustomerUI {
             Monthbox.setVisible(false);
             Yearbox.setVisible(false);
 
-            DayEnter.setVisible(false);
-            MonthEnter.setVisible(false);
-            YearEnter.setVisible(false);
-
             Hourbox.setVisible(false);
             Minutebox.setVisible(false);
             Secondbox.setVisible(false);
 
-            HourEnter.setVisible(false);
-            MinuteEnter.setVisible(false);
-            SecondEnter.setVisible(false);
+            SpaDayEnter.setVisible(false);
+            SpaMonthEnter.setVisible(false);
+            SpaYearEnter.setVisible(false);
+
+            SpaHourEnter.setVisible(false);
+            SpaMinuteEnter.setVisible(false);
+            SpaSecondEnter.setVisible(false);
+
+            ResDayEnter.setVisible(false);
+            ResMonthEnter.setVisible(false);
+            ResYearEnter.setVisible(false);
+
+            ResHourEnter.setVisible(false);
+            ResMinuteEnter.setVisible(false);
+            ResSecondEnter.setVisible(false);
+
+            RoomCleanDayEnter.setVisible(false);
+            RoomCleanMonthEnter.setVisible(false);
+            RoomCleanYearEnter.setVisible(false);
+
+            RoomCleanHourEnter.setVisible(false);
+            RoomCleanMinuteEnter.setVisible(false);
+            RoomCleanSecondEnter.setVisible(false);
+
+            MusicLoungeDayEnter.setVisible(false);
+            MusicLoungeMonthEnter.setVisible(false);
+            MusicLoungeYearEnter.setVisible(false);
+
+            MusicLoungeHourEnter.setVisible(false);
+            MusicLoungeMinuteEnter.setVisible(false);
+            MusicLoungeSecondEnter.setVisible(false);
+
+            Hourbox.setVisible(false);
+            Minutebox.setVisible(false);
+            Secondbox.setVisible(false);
 
             RateExp.setVisible(false);
             ratingStars.setVisible(false);
@@ -557,6 +640,8 @@ public class CustomerUI {
             BookingNamecard.setVisible(false);
             BookingExpDate.setVisible(false);
             BookingSecCode.setVisible(false);
+
+            spaPackageMenu.setVisible(false);
         });
 
         // ReservationTab setup
@@ -628,7 +713,7 @@ public class CustomerUI {
             MusicLoungeEmail.setVisible(false);
 
             FNamePosition.setVisible(false);
-            LNamePosition.setVisible (false);
+            LNamePosition.setVisible(false);
             PNumberPosition.setVisible(false);
             EmailPosition.setVisible(false);
             DatePosition.setVisible(false);
@@ -642,13 +727,37 @@ public class CustomerUI {
             Minutebox.setVisible(false);
             Secondbox.setVisible(false);
 
-            DayEnter.setVisible(false);
-            MonthEnter.setVisible(false);
-            YearEnter.setVisible(false);
+            SpaDayEnter.setVisible(false);
+            SpaMonthEnter.setVisible(false);
+            SpaYearEnter.setVisible(false);
 
-            HourEnter.setVisible(false);
-            MinuteEnter.setVisible(false);
-            SecondEnter.setVisible(false);
+            SpaHourEnter.setVisible(false);
+            SpaMinuteEnter.setVisible(false);
+            SpaSecondEnter.setVisible(false);
+
+            ResDayEnter.setVisible(false);
+            ResMonthEnter.setVisible(false);
+            ResYearEnter.setVisible(false);
+
+            ResHourEnter.setVisible(false);
+            ResMinuteEnter.setVisible(false);
+            ResSecondEnter.setVisible(false);
+
+            RoomCleanDayEnter.setVisible(false);
+            RoomCleanMonthEnter.setVisible(false);
+            RoomCleanYearEnter.setVisible(false);
+
+            RoomCleanHourEnter.setVisible(false);
+            RoomCleanMinuteEnter.setVisible(false);
+            RoomCleanSecondEnter.setVisible(false);
+
+            MusicLoungeDayEnter.setVisible(false);
+            MusicLoungeMonthEnter.setVisible(false);
+            MusicLoungeYearEnter.setVisible(false);
+
+            MusicLoungeHourEnter.setVisible(false);
+            MusicLoungeMinuteEnter.setVisible(false);
+            MusicLoungeSecondEnter.setVisible(false);
 
             RateExp.setVisible(false);
             ratingStars.setVisible(false);
@@ -689,6 +798,8 @@ public class CustomerUI {
             BookingNamecard.setVisible(false);
             BookingExpDate.setVisible(false);
             BookingSecCode.setVisible(false);
+
+            spaPackageMenu.setVisible(false);
         });
 
         // ReservationTab setup
@@ -732,7 +843,7 @@ public class CustomerUI {
         panel.add(Spa);
         Spa.addActionListener(e -> {
             FNamePosition.setVisible(true);
-            LNamePosition.setVisible (true);
+            LNamePosition.setVisible(true);
             PNumberPosition.setVisible(true);
             EmailPosition.setVisible(true);
             DatePosition.setVisible(true);
@@ -786,16 +897,42 @@ public class CustomerUI {
             Minutebox.setVisible(true);
             Secondbox.setVisible(true);
 
-            DayEnter.setVisible(true);
-            MonthEnter.setVisible(true);
-            YearEnter.setVisible(true);
+            SpaDayEnter.setVisible(true);
+            SpaMonthEnter.setVisible(true);
+            SpaYearEnter.setVisible(true);
 
-            HourEnter.setVisible(true);
-            MinuteEnter.setVisible(true);
-            SecondEnter.setVisible(true);
+            SpaHourEnter.setVisible(true);
+            SpaMinuteEnter.setVisible(true);
+            SpaSecondEnter.setVisible(true);
+
+            ResDayEnter.setVisible(false);
+            ResMonthEnter.setVisible(false);
+            ResYearEnter.setVisible(false);
+
+            ResHourEnter.setVisible(false);
+            ResMinuteEnter.setVisible(false);
+            ResSecondEnter.setVisible(false);
+
+            RoomCleanDayEnter.setVisible(false);
+            RoomCleanMonthEnter.setVisible(false);
+            RoomCleanYearEnter.setVisible(false);
+
+            RoomCleanHourEnter.setVisible(false);
+            RoomCleanMinuteEnter.setVisible(false);
+            RoomCleanSecondEnter.setVisible(false);
+
+            MusicLoungeDayEnter.setVisible(false);
+            MusicLoungeMonthEnter.setVisible(false);
+            MusicLoungeYearEnter.setVisible(false);
+
+            MusicLoungeHourEnter.setVisible(false);
+            MusicLoungeMinuteEnter.setVisible(false);
+            MusicLoungeSecondEnter.setVisible(false);
 
             RateExp.setVisible(false);
             ratingStars.setVisible(false);
+
+            spaPackageMenu.setVisible(true);
         });
 
         RestaurantCenter = new JLabel();
@@ -853,7 +990,7 @@ public class CustomerUI {
             MusicLoungeEmail.setVisible(false);
 
             FNamePosition.setVisible(true);
-            LNamePosition.setVisible (true);
+            LNamePosition.setVisible(true);
             PNumberPosition.setVisible(true);
             EmailPosition.setVisible(true);
             DatePosition.setVisible(true);
@@ -867,15 +1004,41 @@ public class CustomerUI {
             Minutebox.setVisible(true);
             Secondbox.setVisible(true);
 
-            DayEnter.setVisible(true);
-            MonthEnter.setVisible(true);
-            YearEnter.setVisible(true);
+            SpaDayEnter.setVisible(false);
+            SpaMonthEnter.setVisible(false);
+            SpaYearEnter.setVisible(false);
 
-            HourEnter.setVisible(true);
-            MinuteEnter.setVisible(true);
-            SecondEnter.setVisible(true);
+            SpaHourEnter.setVisible(false);
+            SpaMinuteEnter.setVisible(false);
+            SpaSecondEnter.setVisible(false);
+
+            ResDayEnter.setVisible(true);
+            ResMonthEnter.setVisible(true);
+            ResYearEnter.setVisible(true);
+
+            ResHourEnter.setVisible(true);
+            ResMinuteEnter.setVisible(true);
+            ResSecondEnter.setVisible(true);
+
+            RoomCleanDayEnter.setVisible(false);
+            RoomCleanMonthEnter.setVisible(false);
+            RoomCleanYearEnter.setVisible(false);
+
+            RoomCleanHourEnter.setVisible(false);
+            RoomCleanMinuteEnter.setVisible(false);
+            RoomCleanSecondEnter.setVisible(false);
+
+            MusicLoungeDayEnter.setVisible(false);
+            MusicLoungeMonthEnter.setVisible(false);
+            MusicLoungeYearEnter.setVisible(false);
+
+            MusicLoungeHourEnter.setVisible(false);
+            MusicLoungeMinuteEnter.setVisible(false);
+            MusicLoungeSecondEnter.setVisible(false);
 
             RateExp.setVisible(false);
+
+            spaPackageMenu.setVisible(false);
         });
 
         RoomCleaningCenter = new JLabel();
@@ -933,7 +1096,7 @@ public class CustomerUI {
             MusicLoungeEmail.setVisible(false);
 
             FNamePosition.setVisible(true);
-            LNamePosition.setVisible (true);
+            LNamePosition.setVisible(true);
             PNumberPosition.setVisible(true);
             EmailPosition.setVisible(true);
             DatePosition.setVisible(true);
@@ -947,15 +1110,41 @@ public class CustomerUI {
             Minutebox.setVisible(true);
             Secondbox.setVisible(true);
 
-            DayEnter.setVisible(true);
-            MonthEnter.setVisible(true);
-            YearEnter.setVisible(true);
+            SpaDayEnter.setVisible(false);
+            SpaMonthEnter.setVisible(false);
+            SpaYearEnter.setVisible(false);
 
-            HourEnter.setVisible(true);
-            MinuteEnter.setVisible(true);
-            SecondEnter.setVisible(true);
+            SpaHourEnter.setVisible(false);
+            SpaMinuteEnter.setVisible(false);
+            SpaSecondEnter.setVisible(false);
+
+            ResDayEnter.setVisible(false);
+            ResMonthEnter.setVisible(false);
+            ResYearEnter.setVisible(false);
+
+            ResHourEnter.setVisible(false);
+            ResMinuteEnter.setVisible(false);
+            ResSecondEnter.setVisible(false);
+
+            RoomCleanDayEnter.setVisible(true);
+            RoomCleanMonthEnter.setVisible(true);
+            RoomCleanYearEnter.setVisible(true);
+
+            RoomCleanHourEnter.setVisible(true);
+            RoomCleanMinuteEnter.setVisible(true);
+            RoomCleanSecondEnter.setVisible(true);
+
+            MusicLoungeDayEnter.setVisible(false);
+            MusicLoungeMonthEnter.setVisible(false);
+            MusicLoungeYearEnter.setVisible(false);
+
+            MusicLoungeHourEnter.setVisible(false);
+            MusicLoungeMinuteEnter.setVisible(false);
+            MusicLoungeSecondEnter.setVisible(false);
 
             RateExp.setVisible(false);
+
+            spaPackageMenu.setVisible(false);
         });
 
         MusicLoungeCenter = new JLabel();
@@ -1013,7 +1202,7 @@ public class CustomerUI {
             MusicLoungeEmail.setVisible(true);
 
             FNamePosition.setVisible(true);
-            LNamePosition.setVisible (true);
+            LNamePosition.setVisible(true);
             PNumberPosition.setVisible(true);
             EmailPosition.setVisible(true);
             DatePosition.setVisible(true);
@@ -1027,15 +1216,41 @@ public class CustomerUI {
             Minutebox.setVisible(true);
             Secondbox.setVisible(true);
 
-            DayEnter.setVisible(true);
-            MonthEnter.setVisible(true);
-            YearEnter.setVisible(true);
+            SpaDayEnter.setVisible(false);
+            SpaMonthEnter.setVisible(false);
+            SpaYearEnter.setVisible(false);
 
-            HourEnter.setVisible(true);
-            MinuteEnter.setVisible(true);
-            SecondEnter.setVisible(true);
+            SpaHourEnter.setVisible(false);
+            SpaMinuteEnter.setVisible(false);
+            SpaSecondEnter.setVisible(false);
+
+            ResDayEnter.setVisible(false);
+            ResMonthEnter.setVisible(false);
+            ResYearEnter.setVisible(false);
+
+            ResHourEnter.setVisible(false);
+            ResMinuteEnter.setVisible(false);
+            ResSecondEnter.setVisible(false);
+
+            RoomCleanDayEnter.setVisible(false);
+            RoomCleanMonthEnter.setVisible(false);
+            RoomCleanYearEnter.setVisible(false);
+
+            RoomCleanHourEnter.setVisible(false);
+            RoomCleanMinuteEnter.setVisible(false);
+            RoomCleanSecondEnter.setVisible(false);
+
+            MusicLoungeDayEnter.setVisible(true);
+            MusicLoungeMonthEnter.setVisible(true);
+            MusicLoungeYearEnter.setVisible(true);
+
+            MusicLoungeHourEnter.setVisible(true);
+            MusicLoungeMinuteEnter.setVisible(true);
+            MusicLoungeSecondEnter.setVisible(true);
 
             RateExp.setVisible(false);
+
+            spaPackageMenu.setVisible(false);
         });
 
         ServiceTab = new JButton();
@@ -1104,7 +1319,7 @@ public class CustomerUI {
             MusicLoungeEmail.setVisible(false);
 
             FNamePosition.setVisible(false);
-            LNamePosition.setVisible (false);
+            LNamePosition.setVisible(false);
             PNumberPosition.setVisible(false);
             EmailPosition.setVisible(false);
             DatePosition.setVisible(false);
@@ -1118,13 +1333,37 @@ public class CustomerUI {
             Minutebox.setVisible(false);
             Secondbox.setVisible(false);
 
-            DayEnter.setVisible(false);
-            MonthEnter.setVisible(false);
-            YearEnter.setVisible(false);
+            SpaDayEnter.setVisible(false);
+            SpaMonthEnter.setVisible(false);
+            SpaYearEnter.setVisible(false);
 
-            HourEnter.setVisible(false);
-            MinuteEnter.setVisible(false);
-            SecondEnter.setVisible(false);
+            SpaHourEnter.setVisible(false);
+            SpaMinuteEnter.setVisible(false);
+            SpaSecondEnter.setVisible(false);
+
+            ResDayEnter.setVisible(false);
+            ResMonthEnter.setVisible(false);
+            ResYearEnter.setVisible(false);
+
+            ResHourEnter.setVisible(false);
+            ResMinuteEnter.setVisible(false);
+            ResSecondEnter.setVisible(false);
+
+            RoomCleanDayEnter.setVisible(false);
+            RoomCleanMonthEnter.setVisible(false);
+            RoomCleanYearEnter.setVisible(false);
+
+            RoomCleanHourEnter.setVisible(false);
+            RoomCleanMinuteEnter.setVisible(false);
+            RoomCleanSecondEnter.setVisible(false);
+
+            MusicLoungeDayEnter.setVisible(false);
+            MusicLoungeMonthEnter.setVisible(false);
+            MusicLoungeYearEnter.setVisible(false);
+
+            MusicLoungeHourEnter.setVisible(false);
+            MusicLoungeMinuteEnter.setVisible(false);
+            MusicLoungeSecondEnter.setVisible(false);
 
             RateExp.setVisible(false);
             ratingStars.setVisible(false);
@@ -1165,6 +1404,8 @@ public class CustomerUI {
             BookingNamecard.setVisible(false);
             BookingExpDate.setVisible(false);
             BookingSecCode.setVisible(false);
+
+            spaPackageMenu.setVisible(false);
         });
 
         ReviewTab = new JButton();
@@ -1233,7 +1474,7 @@ public class CustomerUI {
             MusicLoungeEmail.setVisible(false);
 
             FNamePosition.setVisible(false);
-            LNamePosition.setVisible (false);
+            LNamePosition.setVisible(false);
             PNumberPosition.setVisible(false);
             EmailPosition.setVisible(false);
             DatePosition.setVisible(false);
@@ -1247,13 +1488,37 @@ public class CustomerUI {
             Minutebox.setVisible(false);
             Secondbox.setVisible(false);
 
-            DayEnter.setVisible(false);
-            MonthEnter.setVisible(false);
-            YearEnter.setVisible(false);
+            SpaDayEnter.setVisible(false);
+            SpaMonthEnter.setVisible(false);
+            SpaYearEnter.setVisible(false);
 
-            HourEnter.setVisible(false);
-            MinuteEnter.setVisible(false);
-            SecondEnter.setVisible(false);
+            SpaHourEnter.setVisible(false);
+            SpaMinuteEnter.setVisible(false);
+            SpaSecondEnter.setVisible(false);
+
+            ResDayEnter.setVisible(false);
+            ResMonthEnter.setVisible(false);
+            ResYearEnter.setVisible(false);
+
+            ResHourEnter.setVisible(false);
+            ResMinuteEnter.setVisible(false);
+            ResSecondEnter.setVisible(false);
+
+            RoomCleanDayEnter.setVisible(false);
+            RoomCleanMonthEnter.setVisible(false);
+            RoomCleanYearEnter.setVisible(false);
+
+            RoomCleanHourEnter.setVisible(false);
+            RoomCleanMinuteEnter.setVisible(false);
+            RoomCleanSecondEnter.setVisible(false);
+
+            MusicLoungeDayEnter.setVisible(false);
+            MusicLoungeMonthEnter.setVisible(false);
+            MusicLoungeYearEnter.setVisible(false);
+
+            MusicLoungeHourEnter.setVisible(false);
+            MusicLoungeMinuteEnter.setVisible(false);
+            MusicLoungeSecondEnter.setVisible(false);
 
             RateExp.setVisible(true);
             ratingStars.setVisible(true);
@@ -1289,6 +1554,8 @@ public class CustomerUI {
             BookingNamecard.setVisible(false);
             BookingExpDate.setVisible(false);
             BookingSecCode.setVisible(false);
+
+            spaPackageMenu.setVisible(false);
         });
 
         // Tab1_background
@@ -1559,19 +1826,19 @@ public class CustomerUI {
         BookingSecCode.setBorder(null);
     }
 
-    public void CreateDate_TimeBox(){
+    public void CreateDate_TimeBox() {
         Daybox = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/BookingBox.png", 100, 30));
         Daybox.setBounds(350, 420, 100, 30);
         panel.add(Daybox);
         panel.setComponentZOrder(Daybox, 0); // Brings it to the top of the component stack
         Daybox.setVisible(false);
 
-        DayEnter = new JTextField();
-        panel.add(DayEnter);
-        DayEnter.setBounds(351, 421, 98, 28);
-        DayEnter.setBackground(new Color(244, 242, 235));
-        DayEnter.setVisible(false);
-        DayEnter.setBorder(null);
+        SpaDayEnter = new JTextField();
+        panel.add(SpaDayEnter);
+        SpaDayEnter.setBounds(351, 421, 98, 28);
+        SpaDayEnter.setBackground(new Color(244, 242, 235));
+        SpaDayEnter.setVisible(false);
+        SpaDayEnter.setBorder(null);
 
         Monthbox = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/BookingBox.png", 100, 30));
         Monthbox.setBounds(460, 420, 100, 30);
@@ -1579,12 +1846,12 @@ public class CustomerUI {
         panel.setComponentZOrder(Monthbox, 0); // Brings it to the top of the component stack
         Monthbox.setVisible(false);
 
-        MonthEnter = new JTextField();
-        panel.add(MonthEnter);
-        MonthEnter.setBounds(461, 421, 98, 28);
-        MonthEnter.setBackground(new Color(244, 242, 235));
-        MonthEnter.setVisible(false);
-        MonthEnter.setBorder(null);
+        SpaMonthEnter = new JTextField();
+        panel.add(SpaMonthEnter);
+        SpaMonthEnter.setBounds(461, 421, 98, 28);
+        SpaMonthEnter.setBackground(new Color(244, 242, 235));
+        SpaMonthEnter.setVisible(false);
+        SpaMonthEnter.setBorder(null);
 
         Yearbox = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/BookingBox.png", 100, 30));
         Yearbox.setBounds(570, 420, 100, 30);
@@ -1592,12 +1859,12 @@ public class CustomerUI {
         panel.setComponentZOrder(Yearbox, 0); // Brings it to the top of the component stack
         Yearbox.setVisible(false);
 
-        YearEnter = new JTextField();
-        panel.add(YearEnter);
-        YearEnter.setBounds(571, 421, 98, 28);
-        YearEnter.setBackground(new Color(244, 242, 235));
-        YearEnter.setVisible(false);
-        YearEnter.setBorder(null);
+        SpaYearEnter = new JTextField();
+        panel.add(SpaYearEnter);
+        SpaYearEnter.setBounds(571, 421, 98, 28);
+        SpaYearEnter.setBackground(new Color(244, 242, 235));
+        SpaYearEnter.setVisible(false);
+        SpaYearEnter.setBorder(null);
 
         Hourbox = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/BookingBox.png", 100, 30));
         Hourbox.setBounds(800, 420, 100, 30);
@@ -1605,12 +1872,12 @@ public class CustomerUI {
         panel.setComponentZOrder(Hourbox, 0); // Brings it to the top of the component stack
         Hourbox.setVisible(false);
 
-        HourEnter = new JTextField();
-        panel.add(HourEnter);
-        HourEnter.setBounds(801, 421, 98, 28);
-        HourEnter.setBackground(new Color(244, 242, 235));
-        HourEnter.setVisible(false);
-        HourEnter.setBorder(null);
+        SpaHourEnter = new JTextField();
+        panel.add(SpaHourEnter);
+        SpaHourEnter.setBounds(801, 421, 98, 28);
+        SpaHourEnter.setBackground(new Color(244, 242, 235));
+        SpaHourEnter.setVisible(false);
+        SpaHourEnter.setBorder(null);
 
         Minutebox = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/BookingBox.png", 100, 30));
         Minutebox.setBounds(910, 420, 100, 30);
@@ -1618,12 +1885,12 @@ public class CustomerUI {
         panel.setComponentZOrder(Minutebox, 0); // Brings it to the top of the component stack
         Minutebox.setVisible(false);
 
-        MinuteEnter = new JTextField();
-        panel.add(MinuteEnter);
-        MinuteEnter.setBounds(911, 421, 98, 28);
-        MinuteEnter.setBackground(new Color(244, 242, 235));
-        MinuteEnter.setVisible(false);
-        MinuteEnter.setBorder(null);
+        SpaMinuteEnter = new JTextField();
+        panel.add(SpaMinuteEnter);
+        SpaMinuteEnter.setBounds(911, 421, 98, 28);
+        SpaMinuteEnter.setBackground(new Color(244, 242, 235));
+        SpaMinuteEnter.setVisible(false);
+        SpaMinuteEnter.setBorder(null);
 
         Secondbox = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/BookingBox.png", 100, 30));
         Secondbox.setBounds(1020, 420, 100, 30);
@@ -1631,11 +1898,192 @@ public class CustomerUI {
         panel.setComponentZOrder(Secondbox, 0); // Brings it to the top of the component stack
         Secondbox.setVisible(false);
 
-        SecondEnter = new JTextField();
-        panel.add(SecondEnter);
-        SecondEnter.setBounds(1021, 421, 98, 28);
-        SecondEnter.setBackground(new Color(244, 242, 235));
-        SecondEnter.setVisible(false);
-        SecondEnter.setBorder(null);
+        SpaSecondEnter = new JTextField();
+        panel.add(SpaSecondEnter);
+        SpaSecondEnter.setBounds(1021, 421, 98, 28);
+        SpaSecondEnter.setBackground(new Color(244, 242, 235));
+        SpaSecondEnter.setVisible(false);
+        SpaSecondEnter.setBorder(null);
+
+        ResDayEnter = new JTextField();
+        panel.add(ResDayEnter);
+        ResDayEnter.setBounds(351, 421, 98, 28);
+        ResDayEnter.setBackground(new Color(244, 242, 235));
+        ResDayEnter.setVisible(false);
+        ResDayEnter.setBorder(null);
+
+        ResMonthEnter = new JTextField();
+        panel.add(ResMonthEnter);
+        ResMonthEnter.setBounds(461, 421, 98, 28);
+        ResMonthEnter.setBackground(new Color(244, 242, 235));
+        ResMonthEnter.setVisible(false);
+        ResMonthEnter.setBorder(null);
+
+        ResYearEnter = new JTextField();
+        panel.add(ResYearEnter);
+        ResYearEnter.setBounds(571, 421, 98, 28);
+        ResYearEnter.setBackground(new Color(244, 242, 235));
+        ResYearEnter.setVisible(false);
+        ResYearEnter.setBorder(null);
+
+        ResHourEnter = new JTextField();
+        panel.add(ResHourEnter);
+        ResHourEnter.setBounds(801, 421, 98, 28);
+        ResHourEnter.setBackground(new Color(244, 242, 235));
+        ResHourEnter.setVisible(false);
+        ResHourEnter.setBorder(null);
+
+        ResMinuteEnter = new JTextField();
+        panel.add(ResMinuteEnter);
+        ResMinuteEnter.setBounds(911, 421, 98, 28);
+        ResMinuteEnter.setBackground(new Color(244, 242, 235));
+        ResMinuteEnter.setVisible(false);
+        ResMinuteEnter.setBorder(null);
+
+        ResSecondEnter = new JTextField();
+        panel.add(ResSecondEnter);
+        ResSecondEnter.setBounds(1021, 421, 98, 28);
+        ResSecondEnter.setBackground(new Color(244, 242, 235));
+        ResSecondEnter.setVisible(false);
+        ResSecondEnter.setBorder(null);
+
+        RoomCleanDayEnter = new JTextField();
+        panel.add(RoomCleanDayEnter);
+        RoomCleanDayEnter.setBounds(351, 421, 98, 28);
+        RoomCleanDayEnter.setBackground(new Color(244, 242, 235));
+        RoomCleanDayEnter.setVisible(false);
+        RoomCleanDayEnter.setBorder(null);
+
+        RoomCleanMonthEnter = new JTextField();
+        panel.add(RoomCleanMonthEnter);
+        RoomCleanMonthEnter.setBounds(461, 421, 98, 28);
+        RoomCleanMonthEnter.setBackground(new Color(244, 242, 235));
+        RoomCleanMonthEnter.setVisible(false);
+        RoomCleanMonthEnter.setBorder(null);
+
+        RoomCleanYearEnter = new JTextField();
+        panel.add(RoomCleanMonthEnter);
+        RoomCleanMonthEnter.setBounds(571, 421, 98, 28);
+        RoomCleanMonthEnter.setBackground(new Color(244, 242, 235));
+        RoomCleanMonthEnter.setVisible(false);
+        RoomCleanMonthEnter.setBorder(null);
+
+        RoomCleanHourEnter = new JTextField();
+        panel.add(RoomCleanHourEnter);
+        RoomCleanHourEnter.setBounds(801, 421, 98, 28);
+        RoomCleanHourEnter.setBackground(new Color(244, 242, 235));
+        RoomCleanHourEnter.setVisible(false);
+        RoomCleanHourEnter.setBorder(null);
+
+        RoomCleanMinuteEnter = new JTextField();
+        panel.add(RoomCleanMinuteEnter);
+        RoomCleanMinuteEnter.setBounds(911, 421, 98, 28);
+        RoomCleanMinuteEnter.setBackground(new Color(244, 242, 235));
+        RoomCleanMinuteEnter.setVisible(false);
+        RoomCleanMinuteEnter.setBorder(null);
+
+        RoomCleanSecondEnter = new JTextField();
+        panel.add(RoomCleanSecondEnter);
+        RoomCleanSecondEnter.setBounds(1021, 421, 98, 28);
+        RoomCleanSecondEnter.setBackground(new Color(244, 242, 235));
+        RoomCleanSecondEnter.setVisible(false);
+        RoomCleanSecondEnter.setBorder(null);
+
+        MusicLoungeDayEnter = new JTextField();
+        panel.add(MusicLoungeDayEnter);
+        MusicLoungeDayEnter.setBounds(351, 421, 98, 28);
+        MusicLoungeDayEnter.setBackground(new Color(244, 242, 235));
+        MusicLoungeDayEnter.setVisible(false);
+        MusicLoungeDayEnter.setBorder(null);
+
+        MusicLoungeMonthEnter = new JTextField();
+        panel.add(MusicLoungeMonthEnter);
+        MusicLoungeMonthEnter.setBounds(461, 421, 98, 28);
+        MusicLoungeMonthEnter.setBackground(new Color(244, 242, 235));
+        MusicLoungeMonthEnter.setVisible(false);
+        MusicLoungeMonthEnter.setBorder(null);
+
+        MusicLoungeYearEnter = new JTextField();
+        panel.add(MusicLoungeYearEnter);
+        MusicLoungeYearEnter.setBounds(571, 421, 98, 28);
+        MusicLoungeYearEnter.setBackground(new Color(244, 242, 235));
+        MusicLoungeYearEnter.setVisible(false);
+        MusicLoungeYearEnter.setBorder(null);
+
+        MusicLoungeHourEnter = new JTextField();
+        panel.add(MusicLoungeHourEnter);
+        MusicLoungeHourEnter.setBounds(801, 421, 98, 28);
+        MusicLoungeHourEnter.setBackground(new Color(244, 242, 235));
+        MusicLoungeHourEnter.setVisible(false);
+        MusicLoungeHourEnter.setBorder(null);
+
+        MusicLoungeMinuteEnter = new JTextField();
+        panel.add(MusicLoungeMinuteEnter);
+        MusicLoungeMinuteEnter.setBounds(911, 421, 98, 28);
+        MusicLoungeMinuteEnter.setBackground(new Color(244, 242, 235));
+        MusicLoungeMinuteEnter.setVisible(false);
+        MusicLoungeMinuteEnter.setBorder(null);
+
+        MusicLoungeSecondEnter = new JTextField();
+        panel.add(MusicLoungeSecondEnter);
+        MusicLoungeSecondEnter.setBounds(1021, 421, 98, 28);
+        MusicLoungeSecondEnter.setBackground(new Color(244, 242, 235));
+        MusicLoungeSecondEnter.setVisible(false);
+        MusicLoungeSecondEnter.setBorder(null);
+    }
+
+    private void createDropdown() {
+        // Step 1: Update the options for Spa Packages
+        String spaPackageMenuOption[] = {"Massage", "Facial", "Sauna", "Body Scrub"};
+
+        // Step 2: Create the JComboBox with new options
+        spaPackageMenu = new JComboBox(spaPackageMenuOption);
+        spaPackageMenu.setBounds(277, 500, 135, 36);
+        spaPackageMenu.setFont(new Font("Mulish", Font.BOLD, 16));
+        spaPackageMenu.setBackground(new Color(244, 242, 235));
+        spaPackageMenu.setFocusable(false);
+        spaPackageMenu.setVisible(true);
+        panel.add(spaPackageMenu);
+
+        // Step 3: Add an ActionListener to handle selection changes
+        spaPackageMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Get the selected spa package
+                String selectedPackage = (String) spaPackageMenu.getSelectedItem();
+
+                // Perform actions based on the selected package
+                if ("Massage".equals(selectedPackage)) {
+                    addMassageComponents();  // Display massage-related UI or logic
+                } else if ("Facial".equals(selectedPackage)) {
+                    addFacialComponents();  // Display facial-related UI or logic
+                } else if ("Sauna".equals(selectedPackage)) {
+                    addSaunaComponents();  // Display sauna-related UI or logic
+                } else if ("Body Scrub".equals(selectedPackage)) {
+                    addBodyScrubComponents();  // Display body scrub-related UI or logic
+                }
+            }
+        });
+    }
+
+    private void addMassageComponents() {
+        // Code to add components related to Massage
+        System.out.println("Massage Package Selected");
+    }
+
+    private void addFacialComponents() {
+        // Code to add components related to Facial
+        System.out.println("Facial Package Selected");
+    }
+
+    private void addSaunaComponents() {
+        // Code to add components related to Massage
+        System.out.println("Massage Package Selected");
+    }
+
+    private void addBodyScrubComponents() {
+        // Code to add components related to Massage
+        System.out.println("Massage Package Selected");
+
     }
 }
