@@ -79,6 +79,7 @@ public class CustomerUI {
     static JLabel MusicLoungeCenter;
     static JLabel CustomerInfo;
     static JLabel BookingInformation;
+    static JLabel PaymentMethod;
 
     static JButton Spa;
     static JButton Restaurant;
@@ -91,6 +92,16 @@ public class CustomerUI {
     static JLabel EmailPosition;
     static JLabel DatePosition;
     static JLabel TimePosition;
+
+    static JLabel CreditNumber;
+    static JLabel NameOnCard;
+    static JLabel ExpDate;
+    static JLabel SecCode;
+
+    static JLabel CreditNumberPos;
+    static JLabel NameCardPos;
+    static JLabel ExpDatePos;
+    static JLabel SecCodePos;
 
     public CustomerUI() {
         createMainGUI();
@@ -148,6 +159,38 @@ public class CustomerUI {
         EmailPosition.setVisible(false);
         panel.add(EmailPosition);
 
+        CreditNumberPos = new JLabel();
+        CreditNumberPos.setText("Credit card number");
+        CreditNumberPos.setFont(new Font("Mulish", Font.BOLD, 20));
+        CreditNumberPos.setBounds(350, 420, 500, 30);
+        CreditNumberPos.setForeground(new Color(136, 120, 81));
+        CreditNumberPos.setVisible(false);
+        panel.add(CreditNumberPos);
+
+        NameCardPos = new JLabel();
+        NameCardPos.setText("Name on card");
+        NameCardPos.setFont(new Font("Mulish", Font.BOLD, 20));
+        NameCardPos.setBounds(750, 420, 500, 30);
+        NameCardPos.setForeground(new Color(136, 120, 81));
+        NameCardPos.setVisible(false);
+        panel.add(NameCardPos);
+
+        ExpDatePos = new JLabel();
+        ExpDatePos.setText("Expiration date");
+        ExpDatePos.setFont(new Font("Mulish", Font.BOLD, 20));
+        ExpDatePos.setBounds(350, 500, 500, 30);
+        ExpDatePos.setForeground(new Color(136, 120, 81));
+        ExpDatePos.setVisible(false);
+        panel.add(ExpDatePos);
+
+        SecCodePos = new JLabel();
+        SecCodePos.setText("Security code");
+        SecCodePos.setFont(new Font("Mulish", Font.BOLD, 20));
+        SecCodePos.setBounds(750, 500, 500, 30);
+        SecCodePos.setForeground(new Color(136, 120, 81));
+        SecCodePos.setVisible(false);
+        panel.add(SecCodePos);
+
         DatePosition = new JLabel();
         DatePosition.setText("Date");
         DatePosition.setFont(new Font("Mulish", Font.BOLD, 20));
@@ -200,7 +243,7 @@ public class CustomerUI {
         JTextArea WriteFeedback = new JTextArea();
         panel.add(WriteFeedback);
 
-// Set bounds and appearance
+        // Set bounds and appearance
         WriteFeedback.setBounds(300, 180, 940, 400);
         WriteFeedback.setBackground(new Color(244, 242, 235));
         WriteFeedback.setVisible(false);
@@ -208,8 +251,36 @@ public class CustomerUI {
         WriteFeedback.setWrapStyleWord(true); // Wrap at word boundaries
         WriteFeedback.setMargin(new Insets(5, 5, 5, 5)); // Add padding for better appearance
         WriteFeedback.setFont(new Font("Mulish", Font.PLAIN, 16)); // Set the font size and style
-
         WriteFeedback.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102), 1));
+
+        PaymentMethod = new JLabel();
+        PaymentMethod.setText("II. Payment Method");
+        PaymentMethod.setFont(new Font("Mulish", Font.BOLD, 33));
+        PaymentMethod.setBounds(310, 330, 500, 33);
+        PaymentMethod.setForeground(new Color(136, 120, 81));
+        PaymentMethod.setVisible(false);
+        panel.add(PaymentMethod);
+
+        // Create buttons with icons
+        JLabel visaImage = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/visaIcon.png", 80, 40));
+        visaImage.setBounds(350, 370, 80, 40);
+        panel.add(visaImage);
+        visaImage.setVisible(false);
+
+        JLabel mastercardImage = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/mastercardIcon.png", 80, 40));
+        mastercardImage.setBounds(450, 370, 80, 40);
+        panel.add(mastercardImage);
+        mastercardImage.setVisible(false);
+
+        JLabel PaypalImage = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/PaypalIcon.png", 80, 40));
+        PaypalImage.setBounds(550, 370, 80, 40);
+        panel.add(PaypalImage);
+        PaypalImage.setVisible(false);
+
+        JLabel DiscoverImage = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/DiscoverIcon.png", 80, 40));
+        DiscoverImage.setBounds(650, 370, 80, 40);
+        panel.add(DiscoverImage);
+        DiscoverImage.setVisible(false);
 
         // HotelInfoTab setup
         OurHotelTab = new JButton();
@@ -244,12 +315,14 @@ public class CustomerUI {
             ServiceTab.setForeground(new Color(245, 242, 233));
             ReviewTab.setForeground(new Color(245, 242, 233));
 
+
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
             RoomCleaningCenter.setVisible(false);
             MusicLoungeCenter.setVisible(false);
             CustomerInfo.setVisible(false);
             BookingInformation.setVisible(false);
+            PaymentMethod.setVisible(false);
 
             SpaFirstName.setVisible(false);
             SpaLastName.setVisible(false);
@@ -320,6 +393,22 @@ public class CustomerUI {
             Feedback.setVisible(false);
 
             RoomBooking.setVisible(false);
+
+            visaImage.setVisible(false);
+            mastercardImage.setVisible(false);
+            PaypalImage.setVisible(false);
+            DiscoverImage.setVisible(false);
+
+            CreditNumber.setVisible(false);
+            NameOnCard.setVisible(false);
+            ExpDate.setVisible(false);
+            SecCode.setVisible(false);
+
+            CreditNumberPos.setVisible(false);
+            NameCardPos.setVisible(false);
+            ExpDatePos.setVisible(false);
+            SecCodePos.setVisible(false);
+
         });
 
         // ReservationTab setup
@@ -361,6 +450,7 @@ public class CustomerUI {
             MusicLoungeCenter.setVisible(false);
             CustomerInfo.setVisible(false);
             BookingInformation.setVisible(false);
+            PaymentMethod.setVisible(false);
 
             SpaFirstName.setVisible(false);
             SpaLastName.setVisible(false);
@@ -431,6 +521,24 @@ public class CustomerUI {
             Feedback.setVisible(false);
 
             RoomBooking.setVisible(true);
+
+            visaImage.setVisible(false);
+            mastercardImage.setVisible(false);
+            PaypalImage.setVisible(false);
+            DiscoverImage.setVisible(false);
+
+            CreditNumber.setVisible(true);
+
+            CreditNumber.setVisible(false);
+            NameOnCard.setVisible(false);
+            ExpDate.setVisible(false);
+            SecCode.setVisible(false);
+
+            CreditNumberPos.setVisible(false);
+            NameCardPos.setVisible(false);
+            ExpDatePos.setVisible(false);
+            SecCodePos.setVisible(false);
+
         });
 
         // ReservationTab setup
@@ -878,6 +986,7 @@ public class CustomerUI {
             RestaurantCenter.setVisible(false);
             RoomCleaningCenter.setVisible(false);
             MusicLoungeCenter.setVisible(false);
+            PaymentMethod.setVisible(false);
 
             SpaEnterBoxFName.setVisible(false);
             SpaEnterBoxLName.setVisible(false);
@@ -948,6 +1057,22 @@ public class CustomerUI {
             Feedback.setVisible(false);
 
             RoomBooking.setVisible(false);
+
+            visaImage.setVisible(false);
+            mastercardImage.setVisible(false);
+            PaypalImage.setVisible(false);
+            DiscoverImage.setVisible(false);
+
+            CreditNumber.setVisible(false);
+            NameOnCard.setVisible(false);
+            ExpDate.setVisible(false);
+            SecCode.setVisible(false);
+
+            CreditNumberPos.setVisible(false);
+            NameCardPos.setVisible(false);
+            ExpDatePos.setVisible(false);
+            SecCodePos.setVisible(false);
+
         });
 
         ReviewTab = new JButton();
@@ -988,6 +1113,7 @@ public class CustomerUI {
             MusicLoungeCenter.setVisible(false);
             CustomerInfo.setVisible(false);
             BookingInformation.setVisible(false);
+            PaymentMethod.setVisible(false);
 
             SpaFirstName.setVisible(false);
             SpaLastName.setVisible(false);
@@ -1058,6 +1184,17 @@ public class CustomerUI {
             Feedback.setVisible(true);
 
             RoomBooking.setVisible(false);
+
+            visaImage.setVisible(false);
+            mastercardImage.setVisible(false);
+            PaypalImage.setVisible(false);
+            DiscoverImage.setVisible(false);
+
+            CreditNumberPos.setVisible(false);
+            NameCardPos.setVisible(false);
+            ExpDatePos.setVisible(false);
+            SecCodePos.setVisible(false);
+
         });
 
         // Tab1_background
@@ -1138,6 +1275,30 @@ public class CustomerUI {
         SpaEmail.setBackground(new Color(244, 242, 235));
         SpaEmail.setVisible(false);
         SpaEmail.setBorder(null);
+
+        CreditNumber = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        CreditNumber.setBounds(350, 450, 300, 30);
+        panel.add(CreditNumber);
+        panel.setComponentZOrder(CreditNumber, 0); // Brings it to the top of the component stack
+        CreditNumber.setVisible(false);
+
+        NameOnCard = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        NameOnCard.setBounds(750, 450, 300, 30);
+        panel.add(NameOnCard);
+        panel.setComponentZOrder(NameOnCard, 0); // Brings it to the top of the component stack
+        NameOnCard.setVisible(false);
+
+        ExpDate = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        ExpDate.setBounds(350, 530, 300, 30);
+        panel.add(ExpDate);
+        panel.setComponentZOrder(ExpDate, 0); // Brings it to the top of the component stack
+        ExpDate.setVisible(false);
+
+        SecCode = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        SecCode.setBounds(750, 530, 300, 30);
+        panel.add(SecCode);
+        panel.setComponentZOrder(SecCode, 0); // Brings it to the top of the component stack
+        SecCode.setVisible(false);
     }
 
     public void CreateRestaurantInfoBox() {
