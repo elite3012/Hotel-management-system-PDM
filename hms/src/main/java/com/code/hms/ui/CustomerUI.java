@@ -103,6 +103,15 @@ public class CustomerUI {
     static JLabel ExpDatePos;
     static JLabel SecCodePos;
 
+    static JTextField BookingFirstName;
+    static JTextField BookingLastName;
+    static JTextField BookingPhoneNumber;
+    static JTextField BookingEmail;
+    static JTextField BookingCredit;
+    static JTextField BookingNamecard;
+    static JTextField BookingExpDate;
+    static JTextField BookingSecCode;
+
     public CustomerUI() {
         createMainGUI();
         CreateSpaInfoBox();
@@ -110,6 +119,7 @@ public class CustomerUI {
         CreateRoomCleaningInfoBox();
         CreateMusicLoungeInfoBox();
         CreateDate_TimeBox();
+        CreateBookingInfor();
     }
 
     private void createMainGUI() {
@@ -214,6 +224,52 @@ public class CustomerUI {
         RoomBooking.setForeground(new Color(212, 158, 24));
         RoomBooking.setVisible(false);
         panel.add(RoomBooking);
+
+        JLabel RoomList = new JLabel();
+        RoomList.setText("LIST OF ROOMS");
+        RoomList.setFont(new Font("Mulish", Font.BOLD, 33));
+        RoomList.setBounds(650, 220, 1000, 33);
+        RoomList.setForeground(new Color(212, 158, 24));
+        RoomList.setVisible(false);
+        panel.add(RoomList);
+
+        JLabel ChooseDate = new JLabel();
+        ChooseDate.setText("CHOOSE DATE");
+        ChooseDate.setFont(new Font("Mulish", Font.BOLD, 25));
+        ChooseDate.setBounds(550, 100, 1000, 33);
+        ChooseDate.setForeground(new Color(212, 158, 24));
+        ChooseDate.setVisible(false);
+        panel.add(ChooseDate);
+
+        JTextField EnterDate = new JTextField();
+        panel.add(EnterDate);
+        EnterDate.setBounds(550, 150, 190, 28);
+        EnterDate.setBackground(new Color(168, 161, 150));
+        EnterDate.setVisible(false);
+        EnterDate.setBorder(null);
+
+        JLabel TypeOfRoom = new JLabel();
+        TypeOfRoom.setText("TYPE OF ROOM");
+        TypeOfRoom.setFont(new Font("Mulish", Font.BOLD, 25));
+        TypeOfRoom.setBounds(820, 100, 1000, 33);
+        TypeOfRoom.setForeground(new Color(212, 158, 24));
+        TypeOfRoom.setVisible(false);
+        panel.add(TypeOfRoom);
+
+        JTextField ChooseTypeOfRoom = new JTextField();
+        panel.add(ChooseTypeOfRoom);
+        ChooseTypeOfRoom.setBounds(825, 150, 193, 28);
+        ChooseTypeOfRoom.setBackground(new Color(168, 161, 150));
+        ChooseTypeOfRoom.setVisible(false);
+        ChooseTypeOfRoom.setBorder(null);
+
+        JLabel BookingTitle = new JLabel();
+        BookingTitle.setText("YOUR RESERVATION");
+        BookingTitle.setFont(new Font("Mulish", Font.BOLD, 33));
+        BookingTitle.setBounds(610, 30, 1000, 33);
+        BookingTitle.setForeground(new Color(212, 158, 24));
+        BookingTitle.setVisible(false);
+        panel.add(BookingTitle);
 
         JLabel RateExp = new JLabel();
         RateExp.setText("HOW WAS YOUR EXPERIENCE ?");
@@ -393,6 +449,7 @@ public class CustomerUI {
             Feedback.setVisible(false);
 
             RoomBooking.setVisible(false);
+            BookingTitle.setVisible(false);
 
             visaImage.setVisible(false);
             mastercardImage.setVisible(false);
@@ -409,6 +466,14 @@ public class CustomerUI {
             ExpDatePos.setVisible(false);
             SecCodePos.setVisible(false);
 
+            BookingFirstName.setVisible(false);
+            BookingLastName.setVisible(false);
+            BookingPhoneNumber.setVisible(false);
+            BookingEmail.setVisible(false);
+            BookingCredit.setVisible(false);
+            BookingNamecard.setVisible(false);
+            BookingExpDate.setVisible(false);
+            BookingSecCode.setVisible(false);
         });
 
         // ReservationTab setup
@@ -521,6 +586,7 @@ public class CustomerUI {
             Feedback.setVisible(false);
 
             RoomBooking.setVisible(true);
+            BookingTitle.setVisible(false);
 
             visaImage.setVisible(false);
             mastercardImage.setVisible(false);
@@ -539,6 +605,14 @@ public class CustomerUI {
             ExpDatePos.setVisible(false);
             SecCodePos.setVisible(false);
 
+            BookingFirstName.setVisible(false);
+            BookingLastName.setVisible(false);
+            BookingPhoneNumber.setVisible(false);
+            BookingEmail.setVisible(false);
+            BookingCredit.setVisible(false);
+            BookingNamecard.setVisible(false);
+            BookingExpDate.setVisible(false);
+            BookingSecCode.setVisible(false);
         });
 
         // ReservationTab setup
@@ -1057,6 +1131,7 @@ public class CustomerUI {
             Feedback.setVisible(false);
 
             RoomBooking.setVisible(false);
+            BookingTitle.setVisible(false);
 
             visaImage.setVisible(false);
             mastercardImage.setVisible(false);
@@ -1073,6 +1148,14 @@ public class CustomerUI {
             ExpDatePos.setVisible(false);
             SecCodePos.setVisible(false);
 
+            BookingFirstName.setVisible(false);
+            BookingLastName.setVisible(false);
+            BookingPhoneNumber.setVisible(false);
+            BookingEmail.setVisible(false);
+            BookingCredit.setVisible(false);
+            BookingNamecard.setVisible(false);
+            BookingExpDate.setVisible(false);
+            BookingSecCode.setVisible(false);
         });
 
         ReviewTab = new JButton();
@@ -1184,6 +1267,7 @@ public class CustomerUI {
             Feedback.setVisible(true);
 
             RoomBooking.setVisible(false);
+            BookingTitle.setVisible(false);
 
             visaImage.setVisible(false);
             mastercardImage.setVisible(false);
@@ -1195,6 +1279,14 @@ public class CustomerUI {
             ExpDatePos.setVisible(false);
             SecCodePos.setVisible(false);
 
+            BookingFirstName.setVisible(false);
+            BookingLastName.setVisible(false);
+            BookingPhoneNumber.setVisible(false);
+            BookingEmail.setVisible(false);
+            BookingCredit.setVisible(false);
+            BookingNamecard.setVisible(false);
+            BookingExpDate.setVisible(false);
+            BookingSecCode.setVisible(false);
         });
 
         // Tab1_background
@@ -1473,6 +1565,68 @@ public class CustomerUI {
         MusicLoungeEmail.setBackground(new Color(244, 242, 235));
         MusicLoungeEmail.setVisible(false);
         MusicLoungeEmail.setBorder(null);
+    }
+
+    public void CreateBookingInfor() {
+        //box for first name
+        BookingFirstName = new JTextField();
+        panel.add(BookingFirstName);
+        BookingFirstName.setBounds(352, 201, 295, 28);
+        BookingFirstName.setBackground(new Color(244, 242, 235));
+        BookingFirstName.setVisible(false);
+        BookingFirstName.setBorder(null);
+
+        //box for last name
+        BookingLastName = new JTextField();
+        panel.add(BookingLastName);
+        BookingLastName.setBounds(752, 201, 295, 28);
+        BookingLastName.setBackground(new Color(244, 242, 235));
+        BookingLastName.setVisible(false);
+        BookingLastName.setBorder(null);
+
+        //box for phone number
+        BookingPhoneNumber = new JTextField();
+        panel.add(BookingPhoneNumber);
+        BookingPhoneNumber.setBounds(352, 281, 295, 28);
+        BookingPhoneNumber.setBackground(new Color(244, 242, 235));
+        BookingPhoneNumber.setVisible(false);
+        BookingPhoneNumber.setBorder(null);
+
+        //box for email
+        BookingEmail = new JTextField();
+        panel.add(BookingEmail);
+        BookingEmail.setBounds(752, 281, 295, 28);
+        BookingEmail.setBackground(new Color(244, 242, 235));
+        BookingEmail.setVisible(false);
+        BookingEmail.setBorder(null);
+
+        BookingCredit = new JTextField();
+        panel.add(BookingCredit);
+        BookingCredit.setBounds(352, 451, 295, 28);
+        BookingCredit.setBackground(new Color(244, 242, 235));
+        BookingCredit.setVisible(false);
+        BookingCredit.setBorder(null);
+
+        BookingNamecard = new JTextField();
+        panel.add(BookingNamecard);
+        BookingNamecard.setBounds(752, 451, 295, 28);
+        BookingNamecard.setBackground(new Color(244, 242, 235));
+        BookingNamecard.setVisible(false);
+        BookingNamecard.setBorder(null);
+
+        BookingExpDate = new JTextField();
+        panel.add(BookingExpDate);
+        BookingExpDate.setBounds(352, 531, 295, 28);
+        BookingExpDate.setBackground(new Color(244, 242, 235));
+        BookingExpDate.setVisible(false);
+        BookingExpDate.setBorder(null);
+
+        BookingSecCode = new JTextField();
+        panel.add(BookingSecCode);
+        BookingSecCode.setBounds(752, 531, 295, 28);
+        BookingSecCode.setBackground(new Color(244, 242, 235));
+        BookingSecCode.setVisible(false);
+        BookingSecCode.setBorder(null);
     }
 
     public void CreateDate_TimeBox(){
