@@ -29,7 +29,7 @@ public class LoginWindow extends JFrame {
         panel.setLayout(null);
 
         // Background
-        LoadImage loader = new LoadImage("hms/bg img/bg.png", getWidth(), getHeight());
+        LoadImage loader = new LoadImage("hms/assets/bg.png", getWidth(), getHeight());
         JLabel backgroundLbl = new JLabel(loader.getImageIcon());
         backgroundLbl.setBounds(0, 0, getWidth(), getHeight());
         panel.add(backgroundLbl);
