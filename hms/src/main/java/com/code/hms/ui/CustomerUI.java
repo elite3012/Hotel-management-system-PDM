@@ -59,6 +59,8 @@ public class CustomerUI {
     static JTextField SpaMinuteEnter;
     static JTextField SpaSecondEnter;
 
+    static JLabel SpaPackBox;
+
     static JTextField ResDayEnter;
     static JTextField ResMonthEnter;
     static JTextField ResYearEnter;
@@ -835,6 +837,14 @@ public class CustomerUI {
         BookingInformation.setVisible(false);
         panel.add(BookingInformation);
 
+        JLabel SpaPackPosition = new JLabel();
+        SpaPackPosition.setText("Spa Package");
+        SpaPackPosition.setFont(new Font("Mulish", Font.BOLD, 20));
+        SpaPackPosition.setBounds(350, 460, 500, 30);
+        SpaPackPosition.setForeground(new Color(136, 120, 81));
+        SpaPackPosition.setVisible(false);
+        panel.add(SpaPackPosition);
+
         Spa = new JButton();
         Spa.setFocusable(false);
         Spa.setBackground(new Color(217, 217, 217));
@@ -932,7 +942,9 @@ public class CustomerUI {
             RateExp.setVisible(false);
             ratingStars.setVisible(false);
 
+            SpaPackPosition.setVisible(true);
             spaPackageMenu.setVisible(true);
+            SpaPackBox.setVisible(true);
         });
 
         RestaurantCenter = new JLabel();
@@ -1637,6 +1649,12 @@ public class CustomerUI {
         SpaEmail.setVisible(false);
         SpaEmail.setBorder(null);
 
+        SpaPackBox = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        SpaPackBox.setBounds(350, 490, 300, 30);
+        panel.add(SpaPackBox);
+        panel.setComponentZOrder(SpaPackBox, 0); // Brings it to the top of the component stack
+        SpaPackBox.setVisible(false);
+
         CreditNumber = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
         CreditNumber.setBounds(350, 450, 300, 30);
         panel.add(CreditNumber);
@@ -2038,7 +2056,7 @@ public class CustomerUI {
 
         // Step 2: Create the JComboBox with new options
         spaPackageMenu = new JComboBox(spaPackageMenuOption);
-        spaPackageMenu.setBounds(277, 500, 135, 36);
+        spaPackageMenu.setBounds(350, 488, 300, 30);
         spaPackageMenu.setFont(new Font("Mulish", Font.BOLD, 16));
         spaPackageMenu.setBackground(new Color(244, 242, 235));
         spaPackageMenu.setFocusable(false);
