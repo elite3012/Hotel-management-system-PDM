@@ -60,6 +60,7 @@ public class CustomerUI {
     static JTextField SpaSecondEnter;
 
     static JLabel SpaPackBox;
+    static JLabel SpaPackPosition;
 
     static JTextField ResDayEnter;
     static JTextField ResMonthEnter;
@@ -484,6 +485,8 @@ public class CustomerUI {
             BookingSecCode.setVisible(true);
 
             spaPackageMenu.setVisible(false);
+            SpaPackBox.setVisible(false);
+            SpaPackPosition.setVisible(false);
         });
 
         // HotelInfoTab setup
@@ -644,6 +647,8 @@ public class CustomerUI {
             BookingSecCode.setVisible(false);
 
             spaPackageMenu.setVisible(false);
+            SpaPackBox.setVisible(false);
+            SpaPackPosition.setVisible(false);
         });
 
         // ReservationTab setup
@@ -802,6 +807,8 @@ public class CustomerUI {
             BookingSecCode.setVisible(false);
 
             spaPackageMenu.setVisible(false);
+            SpaPackBox.setVisible(false);
+            SpaPackPosition.setVisible(false);
         });
 
         // ReservationTab setup
@@ -1051,6 +1058,8 @@ public class CustomerUI {
             RateExp.setVisible(false);
 
             spaPackageMenu.setVisible(false);
+            SpaPackBox.setVisible(false);
+            SpaPackPosition.setVisible(false);
         });
 
         RoomCleaningCenter = new JLabel();
@@ -1157,6 +1166,8 @@ public class CustomerUI {
             RateExp.setVisible(false);
 
             spaPackageMenu.setVisible(false);
+            SpaPackBox.setVisible(false);
+            SpaPackPosition.setVisible(false);
         });
 
         MusicLoungeCenter = new JLabel();
@@ -1263,6 +1274,8 @@ public class CustomerUI {
             RateExp.setVisible(false);
 
             spaPackageMenu.setVisible(false);
+            SpaPackBox.setVisible(false);
+            SpaPackPosition.setVisible(false);
         });
 
         ServiceTab = new JButton();
@@ -1418,6 +1431,8 @@ public class CustomerUI {
             BookingSecCode.setVisible(false);
 
             spaPackageMenu.setVisible(false);
+            SpaPackBox.setVisible(false);
+            SpaPackPosition.setVisible(false);
         });
 
         ReviewTab = new JButton();
@@ -1568,6 +1583,8 @@ public class CustomerUI {
             BookingSecCode.setVisible(false);
 
             spaPackageMenu.setVisible(false);
+            SpaPackBox.setVisible(false);
+            SpaPackPosition.setVisible(false);
         });
 
         // Tab1_background
