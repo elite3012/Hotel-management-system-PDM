@@ -7,7 +7,7 @@ public interface ServiceDAO {
     public Service getServiceByID(int serviceId);
 
     // Update the service availability
-    public void updateService();
+    public void updateService(Service service);
 
     // Find service by name
     public Service getServiceByName(int serviceName);

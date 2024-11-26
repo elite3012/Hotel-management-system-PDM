@@ -1,5 +1,6 @@
 package com.code.hms.ui;
 
+import com.code.hms.ui.CustomerUI;
 import javax.swing.*;
 
 public class Main_Customer {
