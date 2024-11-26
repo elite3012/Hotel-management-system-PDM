@@ -298,6 +298,7 @@ public class CustomerUI {
 
         RatingStars ratingStars = new RatingStars();
         ratingStars.setBounds(585, 70, 500, 100); // Position and size
+        ratingStars.setOpaque(false);
         panel.add(ratingStars);
         panel.setComponentZOrder(ratingStars, 0);
         // Force the panel to repaint immediately
