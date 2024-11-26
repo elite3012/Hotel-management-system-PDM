@@ -16,6 +16,7 @@ public class StaffUI {
     static JFrame frame;
     static JPanel panel;
     static JPanel roomPanel;
+    static JPanel serviceOrderPanel;
     static JPanel roomCleaningPanel;
     static JButton main_menu;
     static JLabel available_unavailable;
@@ -28,6 +29,8 @@ public class StaffUI {
     static JButton ServiceOrderTab;
     static JButton FinancialTab;
     static JButton UsersTab;
+    static JTable serviceOrderTable;
+    static JScrollPane scrollPane;
 
     public StaffUI() {
         Scanner scanner = new Scanner(System.in);
@@ -153,6 +156,7 @@ public class StaffUI {
     }
     private void createAdminUI(){
         createRoomTab();
+
         RoomManagementTab.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -177,6 +181,8 @@ public class StaffUI {
                 adminRoomMenu.setSelectedItem("Availability");
                 addRoomTabComponents();
                 addAdminRoomMenu();
+
+                removeServiceOrderComponents();
             }
         });
 
@@ -205,6 +211,7 @@ public class StaffUI {
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
+                removeServiceOrderComponents();
             }
         });
 
@@ -230,6 +237,7 @@ public class StaffUI {
                 FinancialTab.setForeground(new Color(245, 242, 233));
                 UsersTab.setForeground(new Color(245, 242, 233));
 
+                addServiceOrderComponents();
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
@@ -261,6 +269,7 @@ public class StaffUI {
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
+                removeServiceOrderComponents();
             }
         });
 
@@ -289,6 +298,7 @@ public class StaffUI {
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
+                removeServiceOrderComponents();
             }
         });
         addRoomPanel();
@@ -296,6 +306,7 @@ public class StaffUI {
         removeRoomCleaningTabComponents();
         createAdminRoomMenu();
         createAllBackgrounds();
+        createServiceOrderPanel();
     }
     private void addRoomPanel(){
         // Create panel with grid layout
@@ -556,6 +567,26 @@ public class StaffUI {
             }
         });
     }
+    private void createServiceOrderPanel(){
+        String[][] baseData = {{" "," "," "," "," "}};
+        String[] columnNames = {"CustomerID","ServiceType","Date","Time","Assigned to"};
+        serviceOrderTable = new JTable(baseData,columnNames);
+        serviceOrderTable.setBounds(374,40,800,530);
+        serviceOrderTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
+        serviceOrderTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
+        serviceOrderTable.setVisible(false);
+
+        scrollPane = new JScrollPane(serviceOrderTable);
+        scrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
+        scrollPane.setVisible(false);
+        panel.add(scrollPane);
+
+        serviceOrderPanel = new JPanel();
+        serviceOrderPanel.setBounds(374,40,800,530);
+        serviceOrderPanel.setOpaque(false);
+        serviceOrderPanel.setVisible(false);
+        panel.add(serviceOrderPanel);
+    }
     private void addRoomTabComponents(){
         roomPanel.setVisible(true);
         available_unavailable.setVisible(true);
@@ -577,6 +608,16 @@ public class StaffUI {
     }
     private void removeAdminRoomMenu(){
         adminRoomMenu.setVisible(false);
+    }
+    private void addServiceOrderComponents(){
+        serviceOrderPanel.setVisible(true);
+        serviceOrderTable.setVisible(true);
+        scrollPane.setVisible(true);
+    }
+    private void removeServiceOrderComponents(){
+        serviceOrderPanel.setVisible(false);
+        serviceOrderTable.setVisible(false);
+        scrollPane.setVisible(false);
     }
 }
 //debug commit command
