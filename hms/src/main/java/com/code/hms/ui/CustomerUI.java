@@ -844,7 +844,7 @@ public class CustomerUI {
         BookingInformation.setVisible(false);
         panel.add(BookingInformation);
 
-        JLabel SpaPackPosition = new JLabel();
+        SpaPackPosition = new JLabel();
         SpaPackPosition.setText("Spa Package");
         SpaPackPosition.setFont(new Font("Mulish", Font.BOLD, 20));
         SpaPackPosition.setBounds(350, 460, 500, 30);
