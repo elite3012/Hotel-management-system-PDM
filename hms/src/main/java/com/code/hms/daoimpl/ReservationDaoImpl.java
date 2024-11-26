@@ -2,68 +2,99 @@ package com.code.hms.daoimpl;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+import com.code.hms.connection.DataSourceFactory;
 import com.code.hms.dao.ReservationDAO;
 import com.code.hms.entities.Reservation;
 import com.code.hms.utils.LoggingEngine;
-
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
 
 public class ReservationDaoImpl implements ReservationDAO {
-    @PersistenceContext
-    private EntityManager entityManager;
+    private Session session;
     private LoggingEngine logging;
+    private DataSourceFactory dataSourceFactory;
 
     public ReservationDaoImpl() {
+
+        dataSourceFactory = new DataSourceFactory();
+        DataSourceFactory.createConnection(); 
         logging = LoggingEngine.getInstance();
     }
 
     @Override
     public Reservation getReservationByID(int reservationId) {
-        Reservation theReservation = null;
+        Reservation reservation = null;
         try {
-            theReservation = entityManager.find(Reservation.class, reservationId);
-            logging.setMessage("ReservationDAOImpl -> fetching reservation by Id...");
+            session = dataSourceFactory.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query<Reservation> query = session.createQuery("from Reservation where id=:reservationId", Reservation.class);
+            query.setParameter("reservationId", reservationId);
+            reservation = query.uniqueResult();
+            session.getTransaction().commit();
+            logging.setMessage("Fetched reservation by ID: " + reservationId);
         } catch (NoResultException e) {
-            logging.setMessage("Error: There is no reservation with this agency reference number!");
+            logging.setMessage("No reservation found with ID: " + reservationId);
+        } catch (HibernateException e) {
+            if (session.getTransaction() != null) session.getTransaction().rollback();
+            logging.setMessage("Error fetching reservation: " + e.getLocalizedMessage());
+        } finally {
+            if (session != null) session.close();
         }
-        return theReservation;
+        return reservation;
     }
 
     @Override
     public void saveReservation(Reservation reservation) {
         try {
-            entityManager.persist(reservation);
-            logging.setMessage("ReservationDAOImpl -> reservation saved successfully.");
-        } catch (Exception e) {
-            logging.setMessage("ReservationDAOImpl Error -> " + e.getLocalizedMessage());
+            session = dataSourceFactory.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.persist(reservation);  
+            session.getTransaction().commit();
+            logging.setMessage("Reservation saved successfully.");
+        } catch (HibernateException e) {
+            if (session.getTransaction() != null) session.getTransaction().rollback();
+            logging.setMessage("Error saving reservation: " + e.getLocalizedMessage());
+        } finally {
+            if (session != null) session.close();
         }
     }
 
     @Override
     public void updateReservation(Reservation reservation) {
         try {
-            entityManager.merge(reservation);
-            logging.setMessage("ReservationDAOImpl -> reservation updated successfully.");
-        } catch (Exception e) {
-            logging.setMessage("ReservationDAOImpl Error -> " + e.getLocalizedMessage());
+            session = dataSourceFactory.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.merge(reservation);  
+            session.getTransaction().commit();
+            logging.setMessage("Reservation updated successfully.");
+        } catch (HibernateException e) {
+            if (session.getTransaction() != null) session.getTransaction().rollback();
+            logging.setMessage("Error updating reservation: " + e.getLocalizedMessage());
+        } finally {
+            if (session != null) session.close();
         }
     }
 
     @Override
     public List<Reservation> getAllReservations() {
-        List<Reservation> reservations = null;
+        List<Reservation> reservationsList = null;
         try {
-            Query query = entityManager.createQuery("SELECT r FROM Reservation r");
-            reservations = query.getResultList();
-            logging.setMessage("ReservationDAOImpl -> fetched all reservations successfully.");
-        } catch (Exception e) {
-            logging.setMessage("ReservationDAOImpl Error -> " + e.getLocalizedMessage());
+            session = dataSourceFactory.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query<Reservation> query = session.createQuery("from Reservation", Reservation.class);
+            reservationsList = query.getResultList();
+            session.getTransaction().commit();
+            logging.setMessage("Fetched all reservations.");
+        } catch (NoResultException e) {
+            logging.setMessage("No reservations found.");
+        } catch (HibernateException e) {
+            if (session.getTransaction() != null) session.getTransaction().rollback();
+            logging.setMessage("Error fetching reservations: " + e.getLocalizedMessage());
+        } finally {
+            if (session != null) session.close();
         }
-        return reservations;
+        return reservationsList;
     }
 }
-
-    
