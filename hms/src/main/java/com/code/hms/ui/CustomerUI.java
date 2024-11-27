@@ -61,6 +61,9 @@ public class CustomerUI {
 
     static JLabel SpaPackBox;
     static JLabel SpaPackPosition;
+    static JLabel ResPackPosition;
+    static JLabel RoomcleanPackPosition;
+    static JLabel MusicLoungePackPosition;
 
     static JTextField ResDayEnter;
     static JTextField ResMonthEnter;
@@ -127,7 +130,9 @@ public class CustomerUI {
     static JTextField BookingSecCode;
 
     static JComboBox<String> spaPackageMenu;
-
+    static JComboBox<String> ResPackageMenu;
+    static JComboBox<String> RcleaningPackageMenu;
+    static JComboBox<String> MusicLoungePackageMenu;
     public CustomerUI() {
         createMainGUI();
         CreateSpaInfoBox();
@@ -136,7 +141,10 @@ public class CustomerUI {
         CreateMusicLoungeInfoBox();
         CreateDate_TimeBox();
         CreateBookingInfor();
-        createDropdown();
+        createSpaDropdown();
+        createResDropdown();
+        createRoomCleanDropdown();
+        createMusicLoungeDropdown();
     }
 
     private void createMainGUI() {
@@ -488,6 +496,14 @@ public class CustomerUI {
             spaPackageMenu.setVisible(false);
             SpaPackBox.setVisible(false);
             SpaPackPosition.setVisible(false);
+
+            ResPackageMenu.setVisible(false);
+
+            RcleaningPackageMenu.setVisible(false);
+            RoomcleanPackPosition.setVisible(false);
+
+            MusicLoungePackageMenu.setVisible(false);
+            MusicLoungePackPosition.setVisible(false);
         });
 
         // HotelInfoTab setup
@@ -650,6 +666,14 @@ public class CustomerUI {
             spaPackageMenu.setVisible(false);
             SpaPackBox.setVisible(false);
             SpaPackPosition.setVisible(false);
+
+            ResPackageMenu.setVisible(false);
+
+            RcleaningPackageMenu.setVisible(false);
+            RoomcleanPackPosition.setVisible(false);
+
+            MusicLoungePackageMenu.setVisible(false);
+            MusicLoungePackPosition.setVisible(false);
         });
 
         // ReservationTab setup
@@ -810,6 +834,15 @@ public class CustomerUI {
             spaPackageMenu.setVisible(false);
             SpaPackBox.setVisible(false);
             SpaPackPosition.setVisible(false);
+
+            ResPackageMenu.setVisible(false);
+            ResPackPosition.setVisible(false);
+
+            RcleaningPackageMenu.setVisible(false);
+            RoomcleanPackPosition.setVisible(false);
+
+            MusicLoungePackageMenu.setVisible(false);
+            MusicLoungePackPosition.setVisible(false);
         });
 
         // ReservationTab setup
@@ -953,6 +986,15 @@ public class CustomerUI {
             SpaPackPosition.setVisible(true);
             spaPackageMenu.setVisible(true);
             SpaPackBox.setVisible(true);
+
+            ResPackageMenu.setVisible(false);
+            ResPackPosition.setVisible(false);
+
+            RcleaningPackageMenu.setVisible(false);
+            RoomcleanPackPosition.setVisible(false);
+
+            MusicLoungePackageMenu.setVisible(false);
+            MusicLoungePackPosition.setVisible(false);
         });
 
         RestaurantCenter = new JLabel();
@@ -962,6 +1004,14 @@ public class CustomerUI {
         RestaurantCenter.setForeground(new Color(212, 158, 24));
         RestaurantCenter.setVisible(false);
         panel.add(RestaurantCenter);
+
+        ResPackPosition = new JLabel();
+        ResPackPosition.setText("Type of Tables");
+        ResPackPosition.setFont(new Font("Mulish", Font.BOLD, 20));
+        ResPackPosition.setBounds(350, 460, 500, 30);
+        ResPackPosition.setForeground(new Color(136, 120, 81));
+        ResPackPosition.setVisible(false);
+        panel.add(ResPackPosition);
 
         Restaurant = new JButton();
         Restaurant.setFocusable(false);
@@ -1061,6 +1111,16 @@ public class CustomerUI {
             spaPackageMenu.setVisible(false);
             SpaPackBox.setVisible(false);
             SpaPackPosition.setVisible(false);
+
+            ResPackageMenu.setVisible(true);
+            SpaPackBox.setVisible(true);
+            ResPackPosition.setVisible(true);
+
+            RcleaningPackageMenu.setVisible(false);
+            RoomcleanPackPosition.setVisible(false);
+
+            MusicLoungePackageMenu.setVisible(false);
+            MusicLoungePackPosition.setVisible(false);
         });
 
         RoomCleaningCenter = new JLabel();
@@ -1070,6 +1130,14 @@ public class CustomerUI {
         RoomCleaningCenter.setForeground(new Color(212, 158, 24));
         RoomCleaningCenter.setVisible(false);
         panel.add(RoomCleaningCenter);
+
+        RoomcleanPackPosition = new JLabel();
+        RoomcleanPackPosition.setText("Cleaning Type");
+        RoomcleanPackPosition.setFont(new Font("Mulish", Font.BOLD, 20));
+        RoomcleanPackPosition.setBounds(350, 460, 500, 30);
+        RoomcleanPackPosition.setForeground(new Color(136, 120, 81));
+        RoomcleanPackPosition.setVisible(false);
+        panel.add(RoomcleanPackPosition);
 
         RoomCleaning = new JButton();
         RoomCleaning.setFocusable(false);
@@ -1167,8 +1235,17 @@ public class CustomerUI {
             RateExp.setVisible(false);
 
             spaPackageMenu.setVisible(false);
-            SpaPackBox.setVisible(false);
+            SpaPackBox.setVisible(true);
             SpaPackPosition.setVisible(false);
+
+            ResPackageMenu.setVisible(false);
+            ResPackPosition.setVisible(false);
+
+            RcleaningPackageMenu.setVisible(true);
+            RoomcleanPackPosition.setVisible(true);
+
+            MusicLoungePackageMenu.setVisible(false);
+            MusicLoungePackPosition.setVisible(false);
         });
 
         MusicLoungeCenter = new JLabel();
@@ -1178,6 +1255,14 @@ public class CustomerUI {
         MusicLoungeCenter.setForeground(new Color(212, 158, 24));
         MusicLoungeCenter.setVisible(false);
         panel.add(MusicLoungeCenter);
+
+        MusicLoungePackPosition = new JLabel();
+        MusicLoungePackPosition.setText("Ticket");
+        MusicLoungePackPosition.setFont(new Font("Mulish", Font.BOLD, 20));
+        MusicLoungePackPosition.setBounds(350, 460, 500, 30);
+        MusicLoungePackPosition.setForeground(new Color(136, 120, 81));
+        MusicLoungePackPosition.setVisible(false);
+        panel.add(MusicLoungePackPosition);
 
         MusicLounge = new JButton();
         MusicLounge.setFocusable(false);
@@ -1275,8 +1360,17 @@ public class CustomerUI {
             RateExp.setVisible(false);
 
             spaPackageMenu.setVisible(false);
-            SpaPackBox.setVisible(false);
+            SpaPackBox.setVisible(true);
             SpaPackPosition.setVisible(false);
+
+            ResPackageMenu.setVisible(false);
+            ResPackPosition.setVisible(false);
+
+            RcleaningPackageMenu.setVisible(false);
+            RoomcleanPackPosition.setVisible(false);
+
+            MusicLoungePackageMenu.setVisible(true);
+            MusicLoungePackPosition.setVisible(true);
         });
 
         ServiceTab = new JButton();
@@ -1434,6 +1528,15 @@ public class CustomerUI {
             spaPackageMenu.setVisible(false);
             SpaPackBox.setVisible(false);
             SpaPackPosition.setVisible(false);
+
+            ResPackageMenu.setVisible(false);
+            ResPackPosition.setVisible(false);
+
+            RcleaningPackageMenu.setVisible(false);
+            RoomcleanPackPosition.setVisible(false);
+
+            MusicLoungePackageMenu.setVisible(false);
+            MusicLoungePackPosition.setVisible(false);
         });
 
         ReviewTab = new JButton();
@@ -1586,6 +1689,15 @@ public class CustomerUI {
             spaPackageMenu.setVisible(false);
             SpaPackBox.setVisible(false);
             SpaPackPosition.setVisible(false);
+
+            ResPackageMenu.setVisible(false);
+            ResPackPosition.setVisible(false);
+
+            RcleaningPackageMenu.setVisible(false);
+            RoomcleanPackPosition.setVisible(false);
+
+            MusicLoungePackageMenu.setVisible(false);
+            MusicLoungePackPosition.setVisible(false);
         });
 
         // Tab1_background
@@ -2068,7 +2180,7 @@ public class CustomerUI {
         MusicLoungeSecondEnter.setBorder(null);
     }
 
-    private void createDropdown() {
+    private void createSpaDropdown() {
         // Step 1: Update the options for Spa Packages
         String spaPackageMenuOption[] = {"Massage", "Facial", "Sauna", "Body Scrub"};
 
@@ -2078,7 +2190,7 @@ public class CustomerUI {
         spaPackageMenu.setFont(new Font("Mulish", Font.BOLD, 16));
         spaPackageMenu.setBackground(new Color(244, 242, 235));
         spaPackageMenu.setFocusable(false);
-        spaPackageMenu.setVisible(true);
+        spaPackageMenu.setVisible(false);
         panel.add(spaPackageMenu);
 
         // Step 3: Add an ActionListener to handle selection changes
@@ -2122,4 +2234,170 @@ public class CustomerUI {
         System.out.println("Massage Package Selected");
 
     }
+
+    private void createResDropdown() {
+        // Step 1: Update the options for Res Packages
+        String ResPackageMenuOption[] = {"Booth Tables", "Outdoor Tables", "Indoor Tables", "Specialty Tables"};
+
+        // Step 2: Create the JComboBox with new options
+        ResPackageMenu = new JComboBox(ResPackageMenuOption);
+        ResPackageMenu.setBounds(350, 488, 300, 30);
+        ResPackageMenu.setFont(new Font("Mulish", Font.BOLD, 16));
+        ResPackageMenu.setBackground(new Color(244, 242, 235));
+        ResPackageMenu.setFocusable(false);
+        ResPackageMenu.setVisible(false);
+        panel.add(ResPackageMenu);
+
+        // Step 3: Add an ActionListener to handle selection changes
+        ResPackageMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Get the selected res package
+                String selectedPackage = (String) ResPackageMenu.getSelectedItem();
+
+                // Perform actions based on the selected package
+                if ("Booth Tables".equals(selectedPackage)) {
+                    addBoothTableComponents();  // Display massage-related UI or logic
+                } else if ("Outdoor Tables".equals(selectedPackage)) {
+                    addOutdoorTableComponents();  // Display facial-related UI or logic
+                } else if ("Indoor Tables".equals(selectedPackage)) {
+                    addIndoorTableComponents();  // Display sauna-related UI or logic
+                } else if ("Specialty Tables".equals(selectedPackage)) {
+                    addSpecTableComponents();  // Display body scrub-related UI or logic
+                }
+            }
+        });
+    }
+
+    private void addBoothTableComponents() {
+        // Code to add components related to Booth table
+        System.out.println("Massage Package Selected");
+    }
+
+    private void addOutdoorTableComponents() {
+        // Code to add components related to Outdoor table
+        System.out.println("Facial Package Selected");
+    }
+
+    private void addIndoorTableComponents() {
+        // Code to add components related to Indoor table
+        System.out.println("Massage Package Selected");
+    }
+
+    private void addSpecTableComponents() {
+        // Code to add components related to Speciality table
+        System.out.println("Massage Package Selected");
+
+    }
+
+    private void createRoomCleanDropdown() {
+        // Step 1: Update the options for Room cleaning Packages
+        String ResPackageMenuOption[] = {"Daily cleaning", "Deep cleaning ", "Turnover cleaning", "Emergency Cleaning"};
+
+        // Step 2: Create the JComboBox with new options
+        RcleaningPackageMenu = new JComboBox(ResPackageMenuOption);
+        RcleaningPackageMenu.setBounds(350, 488, 300, 30);
+        RcleaningPackageMenu.setFont(new Font("Mulish", Font.BOLD, 16));
+        RcleaningPackageMenu.setBackground(new Color(244, 242, 235));
+        RcleaningPackageMenu.setFocusable(false);
+        RcleaningPackageMenu.setVisible(false);
+        panel.add(RcleaningPackageMenu);
+
+        // Step 3: Add an ActionListener to handle selection changes
+        RcleaningPackageMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Get the selected res package
+                String selectedPackage = (String) RcleaningPackageMenu.getSelectedItem();
+
+                // Perform actions based on the selected package
+                if ("Daily cleaing".equals(selectedPackage)) {
+                    addDailyComponents();  // Display massage-related UI or logic
+                } else if ("Deep cleaning".equals(selectedPackage)) {
+                    addDeepComponents();  // Display facial-related UI or logic
+                } else if ("Turnover cleaning".equals(selectedPackage)) {
+                    addTurnoverComponents();  // Display sauna-related UI or logic
+                } else if ("Emergency cleaning".equals(selectedPackage)) {
+                    addEmergencyComponents();  // Display body scrub-related UI or logic
+                }
+            }
+        });
+    }
+
+    private void addDailyComponents() {
+        // Code to add components related to Booth table
+        System.out.println("Massage Package Selected");
+    }
+
+    private void addDeepComponents() {
+        // Code to add components related to Outdoor table
+        System.out.println("Facial Package Selected");
+    }
+
+    private void addTurnoverComponents() {
+        // Code to add components related to Indoor table
+        System.out.println("Massage Package Selected");
+    }
+
+    private void addEmergencyComponents() {
+        // Code to add components related to Speciality table
+        System.out.println("Massage Package Selected");
+
+    }
+
+    private void createMusicLoungeDropdown() {
+        // Step 1: Update the options for Room cleaning Packages
+        String MusicLoungePackageMenuOption[] = {"General Admission", "VIP Ticket", "Drink-Inclusive Tickets", "Standing"};
+
+        // Step 2: Create the JComboBox with new options
+        MusicLoungePackageMenu = new JComboBox(MusicLoungePackageMenuOption);
+        MusicLoungePackageMenu.setBounds(350, 488, 300, 30);
+        MusicLoungePackageMenu.setFont(new Font("Mulish", Font.BOLD, 16));
+        MusicLoungePackageMenu.setBackground(new Color(244, 242, 235));
+        MusicLoungePackageMenu.setFocusable(false);
+        MusicLoungePackageMenu.setVisible(false);
+        panel.add(MusicLoungePackageMenu);
+
+        // Step 3: Add an ActionListener to handle selection changes
+        MusicLoungePackageMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Get the selected res package
+                String selectedPackage = (String) MusicLoungePackageMenu.getSelectedItem();
+
+                // Perform actions based on the selected package
+                if ("General Admission".equals(selectedPackage)) {
+                    addGeneralAdComponents();  // Display massage-related UI or logic
+                } else if ("VIP Ticket".equals(selectedPackage)) {
+                    addVipComponents();  // Display facial-related UI or logic
+                } else if ("Drink-Inclusive Tickets".equals(selectedPackage)) {
+                    addDrinkComponents();  // Display sauna-related UI or logic
+                } else if ("Standing".equals(selectedPackage)) {
+                    addStandComponents();  // Display body scrub-related UI or logic
+                }
+            }
+        });
+    }
+
+    private void addGeneralAdComponents() {
+        // Code to add components related to Booth table
+        System.out.println("Massage Package Selected");
+    }
+
+    private void addVipComponents() {
+        // Code to add components related to Outdoor table
+        System.out.println("Facial Package Selected");
+    }
+
+    private void addDrinkComponents() {
+        // Code to add components related to Indoor table
+        System.out.println("Massage Package Selected");
+    }
+
+    private void addStandComponents() {
+        // Code to add components related to Speciality table
+        System.out.println("Massage Package Selected");
+
+    }
 }
+
