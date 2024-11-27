@@ -1,6 +1,9 @@
 package com.code.hms.dao;
 
 import java.util.List;
+
+import com.code.hms.entities.Reservation;
+import com.code.hms.entities.Review;
 import com.code.hms.entities.User;
 
 public interface UserDAO {
@@ -19,15 +22,12 @@ public interface UserDAO {
     // For Admins: Add a new user
     public void addUser(User user);
     
-    // For Receptionists: Find reservations made by customers
-    public List<User> getCustomersWithReservations();
-    
     // For Housekeepers: Get assigned rooms for cleaning
     public List<Integer> getAssignedRoomsForHousekeeper(int housekeeperId);
 
     // For Customer: Get their reservations or reviews
-    public List<User> getCustomerReservations(int customerId);
-    public List<User> getCustomerReviews(int customerId);
+    public List<Reservation> getReservationsByCustomer(int customerId);
+    public List<Review> getReviewsByCustomer(int customerId);
     
     // Common functionalities
     public void updateUser(User user);

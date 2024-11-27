@@ -18,6 +18,7 @@ public class StaffUI {
     static JPanel roomPanel;
     static JPanel serviceOrderPanel;
     static JPanel roomCleaningPanel;
+    static JPanel taskListPanel;
     static JButton main_menu;
     static JLabel available_unavailable;
     static JLabel cleaned_uncleaned;
@@ -30,11 +31,13 @@ public class StaffUI {
     static JButton FinancialTab;
     static JButton UsersTab;
     static JTable serviceOrderTable;
-    static JScrollPane scrollPane;
+    static JTable taskListTable;
+    static JScrollPane serviceOrderScrollPane;
+    static JScrollPane taskListScrollPane;
 
     public StaffUI() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose: Receptionist(1)/Housekeeper(2)/ServiceStaff(3)/Admin(4)\n");
+        System.out.println("Choose: Receptionist(1)/Housekeeper(2)/Admin(3)\n");
         int choice = scanner.nextInt();
 
         switch (choice) {
@@ -46,7 +49,7 @@ public class StaffUI {
                 initializeUI();
                 createHousekeeperUI();
                 break;
-            case 4:
+            case 3:
                 initializeUI();
                 createAdminUI();
                 break;
@@ -136,6 +139,7 @@ public class StaffUI {
                 RoomManagementTab.setForeground(new Color(43, 42, 38));
                 TaskListTab.setForeground(new Color(245, 242, 233));
                 addRoomCleaningTabComponents();
+                removeTaskListComponents();
             }
         });
         createTaskListTab();
@@ -149,10 +153,12 @@ public class StaffUI {
                 TaskListTab.setForeground(new Color(43, 42, 38));
                 RoomManagementTab.setForeground(new Color(245, 242, 233));
                 removeRoomCleaningTabComponents();
+                addTaskListComponents();
             }
         });
         addRoomCleaningPanel();
         createAllBackgrounds();
+        createTaskListPanel();
     }
     private void createAdminUI(){
         createRoomTab();
@@ -568,24 +574,44 @@ public class StaffUI {
         });
     }
     private void createServiceOrderPanel(){
-        String[][] baseData = {{" "," "," "," "," "}};
-        String[] columnNames = {"CustomerID","ServiceType","Date","Time","Assigned to"};
-        serviceOrderTable = new JTable(baseData,columnNames);
+        String[][] serviceOrderBaseData = {{" "," "," "," "," "}};
+        String[] serviceOrderColumnNames = {"CustomerID","ServiceType","Date","Time","Assigned to"};
+        serviceOrderTable = new JTable(serviceOrderBaseData,serviceOrderColumnNames);
         serviceOrderTable.setBounds(374,40,800,530);
         serviceOrderTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
         serviceOrderTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
         serviceOrderTable.setVisible(false);
 
-        scrollPane = new JScrollPane(serviceOrderTable);
-        scrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
-        scrollPane.setVisible(false);
-        panel.add(scrollPane);
+        serviceOrderScrollPane = new JScrollPane(serviceOrderTable);
+        serviceOrderScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
+        serviceOrderScrollPane.setVisible(false);
+        panel.add(serviceOrderScrollPane);
 
         serviceOrderPanel = new JPanel();
         serviceOrderPanel.setBounds(374,40,800,530);
         serviceOrderPanel.setOpaque(false);
         serviceOrderPanel.setVisible(false);
         panel.add(serviceOrderPanel);
+    }
+    private void createTaskListPanel(){
+        String[][] taskListBaseData = {{" "," "}};
+        String[] taskListColumnNames = {"Assigned Room","Cleaning Status"};
+        taskListTable = new JTable(taskListBaseData,taskListColumnNames);
+        taskListTable.setBounds(374,40,800,530);
+        taskListTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
+        taskListTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
+        taskListTable.setVisible(false);
+
+        taskListScrollPane = new JScrollPane(taskListTable);
+        taskListScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
+        taskListScrollPane.setVisible(false);
+        panel.add(taskListScrollPane);
+
+        taskListPanel = new JPanel();
+        taskListPanel.setBounds(374,40,800,530);
+        taskListPanel.setOpaque(false);
+        taskListPanel.setVisible(false);
+        panel.add(taskListPanel);
     }
     private void addRoomTabComponents(){
         roomPanel.setVisible(true);
@@ -612,12 +638,22 @@ public class StaffUI {
     private void addServiceOrderComponents(){
         serviceOrderPanel.setVisible(true);
         serviceOrderTable.setVisible(true);
-        scrollPane.setVisible(true);
+        serviceOrderScrollPane.setVisible(true);
     }
     private void removeServiceOrderComponents(){
         serviceOrderPanel.setVisible(false);
         serviceOrderTable.setVisible(false);
-        scrollPane.setVisible(false);
+        serviceOrderScrollPane.setVisible(false);
+    }
+    private void addTaskListComponents(){
+        taskListPanel.setVisible(true);
+        taskListTable.setVisible(true);
+        taskListScrollPane.setVisible(true);
+    }
+    private void removeTaskListComponents(){
+        taskListPanel.setVisible(false);
+        taskListTable.setVisible(false);
+        taskListScrollPane.setVisible(false);
     }
 }
 //debug commit command

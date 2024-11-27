@@ -25,6 +25,7 @@ public class Service {
 
     // No-argument constructor (required for JPA)
     public Service() {
+        
     }
 
     // Constructor with fields (excluding the generated ID)
