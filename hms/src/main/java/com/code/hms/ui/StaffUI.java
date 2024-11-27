@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
+import com.code.hms.daoimpl.ReservationDaoImpl;
+import com.code.hms.entities.Reservation;
+import java.util.List;
 
 
 public class StaffUI {
@@ -16,8 +19,10 @@ public class StaffUI {
     static JFrame frame;
     static JPanel panel;
     static JPanel roomPanel;
+    static JPanel reservationPanel;
     static JPanel serviceOrderPanel;
     static JPanel roomCleaningPanel;
+    static JPanel taskListPanel;
     static JButton main_menu;
     static JLabel available_unavailable;
     static JLabel cleaned_uncleaned;
@@ -30,11 +35,14 @@ public class StaffUI {
     static JButton FinancialTab;
     static JButton UsersTab;
     static JTable serviceOrderTable;
-    static JScrollPane scrollPane;
+    static JTable taskListTable;
+    static JScrollPane serviceOrderScrollPane;
+    static JScrollPane taskListScrollPane;
+    static ReservationDaoImpl reservationDaoImpl;
 
     public StaffUI() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose: Receptionist(1)/Housekeeper(2)/ServiceStaff(3)/Admin(4)\n");
+        System.out.println("Choose: Receptionist(1)/Housekeeper(2)/Admin(3)\n");
         int choice = scanner.nextInt();
 
         switch (choice) {
@@ -46,7 +54,7 @@ public class StaffUI {
                 initializeUI();
                 createHousekeeperUI();
                 break;
-            case 4:
+            case 3:
                 initializeUI();
                 createAdminUI();
                 break;
@@ -54,6 +62,7 @@ public class StaffUI {
                 System.out.println("Invalid choice!");
                 System.exit(0);
         }
+        reservationDaoImpl = new ReservationDaoImpl();
     }
 
     private void initializeUI(){
@@ -84,6 +93,7 @@ public class StaffUI {
                 RoomManagementTab.setForeground(new Color(43, 42, 38));
                 ReservationTab.setForeground(new Color(245, 242, 233));
                 CurrencyExchangeTab.setForeground(new Color(245, 242, 233));
+                removeReservationTabComponents();
                 addRoomTabComponents();
             }
         });
@@ -102,6 +112,7 @@ public class StaffUI {
                 RoomManagementTab.setForeground(new Color(245, 242, 233));
                 CurrencyExchangeTab.setForeground(new Color(245, 242, 233));
                 removeRoomTabComponents();
+                addReservationTabComponents();
             }
         });
 
@@ -119,8 +130,10 @@ public class StaffUI {
                 RoomManagementTab.setForeground(new Color(245, 242, 233));
                 ReservationTab.setForeground(new Color(245, 242, 233));
                 removeRoomTabComponents();
+                removeReservationTabComponents();
             }
         });
+        addReservationPanel();
         addRoomPanel();
         createAllBackgrounds();
     }
@@ -136,6 +149,7 @@ public class StaffUI {
                 RoomManagementTab.setForeground(new Color(43, 42, 38));
                 TaskListTab.setForeground(new Color(245, 242, 233));
                 addRoomCleaningTabComponents();
+                removeTaskListComponents();
             }
         });
         createTaskListTab();
@@ -149,10 +163,12 @@ public class StaffUI {
                 TaskListTab.setForeground(new Color(43, 42, 38));
                 RoomManagementTab.setForeground(new Color(245, 242, 233));
                 removeRoomCleaningTabComponents();
+                addTaskListComponents();
             }
         });
         addRoomCleaningPanel();
         createAllBackgrounds();
+        createTaskListPanel();
     }
     private void createAdminUI(){
         createRoomTab();
@@ -353,6 +369,214 @@ public class StaffUI {
         available_unavailable.setVisible(true);
         panel.add(available_unavailable);
     }
+
+    private void addReservationPanel() {
+        if (reservationPanel == null) {
+            reservationPanel = new JPanel();
+            reservationPanel.setLayout(new GridLayout(3, 2, 10, 10)); 
+            reservationPanel.setBounds(417, 40, 713, 530); // 
+    
+            // Define buttons for various reservation actions
+            JButton viewAllButton = new JButton("View All Reservations");
+            viewAllButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    List<Reservation> reservations = reservationDaoImpl.getAllReservations();
+                    if (reservations != null && !reservations.isEmpty()) {
+                        StringBuilder result = new StringBuilder("Reservations:\n");
+                        for (Reservation r : reservations) {
+                            result.append("Reservation ID: ").append(r.getReservationId()).append(", Customer ID: ").append(r.getUserId()).append("\n");
+                        }
+                        JOptionPane.showMessageDialog(panel, result.toString());
+                    } else {
+                        JOptionPane.showMessageDialog(panel, "No reservations found.");
+                    }
+                }
+            });
+
+            JButton createNewButton = new JButton("Create New Reservation");
+            createNewButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        String userIdInput = JOptionPane.showInputDialog("Enter User ID:");
+                        if (userIdInput == null || userIdInput.isEmpty()) throw new IllegalArgumentException("User ID cannot be empty.");
+                        int userId = Integer.parseInt(userIdInput);
+
+                        String checkinDateInput = JOptionPane.showInputDialog("Enter Check-in Date (YYYY-MM-DD):");
+                        if (checkinDateInput == null || checkinDateInput.isEmpty()) throw new IllegalArgumentException("Check-in date cannot be empty.");
+                        java.sql.Date checkinDate = java.sql.Date.valueOf(checkinDateInput);
+
+                        String checkoutDateInput = JOptionPane.showInputDialog("Enter Check-out Date (YYYY-MM-DD):");
+                        if (checkoutDateInput == null || checkoutDateInput.isEmpty()) throw new IllegalArgumentException("Check-out date cannot be empty.");
+                        java.sql.Date checkoutDate = java.sql.Date.valueOf(checkoutDateInput);
+
+                        long difference = checkoutDate.getTime() - checkinDate.getTime();
+                        int totalDays = (int) (difference / (1000 * 60 * 60 * 24));
+                        if (totalDays <= 0) throw new IllegalArgumentException("Check-out date must be after check-in date.");
+
+                        String numGuestsInput = JOptionPane.showInputDialog("Enter Number of Guests:");
+                        if (numGuestsInput == null || numGuestsInput.isEmpty()) throw new IllegalArgumentException("Number of guests cannot be empty.");
+                        int numOfGuests = Integer.parseInt(numGuestsInput);
+
+                        Reservation newReservation = new Reservation();
+                        newReservation.setUserId(userId);
+                        newReservation.setCheckinDate(checkinDate);
+                        newReservation.setCheckoutDate(checkoutDate);
+                        newReservation.setTotalDays(totalDays);
+                        newReservation.setNumOfGuests(numOfGuests);
+
+                        reservationDaoImpl.saveReservation(newReservation);
+                        
+                        JOptionPane.showMessageDialog(panel, "Reservation created successfully!");
+
+                    } catch (IllegalArgumentException ex) {
+                        JOptionPane.showMessageDialog(panel, "Error: " + ex.getMessage(), "Input Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(panel, "Failed to create reservation", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            });
+
+            
+            JButton updateButton = new JButton("Update Reservation");
+            updateButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        String reservationIdInput = JOptionPane.showInputDialog("Enter Reservation ID to Update:");
+                        if (reservationIdInput == null || reservationIdInput.isEmpty()) throw new IllegalArgumentException("Reservation ID cannot be empty.");
+                        int reservationId = Integer.parseInt(reservationIdInput);
+            
+                        Reservation existingReservation = reservationDaoImpl.getReservationByID(reservationId);
+                        if (existingReservation == null) {
+                            JOptionPane.showMessageDialog(panel, "Reservation not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+            
+                        String[] options = {"Check-in Date", "Check-out Date", "Number of Guests", "Cancel"};
+                        int choice = JOptionPane.showOptionDialog(
+                            panel,
+                            "What would you like to update?",
+                            "Update Reservation",
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            options,
+                            options[0]
+                        );
+            
+                        switch (choice) {
+                            case 0: 
+                                String newCheckinDate = JOptionPane.showInputDialog("Enter new Check-in Date (YYYY-MM-DD):", existingReservation.getCheckinDate());
+                                if (newCheckinDate != null && !newCheckinDate.isEmpty()) {
+                                    existingReservation.setCheckinDate(java.sql.Date.valueOf(newCheckinDate));
+                                }
+                                break;
+            
+                            case 1: 
+                                String newCheckoutDate = JOptionPane.showInputDialog("Enter new Check-out Date (YYYY-MM-DD):", existingReservation.getCheckoutDate());
+                                if (newCheckoutDate != null && !newCheckoutDate.isEmpty()) {
+                                    existingReservation.setCheckoutDate(java.sql.Date.valueOf(newCheckoutDate));
+                                    long diff = existingReservation.getCheckoutDate().getTime() - existingReservation.getCheckinDate().getTime();
+                                    existingReservation.setTotalDays((int) (diff / (1000 * 60 * 60 * 24)));
+                                }
+                                break;
+            
+                            case 2: 
+                                String newNumOfGuests = JOptionPane.showInputDialog("Enter new Number of Guests:", existingReservation.getNumOfGuests());
+                                if (newNumOfGuests != null && !newNumOfGuests.isEmpty()) {
+                                    existingReservation.setNumOfGuests(Integer.parseInt(newNumOfGuests));
+                                }
+                                break;
+            
+                            case 3: // Cancel (do nothing)
+                                JOptionPane.showMessageDialog(panel, "Update canceled.");
+                                return;
+            
+                            default:
+                                JOptionPane.showMessageDialog(panel, "Invalid selection.");
+                                return;
+                        }
+
+                        reservationDaoImpl.updateReservation(existingReservation);
+                        JOptionPane.showMessageDialog(panel, "Reservation updated successfully!");
+            
+                    } catch (IllegalArgumentException ex) {
+                        JOptionPane.showMessageDialog(panel, "Error: " + ex.getMessage(), "Input Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(panel, "Failed to update reservation" , "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            });            
+            
+            JButton cancelButton = new JButton("Cancel Reservation");
+            cancelButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String idInput = JOptionPane.showInputDialog("Enter Reservation ID to Cancel:");
+                    try {
+                        int reservationId = Integer.parseInt(idInput);
+                        Reservation reservation = reservationDaoImpl.getReservationByID(reservationId);
+                        if (reservation != null) {
+                            int confirmation = JOptionPane.showConfirmDialog(panel, "Are you sure you want to cancel this reservation?");
+                            if (confirmation == JOptionPane.YES_OPTION) {
+                                reservationDaoImpl.deleteReservation(reservationId); 
+                                JOptionPane.showMessageDialog(panel, "Reservation canceled successfully!");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(panel, "Reservation not found.");
+                        }
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(panel, "Invalid ID format.");
+                    }
+                }
+            });
+            
+            JButton searchButton = new JButton("Search Reservations");
+            searchButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String idInput = JOptionPane.showInputDialog("Enter Reservation ID to Search: ");
+                    try {
+                        int reservationId = Integer.parseInt(idInput);
+                        Reservation reservation = reservationDaoImpl.getReservationByID(reservationId);
+                        if (reservation != null) {
+                            JOptionPane.showMessageDialog(panel, "Reservation Found:\nID: " + reservation.getReservationId() +
+                                    "\nCustomer Id: " + reservation.getUserId());
+                        } else {
+                            JOptionPane.showMessageDialog(panel, "No reservation found with ID: " + reservationId);
+                        }
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(panel, "Invalid ID format.");
+                    }
+                }
+            });
+    
+            // Customize the appearance of the buttons
+            Font buttonFont = new Font("Mulish", Font.BOLD, 16);
+            Color buttonColor = Color.decode("#E3DFD5");
+            Color textColor = Color.decode("#000000");
+    
+            // Array of buttons for easier customization
+            JButton[] buttons = {viewAllButton, createNewButton, updateButton, cancelButton, searchButton};
+    
+            for (JButton button : buttons) {
+                button.setPreferredSize(new Dimension(160, 40));
+                button.setFont(buttonFont);
+                button.setBackground(buttonColor);
+                button.setForeground(textColor);
+                button.setFocusable(false);
+                reservationPanel.add(button); // Add button to the panel
+            }
+        }
+    
+        // Add the reservationPanel to the main panel directly
+        panel.add(reservationPanel);
+        reservationPanel.setVisible(false);
+    }
+
+
     private void createRoomTab(){
         // ReservationTab setup
         RoomManagementTab = new JButton();
@@ -568,24 +792,44 @@ public class StaffUI {
         });
     }
     private void createServiceOrderPanel(){
-        String[][] baseData = {{" "," "," "," "," "}};
-        String[] columnNames = {"CustomerID","ServiceType","Date","Time","Assigned to"};
-        serviceOrderTable = new JTable(baseData,columnNames);
+        String[][] serviceOrderBaseData = {{" "," "," "," "," "}};
+        String[] serviceOrderColumnNames = {"CustomerID","ServiceType","Date","Time","Assigned to"};
+        serviceOrderTable = new JTable(serviceOrderBaseData,serviceOrderColumnNames);
         serviceOrderTable.setBounds(374,40,800,530);
         serviceOrderTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
         serviceOrderTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
         serviceOrderTable.setVisible(false);
 
-        scrollPane = new JScrollPane(serviceOrderTable);
-        scrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
-        scrollPane.setVisible(false);
-        panel.add(scrollPane);
+        serviceOrderScrollPane = new JScrollPane(serviceOrderTable);
+        serviceOrderScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
+        serviceOrderScrollPane.setVisible(false);
+        panel.add(serviceOrderScrollPane);
 
         serviceOrderPanel = new JPanel();
         serviceOrderPanel.setBounds(374,40,800,530);
         serviceOrderPanel.setOpaque(false);
         serviceOrderPanel.setVisible(false);
         panel.add(serviceOrderPanel);
+    }
+    private void createTaskListPanel(){
+        String[][] taskListBaseData = {{" "," "}};
+        String[] taskListColumnNames = {"Assigned Room","Cleaning Status"};
+        taskListTable = new JTable(taskListBaseData,taskListColumnNames);
+        taskListTable.setBounds(374,40,800,530);
+        taskListTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
+        taskListTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
+        taskListTable.setVisible(false);
+
+        taskListScrollPane = new JScrollPane(taskListTable);
+        taskListScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
+        taskListScrollPane.setVisible(false);
+        panel.add(taskListScrollPane);
+
+        taskListPanel = new JPanel();
+        taskListPanel.setBounds(374,40,800,530);
+        taskListPanel.setOpaque(false);
+        taskListPanel.setVisible(false);
+        panel.add(taskListPanel);
     }
     private void addRoomTabComponents(){
         roomPanel.setVisible(true);
@@ -612,12 +856,30 @@ public class StaffUI {
     private void addServiceOrderComponents(){
         serviceOrderPanel.setVisible(true);
         serviceOrderTable.setVisible(true);
-        scrollPane.setVisible(true);
+        serviceOrderScrollPane.setVisible(true);
     }
     private void removeServiceOrderComponents(){
         serviceOrderPanel.setVisible(false);
         serviceOrderTable.setVisible(false);
-        scrollPane.setVisible(false);
+        serviceOrderScrollPane.setVisible(false);
     }
+    private void addTaskListComponents(){
+        taskListPanel.setVisible(true);
+        taskListTable.setVisible(true);
+        taskListScrollPane.setVisible(true);
+    }
+    private void removeTaskListComponents(){
+        taskListPanel.setVisible(false);
+        taskListTable.setVisible(false);
+        taskListScrollPane.setVisible(false);
+    }
+    private void addReservationTabComponents(){
+        reservationPanel.setVisible(true);
+    }
+    private void removeReservationTabComponents(){
+        reservationPanel.setVisible(false);
+    }
+
+
 }
 //debug commit command

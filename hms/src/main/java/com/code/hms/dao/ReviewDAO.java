@@ -1,7 +1,5 @@
 package com.code.hms.dao;
 
-import java.util.List;
-
 import com.code.hms.entities.Review;
 
 public interface ReviewDAO {
@@ -9,10 +7,10 @@ public interface ReviewDAO {
     public Review getReviewByID(int reviewId);
 
     // Find all reviews of the user
-    public List<Review> getReviewsByUserID(int userId);
+    public Review getReviewsByUserID(int userId);
 
     // Find all reviews of a specific reservation
-    public List<Review> getReviewsByReservationID(int reservationId);
+    public Review getReviewsByReservationID(int reservationId);
 
     // Find average rating 
     public double getAverageRating();
