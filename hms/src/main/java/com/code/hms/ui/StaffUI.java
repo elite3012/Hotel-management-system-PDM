@@ -34,7 +34,7 @@ public class StaffUI {
 
     public StaffUI() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose: Receptionist(1)/Housekeeper(2)/ServiceStaff(3)/Admin(4)\n");
+        System.out.println("Choose: Receptionist(1)/Housekeeper(2)/Admin(3)\n");
         int choice = scanner.nextInt();
 
         switch (choice) {
@@ -46,7 +46,7 @@ public class StaffUI {
                 initializeUI();
                 createHousekeeperUI();
                 break;
-            case 4:
+            case 3:
                 initializeUI();
                 createAdminUI();
                 break;
