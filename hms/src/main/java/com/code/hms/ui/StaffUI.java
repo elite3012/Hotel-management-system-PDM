@@ -30,7 +30,7 @@ public class StaffUI {
     static JButton FinancialTab;
     static JButton UsersTab;
     static JTable serviceOrderTable;
-    static JScrollPane scrollPane;
+    static JScrollPane serviceOrderScrollPane;
 
     public StaffUI() {
         Scanner scanner = new Scanner(System.in);
@@ -568,18 +568,18 @@ public class StaffUI {
         });
     }
     private void createServiceOrderPanel(){
-        String[][] baseData = {{" "," "," "," "," "}};
-        String[] columnNames = {"CustomerID","ServiceType","Date","Time","Assigned to"};
-        serviceOrderTable = new JTable(baseData,columnNames);
+        String[][] serviceOrderBaseData = {{" "," "," "," "," "}};
+        String[] serviceOrderColumnNames = {"CustomerID","ServiceType","Date","Time","Assigned to"};
+        serviceOrderTable = new JTable(serviceOrderBaseData,serviceOrderColumnNames);
         serviceOrderTable.setBounds(374,40,800,530);
         serviceOrderTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
         serviceOrderTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
         serviceOrderTable.setVisible(false);
 
-        scrollPane = new JScrollPane(serviceOrderTable);
-        scrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
-        scrollPane.setVisible(false);
-        panel.add(scrollPane);
+        serviceOrderScrollPane = new JScrollPane(serviceOrderTable);
+        serviceOrderScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
+        serviceOrderScrollPane.setVisible(false);
+        panel.add(serviceOrderScrollPane);
 
         serviceOrderPanel = new JPanel();
         serviceOrderPanel.setBounds(374,40,800,530);
@@ -612,12 +612,13 @@ public class StaffUI {
     private void addServiceOrderComponents(){
         serviceOrderPanel.setVisible(true);
         serviceOrderTable.setVisible(true);
-        scrollPane.setVisible(true);
+        serviceOrderScrollPane.setVisible(true);
     }
     private void removeServiceOrderComponents(){
         serviceOrderPanel.setVisible(false);
         serviceOrderTable.setVisible(false);
-        scrollPane.setVisible(false);
+        serviceOrderScrollPane.setVisible(false);
+    }
     }
 }
 //debug commit command
