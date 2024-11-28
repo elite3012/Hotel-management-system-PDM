@@ -381,18 +381,34 @@ public class StaffUI {
             viewAllButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    List<Reservation> reservations = reservationDaoImpl.getAllReservations();
+                    List<Object[]> reservations = reservationDaoImpl.getAllReservations(); 
                     if (reservations != null && !reservations.isEmpty()) {
-                        StringBuilder result = new StringBuilder("Reservations:\n");
-                        for (Reservation r : reservations) {
-                            result.append("Reservation ID: ").append(r.getReservationId()).append(", Customer ID: ").append(r.getUserId()).append("\n");
+                        String[] columnNames = {"Reservation ID", "User ID", "First Name", "Last Name", 
+                                                "Check-in Date", "Check-out Date", "Total Days", "Num of Guests"};
+
+                        Object[][] data = new Object[reservations.size()][8];
+                        for (int i = 0; i < reservations.size(); i++) {
+                            Object[] row = reservations.get(i);
+                            data[i][0] = row[0]; // Reservation ID
+                            data[i][1] = row[1]; // User ID
+                            data[i][2] = row[2]; // First Name
+                            data[i][3] = row[3]; // Last Name
+                            data[i][4] = row[4]; // Check-in Date
+                            data[i][5] = row[5]; // Check-out Date
+                            data[i][6] = row[6]; // Total Days
+                            data[i][7] = row[7]; // Num of Guests
                         }
-                        JOptionPane.showMessageDialog(panel, result.toString());
+
+                        JTable table = new JTable(data, columnNames);
+                        JScrollPane scrollPane = new JScrollPane(table);
+
+                        JOptionPane.showMessageDialog(null, scrollPane, "All Reservations", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(panel, "No reservations found.");
+                        JOptionPane.showMessageDialog(null, "No reservations found.", "Information", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             });
+
 
             JButton createNewButton = new JButton("Create New Reservation");
             createNewButton.addActionListener(new ActionListener() {
