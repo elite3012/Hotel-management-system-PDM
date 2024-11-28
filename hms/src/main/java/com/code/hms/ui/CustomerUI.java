@@ -2313,7 +2313,7 @@ public class CustomerUI {
                 String selectedPackage = (String) RcleaningPackageMenu.getSelectedItem();
 
                 // Perform actions based on the selected package
-                if ("Daily cleaing".equals(selectedPackage)) {
+                if ("Daily cleaning".equals(selectedPackage)) {
                     addDailyComponents();  // Display massage-related UI or logic
                 } else if ("Deep cleaning".equals(selectedPackage)) {
                     addDeepComponents();  // Display facial-related UI or logic
