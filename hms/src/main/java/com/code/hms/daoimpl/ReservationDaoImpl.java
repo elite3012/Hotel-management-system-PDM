@@ -98,22 +98,29 @@ public void deleteReservation(int reservationId) {
         }
     }
 
-    @Override
     public List<Object[]> getAllReservations() {
         List<Object[]> reservations = null;
-        session = dataSourceFactory.getSessionFactory().openSession();
+        Session session = null;
+    
         try {
-            String query = "SELECT r.reservationId, r.userId, u.firstName, u.lastName, " +
-                           "r.checkInDate, r.checkOutDate, DATEDIFF(r.checkOutDate, r.checkInDate) AS totalDays, " +
-                           "r.numOfGuests " +
-                           "FROM Reservation r " +
-                           "JOIN User u ON r.userId = u.userId";
+            session = dataSourceFactory.getSessionFactory().openSession();
+    
+            String query = "SELECT r.id, r.userId, u.firstName, u.lastName, " +
+                         "r.checkInDate, r.checkOutDate, " +
+                         "DATEDIFF(r.checkOutDate, r.checkInDate) AS totalDays, " +
+                         "r.numOfGuests " +
+                         "FROM Reservation r " +
+                         "JOIN User u ON r.userId = u.id";
+    
             reservations = session.createNativeQuery(query).getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            session.close();
+            if (session != null) {
+                session.close();
+            }
         }
         return reservations;
     }
+    
 }
