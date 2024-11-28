@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.community.dialect.MySQLLegacyDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hms</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.connection.characterEncoding">utf8</property>
+        <property name="hibernate.connection.useUnicode">true</property>
+        <property name="hibernate.connection.pool_size">100</property>
+        <property name="current_session_context_class">thread</property>
+        <property name="hibernate.connection.release_mode">on_close</property>
+        <property name="hibernate.current_session_context_class">jta</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="show_sql">true</property>
+        <mapping class="com.code.hms.entities.Billing"/>
+        <mapping class="com.code.hms.entities.Reservation"/>
+        <mapping class="com.code.hms.entities.Review"/>
+        <mapping class="com.code.hms.entities.Room_Reservation"/>
+        <mapping class="com.code.hms.entities.Room"/>
+        <mapping class="com.code.hms.entities.Service"/>
+        <mapping class="com.code.hms.entities.User_Service"/>
+        <mapping class="com.code.hms.entities.User"/>
+    </session-factory>
+</hibernate-configuration>
