@@ -21,9 +21,6 @@ public interface UserDAO {
     
     // For Admins: Add a new user
     public void addUser(User user);
-    
-    // For Housekeepers: Get assigned rooms for cleaning
-    public List<Integer> getAssignedRoomsForHousekeeper(int housekeeperId);
 
     // For Customer: Get their reservations or reviews
     public List<Reservation> getReservationsByCustomer(int customerId);

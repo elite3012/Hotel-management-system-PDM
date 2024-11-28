@@ -567,6 +567,7 @@ public class StaffUI {
                 button.setBackground(buttonColor);
                 button.setForeground(textColor);
                 button.setFocusable(false);
+                button.setVisible(true);
                 reservationPanel.add(button); // Add button to the panel
             }
         }
