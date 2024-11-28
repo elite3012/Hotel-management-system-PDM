@@ -62,6 +62,27 @@ public class ReservationDaoImpl implements ReservationDAO {
     }
 
     @Override
+public void deleteReservation(int reservationId) {
+    try {
+        session = dataSourceFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+        Reservation reservation = session.get(Reservation.class, reservationId);
+        if (reservation != null) {
+            session.remove(reservation); // Delete the reservation
+            session.getTransaction().commit();
+            logging.setMessage("Reservation deleted successfully.");
+        } else {
+            logging.setMessage("Reservation not found.");
+        }
+    } catch (HibernateException e) {
+        if (session.getTransaction() != null) session.getTransaction().rollback();
+        logging.setMessage("Error deleting reservation: " + e.getLocalizedMessage());
+    } finally {
+        if (session != null) session.close();
+    }
+}
+
+    @Override
     public void updateReservation(Reservation reservation) {
         try {
             session = dataSourceFactory.getSessionFactory().openSession();
