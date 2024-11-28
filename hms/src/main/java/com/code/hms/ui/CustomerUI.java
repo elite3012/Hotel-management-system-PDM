@@ -1182,6 +1182,34 @@ public class CustomerUI {
 
             MusicLoungePackageMenu.setVisible(false);
             MusicLoungePackPosition.setVisible(false);
+
+            submitButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Collect customer information
+                    String firstName = SpaFirstName.getText();
+                    String lastName = SpaLastName.getText();
+                    String phoneNumber = SpaPhoneNumber.getText();
+                    String email = SpaEmail.getText();
+                    String day = SpaDayEnter.getText();
+                    String month = SpaMonthEnter.getText();
+                    String year = SpaYearEnter.getText();
+                    String hour = SpaHourEnter.getText();
+                    String minute = SpaMinuteEnter.getText();
+                    String second = SpaSecondEnter.getText();
+                    String servicepackage = SpaPackBox.getText();
+
+
+                    if (firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() ||
+                            day.isEmpty() || month.isEmpty() || year.isEmpty() ||
+                            hour.isEmpty() || minute.isEmpty() || second.isEmpty()) {
+                        JOptionPane.showMessageDialog(frame, "Please fill in all required fields.", "Warning", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            });
         });
 
         RestaurantCenter = new JLabel();
@@ -1312,6 +1340,33 @@ public class CustomerUI {
 
             MusicLoungePackageMenu.setVisible(false);
             MusicLoungePackPosition.setVisible(false);
+
+            submitButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Collect customer information
+                    String firstName = RestaurantFirstName.getText();
+                    String lastName = RestaurantLastName.getText();
+                    String phoneNumber = RestaurantPhoneNumber.getText();
+                    String email = RestaurantEmail.getText();
+                    String day = ResDayEnter.getText();
+                    String month = ResMonthEnter.getText();
+                    String year = ResYearEnter.getText();
+                    String hour = ResHourEnter.getText();
+                    String minute = ResMonthEnter.getText();
+                    String second = ResSecondEnter.getText();
+
+
+                    if (firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() ||
+                            day.isEmpty() || month.isEmpty() || year.isEmpty() ||
+                            hour.isEmpty() || minute.isEmpty() || second.isEmpty()) {
+                        JOptionPane.showMessageDialog(frame, "Please fill in all required fields.", "Warning", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            });
         });
 
         RoomCleaningCenter = new JLabel();
@@ -1441,6 +1496,33 @@ public class CustomerUI {
 
             MusicLoungePackageMenu.setVisible(false);
             MusicLoungePackPosition.setVisible(false);
+
+            submitButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Collect customer information
+                    String firstName = RoomCleaningFirstName.getText();
+                    String lastName = RoomCleaningLastName.getText();
+                    String phoneNumber = RoomCleaningPhoneNumber.getText();
+                    String email = RoomCleaningEmail.getText();
+                    String day = RoomCleanDayEnter.getText();
+                    String month = RoomCleanMonthEnter.getText();
+                    String year = RoomCleanYearEnter.getText();
+                    String hour = RoomCleanHourEnter.getText();
+                    String minute = RoomCleanMinuteEnter.getText();
+                    String second = RoomCleanSecondEnter.getText();
+
+
+                    if (firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() ||
+                            day.isEmpty() || month.isEmpty() || year.isEmpty() ||
+                            hour.isEmpty() || minute.isEmpty() || second.isEmpty()) {
+                        JOptionPane.showMessageDialog(frame, "Please fill in all required fields.", "Warning", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            });
         });
 
         MusicLoungeCenter = new JLabel();
@@ -1570,6 +1652,33 @@ public class CustomerUI {
 
             MusicLoungePackageMenu.setVisible(true);
             MusicLoungePackPosition.setVisible(true);
+
+            submitButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Collect customer information
+                    String firstName = MusicLoungeFirstName.getText();
+                    String lastName = MusicLoungeLastName.getText();
+                    String phoneNumber = MusicLoungePhoneNumber.getText();
+                    String email = MusicLoungeEmail.getText();
+                    String day = MusicLoungeDayEnter.getText();
+                    String month = MusicLoungeMonthEnter.getText();
+                    String year = MusicLoungeYearEnter.getText();
+                    String hour = MusicLoungeHourEnter.getText();
+                    String minute = MusicLoungeMinuteEnter.getText();
+                    String second = MusicLoungeSecondEnter.getText();
+
+
+                    if (firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() ||
+                            day.isEmpty() || month.isEmpty() || year.isEmpty() ||
+                            hour.isEmpty() || minute.isEmpty() || second.isEmpty()) {
+                        JOptionPane.showMessageDialog(frame, "Please fill in all required fields.", "Warning", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            });
         });
 
         ServiceTab = new JButton();
