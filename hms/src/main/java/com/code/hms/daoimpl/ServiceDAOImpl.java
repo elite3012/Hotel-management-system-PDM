@@ -42,9 +42,7 @@ public class ServiceDAOImpl implements ServiceDAO{
         try {
             session = dataSourceFactory.getSessionFactory().openSession();
             session.beginTransaction();
-        
             session.delete(service);  
-
             session.getTransaction().commit();
             logging.setMessage("Service deleted successfully.");
         } catch (HibernateException e) {
