@@ -2,6 +2,7 @@ package com.code.hms.daoimpl;
 
 import com.code.hms.entities.Room_Reservation;
 import com.code.hms.entities.User;
+import com.code.hms.entities.User_Service;
 import com.code.hms.entities.Service;
 import com.code.hms.utils.LoggingEngine;
 import com.code.hms.dao.User_ServiceDAO;
@@ -83,24 +84,24 @@ public class User_ServiceDAOImpl implements User_ServiceDAO {
     }
 
     // save to database (example method, implement as needed)
-    public void saveRoomReservation(Room_Reservation roomReservation) {
-        try {
-            session = dataSourceFactory.getSessionFactory().openSession();
-            session.beginTransaction();
+    @Override
+public void saveServiceOrder(User_Service userService) {
+    try {
+        session = dataSourceFactory.getSessionFactory().openSession();
+        session.beginTransaction();
 
-            session.persist(roomReservation); // Save the roomReservation entity
+        // Save the User_Service association to the database
+        session.persist(userService);
 
-            session.getTransaction().commit();
-            loggingEngine.setMessage("Room Reservation saved successfully.");
-        } catch (HibernateException e) {
-            if (session.getTransaction() != null) {
-                session.getTransaction().rollback();
-            }
-            loggingEngine.setMessage("Error saving room reservation: " + e.getLocalizedMessage());
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
+        session.getTransaction().commit();
+        loggingEngine.setMessage("Service order saved successfully for User ID: " 
+            + userService.getUser().getUserId() + " and Service ID: " + userService.getService().getServiceId());
+    } catch (HibernateException e) {
+        if (session.getTransaction() != null) session.getTransaction().rollback();
+        loggingEngine.setMessage("Error saving service order: " + e.getLocalizedMessage());
+    } finally {
+        if (session != null) session.close();
     }
+}
+
 }
