@@ -6,14 +6,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.code.hms.ui.LoadImage;
+import com.code.hms.daoimpl.ReviewDAOImpl;
+import com.code.hms.daoimpl.ServiceDAOImpl;
 
 public class CustomerUI {
     static JFrame frame;
     static JPanel panel;
+    static JPanel reviewPanel;
+    static JPanel servicePanel;
     static JButton OurHotelTab;
     static JButton RoomTab;
     static JButton ServiceTab;
     static JButton ReviewTab;
+    static ReviewDAOImpl reviewDAOImpl;
+    static ServiceDAOImpl serviceDAOImpl;
 
     static JLabel Tab1_background;
     static JLabel Tab2_background;
@@ -142,11 +148,13 @@ public class CustomerUI {
         CreateRoomCleaningInfoBox();
         CreateMusicLoungeInfoBox();
         CreateDate_TimeBox();
-        CreateBookingInfor();
+        CreateBookingInfo();
         createSpaDropdown();
         createResDropdown();
         createRoomCleanDropdown();
         createMusicLoungeDropdown();
+        reviewDAOImpl = new ReviewDAOImpl();
+        serviceDAOImpl = new ServiceDAOImpl();
     }
 
     private void createMainGUI() {
@@ -328,7 +336,7 @@ public class CustomerUI {
         panel.add(WriteFeedback);
 
         // Set bounds and appearance
-        WriteFeedback.setBounds(300, 180, 940, 400);
+        WriteFeedback.setBounds(300, 180, 940, 300);
         WriteFeedback.setBackground(new Color(244, 242, 235));
         WriteFeedback.setVisible(false);
         WriteFeedback.setLineWrap(true); // Enable word wrapping
@@ -336,6 +344,18 @@ public class CustomerUI {
         WriteFeedback.setMargin(new Insets(5, 5, 5, 5)); // Add padding for better appearance
         WriteFeedback.setFont(new Font("Mulish", Font.PLAIN, 16)); // Set the font size and style
         WriteFeedback.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102), 1));
+
+        JButton sendButton = new JButton();
+        sendButton.setFocusable(false);
+        sendButton.setBackground(new Color(132, 121, 102));
+        sendButton.setBorderPainted(false);
+        sendButton.setText("Send");
+        sendButton.setFont(new Font("Mulish", Font.BOLD, 20));
+        sendButton.setBounds(674, 520, 200, 50);
+        sendButton.setForeground(new Color(245, 242, 233));
+        sendButton.setVisible(false);
+        panel.add(sendButton);
+
 
         PaymentMethod = new JLabel();
         PaymentMethod.setText("II. Payment Method");
@@ -396,6 +416,7 @@ public class CustomerUI {
             ReviewTab.setForeground(new Color(245, 242, 233));
 
             NextButton.setVisible(true);
+            sendButton.setVisible(false);
 
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
@@ -638,6 +659,7 @@ public class CustomerUI {
             RoomList.setVisible(false);
 
             NextButton.setVisible(false);
+            sendButton.setVisible(false);
 
             BookingTitle.setVisible(false);
 
@@ -712,6 +734,7 @@ public class CustomerUI {
             ReviewTab.setForeground(new Color(245, 242, 233));
 
             NextButton.setVisible(true);
+            sendButton.setVisible(false);
 
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
@@ -1500,6 +1523,7 @@ public class CustomerUI {
             RoomList.setVisible(false);
 
             NextButton.setVisible(false);
+            sendButton.setVisible(false);
 
             BookingTitle.setVisible(false);
 
@@ -1666,6 +1690,7 @@ public class CustomerUI {
             RoomList.setVisible(false);
 
             NextButton.setVisible(false);
+            sendButton.setVisible(true);
 
             BookingTitle.setVisible(false);
 
@@ -1722,6 +1747,42 @@ public class CustomerUI {
         // Make frame visible
         frame.setVisible(true);
 
+    }
+
+    private void addServicePanel() {
+        if (servicePanel == null) {
+            servicePanel = new JPanel();
+            servicePanel.setLayout(new GridLayout(3, 2, 10, 10));
+            servicePanel.setBounds(417, 40, 713, 530); //
+        }
+
+        JButton restaurantButton = new JButton("Restaurant");
+        restaurantButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+
+        JButton spaButton = new JButton("Spa Centre");
+        spaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+
+        JButton cleaningButton = new JButton("Room Cleaning");
+        cleaningButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+
+        JButton musicButton = new JButton("Music Lounge Booking");
+        musicButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
     }
 
     public void CreateSpaInfoBox() {
@@ -1914,7 +1975,7 @@ public class CustomerUI {
         MusicLoungeEmail.setBorder(null);
     }
 
-    public void CreateBookingInfor() {
+    public void CreateBookingInfo() {
         //box for first name
         BookingFirstName = new JTextField();
         panel.add(BookingFirstName);
