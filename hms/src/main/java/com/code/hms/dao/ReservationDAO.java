@@ -18,5 +18,5 @@ public interface ReservationDAO {
     public void updateReservation(Reservation reservation);
 
     // Find all reservations
-    public List<Reservation> getAllReservations();
+    public List<Object[]> getAllReservations();
 }
