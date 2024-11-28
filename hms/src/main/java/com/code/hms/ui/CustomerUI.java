@@ -378,6 +378,7 @@ public class CustomerUI {
 
 //            NextButton.setVisible(false);
             sendButton.setVisible(true);
+//            submitButton.setVisible(false);
 
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
@@ -562,6 +563,7 @@ public class CustomerUI {
 
             NextButton.setVisible(false);
             sendButton.setVisible(false);
+//            submitButton.setVisible(false);
 
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
@@ -805,6 +807,7 @@ public class CustomerUI {
 
             NextButton.setVisible(false);
             sendButton.setVisible(false);
+//            submitButton.setVisible(false);
 
             BookingTitle.setVisible(false);
 
@@ -880,6 +883,7 @@ public class CustomerUI {
 
             NextButton.setVisible(true);
             sendButton.setVisible(false);
+//            submitButton.setVisible(false);
 
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
@@ -1024,14 +1028,6 @@ public class CustomerUI {
         ServiceMenu.setVisible(false);
         panel.add(ServiceMenu);
 
-        SpaCenter = new JLabel();
-        SpaCenter.setText("SPA CENTER");
-        SpaCenter.setFont(new Font("Mulish", Font.BOLD, 33));
-        SpaCenter.setBounds(310, 20, 300, 33);
-        SpaCenter.setForeground(new Color(212, 158, 24));
-        SpaCenter.setVisible(false);
-        panel.add(SpaCenter);
-
         CustomerInfo = new JLabel();
         CustomerInfo.setText("I. CUSTOMER INFORMATION");
         CustomerInfo.setFont(new Font("Mulish", Font.BOLD, 33));
@@ -1047,6 +1043,23 @@ public class CustomerUI {
         BookingInformation.setForeground(new Color(136, 120, 81));
         BookingInformation.setVisible(false);
         panel.add(BookingInformation);
+
+        JButton submitButton = new JButton("SUBMIT");
+        submitButton.setBounds(960, 520, 180, 50);
+        submitButton.setFont(new Font("Mulish", Font.BOLD, 20));
+        submitButton.setBackground(new Color(132, 121, 102));
+        submitButton.setForeground(Color.WHITE);
+        submitButton.setFocusable(false);
+        submitButton.setVisible(false);
+        panel.add(submitButton);
+
+        SpaCenter = new JLabel();
+        SpaCenter.setText("SPA CENTER");
+        SpaCenter.setFont(new Font("Mulish", Font.BOLD, 33));
+        SpaCenter.setBounds(310, 20, 300, 33);
+        SpaCenter.setForeground(new Color(212, 158, 24));
+        SpaCenter.setVisible(false);
+        panel.add(SpaCenter);
 
         SpaPackPosition = new JLabel();
         SpaPackPosition.setText("Spa Package");
@@ -1087,6 +1100,7 @@ public class CustomerUI {
             SpaCenter.setVisible(true);
             CustomerInfo.setVisible(true);
             BookingInformation.setVisible(true);
+            submitButton.setVisible(true);
 
             EnterBoxFName.setVisible(true);
             EnterBoxLName.setVisible(true);
@@ -1209,6 +1223,7 @@ public class CustomerUI {
             BookingInformation.setVisible(true);
             RestaurantCenter.setVisible(true);
             ServiceMenu.setVisible(false);
+            submitButton.setVisible(true);
 
             EnterBoxFName.setVisible(true);
             EnterBoxLName.setVisible(true);
@@ -1338,6 +1353,7 @@ public class CustomerUI {
             BookingInformation.setVisible(true);
             RoomCleaningCenter.setVisible(true);
             ServiceMenu.setVisible(false);
+            submitButton.setVisible(true);
 
             EnterBoxFName.setVisible(true);
             EnterBoxLName.setVisible(true);
@@ -1466,6 +1482,7 @@ public class CustomerUI {
             BookingInformation.setVisible(true);
             MusicLoungeCenter.setVisible(true);
             ServiceMenu.setVisible(false);
+            submitButton.setVisible(true);
 
             EnterBoxFName.setVisible(true);
             EnterBoxLName.setVisible(true);
@@ -1681,6 +1698,7 @@ public class CustomerUI {
 
             NextButton.setVisible(false);
             sendButton.setVisible(false);
+            submitButton.setVisible(false);
 
             BookingTitle.setVisible(false);
 
@@ -1848,6 +1866,7 @@ public class CustomerUI {
 
             NextButton.setVisible(false);
             sendButton.setVisible(true);
+            submitButton.setVisible(false);
 
             BookingTitle.setVisible(false);
 
