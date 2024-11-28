@@ -99,23 +99,21 @@ public void deleteReservation(int reservationId) {
     }
 
     @Override
-    public List<Reservation> getAllReservations() {
-        List<Reservation> reservationsList = null;
+    public List<Object[]> getAllReservations() {
+        List<Object[]> reservations = null;
+        session = dataSourceFactory.getSessionFactory().openSession();
         try {
-            session = dataSourceFactory.getSessionFactory().openSession();
-            session.beginTransaction();
-            Query<Reservation> query = session.createQuery("from Reservation", Reservation.class);
-            reservationsList = query.getResultList();
-            session.getTransaction().commit();
-            logging.setMessage("Fetched all reservations.");
-        } catch (NoResultException e) {
-            logging.setMessage("No reservations found.");
-        } catch (HibernateException e) {
-            if (session.getTransaction() != null) session.getTransaction().rollback();
-            logging.setMessage("Error fetching reservations: " + e.getLocalizedMessage());
+            String query = "SELECT r.reservationId, r.userId, u.firstName, u.lastName, " +
+                           "r.checkInDate, r.checkOutDate, DATEDIFF(r.checkOutDate, r.checkInDate) AS totalDays, " +
+                           "r.numOfGuests " +
+                           "FROM Reservation r " +
+                           "JOIN User u ON r.userId = u.userId";
+            reservations = session.createNativeQuery(query).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
-            if (session != null) session.close();
+            session.close();
         }
-        return reservationsList;
+        return reservations;
     }
 }
