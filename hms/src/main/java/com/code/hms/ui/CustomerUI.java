@@ -1704,6 +1704,11 @@ public class CustomerUI {
             ExpDatePos.setVisible(false);
             SecCodePos.setVisible(false);
 
+            CreditNumber.setVisible(false);
+            NameOnCard.setVisible(false);
+            ExpDate.setVisible(false);
+            SecCode.setVisible(false);
+
             BookingFirstName.setVisible(false);
             BookingLastName.setVisible(false);
             BookingPhoneNumber.setVisible(false);
