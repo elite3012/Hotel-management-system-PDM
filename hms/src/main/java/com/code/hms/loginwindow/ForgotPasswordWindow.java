@@ -23,7 +23,7 @@ public class ForgotPasswordWindow extends JFrame {
         panel.setLayout(null);
 
         // Load and set the background
-        LoadImage loader = new LoadImage("hms/src/main/java/com/code/hms/assets/bg.png", getWidth(), getHeight());
+        LoadImage loader = new LoadImage("hms/src/main/java/com/code/hms/assets/Login_BG.png", getWidth(), getHeight());
         JLabel backgroundLbl = new JLabel(loader.getImageIcon());
         backgroundLbl.setBounds(0, 0, getWidth(), getHeight());
         panel.add(backgroundLbl);
