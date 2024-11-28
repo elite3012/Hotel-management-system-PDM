@@ -14,6 +14,8 @@ public interface User_ServiceDAO {
     // find users by service id
     public List<User> getUsersByServiceID(int serviceId);
 
-    // save to database
     public void saveServiceOrder(User_Service userService);
+
+    // save to database
+    public void saveRoomReservation(Room_Reservation roomReservation);
 }
