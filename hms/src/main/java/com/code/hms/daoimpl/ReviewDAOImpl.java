@@ -102,6 +102,22 @@ public class ReviewDAOImpl implements ReviewDAO {
     }
 
     @Override
+    public void saveReview(Review review) {
+        try {
+            session = dataSourceFactory.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.persist(review); // Save the new review entity
+            session.getTransaction().commit();
+            logging.setMessage("Review saved successfully with ID: " + review.getReviewId());
+        } catch (HibernateException e) {
+            if (session.getTransaction() != null) session.getTransaction().rollback();
+            logging.setMessage("Error saving review: " + e.getLocalizedMessage());
+        } finally {
+            if (session != null) session.close();
+        }
+    }
+
+    @Override
     public void updateReview(Review review) {
             try {
                 session = dataSourceFactory.getSessionFactory().openSession();

@@ -15,6 +15,9 @@ public interface ReviewDAO {
     // Find average rating 
     public double getAverageRating();
 
+    // Save to database
+    public void saveReview(Review review);
+
     // Update rating and comment of the review
     public void updateReview(Review review);
 
