@@ -366,6 +366,8 @@ public class CustomerUI {
         panel.add(DiscoverImage);
         DiscoverImage.setVisible(false);
 
+
+        // NEXT BUTTON AFTER CHOOSING ROOM
         JButton NextButton = new JButton();
         NextButton.setFocusable(false);
         NextButton.setBackground(new Color(132, 121, 102));
@@ -376,7 +378,11 @@ public class CustomerUI {
         NextButton.setForeground(new Color(245, 242, 233));
         NextButton.setVisible(false);
         panel.add(NextButton);
+
+        // MOVE TO THE FILLING INFORMATION TABS
         NextButton.addActionListener(e -> {
+
+            // SET THE FILLING INFORMATION TAB TRUE
             Tab1_background.setVisible(false);
             Tab2_background.setVisible(true);
             Tab3_background.setVisible(false);
@@ -711,6 +717,7 @@ public class CustomerUI {
             ServiceTab.setForeground(new Color(245, 242, 233));
             ReviewTab.setForeground(new Color(245, 242, 233));
 
+            // NEXT BUTTON AFTER CHOOSING ROOM
             NextButton.setVisible(true);
 
             SpaCenter.setVisible(false);
@@ -1914,6 +1921,8 @@ public class CustomerUI {
         MusicLoungeEmail.setBorder(null);
     }
 
+
+    // Filling information for reservation
     public void CreateBookingInfor() {
         //box for first name
         BookingFirstName = new JTextField();

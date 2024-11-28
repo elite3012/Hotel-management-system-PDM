@@ -35,7 +35,7 @@ public class User_ServiceDAOImpl implements User_ServiceDAO {
             session.beginTransaction();
 
             // HQL to fetch services associated with a user
-            Query<Service> query = session.createQuery("FROM Service s WHERE s.user.id = :userId", Service.class);
+            Query<Service> query = session.createQuery("FROM Service s WHERE s.User_ID = :userId", Service.class);
             query.setParameter("userId", userId); // Correct parameter for userId
 
             // Get the list of services associated with the user
@@ -63,7 +63,7 @@ public class User_ServiceDAOImpl implements User_ServiceDAO {
             session.beginTransaction();
 
             // HQL to fetch users associated with a service
-            Query<User> query = session.createQuery("FROM User u WHERE u.service.id = :serviceId", User.class);
+            Query<User> query = session.createQuery("FROM User u WHERE u.Service_ID = :serviceId", User.class);
             query.setParameter("serviceId", serviceId); // Correct parameter for serviceId
 
             // Get the list of users associated with the service
@@ -85,23 +85,43 @@ public class User_ServiceDAOImpl implements User_ServiceDAO {
 
     // save to database (example method, implement as needed)
     @Override
-public void saveServiceOrder(User_Service userService) {
-    try {
-        session = dataSourceFactory.getSessionFactory().openSession();
-        session.beginTransaction();
+    public void saveServiceOrder(User_Service userService) {
+        try {
+            session = dataSourceFactory.getSessionFactory().openSession();
+            session.beginTransaction();
 
-        // Save the User_Service association to the database
-        session.persist(userService);
+            // Save the User_Service association to the database
+            session.persist(userService);
 
-        session.getTransaction().commit();
-        loggingEngine.setMessage("Service order saved successfully for User ID: " 
-            + userService.getUser().getUserId() + " and Service ID: " + userService.getService().getServiceId());
-    } catch (HibernateException e) {
-        if (session.getTransaction() != null) session.getTransaction().rollback();
-        loggingEngine.setMessage("Error saving service order: " + e.getLocalizedMessage());
-    } finally {
-        if (session != null) session.close();
+            session.getTransaction().commit();
+            loggingEngine.setMessage("Service order saved successfully for User ID: "
+                    + userService.getUser().getUserId() + " and Service ID: " + userService.getService().getServiceId());
+        } catch (HibernateException e) {
+            if (session.getTransaction() != null) session.getTransaction().rollback();
+            loggingEngine.setMessage("Error saving service order: " + e.getLocalizedMessage());
+        } finally {
+            if (session != null) session.close();
+        }
+    }
+
+        // save to database (example method, implement as needed)
+    public void saveRoomReservation(Room_Reservation roomReservation){
+        try {
+            session = dataSourceFactory.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.persist(roomReservation); // Save the roomReservation entity
+            session.getTransaction().commit();
+            loggingEngine.setMessage("Room Reservation saved successfully.");
+        } catch (HibernateException e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            loggingEngine.setMessage("Error saving room reservation: " + e.getLocalizedMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 }
 
-}
