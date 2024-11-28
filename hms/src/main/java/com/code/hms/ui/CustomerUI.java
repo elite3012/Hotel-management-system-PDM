@@ -2282,22 +2282,22 @@ public class CustomerUI {
 
     private void addBoothTableComponents() {
         // Code to add components related to Booth table
-        System.out.println("Massage Package Selected");
+        System.out.println("Booth Tables Selected");
     }
 
     private void addOutdoorTableComponents() {
         // Code to add components related to Outdoor table
-        System.out.println("Facial Package Selected");
+        System.out.println("Outdoor Tables Selected");
     }
 
     private void addIndoorTableComponents() {
         // Code to add components related to Indoor table
-        System.out.println("Massage Package Selected");
+        System.out.println("Indoor Tables Selected");
     }
 
     private void addSpecTableComponents() {
         // Code to add components related to Speciality table
-        System.out.println("Massage Package Selected");
+        System.out.println("Specialty Tables Selected");
 
     }
 
@@ -2337,22 +2337,22 @@ public class CustomerUI {
 
     private void addDailyComponents() {
         // Code to add components related to Booth table
-        System.out.println("Massage Package Selected");
+        System.out.println("Daily cleaning Selected");
     }
 
     private void addDeepComponents() {
         // Code to add components related to Outdoor table
-        System.out.println("Facial Package Selected");
+        System.out.println("Deep cleaning Selected");
     }
 
     private void addTurnoverComponents() {
         // Code to add components related to Indoor table
-        System.out.println("Massage Package Selected");
+        System.out.println("Turnover cleaning Selected");
     }
 
     private void addEmergencyComponents() {
         // Code to add components related to Speciality table
-        System.out.println("Massage Package Selected");
+        System.out.println("Emergency cleaning Selected");
 
     }
 
@@ -2392,22 +2392,22 @@ public class CustomerUI {
 
     private void addGeneralAdComponents() {
         // Code to add components related to Booth table
-        System.out.println("Massage Package Selected");
+        System.out.println("General Admission Selected");
     }
 
     private void addVipComponents() {
         // Code to add components related to Outdoor table
-        System.out.println("Facial Package Selected");
+        System.out.println("VIP Ticket Selected");
     }
 
     private void addDrinkComponents() {
         // Code to add components related to Indoor table
-        System.out.println("Massage Package Selected");
+        System.out.println("Drink-Inclusive Tickets Selected");
     }
 
     private void addStandComponents() {
         // Code to add components related to Speciality table
-        System.out.println("Massage Package Selected");
+        System.out.println("Standing tickets Selected");
 
     }
 }
