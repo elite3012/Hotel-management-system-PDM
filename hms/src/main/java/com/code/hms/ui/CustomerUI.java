@@ -1057,8 +1057,11 @@ public class CustomerUI {
         panel.add(SpaPackPosition);
 
         Spa = new JButton();
+        Spa.setText("Spa Center");
+        Spa.setFont(new Font("Mulish", Font.BOLD, 33));
         Spa.setFocusable(false);
         Spa.setBackground(new Color(217, 217, 217));
+        Spa.setForeground(new Color(136, 120, 81));
         Spa.setBounds(400, 150, 350, 200);
         Spa.setVisible(false);
         panel.add(Spa);
@@ -1184,8 +1187,11 @@ public class CustomerUI {
         panel.add(ResPackPosition);
 
         Restaurant = new JButton();
+        Restaurant.setText("Restaurant");
+        Restaurant.setFont(new Font("Mulish", Font.BOLD, 33));
         Restaurant.setFocusable(false);
         Restaurant.setBackground(new Color(217, 217, 217));
+        Restaurant.setForeground(new Color(136, 120, 81));
         Restaurant.setBounds(800, 150, 350, 200);
         Restaurant.setVisible(false);
         panel.add(Restaurant);
@@ -1310,8 +1316,11 @@ public class CustomerUI {
         panel.add(RoomcleanPackPosition);
 
         RoomCleaning = new JButton();
+        RoomCleaning.setText("Room Cleaning");
+        RoomCleaning.setFont(new Font("Mulish", Font.BOLD, 33));
         RoomCleaning.setFocusable(false);
         RoomCleaning.setBackground(new Color(217, 217, 217));
+        RoomCleaning.setForeground(new Color(136, 120, 81));
         RoomCleaning.setBounds(400, 380, 350, 200);
         RoomCleaning.setVisible(false);
         panel.add(RoomCleaning);
@@ -1435,8 +1444,11 @@ public class CustomerUI {
         panel.add(MusicLoungePackPosition);
 
         MusicLounge = new JButton();
+        MusicLounge.setText("Music Lounge");
+        MusicLounge.setFont(new Font("Mulish", Font.BOLD, 33));
         MusicLounge.setFocusable(false);
         MusicLounge.setBackground(new Color(217, 217, 217));
+        MusicLounge.setForeground(new Color(136, 120, 81));
         MusicLounge.setBounds(800, 380, 350, 200);
         MusicLounge.setVisible(false);
         panel.add(MusicLounge);
@@ -1897,45 +1909,6 @@ public class CustomerUI {
         // Make frame visible
         frame.setVisible(true);
 
-    }
-
-    private void addServicePanel() {
-        if (servicePanel == null) {
-            servicePanel = new JPanel();
-            servicePanel.setLayout(new GridLayout(3, 2, 10, 10));
-            servicePanel.setBounds(417, 40, 713, 530); //
-
-
-        }
-
-        JButton restaurantButton = new JButton("Restaurant");
-        restaurantButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-        JButton spaButton = new JButton("Spa Centre");
-        spaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-
-        JButton cleaningButton = new JButton("Room Cleaning");
-        cleaningButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-
-        JButton musicButton = new JButton("Music Lounge Booking");
-        musicButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
     }
 
     public void CreateSpaInfoBox() {
