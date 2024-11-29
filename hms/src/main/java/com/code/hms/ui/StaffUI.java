@@ -24,6 +24,7 @@ public class StaffUI {
     static JPanel roomCleaningPanel;
     static JPanel taskListPanel;
     static JPanel ManageUserPanel;
+    static JPanel financialPanel;
     static JButton main_menu;
     static JLabel available_unavailable;
     static JLabel cleaned_uncleaned;
@@ -38,9 +39,11 @@ public class StaffUI {
     static JTable serviceOrderTable;
     static JTable taskListTable;
     static JTable ManageUserTable;
+    static JTable billingTable;
     static JScrollPane serviceOrderScrollPane;
     static JScrollPane taskListScrollPane;
     static JScrollPane ManageUserScrollPane;
+    static JScrollPane billingScrollPane;
     static ReservationDaoImpl reservationDaoImpl;
 
     public StaffUI() {
@@ -287,6 +290,7 @@ public class StaffUI {
                 FinancialTab.setForeground(new Color(43, 42, 38));
                 UsersTab.setForeground(new Color(245, 242, 233));
 
+                addFinancialComponents();
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
@@ -322,6 +326,7 @@ public class StaffUI {
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
                 removeServiceOrderComponents();
+                removeFinancialComponents();
             }
         });
         addRoomPanel();
@@ -331,6 +336,7 @@ public class StaffUI {
         createServiceOrderPanel();
         createManageUserPanel();
         createAllBackgrounds();
+        createFinancialPanel();
 
     }
     private void addRoomPanel(){
@@ -688,15 +694,38 @@ public class StaffUI {
         FinancialTab.setFocusable(false);
         FinancialTab.setBackground(new Color(132, 121, 102));
         FinancialTab.setBorderPainted(false);
-        FinancialTab.setText("FINANCIAL DATA");
+        FinancialTab.setText("BILLING");
         FinancialTab.setFont(new Font("Mulish", Font.BOLD, 21));
         FinancialTab.setBounds(16, 253, 235, 33);
         FinancialTab.setForeground(new Color(245, 242, 233));
         FinancialTab.setHorizontalTextPosition(SwingConstants.LEFT);
         FinancialTab.setHorizontalAlignment(SwingConstants.LEFT);
         FinancialTab.setVisible(true);
-        new Interaction(FinancialTab,false);
+        new Interaction(FinancialTab, false);
         panel.add(FinancialTab);
+
+    }
+    private void createFinancialPanel() {
+        String[][] billingBaseData = {{" ", " ", " "}}; // Placeholder data
+        String[] billingColumnNames = {"Amount", "Payment Method", "Date"};
+
+        billingTable = new JTable(billingBaseData, billingColumnNames);
+        billingTable.setBounds(374, 40, 800, 530);
+        billingTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
+        billingTable.setFont(new Font("Arial", Font.PLAIN, 12));
+        billingTable.setVisible(false);
+
+        billingScrollPane = new JScrollPane(billingTable);
+        billingScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
+        billingScrollPane.setVisible(false);
+        panel.add(billingScrollPane);
+
+        financialPanel = new JPanel();
+        financialPanel.setBounds(374, 40, 800, 530);
+        financialPanel.setOpaque(false);
+        financialPanel.setVisible(false);
+        panel.add(financialPanel);
+        financialPanel.add(billingScrollPane);
     }
     private void createUsersTab(){
         // UsersTab setup
@@ -936,6 +965,17 @@ public class StaffUI {
         ManageUserTable.setVisible(false);
         ManageUserPanel.setVisible(false);
         ManageUserScrollPane.setVisible(false);
+    }
+    private void addFinancialComponents() {
+        billingTable.setVisible(true); // Make the billing table visible
+        financialPanel.setVisible(true); // Make the financial panel visible
+        billingScrollPane.setVisible(true); // Make the scroll pane visible
+    }
+
+    private void removeFinancialComponents() {
+        billingTable.setVisible(false); // Hide the billing table
+        financialPanel.setVisible(false); // Hide the financial panel
+        billingScrollPane.setVisible(false); // Hide the scroll pane
     }
 }
 //debug commit command
