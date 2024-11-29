@@ -26,27 +26,15 @@ public class ReservationDaoImpl implements ReservationDAO {
     }
 
     @Override
-    public Object[] getReservationByID(int reservationId) {
-        Object[] reservation = null;
+    public Reservation getReservationByID(int reservationId) {
+        Reservation reservation = null;
         Session session = null;
     
         try {
             session = dataSourceFactory.getSessionFactory().openSession();
     
-            // Native SQL query to fetch reservation details by ID
-            String query = "SELECT r.reservation_id, r.user_id, u.firstName, u.lastName, " +
-                           "r.checkIn_Date, r.checkOut_Date, " +
-                           "DATEDIFF(r.checkOut_Date, r.checkIn_Date) AS totalDays, " +
-                           "r.num_Of_Guests " +
-                           "FROM Reservation r " +
-                           "JOIN User u ON r.user_Id = u.user_Id " +
-                           "WHERE r.reservation_id = :reservationId";
-    
-            reservation = (Object[]) session.createNativeQuery(query)
-                                            .setParameter("reservationId", reservationId)
-                                            .getSingleResult();
-        } catch (NoResultException e) {
-            System.out.println("No reservation found with ID: " + reservationId);
+            // Query to fetch a Reservation entity by its ID
+            reservation = session.get(Reservation.class, reservationId);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -56,7 +44,7 @@ public class ReservationDaoImpl implements ReservationDAO {
         }
     
         return reservation;
-    }    
+    }
 
     @Override
     public void saveReservation(Reservation reservation) {
