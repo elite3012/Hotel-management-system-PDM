@@ -28,22 +28,21 @@ public class ReservationDaoImpl implements ReservationDAO {
     @Override
     public Reservation getReservationByID(int reservationId) {
         Reservation reservation = null;
+        Session session = null;
+    
         try {
             session = dataSourceFactory.getSessionFactory().openSession();
-            session.beginTransaction();
-            Query<Reservation> query = session.createQuery("from Reservation where id=:reservationId", Reservation.class);
-            query.setParameter("reservationId", reservationId);
-            reservation = query.uniqueResult();
-            session.getTransaction().commit();
-            logging.setMessage("Fetched reservation by ID: " + reservationId);
-        } catch (NoResultException e) {
-            logging.setMessage("No reservation found with ID: " + reservationId);
-        } catch (HibernateException e) {
-            if (session.getTransaction() != null) session.getTransaction().rollback();
-            logging.setMessage("Error fetching reservation: " + e.getLocalizedMessage());
+    
+            // Query to fetch a Reservation entity by its ID
+            reservation = session.get(Reservation.class, reservationId);
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
-            if (session != null) session.close();
+            if (session != null) {
+                session.close();
+            }
         }
+    
         return reservation;
     }
 

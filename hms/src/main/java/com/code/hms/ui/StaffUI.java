@@ -2,6 +2,7 @@ package com.code.hms.ui;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -228,8 +229,8 @@ public class StaffUI {
                 adminRoomMenu.setSelectedItem("Availability");
                 addRoomTabComponents();
                 addAdminRoomMenu();
-
                 removeServiceOrderComponents();
+                removeReservationTabComponents();
             }
         });
 
@@ -260,6 +261,7 @@ public class StaffUI {
                 removeRoomCleaningTabComponents();
                 removeServiceOrderComponents();
                 removeManageUserComponents();
+                addReservationTabComponents();
             }
         });
 
@@ -290,6 +292,7 @@ public class StaffUI {
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
                 removeManageUserComponents();
+                removeReservationTabComponents();
             }
         });
 
@@ -321,6 +324,7 @@ public class StaffUI {
                 removeRoomCleaningTabComponents();
                 removeServiceOrderComponents();
                 removeManageUserComponents();
+                removeReservationTabComponents();
             }
         });
 
@@ -354,6 +358,7 @@ public class StaffUI {
                 removeFinancialComponents();
             }
         });
+        addReservationPanel();
         addRoomPanel();
         addRoomCleaningPanel();
         removeRoomCleaningTabComponents();
@@ -362,6 +367,7 @@ public class StaffUI {
         createManageUserPanel();
         createAllBackgrounds();
         createFinancialPanel();
+        removeReservationTabComponents();
 
     }
     private void addRoomPanel(){
@@ -438,11 +444,35 @@ public class StaffUI {
                             data[i][6] = row[6]; // Total Days
                             data[i][7] = row[7]; // Num of Guests
                         }
-
                         JTable table = new JTable(data, columnNames);
+
+                        for (int i = 0; i < table.getColumnCount(); i++) {
+                            int maxWidth = 0;
+
+                        for (int j = 0; j < table.getRowCount(); j++) {
+                            Object value = table.getValueAt(j, i);
+                            if (value != null) {
+                                int width = value.toString().length();
+                                maxWidth = Math.max(maxWidth, width);
+                            }
+                        }
+
+                            TableColumn column = table.getColumnModel().getColumn(i);
+                            column.setPreferredWidth(maxWidth * 10);
+                        }
+
                         JScrollPane scrollPane = new JScrollPane(table);
 
-                        JOptionPane.showMessageDialog(null, scrollPane, "All Reservations", JOptionPane.INFORMATION_MESSAGE);
+                        JPanel panel = new JPanel(new BorderLayout());
+                        panel.add(scrollPane, BorderLayout.CENTER);
+
+            
+                        JFrame frame = new JFrame("All Reservations");
+                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frame.add(panel);
+                        frame.setSize(800, 600); 
+                        frame.setLocationRelativeTo(null); 
+                        frame.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(null, "No reservations found.", "Information", JOptionPane.INFORMATION_MESSAGE);
                     }
@@ -591,23 +621,70 @@ public class StaffUI {
             
             JButton searchButton = createRoundedButton("Search Reservations");
             searchButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String idInput = JOptionPane.showInputDialog("Enter Reservation ID to Search: ");
-                    try {
-                        int reservationId = Integer.parseInt(idInput);
-                        Reservation reservation = reservationDaoImpl.getReservationByID(reservationId);
-                        if (reservation != null) {
-                            JOptionPane.showMessageDialog(panel, "Reservation Found:\nID: " + reservation.getReservationId() +
-                                    "\nCustomer Id: " + reservation.getUserId());
-                        } else {
-                            JOptionPane.showMessageDialog(panel, "No reservation found with ID: " + reservationId);
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String idInput = JOptionPane.showInputDialog("Enter Reservation ID to Search: ");
+                try {
+                    int reservationId = Integer.parseInt(idInput);
+                    Reservation reservation = reservationDaoImpl.getReservationByID(reservationId);
+
+                    if (reservation != null) {
+                        String[] columnNames = {
+                            "Reservation ID", "User ID", "Check-in Date",
+                            "Check-out Date", "Total Days", "Number of Guests"
+                        };
+                        Object[][] data = {
+                            {
+                                reservation.getReservationId(),
+                                reservation.getUserId(),
+                                reservation.getCheckinDate(),
+                                reservation.getCheckoutDate(),
+                                reservation.getTotalDays(),
+                                reservation.getNumOfGuests()
+                            }
+                        };
+                        JTable table = new JTable(data, columnNames);
+
+                        for (int i = 0; i < table.getColumnCount(); i++) {
+                            int maxWidth = 0;
+
+                        for (int j = 0; j < table.getRowCount(); j++) {
+                            Object value = table.getValueAt(j, i);
+                            if (value != null) {
+                                int width = value.toString().length();
+                                maxWidth = Math.max(maxWidth, width);
+                            }
                         }
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(panel, "Invalid ID format.");
+
+                            TableColumn column = table.getColumnModel().getColumn(i);
+                            column.setPreferredWidth(maxWidth * 10);
+                        }
+
+                        JScrollPane scrollPane = new JScrollPane(table);
+
+                        JPanel panel = new JPanel(new BorderLayout());
+                        panel.add(scrollPane, BorderLayout.CENTER);
+
+            
+                        JFrame frame = new JFrame("Reservation found");
+                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frame.add(panel);
+                        frame.setSize(800, 600); 
+                        frame.setLocationRelativeTo(null); 
+                        frame.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(panel, "No reservation found with ID: " + reservationId, "Information", JOptionPane.INFORMATION_MESSAGE);
                     }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(panel, "Invalid ID format. Please enter a numeric value.", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, "An error occurred while fetching the reservation.", "Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
                 }
-            });
+            }
+        });
+
+            
     
             // Customize the appearance of the buttons
             Font buttonFont = new Font("Mulish", Font.BOLD, 16);
