@@ -69,6 +69,32 @@ public class UserDaoImpl implements UserDAO {
     }
 
     @Override
+    public void changePassword(int userId, String newPassword) {
+        session = dsf.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+            MutationQuery query = session.createMutationQuery("update User u set u.password = :password where u.userId = :userId");
+            query.setParameter("userId", userId);
+            query.setParameter("password", newPassword);
+            int result = query.executeUpdate();
+
+            if (result == 0) {
+                System.out.println("Cannot change password for user: " + userId);
+            } else System.out.println("Changed password for user: " + userId);
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
     public void addUser(User user) {
         session = dsf.getSessionFactory().openSession();
 

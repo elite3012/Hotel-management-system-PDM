@@ -17,7 +17,8 @@ public interface UserDAO {
     // Find users by role
     public List<User> getUsersByRole(String role);
 
-    // Specific functionalities for each role
+    // Change password
+    public void changePassword(int userId, String newPassword);
     
     // For Admins: Add a new user
     public void addUser(User user);
