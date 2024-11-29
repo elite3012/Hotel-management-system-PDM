@@ -684,7 +684,7 @@ public class StaffUI {
         FinancialTab.setFocusable(false);
         FinancialTab.setBackground(new Color(132, 121, 102));
         FinancialTab.setBorderPainted(false);
-        FinancialTab.setText("FINANCIAL DATA");
+        FinancialTab.setText("BILLING");
         FinancialTab.setFont(new Font("Mulish", Font.BOLD, 21));
         FinancialTab.setBounds(16, 253, 235, 33);
         FinancialTab.setForeground(new Color(245, 242, 233));
