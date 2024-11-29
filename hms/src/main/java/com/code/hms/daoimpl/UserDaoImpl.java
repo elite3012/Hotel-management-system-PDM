@@ -86,12 +86,6 @@ public class UserDaoImpl implements UserDAO {
         }
     }
     
-    //Need help
-    @Override
-    public List<Integer> getAssignedRoomsForHousekeeper(int housekeeperId) {
-        List<Integer> roomList = null;
-        return roomList;
-    }
 
     @Override
     public List<Reservation> getReservationsByCustomer(int customerId) {

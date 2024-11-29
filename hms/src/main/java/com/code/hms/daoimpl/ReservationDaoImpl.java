@@ -5,10 +5,12 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+
 import com.code.hms.connection.DataSourceFactory;
 import com.code.hms.dao.ReservationDAO;
 import com.code.hms.entities.Reservation;
 import com.code.hms.utils.LoggingEngine;
+
 import jakarta.persistence.NoResultException;
 
 public class ReservationDaoImpl implements ReservationDAO {
@@ -98,24 +100,29 @@ public void deleteReservation(int reservationId) {
         }
     }
 
-    @Override
-    public List<Reservation> getAllReservations() {
-        List<Reservation> reservationsList = null;
+    public List<Object[]> getAllReservations() {
+        List<Object[]> reservations = null;
+        Session session = null;
+    
         try {
             session = dataSourceFactory.getSessionFactory().openSession();
-            session.beginTransaction();
-            Query<Reservation> query = session.createQuery("from Reservation", Reservation.class);
-            reservationsList = query.getResultList();
-            session.getTransaction().commit();
-            logging.setMessage("Fetched all reservations.");
-        } catch (NoResultException e) {
-            logging.setMessage("No reservations found.");
-        } catch (HibernateException e) {
-            if (session.getTransaction() != null) session.getTransaction().rollback();
-            logging.setMessage("Error fetching reservations: " + e.getLocalizedMessage());
+    
+            String query = "SELECT r.reservation_id, r.user_id, u.firstName, u.lastName, " +
+                         "r.checkIn_Date, r.checkOut_Date, " +
+                         "DATEDIFF(r.checkOut_Date, r.checkIn_Date) AS totalDays, " +
+                         "r.num_Of_Guests " +
+                         "FROM Reservation r " +
+                         "JOIN User u ON r.user_Id = u.user_Id";
+    
+            reservations = session.createNativeQuery(query).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
-            if (session != null) session.close();
+            if (session != null) {
+                session.close();
+            }
         }
-        return reservationsList;
+        return reservations;
     }
+    
 }
