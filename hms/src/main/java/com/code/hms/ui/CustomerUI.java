@@ -381,7 +381,6 @@ public class CustomerUI {
 
         // MOVE TO THE FILLING INFORMATION TABS
         NextButton.addActionListener(e -> {
-
             // SET THE FILLING INFORMATION TAB TRUE
             Tab1_background.setVisible(false);
             Tab2_background.setVisible(true);
@@ -513,6 +512,20 @@ public class CustomerUI {
             MusicLoungePackageMenu.setVisible(false);
             MusicLoungePackPosition.setVisible(false);
         });
+
+        // NEXT BUTTON AFTER CHOOSING ROOM
+        JButton NextButtonTab2 = new JButton();
+        NextButton.setFocusable(false);
+        NextButton.setBackground(new Color(132, 121, 102));
+        NextButton.setBorderPainted(false);
+        NextButton.setText("NEXT");
+        NextButton.setFont(new Font("Mulish", Font.BOLD, 14));
+        NextButton.setBounds(1100, 550, 80, 30);
+        NextButton.setForeground(new Color(245, 242, 233));
+        NextButton.setVisible(false);
+        panel.add(NextButton);
+
+
 
         // HotelInfoTab setup
         OurHotelTab = new JButton();
@@ -1926,61 +1939,69 @@ public class CustomerUI {
     public void CreateBookingInfor() {
         //box for first name
         BookingFirstName = new JTextField();
-        panel.add(BookingFirstName);
         BookingFirstName.setBounds(352, 201, 295, 28);
         BookingFirstName.setBackground(new Color(244, 242, 235));
+        BookingFirstName.setEnabled(true);
         BookingFirstName.setVisible(false);
         BookingFirstName.setBorder(null);
+        panel.add(BookingFirstName);
 
         //box for last name
         BookingLastName = new JTextField();
-        panel.add(BookingLastName);
         BookingLastName.setBounds(752, 201, 295, 28);
         BookingLastName.setBackground(new Color(244, 242, 235));
+        BookingLastName.setEnabled(true);
         BookingLastName.setVisible(false);
         BookingLastName.setBorder(null);
+        panel.add(BookingLastName);
 
         //box for phone number
         BookingPhoneNumber = new JTextField();
-        panel.add(BookingPhoneNumber);
         BookingPhoneNumber.setBounds(352, 281, 295, 28);
         BookingPhoneNumber.setBackground(new Color(244, 242, 235));
+        BookingPhoneNumber.setEnabled(true);
         BookingPhoneNumber.setVisible(false);
         BookingPhoneNumber.setBorder(null);
+        panel.add(BookingPhoneNumber);
 
         //box for email
         BookingEmail = new JTextField();
-        panel.add(BookingEmail);
         BookingEmail.setBounds(752, 281, 295, 28);
         BookingEmail.setBackground(new Color(244, 242, 235));
+        BookingEmail.setEnabled(true);
         BookingEmail.setVisible(false);
         BookingEmail.setBorder(null);
+        panel.add(BookingEmail);
 
         BookingCredit = new JTextField();
-        panel.add(BookingCredit);
         BookingCredit.setBounds(352, 451, 295, 28);
         BookingCredit.setBackground(new Color(244, 242, 235));
+        BookingCredit.setEnabled(true);
         BookingCredit.setVisible(false);
         BookingCredit.setBorder(null);
+        panel.add(BookingCredit);
 
         BookingNamecard = new JTextField();
-        panel.add(BookingNamecard);
         BookingNamecard.setBounds(752, 451, 295, 28);
         BookingNamecard.setBackground(new Color(244, 242, 235));
+        BookingNamecard.setEnabled(true);
         BookingNamecard.setVisible(false);
         BookingNamecard.setBorder(null);
+        panel.add(BookingNamecard);
 
         BookingExpDate = new JTextField();
-        panel.add(BookingExpDate);
         BookingExpDate.setBounds(352, 531, 295, 28);
         BookingExpDate.setBackground(new Color(244, 242, 235));
+        BookingExpDate.setEnabled(true);
         BookingExpDate.setVisible(false);
         BookingExpDate.setBorder(null);
+        panel.add(BookingExpDate);
 
         BookingSecCode = new JTextField();
         panel.add(BookingSecCode);
         BookingSecCode.setBounds(752, 531, 295, 28);
         BookingSecCode.setBackground(new Color(244, 242, 235));
+        BookingSecCode.setEnabled(true);
         BookingSecCode.setVisible(false);
         BookingSecCode.setBorder(null);
     }
