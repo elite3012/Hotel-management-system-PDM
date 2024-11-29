@@ -1,9 +1,6 @@
 package com.code.hms.ui;
 
 import javax.swing.*;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +23,7 @@ public class StaffUI {
     static JPanel serviceOrderPanel;
     static JPanel roomCleaningPanel;
     static JPanel taskListPanel;
+    static JPanel ManageUserPanel;
     static JButton main_menu;
     static JLabel available_unavailable;
     static JLabel cleaned_uncleaned;
@@ -39,8 +37,10 @@ public class StaffUI {
     static JButton UsersTab;
     static JTable serviceOrderTable;
     static JTable taskListTable;
+    static JTable ManageUserTable;
     static JScrollPane serviceOrderScrollPane;
     static JScrollPane taskListScrollPane;
+    static JScrollPane ManageUserScrollPane;
     static ReservationDaoImpl reservationDaoImpl;
 
     public StaffUI() {
@@ -231,6 +231,7 @@ public class StaffUI {
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
                 removeServiceOrderComponents();
+                removeManageUserComponents();
             }
         });
 
@@ -260,6 +261,7 @@ public class StaffUI {
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
+                removeManageUserComponents();
             }
         });
 
@@ -289,6 +291,7 @@ public class StaffUI {
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
                 removeServiceOrderComponents();
+                removeManageUserComponents();
             }
         });
 
@@ -314,6 +317,7 @@ public class StaffUI {
                 FinancialTab.setForeground(new Color(245, 242, 233));
                 UsersTab.setForeground(new Color(43, 42, 38));
 
+                addManageUserComponents();
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
@@ -326,6 +330,8 @@ public class StaffUI {
         createAdminRoomMenu();
         createAllBackgrounds();
         createServiceOrderPanel();
+        createManageUserPanel();
+
     }
     private void addRoomPanel(){
         // Create panel with grid layout
@@ -386,7 +392,7 @@ public class StaffUI {
                 public void actionPerformed(ActionEvent e) {
                     List<Object[]> reservations = reservationDaoImpl.getAllReservations(); 
                     if (reservations != null && !reservations.isEmpty()) {
-                        String[] columnNames = {"Reservation ID", "User ID", "First Name", "Last Name", 
+                        String[] columnNames = {"Reservation ID", "User ID", "First Name", "Last Name",
                                                 "Check-in Date", "Check-out Date", "Total Days", "Num of Guests"};
 
                         Object[][] data = new Object[reservations.size()][8];
@@ -403,20 +409,9 @@ public class StaffUI {
                         }
 
                         JTable table = new JTable(data, columnNames);
-                        resizeColumnWidth(table);
-                        table.setSize(new Dimension(1200,1200));
                         JScrollPane scrollPane = new JScrollPane(table);
 
-                        JPanel panel = new JPanel(new BorderLayout());
-                        panel.add(scrollPane, BorderLayout.CENTER);
-
-            
-                        JFrame frame = new JFrame("All Reservations");
-                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                        frame.add(panel);
-                        frame.setSize(800, 600); 
-                        frame.setLocationRelativeTo(null); 
-                        frame.setVisible(true);
+                        JOptionPane.showMessageDialog(null, scrollPane, "All Reservations", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, "No reservations found.", "Information", JOptionPane.INFORMATION_MESSAGE);
                     }
@@ -693,7 +688,7 @@ public class StaffUI {
         FinancialTab.setFocusable(false);
         FinancialTab.setBackground(new Color(132, 121, 102));
         FinancialTab.setBorderPainted(false);
-        FinancialTab.setText("BILLING");
+        FinancialTab.setText("FINANCIAL DATA");
         FinancialTab.setFont(new Font("Mulish", Font.BOLD, 21));
         FinancialTab.setBounds(16, 253, 235, 33);
         FinancialTab.setForeground(new Color(245, 242, 233));
@@ -842,6 +837,28 @@ public class StaffUI {
         serviceOrderPanel.setVisible(false);
         panel.add(serviceOrderPanel);
     }
+
+    private void createManageUserPanel(){
+        String[][] ManageUserBaseData = {{" "," "," "," "," "}};
+        String[] ManageUserColumnNames = {"UserID","Role"};
+        ManageUserTable = new JTable(ManageUserBaseData,ManageUserColumnNames);
+        ManageUserTable.setBounds(374,40,800,530);
+        ManageUserTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
+        ManageUserTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
+        ManageUserTable.setVisible(false);
+
+        ManageUserScrollPane = new JScrollPane(ManageUserScrollPane);
+        ManageUserScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
+        ManageUserScrollPane.setVisible(false);
+        panel.add(ManageUserScrollPane);
+
+        ManageUserPanel = new JPanel();
+        ManageUserPanel.setBounds(374,40,800,530);
+        ManageUserPanel.setOpaque(false);
+        ManageUserPanel.setVisible(false);
+        panel.add(ManageUserPanel);
+    }
+
     private void createTaskListPanel(){
         String[][] taskListBaseData = {{" "," "}};
         String[] taskListColumnNames = {"Assigned Room","Cleaning Status"};
@@ -910,21 +927,15 @@ public class StaffUI {
     private void removeReservationTabComponents(){
         reservationPanel.setVisible(false);
     }
-    private void resizeColumnWidth(JTable table) {
-    final TableColumnModel columnModel = table.getColumnModel();
-    for (int column = 0; column < table.getColumnCount(); column++) {
-        int width = 15; // Min width
-        for (int row = 0; row < table.getRowCount(); row++) {
-            TableCellRenderer renderer = table.getCellRenderer(row, column);
-            Component comp = table.prepareRenderer(renderer, row, column);
-            width = Math.max(comp.getPreferredSize().width +1 , width);
-        }
-        if(width > 300)
-            width=300;
-        columnModel.getColumn(column).setPreferredWidth(width);
+    private void addManageUserComponents(){
+        ManageUserTable.setVisible(true);
+        ManageUserPanel.setVisible(true);
+        ManageUserScrollPane.setVisible(true);
     }
-}
-
-
+    private void removeManageUserComponents(){
+        ManageUserTable.setVisible(false);
+        ManageUserPanel.setVisible(false);
+        ManageUserScrollPane.setVisible(false);
+    }
 }
 //debug commit command
