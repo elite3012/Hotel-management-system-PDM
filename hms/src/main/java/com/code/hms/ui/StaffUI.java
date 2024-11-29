@@ -23,6 +23,7 @@ public class StaffUI {
     static JPanel serviceOrderPanel;
     static JPanel roomCleaningPanel;
     static JPanel taskListPanel;
+    static JPanel ManageUserPanel;
     static JButton main_menu;
     static JLabel available_unavailable;
     static JLabel cleaned_uncleaned;
@@ -36,8 +37,10 @@ public class StaffUI {
     static JButton UsersTab;
     static JTable serviceOrderTable;
     static JTable taskListTable;
+    static JTable ManageUserTable;
     static JScrollPane serviceOrderScrollPane;
     static JScrollPane taskListScrollPane;
+    static JScrollPane ManageUserScrollPane;
     static ReservationDaoImpl reservationDaoImpl;
 
     public StaffUI() {
@@ -228,6 +231,7 @@ public class StaffUI {
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
                 removeServiceOrderComponents();
+                removeManageUserComponents();
             }
         });
 
@@ -257,6 +261,7 @@ public class StaffUI {
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
+                removeManageUserComponents();
             }
         });
 
@@ -286,6 +291,7 @@ public class StaffUI {
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
                 removeServiceOrderComponents();
+                removeManageUserComponents();
             }
         });
 
@@ -311,6 +317,7 @@ public class StaffUI {
                 FinancialTab.setForeground(new Color(245, 242, 233));
                 UsersTab.setForeground(new Color(43, 42, 38));
 
+                addManageUserComponents();
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
@@ -321,8 +328,10 @@ public class StaffUI {
         addRoomCleaningPanel();
         removeRoomCleaningTabComponents();
         createAdminRoomMenu();
-        createAllBackgrounds();
         createServiceOrderPanel();
+        createManageUserPanel();
+        createAllBackgrounds();
+
     }
     private void addRoomPanel(){
         // Create panel with grid layout
@@ -383,7 +392,7 @@ public class StaffUI {
                 public void actionPerformed(ActionEvent e) {
                     List<Object[]> reservations = reservationDaoImpl.getAllReservations(); 
                     if (reservations != null && !reservations.isEmpty()) {
-                        String[] columnNames = {"Reservation ID", "User ID", "First Name", "Last Name", 
+                        String[] columnNames = {"Reservation ID", "User ID", "First Name", "Last Name",
                                                 "Check-in Date", "Check-out Date", "Total Days", "Num of Guests"};
 
                         Object[][] data = new Object[reservations.size()][8];
@@ -828,6 +837,28 @@ public class StaffUI {
         serviceOrderPanel.setVisible(false);
         panel.add(serviceOrderPanel);
     }
+
+    private void createManageUserPanel(){
+        String[][] ManageUserBaseData = {{" "," "}};
+        String[] ManageUserColumnNames = {"UserID","Role"};
+        ManageUserTable = new JTable(ManageUserBaseData,ManageUserColumnNames);
+        ManageUserTable.setBounds(374,40,800,530);
+        ManageUserTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
+        ManageUserTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
+        ManageUserTable.setVisible(false);
+
+        ManageUserScrollPane = new JScrollPane(ManageUserTable);
+        ManageUserScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
+        ManageUserScrollPane.setVisible(false);
+        panel.add(ManageUserScrollPane);
+
+        ManageUserPanel = new JPanel();
+        ManageUserPanel.setBounds(374,40,800,530);
+        ManageUserPanel.setOpaque(false);
+        ManageUserPanel.setVisible(false);
+        panel.add(ManageUserPanel);
+    }
+
     private void createTaskListPanel(){
         String[][] taskListBaseData = {{" "," "}};
         String[] taskListColumnNames = {"Assigned Room","Cleaning Status"};
@@ -896,7 +927,15 @@ public class StaffUI {
     private void removeReservationTabComponents(){
         reservationPanel.setVisible(false);
     }
-
-
+    private void addManageUserComponents(){
+        ManageUserTable.setVisible(true);
+        ManageUserPanel.setVisible(true);
+        ManageUserScrollPane.setVisible(true);
+    }
+    private void removeManageUserComponents(){
+        ManageUserTable.setVisible(false);
+        ManageUserPanel.setVisible(false);
+        ManageUserScrollPane.setVisible(false);
+    }
 }
 //debug commit command
