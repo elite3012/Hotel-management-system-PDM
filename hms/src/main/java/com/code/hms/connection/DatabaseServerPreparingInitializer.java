@@ -38,8 +38,8 @@ public class DatabaseServerPreparingInitializer extends JFrame {
         final String DB_CONNECTION = "jdbc:mysql://localhost:3306/"; // Connection URL for MySQL
 
         // Prompt for database credentials from the user
-        String DB_USER = JOptionPane.showInputDialog(this, "Enter your database username:", "Coder HMS [Input]", JOptionPane.QUESTION_MESSAGE);
-        String DB_PASSWORD = JOptionPane.showInputDialog(this, "Enter your database password:", "Coder HMS [Input]", JOptionPane.QUESTION_MESSAGE);
+        String DB_USER = "root";
+        String DB_PASSWORD = "";
 
         try {
             // Load the JDBC driver class
