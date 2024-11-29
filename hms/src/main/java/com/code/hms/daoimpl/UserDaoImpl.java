@@ -215,23 +215,23 @@ public class UserDaoImpl implements UserDAO {
     }
 
     @Override
-    public int getUserIDByUsername(String username) {
+    public User getUserByUsername(String username) {
     session = dsf.getSessionFactory().openSession();
-    int userId = 0;
+    User user = null;
 
     try {
-        // Query to get the userId based on the username
-        Query<Integer> query = session.createQuery("Select u.user_Id from User u where u.username = :username", Integer.class);
+        // Truy vấn để lấy đối tượng User dựa trên username
+        Query<User> query = session.createQuery("from User u where u.username = :username", User.class);
         query.setParameter("username", username);
-        userId = query.uniqueResult();  // Fetch the userId based on the username
+        user = query.uniqueResult();  // Trả về một đối tượng User nếu tìm thấy
         
-        // If no user is found, userId will remain 0
     } catch (Exception e) {
         e.printStackTrace();
     } finally {
         session.close();
     }
 
-    return userId;
-}
+    return user;
+    }
+
 }
