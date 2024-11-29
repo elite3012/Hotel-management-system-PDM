@@ -328,9 +328,9 @@ public class StaffUI {
         addRoomCleaningPanel();
         removeRoomCleaningTabComponents();
         createAdminRoomMenu();
-        createAllBackgrounds();
         createServiceOrderPanel();
         createManageUserPanel();
+        createAllBackgrounds();
 
     }
     private void addRoomPanel(){
