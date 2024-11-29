@@ -30,7 +30,7 @@ public class DataSourceFactory {
             // Initialize the SessionFactory if it is not already created
             if (sessionFactory == null) {
                 sessionFactory = new Configuration()
-                    .configure("hibernate.cfg.xml") // Config file location
+                    .configure() // Config file location
                     .addAnnotatedClass(Reservation.class)
 					.addAnnotatedClass(Billing.class)
 					.addAnnotatedClass(Review.class)

@@ -5,10 +5,12 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+
 import com.code.hms.connection.DataSourceFactory;
 import com.code.hms.dao.ReservationDAO;
 import com.code.hms.entities.Reservation;
 import com.code.hms.utils.LoggingEngine;
+
 import jakarta.persistence.NoResultException;
 
 public class ReservationDaoImpl implements ReservationDAO {
@@ -105,12 +107,12 @@ public void deleteReservation(int reservationId) {
         try {
             session = dataSourceFactory.getSessionFactory().openSession();
     
-            String query = "SELECT r.id, r.userId, u.firstName, u.lastName, " +
-                         "r.checkInDate, r.checkOutDate, " +
-                         "DATEDIFF(r.checkOutDate, r.checkInDate) AS totalDays, " +
-                         "r.numOfGuests " +
+            String query = "SELECT r.reservation_id, r.user_id, u.firstName, u.lastName, " +
+                         "r.checkIn_Date, r.checkOut_Date, " +
+                         "DATEDIFF(r.checkOut_Date, r.checkIn_Date) AS totalDays, " +
+                         "r.num_Of_Guests " +
                          "FROM Reservation r " +
-                         "JOIN User u ON r.userId = u.id";
+                         "JOIN User u ON r.user_Id = u.user_Id";
     
             reservations = session.createNativeQuery(query).getResultList();
         } catch (Exception e) {
