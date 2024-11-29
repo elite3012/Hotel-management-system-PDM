@@ -26,26 +26,37 @@ public class ReservationDaoImpl implements ReservationDAO {
     }
 
     @Override
-    public Reservation getReservationByID(int reservationId) {
-        Reservation reservation = null;
+    public Object[] getReservationByID(int reservationId) {
+        Object[] reservation = null;
+        Session session = null;
+    
         try {
             session = dataSourceFactory.getSessionFactory().openSession();
-            session.beginTransaction();
-            Query<Reservation> query = session.createQuery("from Reservation where id=:reservationId", Reservation.class);
-            query.setParameter("reservationId", reservationId);
-            reservation = query.uniqueResult();
-            session.getTransaction().commit();
-            logging.setMessage("Fetched reservation by ID: " + reservationId);
+    
+            // Native SQL query to fetch reservation details by ID
+            String query = "SELECT r.reservation_id, r.user_id, u.firstName, u.lastName, " +
+                           "r.checkIn_Date, r.checkOut_Date, " +
+                           "DATEDIFF(r.checkOut_Date, r.checkIn_Date) AS totalDays, " +
+                           "r.num_Of_Guests " +
+                           "FROM Reservation r " +
+                           "JOIN User u ON r.user_Id = u.user_Id " +
+                           "WHERE r.reservation_id = :reservationId";
+    
+            reservation = (Object[]) session.createNativeQuery(query)
+                                            .setParameter("reservationId", reservationId)
+                                            .getSingleResult();
         } catch (NoResultException e) {
-            logging.setMessage("No reservation found with ID: " + reservationId);
-        } catch (HibernateException e) {
-            if (session.getTransaction() != null) session.getTransaction().rollback();
-            logging.setMessage("Error fetching reservation: " + e.getLocalizedMessage());
+            System.out.println("No reservation found with ID: " + reservationId);
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
-            if (session != null) session.close();
+            if (session != null) {
+                session.close();
+            }
         }
+    
         return reservation;
-    }
+    }    
 
     @Override
     public void saveReservation(Reservation reservation) {
