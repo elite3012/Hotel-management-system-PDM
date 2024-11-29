@@ -571,23 +571,44 @@ public class StaffUI {
             
             JButton searchButton = createRoundedButton("Search Reservations");
             searchButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String idInput = JOptionPane.showInputDialog("Enter Reservation ID to Search: ");
-                    try {
-                        int reservationId = Integer.parseInt(idInput);
-                        Reservation reservation = reservationDaoImpl.getReservationByID(reservationId);
-                        if (reservation != null) {
-                            JOptionPane.showMessageDialog(panel, "Reservation Found:\nID: " + reservation.getReservationId() +
-                                    "\nCustomer Id: " + reservation.getUserId());
-                        } else {
-                            JOptionPane.showMessageDialog(panel, "No reservation found with ID: " + reservationId);
-                        }
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(panel, "Invalid ID format.");
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String idInput = JOptionPane.showInputDialog("Enter Reservation ID to Search: ");
+                try {
+                    int reservationId = Integer.parseInt(idInput);
+                    Reservation reservation = reservationDaoImpl.getReservationByID(reservationId);
+
+                    if (reservation != null) {
+                        String[] columnNames = {
+                            "Reservation ID", "User ID", "Check-in Date",
+                            "Check-out Date", "Total Days", "Number of Guests"
+                        };
+                        Object[][] data = {
+                            {
+                                reservation.getReservationId(),
+                                reservation.getUserId(),
+                                reservation.getCheckinDate(),
+                                reservation.getCheckoutDate(),
+                                reservation.getTotalDays(),
+                                reservation.getNumOfGuests()
+                            }
+                        };
+                        JTable table = new JTable(data, columnNames);
+                        JScrollPane scrollPane = new JScrollPane(table);
+                        JOptionPane.showMessageDialog(panel, scrollPane, "Reservation Details", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(panel, "No reservation found with ID: " + reservationId, "Information", JOptionPane.INFORMATION_MESSAGE);
                     }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(panel, "Invalid ID format. Please enter a numeric value.", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, "An error occurred while fetching the reservation.", "Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
                 }
-            });
+            }
+        });
+
+            
     
             // Customize the appearance of the buttons
             Font buttonFont = new Font("Mulish", Font.BOLD, 16);
