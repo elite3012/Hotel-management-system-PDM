@@ -839,7 +839,7 @@ public class StaffUI {
     }
 
     private void createManageUserPanel(){
-        String[][] ManageUserBaseData = {{" "," "," "," "," "}};
+        String[][] ManageUserBaseData = {{" "," "}};
         String[] ManageUserColumnNames = {"UserID","Role"};
         ManageUserTable = new JTable(ManageUserBaseData,ManageUserColumnNames);
         ManageUserTable.setBounds(374,40,800,530);
