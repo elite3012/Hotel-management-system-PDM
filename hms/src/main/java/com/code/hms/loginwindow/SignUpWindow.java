@@ -12,17 +12,30 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import com.code.hms.connection.DatabaseServerPreparingInitializer;
+import com.code.hms.daoimpl.UserDaoImpl;
+import com.code.hms.entities.User;
+
 public class SignUpWindow extends JFrame {
 
     private JTextField firstNameField, lastNameField, dateOfBirthField, idNumberField, nationalityField, addressField, phoneNumberField, emailField, usernameField;
     private JPasswordField passwordField, confirmPasswordField;
     private JComboBox<String> roleDropdown;
+    private UserDaoImpl userdao = new UserDaoImpl();
 
     public SignUpWindow() {
         setTitle("Sign Up");
         setSize(1280, 672);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        DatabaseServerPreparingInitializer dbConnect = new DatabaseServerPreparingInitializer();
+        dbConnect.runScriptFile();
+        
+        if (!dbConnect.getStatus()) {
+            System.out.println("Database initialization failed.");
+        } else {
+            System.out.println("Database initialized successfully.");
+        }
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -103,19 +116,32 @@ public class SignUpWindow extends JFrame {
     }
 
     private void validateAndSubmitForm() {
+
         String firstName = firstNameField.getText();
         String lastName = lastNameField.getText();
         String email = emailField.getText();
+        String phone = phoneNumberField.getText();
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
         String confirmPassword = new String(confirmPasswordField.getPassword());
+        String role = roleDropdown.getSelectedItem().toString();
 
         if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             JOptionPane.showMessageDialog(this, "All fields must be filled!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (!password.equals(confirmPassword)) {
             JOptionPane.showMessageDialog(this, "Passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Sign-Up successful for: " + username, "Success", JOptionPane.INFORMATION_MESSAGE);
+            User user = new User();
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setEmail(email);
+            user.setPhone(phone);
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setRole(role);
+
+            userdao.addUser(user);
+        //     JOptionPane.showMessageDialog(this, "Sign-Up successful for: " + username, "Success", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
