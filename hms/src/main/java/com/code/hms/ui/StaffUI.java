@@ -1,6 +1,14 @@
 package com.code.hms.ui;
 
 import javax.swing.*;
+<<<<<<< Updated upstream
+=======
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+>>>>>>> Stashed changes
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -382,11 +390,11 @@ public class StaffUI {
     private void addReservationPanel() {
         if (reservationPanel == null) {
             reservationPanel = new JPanel();
-            reservationPanel.setLayout(new GridLayout(3, 2, 10, 10)); 
+            reservationPanel.setLayout(new BorderLayout(20, 20));
+            JPanel gridPanel = new JPanel(new GridLayout(2, 2, 10, 10));
             reservationPanel.setBounds(417, 40, 713, 530); // 
-    
             // Define buttons for various reservation actions
-            JButton viewAllButton = new JButton("View All Reservations");
+            JButton viewAllButton = createRoundedButton("View All Reservations");
             viewAllButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -419,7 +427,7 @@ public class StaffUI {
             });
 
 
-            JButton createNewButton = new JButton("Create New Reservation");
+            JButton createNewButton = createRoundedButton("Create New Reservation");
             createNewButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -464,7 +472,7 @@ public class StaffUI {
             });
 
             
-            JButton updateButton = new JButton("Update Reservation");
+            JButton updateButton = createRoundedButton("Update Reservation");
             updateButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -535,7 +543,7 @@ public class StaffUI {
                 }
             });            
             
-            JButton cancelButton = new JButton("Cancel Reservation");
+            JButton cancelButton = createRoundedButton("Cancel Reservation");
             cancelButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -558,7 +566,7 @@ public class StaffUI {
                 }
             });
             
-            JButton searchButton = new JButton("Search Reservations");
+            JButton searchButton = createRoundedButton("Search Reservations");
             searchButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -582,22 +590,36 @@ public class StaffUI {
             Font buttonFont = new Font("Mulish", Font.BOLD, 16);
             Color buttonColor = Color.decode("#E3DFD5");
             Color textColor = Color.decode("#000000");
+
+            gridPanel.add(viewAllButton);
+            gridPanel.add(updateButton);
+            gridPanel.add(cancelButton);
+            gridPanel.add(searchButton);
+            JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); 
+            topPanel.add(createNewButton);
+            reservationPanel.add(topPanel, BorderLayout.NORTH); 
+            reservationPanel.add(gridPanel, BorderLayout.CENTER);
     
-            // Array of buttons for easier customization
             JButton[] buttons = {viewAllButton, createNewButton, updateButton, cancelButton, searchButton};
     
             for (JButton button : buttons) {
-                button.setPreferredSize(new Dimension(160, 40));
+                button.setPreferredSize(new Dimension(220, 40));
                 button.setFont(buttonFont);
                 button.setBackground(buttonColor);
                 button.setForeground(textColor);
                 button.setFocusable(false);
                 button.setVisible(true);
-                reservationPanel.add(button); // Add button to the panel
-            }
-        }
-    
-        // Add the reservationPanel to the main panel directly
+            } 
+            JLabel dateLabel = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/clock.png",20,20));
+            dateLabel.setFont(new Font("Arial", Font.BOLD, 14)); 
+            dateLabel.setForeground(Color.DARK_GRAY); 
+            dateLabel.setHorizontalAlignment(SwingConstants.CENTER); 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy");
+            String currentDate = dateFormat.format(new Date());
+            dateLabel.setText(" " + currentDate); 
+            reservationPanel.add(dateLabel, BorderLayout.SOUTH);
+        } 
+        
         panel.add(reservationPanel);
         reservationPanel.setVisible(false);
     }
@@ -937,5 +959,46 @@ public class StaffUI {
         ManageUserPanel.setVisible(false);
         ManageUserScrollPane.setVisible(false);
     }
+<<<<<<< Updated upstream
+=======
+    }
+    private static JButton createRoundedButton(String text) {
+        JButton button = new JButton(text) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                // Background
+                g2.setColor(getBackground());
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30);
+
+                // Border
+                g2.setColor(getForeground());
+                g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 30, 30);
+
+                // Text
+                g2.setColor(getForeground());
+                FontMetrics fm = g2.getFontMetrics();
+                int stringWidth = fm.stringWidth(getText());
+                int stringHeight = fm.getAscent();
+                g2.drawString(getText(), (getWidth() - stringWidth) / 2, (getHeight() + stringHeight) / 2 - 2);
+
+                g2.dispose();
+            }
+        };
+
+        button.setContentAreaFilled(false);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setOpaque(false);
+        button.setBackground(new Color(70, 130, 180)); // Light blue background
+        button.setForeground(Color.WHITE); // White text
+        button.setPreferredSize(new Dimension(150, 50)); // Size of the button
+        return button;
+    }
+
+
+>>>>>>> Stashed changes
 }
 //debug commit command
