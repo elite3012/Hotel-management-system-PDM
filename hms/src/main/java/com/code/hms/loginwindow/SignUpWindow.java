@@ -21,7 +21,6 @@ public class SignUpWindow extends JFrame {
     private JTextField firstNameField, lastNameField, dateOfBirthField, idNumberField, nationalityField, addressField, phoneNumberField, emailField, usernameField;
     private JPasswordField passwordField, confirmPasswordField;
     private JComboBox<String> roleDropdown;
-    private UserDaoImpl userdao = new UserDaoImpl();
 
     public SignUpWindow() {
         setTitle("Sign Up");
@@ -131,6 +130,7 @@ public class SignUpWindow extends JFrame {
         } else if (!password.equals(confirmPassword)) {
             JOptionPane.showMessageDialog(this, "Passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            UserDaoImpl userdao = new UserDaoImpl();
             User user = new User();
             user.setFirstName(firstName);
             user.setLastName(lastName);
@@ -141,7 +141,7 @@ public class SignUpWindow extends JFrame {
             user.setRole(role);
 
             userdao.addUser(user);
-        //     JOptionPane.showMessageDialog(this, "Sign-Up successful for: " + username, "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sign-Up successful for: " + username, "Success", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

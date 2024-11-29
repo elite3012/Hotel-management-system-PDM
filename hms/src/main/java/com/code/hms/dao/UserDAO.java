@@ -13,6 +13,9 @@ public interface UserDAO {
     
     // Find all users
     public List<User> getAllUsers();
+
+    //Check login
+    public int checkLogin(String username, String password);
     
     // Find users by role
     public List<User> getUsersByRole(String role);

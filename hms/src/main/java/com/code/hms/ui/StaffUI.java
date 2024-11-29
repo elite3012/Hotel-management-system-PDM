@@ -76,6 +76,26 @@ public class StaffUI {
         reservationDaoImpl = new ReservationDaoImpl();
     }
 
+    public StaffUI(String role) {
+        switch (role) {
+            case "Receptionist":
+                initializeUI();
+                createReceptionistUI();
+                break;
+            // case 2:
+            //     initializeUI();
+            //     createHousekeeperUI();
+            //     break;
+            case "Admin":
+                initializeUI();
+                createAdminUI();
+                break;
+            default:
+                System.out.println("Invalid choice!");
+                System.exit(0);
+        }
+    }
+
     private void initializeUI(){
         //frame
         frame = new JFrame();

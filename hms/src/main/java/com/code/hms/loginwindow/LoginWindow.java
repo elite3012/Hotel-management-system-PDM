@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+
+import com.code.hms.connection.DatabaseServerPreparingInitializer;
+import com.code.hms.daoimpl.UserDaoImpl;
+import com.code.hms.ui.CustomerUI;
+import com.code.hms.ui.StaffUI;
 
 public class LoginWindow extends JFrame {
     static JTextField usernameField;
@@ -87,10 +93,52 @@ public class LoginWindow extends JFrame {
             String username = usernameField.getText().trim();
             String password = new String(passwordField.getPassword()).trim();
 
+            DatabaseServerPreparingInitializer initConnection = new DatabaseServerPreparingInitializer();
+            // initConnection.runScriptFile();
+
+            if (initConnection.getStatus()) {
+                System.out.println("Database initialized successfully.");
+            } else {
+                System.out.println("Database initialization failed.");
+            }
+
             if (username.isEmpty() || password.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Username or Password cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Login attempt for: " + username);
+                UserDaoImpl userdao = new UserDaoImpl();
+                if (userdao.checkLogin(username, password) > 0) {
+
+                    String role = userdao.getUserByID(userdao.checkLogin(username, password)).getRole();
+                    switch (role) {
+                        case "Customer":
+                            JOptionPane.showMessageDialog(null, "Logging in for user: " + userdao.checkLogin(username, password));
+                            SwingUtilities.invokeLater(new Runnable() {
+                                public void run() {
+                                    new CustomerUI();
+                                }
+                            });
+                            dispose();
+                            break;
+                        case "Receptionist":
+                            JOptionPane.showMessageDialog(null, "Logging in for user: " + userdao.checkLogin(username, password));
+                            SwingUtilities.invokeLater(new Runnable() {
+                                public void run() {
+                                    new StaffUI(role);
+                                }
+                            });
+                            dispose();
+                            break;
+                        case "Admin":
+                            JOptionPane.showMessageDialog(null, "Logging in for user: " + userdao.checkLogin(username, password));
+                            SwingUtilities.invokeLater(new Runnable() {
+                                public void run() {
+                                    new StaffUI(role);
+                                }
+                            });
+                            dispose();
+                            break;
+                    }
+                }
             }
         });
 
@@ -108,6 +156,8 @@ public class LoginWindow extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JOptionPane.showMessageDialog(null, "Redirecting to Sign-Up...");
+                new SignUpWindow().setVisible(true);
+                dispose();
             }
         });
 

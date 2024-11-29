@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.query.MutationQuery;
+import org.hibernate.query.Query;
 
 import com.code.hms.connection.DataSourceFactory;
 import com.code.hms.dao.UserDAO;
@@ -14,12 +15,11 @@ import com.code.hms.entities.User;
 
 public class UserDaoImpl implements UserDAO {
 
-    private DataSourceFactory dsf;
+    private DataSourceFactory dsf = new DataSourceFactory();
     private Session session;
     
     public UserDaoImpl() {
-        DataSourceFactory.createConnection();
-        dsf = new DataSourceFactory();
+        dsf.createConnection();
     }
 
     @Override
@@ -193,5 +193,24 @@ public class UserDaoImpl implements UserDAO {
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public int checkLogin(String username, String password) {
+        session = dsf.getSessionFactory().openSession();
+        int userId = 0;
+
+        try {
+            Query<Integer> query = session.createQuery("Select u.userId from User u where u.username = :username and password = :password", int.class);
+            query.setParameter("username", username);
+            query.setParameter("password", password);
+            userId = query.uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return userId;
     }
 }
