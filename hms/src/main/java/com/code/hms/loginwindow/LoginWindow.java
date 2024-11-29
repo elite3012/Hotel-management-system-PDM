@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -114,7 +113,9 @@ public class LoginWindow extends JFrame {
                             JOptionPane.showMessageDialog(null, "Logging in for user: " + userdao.checkLogin(username, password));
                             SwingUtilities.invokeLater(new Runnable() {
                                 public void run() {
-                                    new CustomerUI();
+                                    int userID = userdao.getUserIDByUsername(username);
+                                    new CustomerUI(userID);
+
                                 }
                             });
                             dispose();

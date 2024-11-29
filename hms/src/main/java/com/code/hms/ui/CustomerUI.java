@@ -12,6 +12,9 @@ import com.code.hms.daoimpl.ReviewDAOImpl;
 import com.code.hms.daoimpl.ServiceDAOImpl;
 
 public class CustomerUI {
+
+    static int UserID;
+
     static JFrame frame;
     static JPanel panel;
     static JButton OurHotelTab;
@@ -146,7 +149,8 @@ public class CustomerUI {
     static JButton sendButton;
     static JButton submitButton;
 
-    public CustomerUI() {
+    public CustomerUI(int UserID) {
+
         createMainGUI();
         CreateSpaInfoBox();
         CreateRestaurantInfoBox();
@@ -160,6 +164,7 @@ public class CustomerUI {
         createMusicLoungeDropdown();
         reviewDAOImpl = new ReviewDAOImpl();
         serviceDAOImpl = new ServiceDAOImpl();
+        this.UserID = UserID;
     }
 
     private void createMainGUI() {

@@ -29,6 +29,8 @@ public interface UserDAO {
     // For Customer: Get their reservations or reviews
     public List<Reservation> getReservationsByCustomer(int customerId);
     public List<Review> getReviewsByCustomer(int customerId);
+
+    public int getUserIDByUsername(String Username);
     
     // Common functionalities
     public void updateUser(User user);
