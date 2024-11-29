@@ -619,8 +619,34 @@ public class StaffUI {
                             }
                         };
                         JTable table = new JTable(data, columnNames);
+
+                        for (int i = 0; i < table.getColumnCount(); i++) {
+                            int maxWidth = 0;
+
+                        for (int j = 0; j < table.getRowCount(); j++) {
+                            Object value = table.getValueAt(j, i);
+                            if (value != null) {
+                                int width = value.toString().length();
+                                maxWidth = Math.max(maxWidth, width);
+                            }
+                        }
+
+                            TableColumn column = table.getColumnModel().getColumn(i);
+                            column.setPreferredWidth(maxWidth * 10);
+                        }
+
                         JScrollPane scrollPane = new JScrollPane(table);
-                        JOptionPane.showMessageDialog(panel, scrollPane, "Reservation Details", JOptionPane.INFORMATION_MESSAGE);
+
+                        JPanel panel = new JPanel(new BorderLayout());
+                        panel.add(scrollPane, BorderLayout.CENTER);
+
+            
+                        JFrame frame = new JFrame("Reservation found");
+                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frame.add(panel);
+                        frame.setSize(800, 600); 
+                        frame.setLocationRelativeTo(null); 
+                        frame.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(panel, "No reservation found with ID: " + reservationId, "Information", JOptionPane.INFORMATION_MESSAGE);
                     }
