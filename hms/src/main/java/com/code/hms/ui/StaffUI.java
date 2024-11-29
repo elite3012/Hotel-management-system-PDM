@@ -95,6 +95,7 @@ public class StaffUI {
                 System.out.println("Invalid choice!");
                 System.exit(0);
         }
+        reservationDaoImpl = new ReservationDaoImpl();
     }
 
     private void initializeUI(){
