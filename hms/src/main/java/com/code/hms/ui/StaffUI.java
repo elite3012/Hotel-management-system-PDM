@@ -209,8 +209,8 @@ public class StaffUI {
                 adminRoomMenu.setSelectedItem("Availability");
                 addRoomTabComponents();
                 addAdminRoomMenu();
-
                 removeServiceOrderComponents();
+                removeReservationTabComponents();
             }
         });
 
@@ -241,6 +241,7 @@ public class StaffUI {
                 removeRoomCleaningTabComponents();
                 removeServiceOrderComponents();
                 removeManageUserComponents();
+                addReservationTabComponents();
             }
         });
 
@@ -271,6 +272,7 @@ public class StaffUI {
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
                 removeManageUserComponents();
+                removeReservationTabComponents();
             }
         });
 
@@ -302,6 +304,7 @@ public class StaffUI {
                 removeRoomCleaningTabComponents();
                 removeServiceOrderComponents();
                 removeManageUserComponents();
+                removeReservationTabComponents();
             }
         });
 
@@ -335,6 +338,7 @@ public class StaffUI {
                 removeFinancialComponents();
             }
         });
+        addReservationPanel();
         addRoomPanel();
         addRoomCleaningPanel();
         removeRoomCleaningTabComponents();
@@ -343,6 +347,7 @@ public class StaffUI {
         createManageUserPanel();
         createAllBackgrounds();
         createFinancialPanel();
+        removeReservationTabComponents();
 
     }
     private void addRoomPanel(){
