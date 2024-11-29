@@ -143,6 +143,11 @@ public class CustomerUI {
     static JComboBox<String> ResPackageMenu;
     static JComboBox<String> RcleaningPackageMenu;
     static JComboBox<String> MusicLoungePackageMenu;
+
+    static JButton NextButton;
+    static JButton sendButton;
+    static JButton submitButton;
+
     public CustomerUI() {
         createMainGUI();
         CreateSpaInfoBox();
@@ -170,6 +175,7 @@ public class CustomerUI {
 
         // Panel setup
         panel = new JPanel();
+
         panel.setLayout(null);
         frame.getContentPane().add(panel);
 
@@ -347,162 +353,6 @@ public class CustomerUI {
         WriteFeedback.setFont(new Font("Mulish", Font.PLAIN, 16)); // Set the font size and style
         WriteFeedback.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102), 1));
 
-        JButton sendButton = new JButton();
-        sendButton.setFocusable(false);
-        sendButton.setBackground(new Color(132, 121, 102));
-        sendButton.setBorderPainted(false);
-        sendButton.setText("Send");
-        sendButton.setFont(new Font("Mulish", Font.BOLD, 20));
-        sendButton.setBounds(674, 520, 200, 50);
-        sendButton.setForeground(new Color(245, 242, 233));
-        sendButton.setVisible(false);
-        panel.add(sendButton);
-        sendButton.addActionListener(e -> {
-            Tab1_background.setVisible(false);
-            Tab2_background.setVisible(false);
-            Tab3_background.setVisible(false);
-            Tab4_background.setVisible(true);
-            ServiceMenu.setVisible(false);
-            Spa.setVisible(false);
-            Restaurant.setVisible(false);
-            RoomCleaning.setVisible(false);
-            MusicLounge.setVisible(false);
-            OurHotelTab.setBackground(new Color(132, 121, 102));
-//            RoomTab.setBackground(new Color(244, 242, 235));
-//            ServiceTab.setBackground(new Color(132, 121, 102));
-//            ReviewTab.setBackground(new Color(132, 121, 102));
-//            RoomTab.setForeground(new Color(43, 42, 38));
-//            OurHotelTab.setForeground(new Color(245, 242, 233));
-//            ServiceTab.setForeground(new Color(245, 242, 233));
-//            ReviewTab.setForeground(new Color(245, 242, 233));
-
-//            NextButton.setVisible(false);
-            sendButton.setVisible(true);
-//            submitButton.setVisible(false);
-
-            SpaCenter.setVisible(false);
-            RestaurantCenter.setVisible(false);
-            RoomCleaningCenter.setVisible(false);
-            MusicLoungeCenter.setVisible(false);
-            CustomerInfo.setVisible(false);
-            BookingInformation.setVisible(false);
-            PaymentMethod.setVisible(false);
-
-            EnterBoxFName.setVisible(false);
-            EnterBoxLName.setVisible(false);
-            EnterBoxPNumber.setVisible(false);
-            EnterBoxEmail.setVisible(false);
-
-            FNamePosition.setVisible(false);
-            LNamePosition.setVisible(false);
-            PNumberPosition.setVisible(false);
-            EmailPosition.setVisible(false);
-            DatePosition.setVisible(false);
-            TimePosition.setVisible(false);
-
-            Daybox.setVisible(false);
-            Monthbox.setVisible(false);
-            Yearbox.setVisible(false);
-
-            Hourbox.setVisible(false);
-            Minutebox.setVisible(false);
-            Secondbox.setVisible(false);
-
-            SpaDayEnter.setVisible(false);
-            SpaMonthEnter.setVisible(false);
-            SpaYearEnter.setVisible(false);
-
-            SpaHourEnter.setVisible(false);
-            SpaMinuteEnter.setVisible(false);
-            SpaSecondEnter.setVisible(false);
-
-            ResDayEnter.setVisible(false);
-            ResMonthEnter.setVisible(false);
-            ResYearEnter.setVisible(false);
-
-            ResHourEnter.setVisible(false);
-            ResMinuteEnter.setVisible(false);
-            ResSecondEnter.setVisible(false);
-
-            RoomCleanDayEnter.setVisible(false);
-            RoomCleanMonthEnter.setVisible(false);
-            RoomCleanYearEnter.setVisible(false);
-
-            RoomCleanHourEnter.setVisible(false);
-            RoomCleanMinuteEnter.setVisible(false);
-            RoomCleanSecondEnter.setVisible(false);
-
-            MusicLoungeDayEnter.setVisible(false);
-            MusicLoungeMonthEnter.setVisible(false);
-            MusicLoungeYearEnter.setVisible(false);
-
-            MusicLoungeHourEnter.setVisible(false);
-            MusicLoungeMinuteEnter.setVisible(false);
-            MusicLoungeSecondEnter.setVisible(false);
-
-            RateExp.setVisible(true);
-            ratingStars.setVisible(true);
-            WriteFeedback.setVisible(true);
-            Feedback.setVisible(true);
-
-            RoomBooking.setVisible(false);
-            ChooseDate.setVisible(false);
-            TypeOfRoom.setVisible(false);
-            EnterDate.setVisible(false);
-            ChooseTypeOfRoom.setVisible(false);
-            RoomList.setVisible(false);
-
-            BookingTitle.setVisible(false);
-
-//            visaImage.setVisible(true);
-//            mastercardImage.setVisible(true);
-//            PaypalImage.setVisible(true);
-//            DiscoverImage.setVisible(true);
-
-            CreditNumber.setVisible(false);
-            NameOnCard.setVisible(false);
-            ExpDate.setVisible(false);
-            SecCode.setVisible(false);
-
-            CreditNumberPos.setVisible(false);
-            NameCardPos.setVisible(false);
-            ExpDatePos.setVisible(false);
-            SecCodePos.setVisible(false);
-
-            BookingFirstName.setVisible(false);
-            BookingLastName.setVisible(false);
-            BookingPhoneNumber.setVisible(false);
-            BookingEmail.setVisible(false);
-            BookingCredit.setVisible(false);
-            BookingNamecard.setVisible(false);
-            BookingExpDate.setVisible(false);
-            BookingSecCode.setVisible(false);
-
-            spaPackageMenu.setVisible(false);
-            SpaPackBox.setVisible(false);
-            SpaPackPosition.setVisible(false);
-
-            ResPackageMenu.setVisible(false);
-
-            RcleaningPackageMenu.setVisible(false);
-            RoomcleanPackPosition.setVisible(false);
-
-            MusicLoungePackageMenu.setVisible(false);
-            MusicLoungePackPosition.setVisible(false);
-
-            if (ratingStars.getSelectedRating() == 0) {
-                JOptionPane.showMessageDialog(frame, "Please select a rating before sending your review.", "Warning", JOptionPane.WARNING_MESSAGE);
-            } else {
-                int response = JOptionPane.showConfirmDialog(frame, "Are you sure you want to send your review?", "Confirm", JOptionPane.YES_NO_OPTION);
-                if (response == JOptionPane.YES_OPTION) {
-
-                    JOptionPane.showMessageDialog(frame, "Thank you for your feedback!", "Success", JOptionPane.INFORMATION_MESSAGE);
-//                    WriteFeedback.setText(""); // Clear feedback
-//                    ratingStars.resetRating(); // Reset the stars
-                }
-            }
-        });
-
         PaymentMethod = new JLabel();
         PaymentMethod.setText("II. Payment Method");
         PaymentMethod.setFont(new Font("Mulish", Font.BOLD, 33));
@@ -532,6 +382,26 @@ public class CustomerUI {
         panel.add(DiscoverImage);
         DiscoverImage.setVisible(false);
 
+        JButton sendButton = new JButton();
+        sendButton.setFocusable(false);
+        sendButton.setBackground(new Color(132, 121, 102));
+        sendButton.setBorderPainted(false);
+        sendButton.setText("Send");
+        sendButton.setFont(new Font("Mulish", Font.BOLD, 20));
+        sendButton.setBounds(674, 520, 200, 50);
+        sendButton.setForeground(new Color(245, 242, 233));
+        sendButton.setVisible(false);
+        panel.add(sendButton);
+
+        JButton submitButton = new JButton("SUBMIT");
+        submitButton.setBounds(960, 520, 180, 50);
+        submitButton.setFont(new Font("Mulish", Font.BOLD, 20));
+        submitButton.setBackground(new Color(132, 121, 102));
+        submitButton.setForeground(Color.WHITE);
+        submitButton.setFocusable(false);
+        submitButton.setVisible(false);
+        panel.add(submitButton);
+
         JButton NextButton = new JButton();
         NextButton.setFocusable(false);
         NextButton.setBackground(new Color(132, 121, 102));
@@ -542,139 +412,6 @@ public class CustomerUI {
         NextButton.setForeground(new Color(245, 242, 233));
         NextButton.setVisible(false);
         panel.add(NextButton);
-        NextButton.addActionListener(e -> {
-            Tab1_background.setVisible(false);
-            Tab2_background.setVisible(true);
-            Tab3_background.setVisible(false);
-            Tab4_background.setVisible(false);
-            ServiceMenu.setVisible(false);
-            Spa.setVisible(false);
-            Restaurant.setVisible(false);
-            RoomCleaning.setVisible(false);
-            MusicLounge.setVisible(false);
-            OurHotelTab.setBackground(new Color(132, 121, 102));
-            RoomTab.setBackground(new Color(244, 242, 235));
-            ServiceTab.setBackground(new Color(132, 121, 102));
-            ReviewTab.setBackground(new Color(132, 121, 102));
-            RoomTab.setForeground(new Color(43, 42, 38));
-            OurHotelTab.setForeground(new Color(245, 242, 233));
-            ServiceTab.setForeground(new Color(245, 242, 233));
-            ReviewTab.setForeground(new Color(245, 242, 233));
-
-            NextButton.setVisible(false);
-            sendButton.setVisible(false);
-//            submitButton.setVisible(false);
-
-            SpaCenter.setVisible(false);
-            RestaurantCenter.setVisible(false);
-            RoomCleaningCenter.setVisible(false);
-            MusicLoungeCenter.setVisible(false);
-            CustomerInfo.setVisible(true);
-            BookingInformation.setVisible(false);
-            PaymentMethod.setVisible(true);
-
-            EnterBoxFName.setVisible(true);
-            EnterBoxLName.setVisible(true);
-            EnterBoxPNumber.setVisible(true);
-            EnterBoxEmail.setVisible(true);
-
-            FNamePosition.setVisible(true);
-            LNamePosition.setVisible(true);
-            PNumberPosition.setVisible(true);
-            EmailPosition.setVisible(true);
-            DatePosition.setVisible(false);
-            TimePosition.setVisible(false);
-
-            Daybox.setVisible(false);
-            Monthbox.setVisible(false);
-            Yearbox.setVisible(false);
-
-            Hourbox.setVisible(false);
-            Minutebox.setVisible(false);
-            Secondbox.setVisible(false);
-
-            SpaDayEnter.setVisible(false);
-            SpaMonthEnter.setVisible(false);
-            SpaYearEnter.setVisible(false);
-
-            SpaHourEnter.setVisible(false);
-            SpaMinuteEnter.setVisible(false);
-            SpaSecondEnter.setVisible(false);
-
-            ResDayEnter.setVisible(false);
-            ResMonthEnter.setVisible(false);
-            ResYearEnter.setVisible(false);
-
-            ResHourEnter.setVisible(false);
-            ResMinuteEnter.setVisible(false);
-            ResSecondEnter.setVisible(false);
-
-            RoomCleanDayEnter.setVisible(false);
-            RoomCleanMonthEnter.setVisible(false);
-            RoomCleanYearEnter.setVisible(false);
-
-            RoomCleanHourEnter.setVisible(false);
-            RoomCleanMinuteEnter.setVisible(false);
-            RoomCleanSecondEnter.setVisible(false);
-
-            MusicLoungeDayEnter.setVisible(false);
-            MusicLoungeMonthEnter.setVisible(false);
-            MusicLoungeYearEnter.setVisible(false);
-
-            MusicLoungeHourEnter.setVisible(false);
-            MusicLoungeMinuteEnter.setVisible(false);
-            MusicLoungeSecondEnter.setVisible(false);
-
-            RateExp.setVisible(false);
-            ratingStars.setVisible(false);
-            WriteFeedback.setVisible(false);
-            Feedback.setVisible(false);
-
-            RoomBooking.setVisible(false);
-            ChooseDate.setVisible(false);
-            TypeOfRoom.setVisible(false);
-            EnterDate.setVisible(false);
-            ChooseTypeOfRoom.setVisible(false);
-            RoomList.setVisible(false);
-
-            BookingTitle.setVisible(true);
-
-            visaImage.setVisible(true);
-            mastercardImage.setVisible(true);
-            PaypalImage.setVisible(true);
-            DiscoverImage.setVisible(true);
-
-            CreditNumber.setVisible(true);
-            NameOnCard.setVisible(true);
-            ExpDate.setVisible(true);
-            SecCode.setVisible(true);
-
-            CreditNumberPos.setVisible(true);
-            NameCardPos.setVisible(true);
-            ExpDatePos.setVisible(true);
-            SecCodePos.setVisible(true);
-
-            BookingFirstName.setVisible(true);
-            BookingLastName.setVisible(true);
-            BookingPhoneNumber.setVisible(true);
-            BookingEmail.setVisible(true);
-            BookingCredit.setVisible(true);
-            BookingNamecard.setVisible(true);
-            BookingExpDate.setVisible(true);
-            BookingSecCode.setVisible(true);
-
-            spaPackageMenu.setVisible(false);
-            SpaPackBox.setVisible(false);
-            SpaPackPosition.setVisible(false);
-
-            ResPackageMenu.setVisible(false);
-
-            RcleaningPackageMenu.setVisible(false);
-            RoomcleanPackPosition.setVisible(false);
-
-            MusicLoungePackageMenu.setVisible(false);
-            MusicLoungePackPosition.setVisible(false);
-        });
 
         // HotelInfoTab setup
         OurHotelTab = new JButton();
@@ -807,7 +544,7 @@ public class CustomerUI {
 
             NextButton.setVisible(false);
             sendButton.setVisible(false);
-//            submitButton.setVisible(false);
+            submitButton.setVisible(false);
 
             BookingTitle.setVisible(false);
 
@@ -848,7 +585,7 @@ public class CustomerUI {
             MusicLoungePackPosition.setVisible(false);
         });
 
-        // ReservationTab setup
+        // RoomTab setup
         RoomTab = new JButton();
         RoomTab.setFocusable(false);
         RoomTab.setBackground(new Color(132, 121, 102));
@@ -883,7 +620,7 @@ public class CustomerUI {
 
             NextButton.setVisible(true);
             sendButton.setVisible(false);
-//            submitButton.setVisible(false);
+            submitButton.setVisible(false);
 
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
@@ -1043,15 +780,6 @@ public class CustomerUI {
         BookingInformation.setForeground(new Color(136, 120, 81));
         BookingInformation.setVisible(false);
         panel.add(BookingInformation);
-
-        JButton submitButton = new JButton("SUBMIT");
-        submitButton.setBounds(960, 520, 180, 50);
-        submitButton.setFont(new Font("Mulish", Font.BOLD, 20));
-        submitButton.setBackground(new Color(132, 121, 102));
-        submitButton.setForeground(Color.WHITE);
-        submitButton.setFocusable(false);
-        submitButton.setVisible(false);
-        panel.add(submitButton);
 
         SpaCenter = new JLabel();
         SpaCenter.setText("SPA CENTER");
@@ -1849,6 +1577,140 @@ public class CustomerUI {
             MusicLoungePackPosition.setVisible(false);
         });
 
+        NextButton.addActionListener(e -> {
+            Tab1_background.setVisible(false);
+            Tab2_background.setVisible(true);
+            Tab3_background.setVisible(false);
+            Tab4_background.setVisible(false);
+            ServiceMenu.setVisible(false);
+            Spa.setVisible(false);
+            Restaurant.setVisible(false);
+            RoomCleaning.setVisible(false);
+            MusicLounge.setVisible(false);
+            OurHotelTab.setBackground(new Color(132, 121, 102));
+            RoomTab.setBackground(new Color(244, 242, 235));
+            ServiceTab.setBackground(new Color(132, 121, 102));
+            ReviewTab.setBackground(new Color(132, 121, 102));
+            RoomTab.setForeground(new Color(43, 42, 38));
+            OurHotelTab.setForeground(new Color(245, 242, 233));
+            ServiceTab.setForeground(new Color(245, 242, 233));
+            ReviewTab.setForeground(new Color(245, 242, 233));
+
+            NextButton.setVisible(false);
+            sendButton.setVisible(false);
+            submitButton.setVisible(false);
+
+            SpaCenter.setVisible(false);
+            RestaurantCenter.setVisible(false);
+            RoomCleaningCenter.setVisible(false);
+            MusicLoungeCenter.setVisible(false);
+            CustomerInfo.setVisible(true);
+            BookingInformation.setVisible(false);
+            PaymentMethod.setVisible(true);
+
+            EnterBoxFName.setVisible(true);
+            EnterBoxLName.setVisible(true);
+            EnterBoxPNumber.setVisible(true);
+            EnterBoxEmail.setVisible(true);
+
+            FNamePosition.setVisible(true);
+            LNamePosition.setVisible(true);
+            PNumberPosition.setVisible(true);
+            EmailPosition.setVisible(true);
+            DatePosition.setVisible(false);
+            TimePosition.setVisible(false);
+
+            Daybox.setVisible(false);
+            Monthbox.setVisible(false);
+            Yearbox.setVisible(false);
+
+            Hourbox.setVisible(false);
+            Minutebox.setVisible(false);
+            Secondbox.setVisible(false);
+
+            SpaDayEnter.setVisible(false);
+            SpaMonthEnter.setVisible(false);
+            SpaYearEnter.setVisible(false);
+
+            SpaHourEnter.setVisible(false);
+            SpaMinuteEnter.setVisible(false);
+            SpaSecondEnter.setVisible(false);
+
+            ResDayEnter.setVisible(false);
+            ResMonthEnter.setVisible(false);
+            ResYearEnter.setVisible(false);
+
+            ResHourEnter.setVisible(false);
+            ResMinuteEnter.setVisible(false);
+            ResSecondEnter.setVisible(false);
+
+            RoomCleanDayEnter.setVisible(false);
+            RoomCleanMonthEnter.setVisible(false);
+            RoomCleanYearEnter.setVisible(false);
+
+            RoomCleanHourEnter.setVisible(false);
+            RoomCleanMinuteEnter.setVisible(false);
+            RoomCleanSecondEnter.setVisible(false);
+
+            MusicLoungeDayEnter.setVisible(false);
+            MusicLoungeMonthEnter.setVisible(false);
+            MusicLoungeYearEnter.setVisible(false);
+
+            MusicLoungeHourEnter.setVisible(false);
+            MusicLoungeMinuteEnter.setVisible(false);
+            MusicLoungeSecondEnter.setVisible(false);
+
+            RateExp.setVisible(false);
+            ratingStars.setVisible(false);
+            WriteFeedback.setVisible(false);
+            Feedback.setVisible(false);
+
+            RoomBooking.setVisible(false);
+            ChooseDate.setVisible(false);
+            TypeOfRoom.setVisible(false);
+            EnterDate.setVisible(false);
+            ChooseTypeOfRoom.setVisible(false);
+            RoomList.setVisible(false);
+
+            BookingTitle.setVisible(true);
+
+            visaImage.setVisible(true);
+            mastercardImage.setVisible(true);
+            PaypalImage.setVisible(true);
+            DiscoverImage.setVisible(true);
+
+            CreditNumber.setVisible(true);
+            NameOnCard.setVisible(true);
+            ExpDate.setVisible(true);
+            SecCode.setVisible(true);
+
+            CreditNumberPos.setVisible(true);
+            NameCardPos.setVisible(true);
+            ExpDatePos.setVisible(true);
+            SecCodePos.setVisible(true);
+
+            BookingFirstName.setVisible(true);
+            BookingLastName.setVisible(true);
+            BookingPhoneNumber.setVisible(true);
+            BookingEmail.setVisible(true);
+            BookingCredit.setVisible(true);
+            BookingNamecard.setVisible(true);
+            BookingExpDate.setVisible(true);
+            BookingSecCode.setVisible(true);
+
+            spaPackageMenu.setVisible(false);
+            SpaPackBox.setVisible(false);
+            SpaPackPosition.setVisible(false);
+
+            ResPackageMenu.setVisible(false);
+
+            RcleaningPackageMenu.setVisible(false);
+            RoomcleanPackPosition.setVisible(false);
+
+            MusicLoungePackageMenu.setVisible(false);
+            MusicLoungePackPosition.setVisible(false);
+        });
+
         ReviewTab = new JButton();
         ReviewTab.setFocusable(false);
         ReviewTab.setBackground(new Color(132, 121, 102));
@@ -2015,6 +1877,152 @@ public class CustomerUI {
 
             MusicLoungePackageMenu.setVisible(false);
             MusicLoungePackPosition.setVisible(false);
+        });
+
+        sendButton.addActionListener(e -> {
+            Tab1_background.setVisible(false);
+            Tab2_background.setVisible(false);
+            Tab3_background.setVisible(false);
+            Tab4_background.setVisible(true);
+            ServiceMenu.setVisible(false);
+            Spa.setVisible(false);
+            Restaurant.setVisible(false);
+            RoomCleaning.setVisible(false);
+            MusicLounge.setVisible(false);
+            OurHotelTab.setBackground(new Color(132, 121, 102));
+//            RoomTab.setBackground(new Color(244, 242, 235));
+//            ServiceTab.setBackground(new Color(132, 121, 102));
+//            ReviewTab.setBackground(new Color(132, 121, 102));
+//            RoomTab.setForeground(new Color(43, 42, 38));
+//            OurHotelTab.setForeground(new Color(245, 242, 233));
+//            ServiceTab.setForeground(new Color(245, 242, 233));
+//            ReviewTab.setForeground(new Color(245, 242, 233));
+
+            NextButton.setVisible(false);
+            sendButton.setVisible(true);
+            submitButton.setVisible(false);
+
+            SpaCenter.setVisible(false);
+            RestaurantCenter.setVisible(false);
+            RoomCleaningCenter.setVisible(false);
+            MusicLoungeCenter.setVisible(false);
+            CustomerInfo.setVisible(false);
+            BookingInformation.setVisible(false);
+            PaymentMethod.setVisible(false);
+
+            EnterBoxFName.setVisible(false);
+            EnterBoxLName.setVisible(false);
+            EnterBoxPNumber.setVisible(false);
+            EnterBoxEmail.setVisible(false);
+
+            FNamePosition.setVisible(false);
+            LNamePosition.setVisible(false);
+            PNumberPosition.setVisible(false);
+            EmailPosition.setVisible(false);
+            DatePosition.setVisible(false);
+            TimePosition.setVisible(false);
+
+            Daybox.setVisible(false);
+            Monthbox.setVisible(false);
+            Yearbox.setVisible(false);
+
+            Hourbox.setVisible(false);
+            Minutebox.setVisible(false);
+            Secondbox.setVisible(false);
+
+            SpaDayEnter.setVisible(false);
+            SpaMonthEnter.setVisible(false);
+            SpaYearEnter.setVisible(false);
+
+            SpaHourEnter.setVisible(false);
+            SpaMinuteEnter.setVisible(false);
+            SpaSecondEnter.setVisible(false);
+
+            ResDayEnter.setVisible(false);
+            ResMonthEnter.setVisible(false);
+            ResYearEnter.setVisible(false);
+
+            ResHourEnter.setVisible(false);
+            ResMinuteEnter.setVisible(false);
+            ResSecondEnter.setVisible(false);
+
+            RoomCleanDayEnter.setVisible(false);
+            RoomCleanMonthEnter.setVisible(false);
+            RoomCleanYearEnter.setVisible(false);
+
+            RoomCleanHourEnter.setVisible(false);
+            RoomCleanMinuteEnter.setVisible(false);
+            RoomCleanSecondEnter.setVisible(false);
+
+            MusicLoungeDayEnter.setVisible(false);
+            MusicLoungeMonthEnter.setVisible(false);
+            MusicLoungeYearEnter.setVisible(false);
+
+            MusicLoungeHourEnter.setVisible(false);
+            MusicLoungeMinuteEnter.setVisible(false);
+            MusicLoungeSecondEnter.setVisible(false);
+
+            RateExp.setVisible(true);
+            ratingStars.setVisible(true);
+            WriteFeedback.setVisible(true);
+            Feedback.setVisible(true);
+
+            RoomBooking.setVisible(false);
+            ChooseDate.setVisible(false);
+            TypeOfRoom.setVisible(false);
+            EnterDate.setVisible(false);
+            ChooseTypeOfRoom.setVisible(false);
+            RoomList.setVisible(false);
+
+            BookingTitle.setVisible(false);
+
+//            visaImage.setVisible(true);
+//            mastercardImage.setVisible(true);
+//            PaypalImage.setVisible(true);
+//            DiscoverImage.setVisible(true);
+
+            CreditNumber.setVisible(false);
+            NameOnCard.setVisible(false);
+            ExpDate.setVisible(false);
+            SecCode.setVisible(false);
+
+            CreditNumberPos.setVisible(false);
+            NameCardPos.setVisible(false);
+            ExpDatePos.setVisible(false);
+            SecCodePos.setVisible(false);
+
+            BookingFirstName.setVisible(false);
+            BookingLastName.setVisible(false);
+            BookingPhoneNumber.setVisible(false);
+            BookingEmail.setVisible(false);
+            BookingCredit.setVisible(false);
+            BookingNamecard.setVisible(false);
+            BookingExpDate.setVisible(false);
+            BookingSecCode.setVisible(false);
+
+            spaPackageMenu.setVisible(false);
+            SpaPackBox.setVisible(false);
+            SpaPackPosition.setVisible(false);
+
+            ResPackageMenu.setVisible(false);
+
+            RcleaningPackageMenu.setVisible(false);
+            RoomcleanPackPosition.setVisible(false);
+
+            MusicLoungePackageMenu.setVisible(false);
+            MusicLoungePackPosition.setVisible(false);
+
+            if (ratingStars.getSelectedRating() == 0) {
+                JOptionPane.showMessageDialog(frame, "Please select a rating before sending your review.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else {
+                int response = JOptionPane.showConfirmDialog(frame, "Are you sure you want to send your review?", "Confirm", JOptionPane.YES_NO_OPTION);
+                if (response == JOptionPane.YES_OPTION) {
+
+                    JOptionPane.showMessageDialog(frame, "Thank you for your feedback!", "Success", JOptionPane.INFORMATION_MESSAGE);
+//                    WriteFeedback.setText(""); // Clear feedback
+//                    ratingStars.resetRating(); // Reset the stars
+                }
+            }
         });
 
         // Tab1_background
