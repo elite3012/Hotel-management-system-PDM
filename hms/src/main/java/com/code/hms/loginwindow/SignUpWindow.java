@@ -100,13 +100,18 @@ public class SignUpWindow extends JFrame {
         roleDropdown = new JComboBox<>(new String[]{"Customer", "Admin", "Receptionist"});
         roleDropdown.setBounds(x2, y + 25, width, height);
         signUpPanel.add(roleDropdown);
-
+        roleDropdown.addActionListener(e -> {
+            signUpPanel.revalidate();
+            signUpPanel.repaint();
+        });        
+        
         // Sign-Up Button
         JButton signUpButton = new JButton("Sign Up");
         signUpButton.setBounds(440, y + 75, 300, 40);
         signUpButton.setBackground(Color.decode("#847966"));
         signUpButton.setForeground(Color.WHITE);
         signUpPanel.add(signUpButton);
+        
 
         // Action Listener
         signUpButton.addActionListener(e -> validateAndSubmitForm());
