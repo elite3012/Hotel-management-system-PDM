@@ -3,6 +3,8 @@ package com.code.hms.ui;
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,6 +28,8 @@ public class StaffUI {
     static JPanel serviceOrderPanel;
     static JPanel roomCleaningPanel;
     static JPanel taskListPanel;
+    static JPanel ManageUserPanel;
+    static JPanel financialPanel;
     static JButton main_menu;
     static JLabel available_unavailable;
     static JLabel cleaned_uncleaned;
@@ -39,8 +43,12 @@ public class StaffUI {
     static JButton UsersTab;
     static JTable serviceOrderTable;
     static JTable taskListTable;
+    static JTable ManageUserTable;
+    static JTable billingTable;
     static JScrollPane serviceOrderScrollPane;
     static JScrollPane taskListScrollPane;
+    static JScrollPane ManageUserScrollPane;
+    static JScrollPane billingScrollPane;
     static ReservationDaoImpl reservationDaoImpl;
 
     public StaffUI() {
@@ -231,6 +239,7 @@ public class StaffUI {
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
                 removeServiceOrderComponents();
+                removeManageUserComponents();
             }
         });
 
@@ -260,6 +269,7 @@ public class StaffUI {
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
+                removeManageUserComponents();
             }
         });
 
@@ -285,10 +295,12 @@ public class StaffUI {
                 FinancialTab.setForeground(new Color(43, 42, 38));
                 UsersTab.setForeground(new Color(245, 242, 233));
 
+                addFinancialComponents();
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
                 removeServiceOrderComponents();
+                removeManageUserComponents();
             }
         });
 
@@ -314,18 +326,23 @@ public class StaffUI {
                 FinancialTab.setForeground(new Color(245, 242, 233));
                 UsersTab.setForeground(new Color(43, 42, 38));
 
+                addManageUserComponents();
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
                 removeServiceOrderComponents();
+                removeFinancialComponents();
             }
         });
         addRoomPanel();
         addRoomCleaningPanel();
         removeRoomCleaningTabComponents();
         createAdminRoomMenu();
-        createAllBackgrounds();
         createServiceOrderPanel();
+        createManageUserPanel();
+        createAllBackgrounds();
+        createFinancialPanel();
+
     }
     private void addRoomPanel(){
         // Create panel with grid layout
@@ -376,17 +393,17 @@ public class StaffUI {
     private void addReservationPanel() {
         if (reservationPanel == null) {
             reservationPanel = new JPanel();
-            reservationPanel.setLayout(new GridLayout(3, 2, 10, 10)); 
+            reservationPanel.setLayout(new BorderLayout(20, 20));
+            JPanel gridPanel = new JPanel(new GridLayout(2, 2, 10, 10));
             reservationPanel.setBounds(417, 40, 713, 530); // 
-    
             // Define buttons for various reservation actions
-            JButton viewAllButton = new JButton("View All Reservations");
+            JButton viewAllButton = createRoundedButton("View All Reservations");
             viewAllButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     List<Object[]> reservations = reservationDaoImpl.getAllReservations(); 
                     if (reservations != null && !reservations.isEmpty()) {
-                        String[] columnNames = {"Reservation ID", "User ID", "First Name", "Last Name", 
+                        String[] columnNames = {"Reservation ID", "User ID", "First Name", "Last Name",
                                                 "Check-in Date", "Check-out Date", "Total Days", "Num of Guests"};
 
                         Object[][] data = new Object[reservations.size()][8];
@@ -403,20 +420,9 @@ public class StaffUI {
                         }
 
                         JTable table = new JTable(data, columnNames);
-                        resizeColumnWidth(table);
-                        table.setSize(new Dimension(1200,1200));
                         JScrollPane scrollPane = new JScrollPane(table);
 
-                        JPanel panel = new JPanel(new BorderLayout());
-                        panel.add(scrollPane, BorderLayout.CENTER);
-
-            
-                        JFrame frame = new JFrame("All Reservations");
-                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                        frame.add(panel);
-                        frame.setSize(800, 600); 
-                        frame.setLocationRelativeTo(null); 
-                        frame.setVisible(true);
+                        JOptionPane.showMessageDialog(null, scrollPane, "All Reservations", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, "No reservations found.", "Information", JOptionPane.INFORMATION_MESSAGE);
                     }
@@ -424,7 +430,7 @@ public class StaffUI {
             });
 
 
-            JButton createNewButton = new JButton("Create New Reservation");
+            JButton createNewButton = createRoundedButton("Create New Reservation");
             createNewButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -469,7 +475,7 @@ public class StaffUI {
             });
 
             
-            JButton updateButton = new JButton("Update Reservation");
+            JButton updateButton = createRoundedButton("Update Reservation");
             updateButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -540,7 +546,7 @@ public class StaffUI {
                 }
             });            
             
-            JButton cancelButton = new JButton("Cancel Reservation");
+            JButton cancelButton = createRoundedButton("Cancel Reservation");
             cancelButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -563,7 +569,7 @@ public class StaffUI {
                 }
             });
             
-            JButton searchButton = new JButton("Search Reservations");
+            JButton searchButton = createRoundedButton("Search Reservations");
             searchButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -587,22 +593,36 @@ public class StaffUI {
             Font buttonFont = new Font("Mulish", Font.BOLD, 16);
             Color buttonColor = Color.decode("#E3DFD5");
             Color textColor = Color.decode("#000000");
+
+            gridPanel.add(viewAllButton);
+            gridPanel.add(updateButton);
+            gridPanel.add(cancelButton);
+            gridPanel.add(searchButton);
+            JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); 
+            topPanel.add(createNewButton);
+            reservationPanel.add(topPanel, BorderLayout.NORTH); 
+            reservationPanel.add(gridPanel, BorderLayout.CENTER);
     
-            // Array of buttons for easier customization
             JButton[] buttons = {viewAllButton, createNewButton, updateButton, cancelButton, searchButton};
     
             for (JButton button : buttons) {
-                button.setPreferredSize(new Dimension(160, 40));
+                button.setPreferredSize(new Dimension(220, 40));
                 button.setFont(buttonFont);
                 button.setBackground(buttonColor);
                 button.setForeground(textColor);
                 button.setFocusable(false);
                 button.setVisible(true);
-                reservationPanel.add(button); // Add button to the panel
-            }
-        }
-    
-        // Add the reservationPanel to the main panel directly
+            } 
+            JLabel dateLabel = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/clock.png",20,20));
+            dateLabel.setFont(new Font("Arial", Font.BOLD, 14)); 
+            dateLabel.setForeground(Color.DARK_GRAY); 
+            dateLabel.setHorizontalAlignment(SwingConstants.CENTER); 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy");
+            String currentDate = dateFormat.format(new Date());
+            dateLabel.setText(" " + currentDate); 
+            reservationPanel.add(dateLabel, BorderLayout.SOUTH);
+        } 
+        
         panel.add(reservationPanel);
         reservationPanel.setVisible(false);
     }
@@ -700,8 +720,31 @@ public class StaffUI {
         FinancialTab.setHorizontalTextPosition(SwingConstants.LEFT);
         FinancialTab.setHorizontalAlignment(SwingConstants.LEFT);
         FinancialTab.setVisible(true);
-        new Interaction(FinancialTab,false);
+        new Interaction(FinancialTab, false);
         panel.add(FinancialTab);
+
+    }
+    private void createFinancialPanel() {
+        String[][] billingBaseData = {{" ", " ", " "}}; // Placeholder data
+        String[] billingColumnNames = {"Amount", "Payment Method", "Date"};
+
+        billingTable = new JTable(billingBaseData, billingColumnNames);
+        billingTable.setBounds(374, 40, 800, 530);
+        billingTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
+        billingTable.setFont(new Font("Arial", Font.PLAIN, 12));
+        billingTable.setVisible(false);
+
+        billingScrollPane = new JScrollPane(billingTable);
+        billingScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
+        billingScrollPane.setVisible(false);
+        panel.add(billingScrollPane);
+
+        financialPanel = new JPanel();
+        financialPanel.setBounds(374, 40, 800, 530);
+        financialPanel.setOpaque(false);
+        financialPanel.setVisible(false);
+        panel.add(financialPanel);
+        financialPanel.add(billingScrollPane);
     }
     private void createUsersTab(){
         // UsersTab setup
@@ -842,6 +885,28 @@ public class StaffUI {
         serviceOrderPanel.setVisible(false);
         panel.add(serviceOrderPanel);
     }
+
+    private void createManageUserPanel(){
+        String[][] ManageUserBaseData = {{" "," "}};
+        String[] ManageUserColumnNames = {"UserID","Role"};
+        ManageUserTable = new JTable(ManageUserBaseData,ManageUserColumnNames);
+        ManageUserTable.setBounds(374,40,800,530);
+        ManageUserTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
+        ManageUserTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
+        ManageUserTable.setVisible(false);
+
+        ManageUserScrollPane = new JScrollPane(ManageUserTable);
+        ManageUserScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
+        ManageUserScrollPane.setVisible(false);
+        panel.add(ManageUserScrollPane);
+
+        ManageUserPanel = new JPanel();
+        ManageUserPanel.setBounds(374,40,800,530);
+        ManageUserPanel.setOpaque(false);
+        ManageUserPanel.setVisible(false);
+        panel.add(ManageUserPanel);
+    }
+
     private void createTaskListPanel(){
         String[][] taskListBaseData = {{" "," "}};
         String[] taskListColumnNames = {"Assigned Room","Cleaning Status"};
@@ -910,21 +975,62 @@ public class StaffUI {
     private void removeReservationTabComponents(){
         reservationPanel.setVisible(false);
     }
-    private void resizeColumnWidth(JTable table) {
-    final TableColumnModel columnModel = table.getColumnModel();
-    for (int column = 0; column < table.getColumnCount(); column++) {
-        int width = 15; // Min width
-        for (int row = 0; row < table.getRowCount(); row++) {
-            TableCellRenderer renderer = table.getCellRenderer(row, column);
-            Component comp = table.prepareRenderer(renderer, row, column);
-            width = Math.max(comp.getPreferredSize().width +1 , width);
-        }
-        if(width > 300)
-            width=300;
-        columnModel.getColumn(column).setPreferredWidth(width);
+    private void addManageUserComponents(){
+        ManageUserTable.setVisible(true);
+        ManageUserPanel.setVisible(true);
+        ManageUserScrollPane.setVisible(true);
     }
-}
+    private void removeManageUserComponents(){
+        ManageUserTable.setVisible(false);
+        ManageUserPanel.setVisible(false);
+        ManageUserScrollPane.setVisible(false);
+    }
 
+    private static JButton createRoundedButton(String text) {
+        JButton button = new JButton(text) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+                // Background
+                g2.setColor(getBackground());
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30);
+
+                // Border
+                g2.setColor(getForeground());
+                g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 30, 30);
+
+                // Text
+                g2.setColor(getForeground());
+                FontMetrics fm = g2.getFontMetrics();
+                int stringWidth = fm.stringWidth(getText());
+                int stringHeight = fm.getAscent();
+                g2.drawString(getText(), (getWidth() - stringWidth) / 2, (getHeight() + stringHeight) / 2 - 2);
+
+                g2.dispose();
+            }
+        };
+
+        button.setContentAreaFilled(false);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setOpaque(false);
+        button.setBackground(new Color(70, 130, 180)); // Light blue background
+        button.setForeground(Color.WHITE); // White text
+        button.setPreferredSize(new Dimension(150, 50)); // Size of the button
+        return button;
+    }
+    private void addFinancialComponents() {
+        billingTable.setVisible(true); // Make the billing table visible
+        financialPanel.setVisible(true); // Make the financial panel visible
+        billingScrollPane.setVisible(true); // Make the scroll pane visible
+    }
+
+    private void removeFinancialComponents() {
+        billingTable.setVisible(false); // Hide the billing table
+        financialPanel.setVisible(false); // Hide the financial panel
+        billingScrollPane.setVisible(false); // Hide the scroll pane
+    }
 }
 //debug commit command
