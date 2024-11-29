@@ -79,13 +79,6 @@
       <version>1.17.1</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
-    <!-- Thư viện gửi/nhận email cho ứng dụng Java. -->
-    <dependency>
-      <groupId>com.sun.mail</groupId>
-      <artifactId>jakarta.mail</artifactId>
-      <version>2.0.1</version>
-    </dependency>
     <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
     <!-- Thư viện chuyển đổi giữa JSON và Java object. -->
 		<dependency>
