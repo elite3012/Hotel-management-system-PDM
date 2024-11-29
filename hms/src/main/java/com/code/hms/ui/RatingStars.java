@@ -84,6 +84,11 @@ class RatingStars extends JPanel {
         return star;
     }
 
+    public void resetRating() {
+        selectedRating = 0; // Reset selected rating to 0
+        repaint(); // Repaint to update the visual representation
+    }
+
     public int getSelectedRating() {
         return selectedRating;
     }

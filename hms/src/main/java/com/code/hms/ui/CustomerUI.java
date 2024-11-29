@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import com.code.hms.entities.Reservation;
+import com.code.hms.entities.Review;
 import com.code.hms.ui.LoadImage;
 import com.code.hms.daoimpl.ReviewDAOImpl;
 import com.code.hms.daoimpl.ServiceDAOImpl;
@@ -2017,10 +2019,9 @@ public class CustomerUI {
             } else {
                 int response = JOptionPane.showConfirmDialog(frame, "Are you sure you want to send your review?", "Confirm", JOptionPane.YES_NO_OPTION);
                 if (response == JOptionPane.YES_OPTION) {
-
                     JOptionPane.showMessageDialog(frame, "Thank you for your feedback!", "Success", JOptionPane.INFORMATION_MESSAGE);
-//                    WriteFeedback.setText(""); // Clear feedback
-//                    ratingStars.resetRating(); // Reset the stars
+                    WriteFeedback.setText(""); // Clear feedback
+                    ratingStars.resetRating(); // Reset the stars
                 }
             }
         });
