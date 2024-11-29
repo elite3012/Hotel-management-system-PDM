@@ -847,7 +847,7 @@ public class StaffUI {
         ManageUserTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
         ManageUserTable.setVisible(false);
 
-        ManageUserScrollPane = new JScrollPane(ManageUserScrollPane);
+        ManageUserScrollPane = new JScrollPane(ManageUserTable);
         ManageUserScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
         ManageUserScrollPane.setVisible(false);
         panel.add(ManageUserScrollPane);
