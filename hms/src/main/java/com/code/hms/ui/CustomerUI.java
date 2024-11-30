@@ -2015,6 +2015,8 @@ public class CustomerUI {
             EnterDateOut.setVisible(false);
             ChooseTypeOfRoom.setVisible(false);
             RoomList.setVisible(false);
+            NumberOfGuests.setVisible(false);
+            EnterNumberOfGuests.setVisible(false);
 
             NextButton.setVisible(false);
             sendButton.setVisible(true);
