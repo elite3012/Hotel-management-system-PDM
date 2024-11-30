@@ -7,7 +7,7 @@ import jakarta.persistence.Embeddable;
 
 //Composite key class for Room_Reservation
 @Embeddable
-public class Room_Reservation_Pk implements Serializable{
+public  class Room_Reservation_Pk implements Serializable{
     private int roomId;
     private int reservationId;
 

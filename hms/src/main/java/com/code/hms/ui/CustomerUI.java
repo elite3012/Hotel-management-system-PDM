@@ -6,8 +6,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
 
 import com.code.hms.entities.Billing;
 import com.code.hms.entities.Reservation;
@@ -28,6 +30,11 @@ import com.code.hms.daoimpl.UserDaoImpl;
 public class CustomerUI {
 
     static String selectedPaymentMethod;
+
+    private JLabel hotelNameLabel;
+    private JLabel dateLabel;
+    private JLabel welcomeLabel;
+    private JLabel averageRatingLabel;
 
     static JFrame frame;
     static JPanel panel;
@@ -700,9 +707,6 @@ public class CustomerUI {
             
         }
     });
-
-
-        // HotelInfoTab setup
         OurHotelTab = new JButton();
         OurHotelTab.setFocusable(false);
         OurHotelTab.setBackground(new Color(244, 242, 235));
@@ -716,7 +720,43 @@ public class CustomerUI {
         OurHotelTab.setVisible(true);
         new Interaction(OurHotelTab, true);
         panel.add(OurHotelTab);
+
+        hotelNameLabel = new JLabel("Hotel Group 3");   
+        hotelNameLabel.setFont(new Font("Mulish", Font.BOLD, 50));
+        hotelNameLabel.setForeground(new Color(43, 42, 38));
+        hotelNameLabel.setBounds(630, 150, 500, 50);
+        panel.add(hotelNameLabel);
+
+        welcomeLabel = new JLabel("Welcome to Our Hotel!");
+        welcomeLabel.setFont(new Font("Mulish", Font.ITALIC, 50));
+        welcomeLabel.setForeground(new Color(132, 121, 102));
+        welcomeLabel.setBounds(550, 220, 1000, 50);
+        panel.add(welcomeLabel);
+
+        dateLabel = new JLabel();
+        dateLabel.setFont(new Font("Mulish", Font.PLAIN, 30));
+        dateLabel.setForeground(new Color(43, 42, 38));
+        dateLabel.setBounds(600, 530, 1000, 40);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, MMM dd, yyyy");
+        String currentDate = dateFormat.format(new Date());
+        dateLabel.setText("Date: " + currentDate);
+        panel.add(dateLabel);
+
+        averageRatingLabel = new JLabel();
+        averageRatingLabel.setFont(new Font("Mulish", Font.PLAIN, 25));
+        averageRatingLabel.setForeground(new Color(43, 42, 38));
+        averageRatingLabel.setBounds(600, 480, 400, 30);
+        double averageRating = getAverageRatingFromDatabase();
+        averageRatingLabel.setText("Customer Average Rating: " + String.format("%.1f", averageRating) + " / 5.0");
+        panel.add(averageRatingLabel);
+
         OurHotelTab.addActionListener(e -> {
+
+            hotelNameLabel.setVisible(true);
+            welcomeLabel.setVisible(true);
+            dateLabel.setVisible(true);
+            averageRatingLabel.setVisible(true);
+
             Tab1_background.setVisible(true);
             Tab2_background.setVisible(false);
             Tab3_background.setVisible(false);
@@ -918,6 +958,12 @@ public class CustomerUI {
             sendButton.setVisible(false);
             submitButton.setVisible(false);
             SubmitReservationButton.setVisible(false);
+
+            
+            hotelNameLabel.setVisible(false);
+            welcomeLabel.setVisible(false);
+            dateLabel.setVisible(false);
+            averageRatingLabel.setVisible(false);
 
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
@@ -1122,6 +1168,12 @@ public class CustomerUI {
             Tab3_background.setVisible(true);
             Tab4_background.setVisible(false);
 
+            
+            hotelNameLabel.setVisible(false);
+            welcomeLabel.setVisible(false);
+            dateLabel.setVisible(false);
+            averageRatingLabel.setVisible(false);
+
             Restaurant.setVisible(false);
             Spa.setVisible(false);
             RoomCleaning.setVisible(false);
@@ -1277,6 +1329,11 @@ public class CustomerUI {
             Spa.setVisible(false);
             RoomCleaning.setVisible(false);
             MusicLounge.setVisible((false));
+            
+            hotelNameLabel.setVisible(false);
+            welcomeLabel.setVisible(false);
+            dateLabel.setVisible(false);
+            averageRatingLabel.setVisible(false);
 
             CustomerInfo.setVisible(true);
             BookingInformation.setVisible(true);
@@ -1434,6 +1491,11 @@ public class CustomerUI {
             Spa.setVisible(false);
             RoomCleaning.setVisible(false);
             MusicLounge.setVisible((false));
+            
+            hotelNameLabel.setVisible(false);
+            welcomeLabel.setVisible(false);
+            dateLabel.setVisible(false);
+            averageRatingLabel.setVisible(false);
 
             CustomerInfo.setVisible(true);
             BookingInformation.setVisible(true);
@@ -1590,6 +1652,11 @@ public class CustomerUI {
             Spa.setVisible(false);
             RoomCleaning.setVisible(false);
             MusicLounge.setVisible((false));
+            
+            hotelNameLabel.setVisible(false);
+            welcomeLabel.setVisible(false);
+            dateLabel.setVisible(false);
+            averageRatingLabel.setVisible(false);
 
             CustomerInfo.setVisible(true);
             BookingInformation.setVisible(true);
@@ -1761,6 +1828,11 @@ public class CustomerUI {
             SpaLastName.setVisible(false);
             SpaPhoneNumber.setVisible(false);
             SpaEmail.setVisible(false);
+            
+            hotelNameLabel.setVisible(false);
+            welcomeLabel.setVisible(false);
+            dateLabel.setVisible(false);
+            averageRatingLabel.setVisible(false);
 
             RestaurantFirstName.setVisible(false);
             RestaurantLastName.setVisible(false);
@@ -1911,6 +1983,11 @@ public class CustomerUI {
             submitButton.setVisible(false);
             SubmitReservationButton.setVisible(true);
 
+            hotelNameLabel.setVisible(false);
+            welcomeLabel.setVisible(false);
+            dateLabel.setVisible(false);
+            averageRatingLabel.setVisible(false);
+
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
             RoomCleaningCenter.setVisible(false);
@@ -2060,6 +2137,11 @@ public class CustomerUI {
             RoomTab.setForeground(new Color(245, 242, 233));
             ServiceTab.setForeground(new Color(245, 242, 233));
             ReviewTab.setForeground(new Color(43, 42, 38));
+
+            hotelNameLabel.setVisible(false);
+            welcomeLabel.setVisible(false);
+            dateLabel.setVisible(false);
+            averageRatingLabel.setVisible(false);
 
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
@@ -2227,7 +2309,11 @@ public class CustomerUI {
             sendButton.setVisible(true);
             submitButton.setVisible(false);
             SubmitReservationButton.setVisible(false);
-
+            
+            hotelNameLabel.setVisible(false);
+            welcomeLabel.setVisible(false);
+            dateLabel.setVisible(false);
+            averageRatingLabel.setVisible(false);
 
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
@@ -3063,6 +3149,12 @@ public class CustomerUI {
         // Code to add components related to Speciality table
         System.out.println("Massage Package Selected");
 
+    }
+
+    private double getAverageRatingFromDatabase() {
+        // Assuming you have a ReviewDAOImpl class with a method getAverageRating
+        ReviewDAOImpl reviewDao = new ReviewDAOImpl();
+        return reviewDao.getAverageRating();
     }
 }
 

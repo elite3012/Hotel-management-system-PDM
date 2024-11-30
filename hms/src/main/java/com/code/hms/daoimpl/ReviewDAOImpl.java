@@ -1,12 +1,12 @@
 package com.code.hms.daoimpl;
 
-import com.code.hms.connection.DataSourceFactory;
-import com.code.hms.dao.ReviewDAO;
-import com.code.hms.entities.Billing;
-import com.code.hms.entities.Review;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+
+import com.code.hms.connection.DataSourceFactory;
+import com.code.hms.dao.ReviewDAO;
+import com.code.hms.entities.Review;
 import com.code.hms.utils.LoggingEngine;
 
 import jakarta.persistence.NoResultException;
@@ -16,6 +16,13 @@ public class ReviewDAOImpl implements ReviewDAO {
     private DataSourceFactory dataSourceFactory;
     private LoggingEngine logging;
 
+    public ReviewDAOImpl() {
+        dataSourceFactory = new DataSourceFactory();
+        DataSourceFactory.createConnection(); 
+        logging = LoggingEngine.getInstance();
+    }
+
+    
     @Override
     public Review getReviewByID(int reviewId) {
         Review review = null;
