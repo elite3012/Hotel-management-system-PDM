@@ -114,7 +114,7 @@ public class LoginWindow extends JFrame {
                             SwingUtilities.invokeLater(new Runnable() {
                                 public void run() {
                                     int userID = userdao.getUserIDByUsername(username);
-                                    new CustomerUI(userID);
+                                    new CustomerUI();
 
                                 }
                             });
