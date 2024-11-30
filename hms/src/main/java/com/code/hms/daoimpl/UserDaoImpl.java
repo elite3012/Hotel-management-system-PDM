@@ -234,4 +234,26 @@ public class UserDaoImpl implements UserDAO {
 
     return userId;
 }
+    @Override
+    public int getUserIDByPhone(String phone) {
+        int userId = 0;
+        session = dsf.getSessionFactory().openSession();
+
+        try {
+            // Query to get the userId based on the phone number
+            Query<Integer> query = session.createQuery("select u.userId from User u where u.phone = :phone", Integer.class);
+            query.setParameter("phone", phone);
+            userId = query.uniqueResult(); // Fetch the userId based on the phone number
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return userId;
+    }
+
 }
+
+
