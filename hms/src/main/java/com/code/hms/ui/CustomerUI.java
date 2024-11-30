@@ -5,15 +5,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import com.code.hms.entities.Billing;
 import com.code.hms.entities.Reservation;
 import com.code.hms.entities.Review;
+import com.code.hms.loginwindow.LoginWindow;
 import com.code.hms.ui.LoadImage;
+import com.code.hms.daoimpl.BillingDaoImpl;
+import com.code.hms.daoimpl.ReservationDaoImpl;
 import com.code.hms.daoimpl.ReviewDAOImpl;
 import com.code.hms.daoimpl.ServiceDAOImpl;
+import com.code.hms.daoimpl.UserDaoImpl;
 
 public class CustomerUI {
 
-    static int UserID;
+    static String selectedPaymentMethod;
 
     static JFrame frame;
     static JPanel panel;
@@ -23,6 +28,10 @@ public class CustomerUI {
     static JButton ReviewTab;
     static ReviewDAOImpl reviewDAOImpl;
     static ServiceDAOImpl serviceDAOImpl;
+    static BillingDaoImpl billingDaoImpl;
+    static UserDaoImpl userDaoImpl;
+    static ReservationDaoImpl reservationDaoImpl;
+    static Reservation reservation;
 
     static JLabel Tab1_background;
     static JLabel Tab2_background;
@@ -123,12 +132,12 @@ public class CustomerUI {
 
     static JLabel CreditNumber;
     static JLabel NameOnCard;
-    static JLabel ExpDate;
+    static JLabel Amount;
     static JLabel SecCode;
 
     static JLabel CreditNumberPos;
     static JLabel NameCardPos;
-    static JLabel ExpDatePos;
+    static JLabel AmountPos;
     static JLabel SecCodePos;
 
     static JTextField BookingFirstName;
@@ -137,7 +146,7 @@ public class CustomerUI {
     static JTextField BookingEmail;
     static JTextField BookingCredit;
     static JTextField BookingNamecard;
-    static JTextField BookingExpDate;
+    static JTextField BookingAmount;
     static JTextField BookingSecCode;
 
     static JComboBox<String> spaPackageMenu;
@@ -148,8 +157,9 @@ public class CustomerUI {
     static JButton NextButton;
     static JButton sendButton;
     static JButton submitButton;
+    static JButton SubmitReservationButton;
 
-    public CustomerUI(int UserID) {
+    public CustomerUI() {
 
         createMainGUI();
         CreateSpaInfoBox();
@@ -164,7 +174,10 @@ public class CustomerUI {
         createMusicLoungeDropdown();
         reviewDAOImpl = new ReviewDAOImpl();
         serviceDAOImpl = new ServiceDAOImpl();
-        this.UserID = UserID;
+        reservationDaoImpl = new ReservationDaoImpl();
+        userDaoImpl = new UserDaoImpl();
+        billingDaoImpl = new BillingDaoImpl();
+        reservation = new Reservation();
     }
 
     private void createMainGUI() {
@@ -231,13 +244,13 @@ public class CustomerUI {
         NameCardPos.setVisible(false);
         panel.add(NameCardPos);
 
-        ExpDatePos = new JLabel();
-        ExpDatePos.setText("Expiration date");
-        ExpDatePos.setFont(new Font("Mulish", Font.BOLD, 20));
-        ExpDatePos.setBounds(350, 500, 500, 30);
-        ExpDatePos.setForeground(new Color(136, 120, 81));
-        ExpDatePos.setVisible(false);
-        panel.add(ExpDatePos);
+        AmountPos = new JLabel();
+        AmountPos.setText("Amount");
+        AmountPos.setFont(new Font("Mulish", Font.BOLD, 20));
+        AmountPos.setBounds(350, 500, 500, 30);
+        AmountPos.setForeground(new Color(136, 120, 81));
+        AmountPos.setVisible(false);
+        panel.add(AmountPos);
 
         SecCodePos = new JLabel();
         SecCodePos.setText("Security code");
@@ -274,40 +287,79 @@ public class CustomerUI {
         JLabel RoomList = new JLabel();
         RoomList.setText("LIST OF ROOMS");
         RoomList.setFont(new Font("Mulish", Font.BOLD, 33));
-        RoomList.setBounds(650, 220, 1000, 33);
+        RoomList.setBounds(650, 280, 1000, 33);
         RoomList.setForeground(new Color(212, 158, 24));
         RoomList.setVisible(false);
         panel.add(RoomList);
 
-        JLabel ChooseDate = new JLabel();
-        ChooseDate.setText("CHOOSE DATE");
-        ChooseDate.setFont(new Font("Mulish", Font.BOLD, 25));
-        ChooseDate.setBounds(550, 100, 1000, 33);
-        ChooseDate.setForeground(new Color(212, 158, 24));
-        ChooseDate.setVisible(false);
-        panel.add(ChooseDate);
+        // CHECK-IN DATE Section
+        JLabel ChooseDateIn = new JLabel();
+        ChooseDateIn.setText("CHECK-IN DATE");
+        ChooseDateIn.setFont(new Font("Mulish", Font.BOLD, 25));
+        ChooseDateIn.setBounds(390, 100, 300, 33); 
+        ChooseDateIn.setForeground(new Color(212, 158, 24));
+        ChooseDateIn.setHorizontalAlignment(SwingConstants.CENTER); 
+        ChooseDateIn.setVisible(false);
+        panel.add(ChooseDateIn);
 
-        JTextField EnterDate = new JTextField();
-        panel.add(EnterDate);
-        EnterDate.setBounds(550, 150, 190, 28);
-        EnterDate.setBackground(new Color(168, 161, 150));
-        EnterDate.setVisible(false);
-        EnterDate.setBorder(null);
+        JTextField EnterDateIn = new JTextField();
+        panel.add(EnterDateIn);
+        EnterDateIn.setBounds(450, 150, 190, 28);
+        EnterDateIn.setBackground(new Color(168, 161, 150));
+        EnterDateIn.setVisible(false);
+        EnterDateIn.setBorder(null);
 
+        // CHECK-OUT DATE Section
+        JLabel ChooseDateOut = new JLabel();
+        ChooseDateOut.setText("CHECK-OUT DATE");
+        ChooseDateOut.setFont(new Font("Mulish", Font.BOLD, 25));
+        ChooseDateOut.setBounds(620, 100, 315, 33); // Increased width for label
+        ChooseDateOut.setForeground(new Color(212, 158, 24));
+        ChooseDateOut.setHorizontalAlignment(SwingConstants.CENTER); // Center-aligned text
+        ChooseDateOut.setVisible(false);
+        panel.add(ChooseDateOut);
+
+        JTextField EnterDateOut = new JTextField();
+        panel.add(EnterDateOut);
+        EnterDateOut.setBounds(670, 150, 220, 28); 
+        EnterDateOut.setBackground(new Color(168, 161, 150));
+        EnterDateOut.setVisible(false);
+        EnterDateOut.setBorder(null);
+
+        // TYPE OF ROOM Section
         JLabel TypeOfRoom = new JLabel();
         TypeOfRoom.setText("TYPE OF ROOM");
         TypeOfRoom.setFont(new Font("Mulish", Font.BOLD, 25));
-        TypeOfRoom.setBounds(820, 100, 1000, 33);
+        TypeOfRoom.setBounds(870, 100, 300, 33); // Increased width for label
         TypeOfRoom.setForeground(new Color(212, 158, 24));
+        TypeOfRoom.setHorizontalAlignment(SwingConstants.CENTER); // Center-aligned text
         TypeOfRoom.setVisible(false);
         panel.add(TypeOfRoom);
 
         JTextField ChooseTypeOfRoom = new JTextField();
         panel.add(ChooseTypeOfRoom);
-        ChooseTypeOfRoom.setBounds(825, 150, 193, 28);
+        ChooseTypeOfRoom.setBounds(925, 150, 193, 28);
         ChooseTypeOfRoom.setBackground(new Color(168, 161, 150));
         ChooseTypeOfRoom.setVisible(false);
         ChooseTypeOfRoom.setBorder(null);
+
+        // NUMBER OF GUESTS Section
+        JLabel NumberOfGuests = new JLabel();
+        NumberOfGuests.setText("NUMBER OF GUESTS");
+        NumberOfGuests.setFont(new Font("Mulish", Font.BOLD, 25));
+        NumberOfGuests.setBounds(645, 190, 285, 33); 
+        NumberOfGuests.setForeground(new Color(212, 158, 24));
+        NumberOfGuests.setHorizontalAlignment(SwingConstants.CENTER); 
+        NumberOfGuests.setVisible(false); 
+        panel.add(NumberOfGuests);
+
+        JTextField EnterNumberOfGuests = new JTextField();
+        panel.add(EnterNumberOfGuests);
+        EnterNumberOfGuests.setBounds(655, 230, 275, 28); 
+        EnterNumberOfGuests.setBackground(new Color(168, 161, 150));
+        EnterNumberOfGuests.setVisible(false); 
+        EnterNumberOfGuests.setBorder(null);
+
 
         JLabel BookingTitle = new JLabel();
         BookingTitle.setText("YOUR RESERVATION");
@@ -365,25 +417,53 @@ public class CustomerUI {
         panel.add(PaymentMethod);
 
         // Create buttons with icons
-        JLabel visaImage = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/visaIcon.png", 80, 40));
+        JButton visaImage = new JButton(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/visaIcon.png", 80, 40));
         visaImage.setBounds(350, 370, 80, 40);
         panel.add(visaImage);
         visaImage.setVisible(false);
+        visaImage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectedPaymentMethod = "Visa";
+                JOptionPane.showMessageDialog(panel, "Visa selected as payment method.", "Payment Method", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
 
-        JLabel mastercardImage = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/mastercardIcon.png", 80, 40));
+        JButton mastercardImage = new JButton(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/mastercardIcon.png", 80, 40));
         mastercardImage.setBounds(450, 370, 80, 40);
         panel.add(mastercardImage);
         mastercardImage.setVisible(false);
+        mastercardImage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectedPaymentMethod = "MasterCard";
+                JOptionPane.showMessageDialog(panel, "MasterCard selected as payment method.", "Payment Method", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
 
-        JLabel PaypalImage = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/PaypalIcon.png", 80, 40));
+        JButton PaypalImage = new JButton(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/PaypalIcon.png", 80, 40));
         PaypalImage.setBounds(550, 370, 80, 40);
         panel.add(PaypalImage);
         PaypalImage.setVisible(false);
+        PaypalImage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectedPaymentMethod = "PayPal";
+                JOptionPane.showMessageDialog(panel, "PayPal selected as payment method.", "Payment Method", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
 
-        JLabel DiscoverImage = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/DiscoverIcon.png", 80, 40));
+        JButton DiscoverImage = new JButton(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/DiscoverIcon.png", 80, 40));
         DiscoverImage.setBounds(650, 370, 80, 40);
         panel.add(DiscoverImage);
         DiscoverImage.setVisible(false);
+        DiscoverImage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectedPaymentMethod = "Discover";
+                JOptionPane.showMessageDialog(panel, "Discover selected as payment method.", "Payment Method", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
 
         JButton sendButton = new JButton();
         sendButton.setFocusable(false);
@@ -414,7 +494,82 @@ public class CustomerUI {
         NextButton.setBounds(1100, 550, 80, 30);
         NextButton.setForeground(new Color(245, 242, 233));
         NextButton.setVisible(false);
-        panel.add(NextButton);
+        panel.add(NextButton); 
+        NextButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+                // Get input values as Strings
+                String checkinDateString = EnterDateIn.getText().trim();
+                String checkoutDateString = EnterDateOut.getText().trim();
+                String numOfGuestsString = EnterNumberOfGuests.getText().trim();
+
+                // Convert Strings to java.sql.Date (format must be YYYY-MM-DD)
+                java.sql.Date checkinDate = java.sql.Date.valueOf(checkinDateString);
+                java.sql.Date checkoutDate = java.sql.Date.valueOf(checkoutDateString);
+
+                int numOfGuests = Integer.parseInt(numOfGuestsString);
+
+                // Calculate total days
+                long differenceInMilliseconds = checkoutDate.getTime() - checkinDate.getTime();
+                int totalDays = (int) (differenceInMilliseconds / (1000 * 60 * 60 * 24));
+
+                reservation.setCheckinDate(checkinDate);
+                reservation.setCheckoutDate(checkoutDate);
+                reservation.setNumOfGuests(numOfGuests);
+                reservation.setTotalDays(totalDays);
+            }
+        });
+
+        JButton SubmitReservationButton = new JButton();
+        SubmitReservationButton.setFocusable(false);
+        SubmitReservationButton.setBackground(new Color(132, 121, 102));
+        SubmitReservationButton.setBorderPainted(false);
+        SubmitReservationButton.setText("SUBMIT");
+        SubmitReservationButton.setFont(new Font("Mulish", Font.BOLD, 14));
+        SubmitReservationButton.setBounds(1100, 550, 120, 30);
+        SubmitReservationButton.setForeground(new Color(245, 242, 233));
+        SubmitReservationButton.setVisible(false);
+        panel.add(SubmitReservationButton); 
+        SubmitReservationButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                String phone = BookingPhoneNumber.getText().trim();
+                int user_Id = userDaoImpl.getUserIDByPhone(phone);
+                if (user_Id == 0) {
+                    JOptionPane.showMessageDialog(panel, "No user found with the provided phone number.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return; // Exit the method
+                }
+
+                double amount = Double.parseDouble(BookingAmount.getText().trim());
+                reservation.setUserId(user_Id);
+                reservationDaoImpl.saveReservation(reservation);
+                String paymentMethod = selectedPaymentMethod;
+                if (paymentMethod == null || paymentMethod.trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(panel, "Please select a valid payment method.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return; // Exit the method
+                } 
+
+                java.sql.Date billingDate = new java.sql.Date(System.currentTimeMillis());
+
+                Billing billing = new Billing();
+                billing.setReservation(reservation); // Link the Reservation
+                billing.setAmount(amount);
+                billing.setPaymentMethod(paymentMethod);
+                billing.setDate(billingDate);
+                billingDaoImpl.saveBilling(billing);
+
+                JOptionPane.showMessageDialog(panel, "Reservation and Billing saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(panel, "Invalid amount format. Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(panel, "An error occurred while saving the billing or saving the reservation.", "Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+            
+        }
+    });
+
 
         // HotelInfoTab setup
         OurHotelTab = new JButton();
@@ -539,15 +694,20 @@ public class CustomerUI {
             Feedback.setVisible(false);
 
             RoomBooking.setVisible(false);
-            ChooseDate.setVisible(false);
+            ChooseDateIn.setVisible(false);
+            ChooseDateOut.setVisible(false);
+            NumberOfGuests.setVisible(false);
             TypeOfRoom.setVisible(false);
-            EnterDate.setVisible(false);
+            EnterDateIn.setVisible(false);
+            EnterDateOut.setVisible(false);
+            EnterNumberOfGuests.setVisible(false);
             ChooseTypeOfRoom.setVisible(false);
             RoomList.setVisible(false);
 
             NextButton.setVisible(false);
             sendButton.setVisible(false);
             submitButton.setVisible(false);
+            SubmitReservationButton.setVisible(false);
 
             BookingTitle.setVisible(false);
 
@@ -558,12 +718,12 @@ public class CustomerUI {
 
             CreditNumber.setVisible(false);
             NameOnCard.setVisible(false);
-            ExpDate.setVisible(false);
+            Amount.setVisible(false);
             SecCode.setVisible(false);
 
             CreditNumberPos.setVisible(false);
             NameCardPos.setVisible(false);
-            ExpDatePos.setVisible(false);
+            AmountPos.setVisible(false);
             SecCodePos.setVisible(false);
 
             BookingFirstName.setVisible(false);
@@ -572,7 +732,7 @@ public class CustomerUI {
             BookingEmail.setVisible(false);
             BookingCredit.setVisible(false);
             BookingNamecard.setVisible(false);
-            BookingExpDate.setVisible(false);
+            BookingAmount.setVisible(false);
             BookingSecCode.setVisible(false);
 
             spaPackageMenu.setVisible(false);
@@ -624,6 +784,7 @@ public class CustomerUI {
             NextButton.setVisible(true);
             sendButton.setVisible(false);
             submitButton.setVisible(false);
+            SubmitReservationButton.setVisible(false);
 
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
@@ -711,9 +872,13 @@ public class CustomerUI {
             Feedback.setVisible(false);
 
             RoomBooking.setVisible(true);
-            ChooseDate.setVisible(true);
+            ChooseDateIn.setVisible(true);
+            ChooseDateOut.setVisible(true);
+            NumberOfGuests.setVisible(true);
             TypeOfRoom.setVisible(true);
-            EnterDate.setVisible(true);
+            EnterDateIn.setVisible(true);
+            EnterDateOut.setVisible(true);
+            EnterNumberOfGuests.setVisible(true);
             ChooseTypeOfRoom.setVisible(true);
             RoomList.setVisible(true);
 
@@ -728,12 +893,12 @@ public class CustomerUI {
 
             CreditNumber.setVisible(false);
             NameOnCard.setVisible(false);
-            ExpDate.setVisible(false);
+            Amount.setVisible(false);
             SecCode.setVisible(false);
 
             CreditNumberPos.setVisible(false);
             NameCardPos.setVisible(false);
-            ExpDatePos.setVisible(false);
+            AmountPos.setVisible(false);
             SecCodePos.setVisible(false);
 
             BookingFirstName.setVisible(false);
@@ -742,7 +907,7 @@ public class CustomerUI {
             BookingEmail.setVisible(false);
             BookingCredit.setVisible(false);
             BookingNamecard.setVisible(false);
-            BookingExpDate.setVisible(false);
+            BookingAmount.setVisible(false);
             BookingSecCode.setVisible(false);
 
             spaPackageMenu.setVisible(false);
@@ -1530,15 +1695,20 @@ public class CustomerUI {
             Feedback.setVisible(false);
 
             RoomBooking.setVisible(false);
-            ChooseDate.setVisible(false);
+            ChooseDateIn.setVisible(false);
+            ChooseDateOut.setVisible(false);
+            NumberOfGuests.setVisible(false);
             TypeOfRoom.setVisible(false);
-            EnterDate.setVisible(false);
+            EnterDateIn.setVisible(false);
+            EnterDateOut.setVisible(false);
+            EnterNumberOfGuests.setVisible(false);
             ChooseTypeOfRoom.setVisible(false);
             RoomList.setVisible(false);
 
             NextButton.setVisible(false);
             sendButton.setVisible(false);
             submitButton.setVisible(false);
+            SubmitReservationButton.setVisible(false);
 
             BookingTitle.setVisible(false);
 
@@ -1549,12 +1719,12 @@ public class CustomerUI {
 
             CreditNumber.setVisible(false);
             NameOnCard.setVisible(false);
-            ExpDate.setVisible(false);
+            Amount.setVisible(false);
             SecCode.setVisible(false);
 
             CreditNumberPos.setVisible(false);
             NameCardPos.setVisible(false);
-            ExpDatePos.setVisible(false);
+            AmountPos.setVisible(false);
             SecCodePos.setVisible(false);
 
             BookingFirstName.setVisible(false);
@@ -1563,7 +1733,7 @@ public class CustomerUI {
             BookingEmail.setVisible(false);
             BookingCredit.setVisible(false);
             BookingNamecard.setVisible(false);
-            BookingExpDate.setVisible(false);
+            BookingAmount.setVisible(false);
             BookingSecCode.setVisible(false);
 
             spaPackageMenu.setVisible(false);
@@ -1602,6 +1772,7 @@ public class CustomerUI {
             NextButton.setVisible(false);
             sendButton.setVisible(false);
             submitButton.setVisible(false);
+            SubmitReservationButton.setVisible(true);
 
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
@@ -1669,9 +1840,13 @@ public class CustomerUI {
             Feedback.setVisible(false);
 
             RoomBooking.setVisible(false);
-            ChooseDate.setVisible(false);
+            ChooseDateIn.setVisible(false);
+            ChooseDateOut.setVisible(false);
+            NumberOfGuests.setVisible(false);
             TypeOfRoom.setVisible(false);
-            EnterDate.setVisible(false);
+            EnterDateIn.setVisible(false);
+            EnterDateOut.setVisible(false);
+            EnterNumberOfGuests.setVisible(false);
             ChooseTypeOfRoom.setVisible(false);
             RoomList.setVisible(false);
 
@@ -1684,12 +1859,12 @@ public class CustomerUI {
 
             CreditNumber.setVisible(true);
             NameOnCard.setVisible(true);
-            ExpDate.setVisible(true);
+            Amount.setVisible(true);
             SecCode.setVisible(true);
 
             CreditNumberPos.setVisible(true);
             NameCardPos.setVisible(true);
-            ExpDatePos.setVisible(true);
+            AmountPos.setVisible(true);
             SecCodePos.setVisible(true);
 
             BookingFirstName.setVisible(true);
@@ -1698,7 +1873,7 @@ public class CustomerUI {
             BookingEmail.setVisible(true);
             BookingCredit.setVisible(true);
             BookingNamecard.setVisible(true);
-            BookingExpDate.setVisible(true);
+            BookingAmount.setVisible(true);
             BookingSecCode.setVisible(true);
 
             spaPackageMenu.setVisible(false);
@@ -1712,6 +1887,7 @@ public class CustomerUI {
 
             MusicLoungePackageMenu.setVisible(false);
             MusicLoungePackPosition.setVisible(false);
+
         });
 
         ReviewTab = new JButton();
@@ -1832,15 +2008,18 @@ public class CustomerUI {
             Feedback.setVisible(true);
 
             RoomBooking.setVisible(false);
-            ChooseDate.setVisible(false);
+            ChooseDateIn.setVisible(false);
+            ChooseDateOut.setVisible(false);
             TypeOfRoom.setVisible(false);
-            EnterDate.setVisible(false);
+            EnterDateIn.setVisible(false);
+            EnterDateOut.setVisible(false);
             ChooseTypeOfRoom.setVisible(false);
             RoomList.setVisible(false);
 
             NextButton.setVisible(false);
             sendButton.setVisible(true);
             submitButton.setVisible(false);
+            SubmitReservationButton.setVisible(false);
 
             BookingTitle.setVisible(false);
 
@@ -1851,12 +2030,12 @@ public class CustomerUI {
 
             CreditNumberPos.setVisible(false);
             NameCardPos.setVisible(false);
-            ExpDatePos.setVisible(false);
+            AmountPos.setVisible(false);
             SecCodePos.setVisible(false);
 
             CreditNumber.setVisible(false);
             NameOnCard.setVisible(false);
-            ExpDate.setVisible(false);
+            Amount.setVisible(false);
             SecCode.setVisible(false);
 
             BookingFirstName.setVisible(false);
@@ -1865,7 +2044,7 @@ public class CustomerUI {
             BookingEmail.setVisible(false);
             BookingCredit.setVisible(false);
             BookingNamecard.setVisible(false);
-            BookingExpDate.setVisible(false);
+            BookingAmount.setVisible(false);
             BookingSecCode.setVisible(false);
 
             spaPackageMenu.setVisible(false);
@@ -1904,6 +2083,7 @@ public class CustomerUI {
             NextButton.setVisible(false);
             sendButton.setVisible(true);
             submitButton.setVisible(false);
+            SubmitReservationButton.setVisible(false);
 
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
@@ -1971,9 +2151,13 @@ public class CustomerUI {
             Feedback.setVisible(true);
 
             RoomBooking.setVisible(false);
-            ChooseDate.setVisible(false);
+            ChooseDateIn.setVisible(false);
+            ChooseDateOut.setVisible(false);
+            NumberOfGuests.setVisible(false);
             TypeOfRoom.setVisible(false);
-            EnterDate.setVisible(false);
+            EnterDateIn.setVisible(false);
+            EnterDateOut.setVisible(false);
+            EnterNumberOfGuests.setVisible(false);
             ChooseTypeOfRoom.setVisible(false);
             RoomList.setVisible(false);
 
@@ -1986,12 +2170,12 @@ public class CustomerUI {
 
             CreditNumber.setVisible(false);
             NameOnCard.setVisible(false);
-            ExpDate.setVisible(false);
+            Amount.setVisible(false);
             SecCode.setVisible(false);
 
             CreditNumberPos.setVisible(false);
             NameCardPos.setVisible(false);
-            ExpDatePos.setVisible(false);
+            AmountPos.setVisible(false);
             SecCodePos.setVisible(false);
 
             BookingFirstName.setVisible(false);
@@ -2000,7 +2184,7 @@ public class CustomerUI {
             BookingEmail.setVisible(false);
             BookingCredit.setVisible(false);
             BookingNamecard.setVisible(false);
-            BookingExpDate.setVisible(false);
+            BookingAmount.setVisible(false);
             BookingSecCode.setVisible(false);
 
             spaPackageMenu.setVisible(false);
@@ -2133,11 +2317,11 @@ public class CustomerUI {
         panel.setComponentZOrder(NameOnCard, 0); // Brings it to the top of the component stack
         NameOnCard.setVisible(false);
 
-        ExpDate = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
-        ExpDate.setBounds(350, 530, 300, 30);
-        panel.add(ExpDate);
-        panel.setComponentZOrder(ExpDate, 0); // Brings it to the top of the component stack
-        ExpDate.setVisible(false);
+        Amount = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
+        Amount.setBounds(350, 530, 300, 30);
+        panel.add(Amount);
+        panel.setComponentZOrder(Amount, 0); // Brings it to the top of the component stack
+        Amount.setVisible(false);
 
         SecCode = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
         SecCode.setBounds(750, 530, 300, 30);
@@ -2295,12 +2479,12 @@ public class CustomerUI {
         BookingNamecard.setVisible(false);
         BookingNamecard.setBorder(null);
 
-        BookingExpDate = new JTextField();
-        panel.add(BookingExpDate);
-        BookingExpDate.setBounds(352, 531, 295, 28);
-        BookingExpDate.setBackground(new Color(244, 242, 235));
-        BookingExpDate.setVisible(false);
-        BookingExpDate.setBorder(null);
+        BookingAmount = new JTextField();
+        panel.add(BookingAmount);
+        BookingAmount.setBounds(352, 531, 295, 28);
+        BookingAmount.setBackground(new Color(244, 242, 235));
+        BookingAmount.setVisible(false);
+        BookingAmount.setBorder(null);
 
         BookingSecCode = new JTextField();
         panel.add(BookingSecCode);
