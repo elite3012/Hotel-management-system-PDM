@@ -31,6 +31,7 @@ public interface UserDAO {
     public List<Review> getReviewsByCustomer(int customerId);
 
     public int getUserIDByUsername(String Username);
+    public int getUserIDByPhone(String phone);
     
     // Common functionalities
     public void updateUser(User user);
