@@ -12,13 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
 
-import com.code.hms.dao.User_ServiceDAO;
 import com.code.hms.daoimpl.ReservationDaoImpl;
-import com.code.hms.daoimpl.User_ServiceDAOImpl;
 import com.code.hms.entities.Reservation;
-import com.code.hms.entities.Service;
-import com.code.hms.entities.User;
-import com.code.hms.entities.User_Service;
 
 import java.util.List;
 
@@ -1004,16 +999,6 @@ public class StaffUI {
         serviceOrderScrollPane.setVisible(false);
         panel.add(serviceOrderScrollPane);
 
-        // Create "Add Service" button
-        JButton addServiceButton = createRoundedButton("Add Service");
-        addServiceButton.setBounds(20, 20, 150, 30); // Set bounds for the button
-        addServiceButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addServiceOrder();
-            }
-        });
-
         serviceOrderPanel = new JPanel();
         serviceOrderPanel.setBounds(374, 40, 800, 530);
         serviceOrderPanel.setOpaque(false);
@@ -1182,41 +1167,6 @@ public class StaffUI {
         financialPanel.setVisible(false); // Hide the financial panel
         billingScrollPane.setVisible(false); // Hide the scroll pane
 
-    }
-    private void addServiceOrder() {
-        try {
-            String userIdInput = JOptionPane.showInputDialog("Enter User ID:");
-            if (userIdInput == null || userIdInput.isEmpty())
-                throw new IllegalArgumentException("User  ID cannot be empty.");
-            int userId = Integer.parseInt(userIdInput);
-
-            String serviceNameInput = JOptionPane.showInputDialog("Enter Service Name:");
-            if (serviceNameInput == null || serviceNameInput.isEmpty())
-                throw new IllegalArgumentException("Service Name cannot be empty.");
-
-            // Create a new User_Service object
-            User_Service userService = new User_Service();
-
-            User user = new User(); // Assuming you have a User class
-            user.setUserId(userId); // Ensure this method exists and is correct
-            userService.setUser (user);
-
-            Service service = new Service(); // Assuming you have a Service class
-            service.setServiceName(serviceNameInput); // Set the service name as the service type
-            userService.setService(service);
-
-            // Call the DAO to save the service order
-            User_ServiceDAO userServiceDAO = new User_ServiceDAOImpl();
-            userServiceDAO.saveServiceOrder(userService);
-
-            JOptionPane.showMessageDialog(serviceOrderPanel, "Service order added successfully!");
-
-        } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(serviceOrderPanel, "Error: " + ex.getMessage(), "Input Error", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(serviceOrderPanel, "Failed to add service order", "Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
-        }
     }
 }
 //debug commit command
