@@ -147,6 +147,9 @@ public class SignUpWindow extends JFrame {
 
             userdao.addUser(user);
             JOptionPane.showMessageDialog(this, "Sign-Up successful for: " + username, "Success", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+            LoginWindow lg = new LoginWindow();
+            lg.setVisible(true);
         }
     }
 
