@@ -1,18 +1,27 @@
 package com.code.hms.ui;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.code.hms.entities.Billing;
 import com.code.hms.entities.Reservation;
 import com.code.hms.entities.Review;
+import com.code.hms.entities.Room;
+import com.code.hms.entities.Room_Reservation;
+import com.code.hms.entities.Room_Reservation_Pk;
 import com.code.hms.loginwindow.LoginWindow;
 import com.code.hms.ui.LoadImage;
 import com.code.hms.daoimpl.BillingDaoImpl;
 import com.code.hms.daoimpl.ReservationDaoImpl;
 import com.code.hms.daoimpl.ReviewDAOImpl;
+import com.code.hms.daoimpl.RoomDaoImpl;
+import com.code.hms.daoimpl.Room_ReservationDaoImpl;
 import com.code.hms.daoimpl.ServiceDAOImpl;
 import com.code.hms.daoimpl.UserDaoImpl;
 
@@ -31,6 +40,9 @@ public class CustomerUI {
     static BillingDaoImpl billingDaoImpl;
     static UserDaoImpl userDaoImpl;
     static ReservationDaoImpl reservationDaoImpl;
+    static RoomDaoImpl roomDaoImpl;
+    static Room_ReservationDaoImpl room_ReservationDaoImpl;
+
     static Reservation reservation;
 
     static JLabel Tab1_background;
@@ -159,7 +171,19 @@ public class CustomerUI {
     static JButton submitButton;
     static JButton SubmitReservationButton;
 
+    static JScrollPane RoomSelectionField;
+
+    static List<Integer> selectedRoomIds;
+
     public CustomerUI() {
+        reviewDAOImpl = new ReviewDAOImpl();
+        serviceDAOImpl = new ServiceDAOImpl();
+        reservationDaoImpl = new ReservationDaoImpl();
+        userDaoImpl = new UserDaoImpl();
+        billingDaoImpl = new BillingDaoImpl();
+        roomDaoImpl = new RoomDaoImpl();
+        reservation = new Reservation();
+        room_ReservationDaoImpl = new Room_ReservationDaoImpl();
 
         createMainGUI();
         CreateSpaInfoBox();
@@ -172,12 +196,6 @@ public class CustomerUI {
         createResDropdown();
         createRoomCleanDropdown();
         createMusicLoungeDropdown();
-        reviewDAOImpl = new ReviewDAOImpl();
-        serviceDAOImpl = new ServiceDAOImpl();
-        reservationDaoImpl = new ReservationDaoImpl();
-        userDaoImpl = new UserDaoImpl();
-        billingDaoImpl = new BillingDaoImpl();
-        reservation = new Reservation();
     }
 
     private void createMainGUI() {
@@ -284,13 +302,52 @@ public class CustomerUI {
         RoomBooking.setVisible(false);
         panel.add(RoomBooking);
 
-        JLabel RoomList = new JLabel();
-        RoomList.setText("LIST OF ROOMS");
+        JButton RoomList = new JButton();
+        RoomList.setText("LIST OF AVAILABLE ROOMS");
         RoomList.setFont(new Font("Mulish", Font.BOLD, 33));
-        RoomList.setBounds(650, 280, 1000, 33);
-        RoomList.setForeground(new Color(212, 158, 24));
+        RoomList.setBounds(400, 390, 710, 33);
         RoomList.setVisible(false);
+        RoomList.setBackground(new Color(132, 121, 102));
+        RoomList.setForeground(new Color(245, 242, 233));
         panel.add(RoomList);
+        RoomList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Fetch available rooms
+                List<Room> availableRooms = roomDaoImpl.getAllAvailableRooms(); 
+
+                if (availableRooms != null && !availableRooms.isEmpty()) {
+                    String[] columnNames = {"Room ID", "Room Type", "Price", "Room Status", "Cleaning Status", "Room Capacity"};
+                    Object[][] tableData = new Object[availableRooms.size()][columnNames.length];
+                    for (int i = 0; i < availableRooms.size(); i++) {
+                        Room room = availableRooms.get(i);
+                        tableData[i][0] = room.getRoomId();
+                        tableData[i][1] = room.getRoomType();
+                        tableData[i][2] = room.getPrice();
+                        tableData[i][3] = room.getRoomStatus();
+                        tableData[i][4] = room.getCleaningStatus();
+                        tableData[i][5] = room.getRoomCapacity();
+                    }
+
+                    JTable roomTable = new JTable(new DefaultTableModel(tableData, columnNames));
+                    JScrollPane scrollPane = new JScrollPane(roomTable);
+
+                    roomTable.setFillsViewportHeight(true);
+                    roomTable.setRowHeight(25);
+                    roomTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 15));
+                    roomTable.setFont(new Font("Mulish", Font.PLAIN, 14));
+
+                    JDialog tableDialog = new JDialog();
+                    tableDialog.setTitle("Available Rooms");
+                    tableDialog.setSize(800, 400);
+                    tableDialog.setLocationRelativeTo(panel);
+                    tableDialog.add(scrollPane);
+                    tableDialog.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(panel, "No available rooms at the moment.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
 
         // CHECK-IN DATE Section
         JLabel ChooseDateIn = new JLabel();
@@ -359,6 +416,35 @@ public class CustomerUI {
         EnterNumberOfGuests.setBackground(new Color(168, 161, 150));
         EnterNumberOfGuests.setVisible(false); 
         EnterNumberOfGuests.setBorder(null);
+
+        // ROOM SELECTION Section
+        JLabel RoomSelectionLabel = new JLabel();
+        RoomSelectionLabel.setText("SELECT ROOM");
+        RoomSelectionLabel.setFont(new Font("Mulish", Font.BOLD, 25));
+        RoomSelectionLabel.setBounds(645, 460, 285, 33);  RoomSelectionLabel.setVisible(false);
+        RoomSelectionLabel.setForeground(new Color(212, 158, 24));
+        RoomSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER); 
+        panel.add(RoomSelectionLabel);
+
+        List<Room> availableRooms = roomDaoImpl.getAllAvailableRooms();
+        if (availableRooms == null || availableRooms.isEmpty()) {
+            JOptionPane.showMessageDialog(panel, "No rooms are available for booking.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; 
+        }
+        String[] roomOptions = new String[availableRooms.size()];
+        for (int i = 0; i < availableRooms.size(); i++) {
+            Room room = availableRooms.get(i);
+            roomOptions[i] = "Room " + room.getRoomId() + " - " + room.getRoomType();
+        }
+        JList<String> roomList = new JList<>(roomOptions);
+        roomList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        roomList.setBackground(new Color(168, 161, 150));
+        roomList.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102)));
+
+        JScrollPane RoomSelectionField = new JScrollPane(roomList);
+        RoomSelectionField.setBounds(670, 500, 220, 100); 
+        RoomSelectionField.setVisible(false); 
+        panel.add(RoomSelectionField);
 
 
         JLabel BookingTitle = new JLabel();
@@ -495,21 +581,20 @@ public class CustomerUI {
         NextButton.setForeground(new Color(245, 242, 233));
         NextButton.setVisible(false);
         panel.add(NextButton); 
-        NextButton.addActionListener(new ActionListener() {
+       NextButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-                // Get input values as Strings
+            try {
+
                 String checkinDateString = EnterDateIn.getText().trim();
                 String checkoutDateString = EnterDateOut.getText().trim();
                 String numOfGuestsString = EnterNumberOfGuests.getText().trim();
 
-                // Convert Strings to java.sql.Date (format must be YYYY-MM-DD)
                 java.sql.Date checkinDate = java.sql.Date.valueOf(checkinDateString);
                 java.sql.Date checkoutDate = java.sql.Date.valueOf(checkoutDateString);
-
                 int numOfGuests = Integer.parseInt(numOfGuestsString);
 
-                // Calculate total days
+
                 long differenceInMilliseconds = checkoutDate.getTime() - checkinDate.getTime();
                 int totalDays = (int) (differenceInMilliseconds / (1000 * 60 * 60 * 24));
 
@@ -517,8 +602,48 @@ public class CustomerUI {
                 reservation.setCheckoutDate(checkoutDate);
                 reservation.setNumOfGuests(numOfGuests);
                 reservation.setTotalDays(totalDays);
+
+                List<String> selectedRooms = roomList.getSelectedValuesList(); 
+                if (selectedRooms.isEmpty()) {
+                    JOptionPane.showMessageDialog(panel, "Please select at least one room.", "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                for (String selectedRoom : selectedRooms) {
+                    selectedRoomIds = new ArrayList<>() ;
+                    int roomId = Integer.parseInt(selectedRoom.split(" ")[1]);
+                    Room room = roomDaoImpl.getRoomByRoomID(roomId);
+                    if (room == null || !room.getRoomStatus().equalsIgnoreCase("Available")) {
+                        JOptionPane.showMessageDialog(panel, "Room " + roomId + " is not available!", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    } else {
+                        selectedRoomIds.add(roomId);
+                    }
+                }
+
+                for (String selectedRoom : selectedRooms) {
+                    int roomId = Integer.parseInt(selectedRoom.split(" ")[1]);
+                    Room_Reservation_Pk compositeKey = new Room_Reservation_Pk(roomId, reservation.getReservationId());
+                    Room_Reservation roomReservation = new Room_Reservation();
+                    roomReservation.setPk(compositeKey);
+                    roomReservation.setDate(checkinDate); 
+                    roomReservation.setTime(new java.sql.Time(System.currentTimeMillis())); 
+                    room_ReservationDaoImpl.saveRoomReservation(roomReservation);
+                }
+
+                // Show success message
+                JOptionPane.showMessageDialog(panel, "Fill the information successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(panel, "Please enter valid input for number of guests.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(panel, "Please enter valid dates in the format YYYY-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(panel, "An unexpected error occurred. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
             }
-        });
+        }
+});
 
         JButton SubmitReservationButton = new JButton();
         SubmitReservationButton.setFocusable(false);
@@ -534,6 +659,12 @@ public class CustomerUI {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
+                for (int roomId : selectedRoomIds) {
+                    Room room = roomDaoImpl.getRoomByRoomID(roomId);
+                    room.setRoomStatus("Unavailable");
+                    roomDaoImpl.updateRoom(room);
+                }
+
                 String phone = BookingPhoneNumber.getText().trim();
                 int user_Id = userDaoImpl.getUserIDByPhone(phone);
                 if (user_Id == 0) {
@@ -702,6 +833,8 @@ public class CustomerUI {
             EnterDateOut.setVisible(false);
             EnterNumberOfGuests.setVisible(false);
             ChooseTypeOfRoom.setVisible(false);
+            RoomSelectionField.setVisible(false);
+            RoomSelectionLabel.setVisible(false);
             RoomList.setVisible(false);
 
             NextButton.setVisible(false);
@@ -880,6 +1013,8 @@ public class CustomerUI {
             EnterDateOut.setVisible(true);
             EnterNumberOfGuests.setVisible(true);
             ChooseTypeOfRoom.setVisible(true);
+            RoomSelectionField.setVisible(true);
+            RoomSelectionLabel.setVisible(true);
             RoomList.setVisible(true);
 
             BookingTitle.setVisible(false);
@@ -1703,6 +1838,8 @@ public class CustomerUI {
             EnterDateOut.setVisible(false);
             EnterNumberOfGuests.setVisible(false);
             ChooseTypeOfRoom.setVisible(false);
+            RoomSelectionField.setVisible(false);
+            RoomSelectionLabel.setVisible(false);
             RoomList.setVisible(false);
 
             NextButton.setVisible(false);
@@ -1848,6 +1985,8 @@ public class CustomerUI {
             EnterDateOut.setVisible(false);
             EnterNumberOfGuests.setVisible(false);
             ChooseTypeOfRoom.setVisible(false);
+            RoomSelectionField.setVisible(false);
+            RoomSelectionLabel.setVisible(false);
             RoomList.setVisible(false);
 
             BookingTitle.setVisible(true);
@@ -2017,6 +2156,8 @@ public class CustomerUI {
             RoomList.setVisible(false);
             NumberOfGuests.setVisible(false);
             EnterNumberOfGuests.setVisible(false);
+            RoomSelectionField.setVisible(false);
+            RoomSelectionLabel.setVisible(false);
 
             NextButton.setVisible(false);
             sendButton.setVisible(true);
@@ -2086,6 +2227,7 @@ public class CustomerUI {
             sendButton.setVisible(true);
             submitButton.setVisible(false);
             SubmitReservationButton.setVisible(false);
+
 
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
@@ -2162,7 +2304,8 @@ public class CustomerUI {
             EnterNumberOfGuests.setVisible(false);
             ChooseTypeOfRoom.setVisible(false);
             RoomList.setVisible(false);
-
+            RoomSelectionLabel.setVisible(false);
+            RoomSelectionField.setVisible(false);
             BookingTitle.setVisible(false);
 
 //            visaImage.setVisible(true);
