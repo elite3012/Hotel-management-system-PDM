@@ -113,9 +113,7 @@ public class LoginWindow extends JFrame {
                             JOptionPane.showMessageDialog(null, "Logging in for user: " + userdao.checkLogin(username, password));
                             SwingUtilities.invokeLater(new Runnable() {
                                 public void run() {
-                                    int userID = userdao.getUserIDByUsername(username);
                                     new CustomerUI();
-
                                 }
                             });
                             dispose();

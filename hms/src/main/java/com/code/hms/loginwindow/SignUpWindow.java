@@ -12,7 +12,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import com.code.hms.connection.DatabaseServerPreparingInitializer;
 import com.code.hms.daoimpl.UserDaoImpl;
 import com.code.hms.entities.User;
 
@@ -21,20 +20,12 @@ public class SignUpWindow extends JFrame {
     private JTextField firstNameField, lastNameField, dateOfBirthField, idNumberField, nationalityField, addressField, phoneNumberField, emailField, usernameField;
     private JPasswordField passwordField, confirmPasswordField;
     private JComboBox<String> roleDropdown;
-
+    
     public SignUpWindow() {
         setTitle("Sign Up");
         setSize(1280, 672);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        DatabaseServerPreparingInitializer dbConnect = new DatabaseServerPreparingInitializer();
-        dbConnect.runScriptFile();
-        
-        if (!dbConnect.getStatus()) {
-            System.out.println("Database initialization failed.");
-        } else {
-            System.out.println("Database initialized successfully.");
-        }
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
