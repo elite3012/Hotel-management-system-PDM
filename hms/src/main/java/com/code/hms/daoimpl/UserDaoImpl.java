@@ -159,18 +159,18 @@ public class UserDaoImpl implements UserDAO {
     }
     @Override
     public void saveUser (User user) {
+        Session session = null;
         Transaction transaction = null;
         try {
             session = dsf.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-
             session.persist(user);
-
             transaction.commit();
             logging.setMessage("User  saved successfully.");
         } catch (HibernateException e) {
             if (transaction != null) transaction.rollback();
             logging.setMessage("Error saving user: " + e.getLocalizedMessage());
+            e.printStackTrace(); // Log the exception for debugging
         } finally {
             if (session != null) session.close();
         }
@@ -195,12 +195,12 @@ public class UserDaoImpl implements UserDAO {
     }
 
     @Override
-    public void deleteUser(int userId) {
+    public User deleteUser(int userId) {
         session = dsf.getSessionFactory().openSession();
         
         try {
             session.beginTransaction();
-            MutationQuery query = session.createMutationQuery("delete from user u where u.userId = :userId");
+            MutationQuery query = session.createMutationQuery("delete from User u where u.userId = :userId");
             query.setParameter("userId", userId);
             int result = query.executeUpdate();
 
@@ -217,6 +217,7 @@ public class UserDaoImpl implements UserDAO {
         } finally {
             session.close();
         }
+        return null;
     }
 
     @Override
