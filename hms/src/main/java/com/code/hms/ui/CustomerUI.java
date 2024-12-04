@@ -189,7 +189,6 @@ public class CustomerUI {
         userDaoImpl = new UserDaoImpl();
         billingDaoImpl = new BillingDaoImpl();
         roomDaoImpl = new RoomDaoImpl();
-        reservation = new Reservation();
         room_ReservationDaoImpl = new Room_ReservationDaoImpl();
 
         createMainGUI();
@@ -377,7 +376,7 @@ public class CustomerUI {
         JLabel ChooseDateOut = new JLabel();
         ChooseDateOut.setText("CHECK-OUT DATE");
         ChooseDateOut.setFont(new Font("Mulish", Font.BOLD, 25));
-        ChooseDateOut.setBounds(620, 100, 315, 33); // Increased width for label
+        ChooseDateOut.setBounds(850, 100, 315, 33); // Increased width for label
         ChooseDateOut.setForeground(new Color(212, 158, 24));
         ChooseDateOut.setHorizontalAlignment(SwingConstants.CENTER); // Center-aligned text
         ChooseDateOut.setVisible(false);
@@ -385,33 +384,16 @@ public class CustomerUI {
 
         JTextField EnterDateOut = new JTextField();
         panel.add(EnterDateOut);
-        EnterDateOut.setBounds(670, 150, 220, 28); 
+        EnterDateOut.setBounds(900, 150, 220, 28); 
         EnterDateOut.setBackground(new Color(168, 161, 150));
         EnterDateOut.setVisible(false);
         EnterDateOut.setBorder(null);
-
-        // TYPE OF ROOM Section
-        JLabel TypeOfRoom = new JLabel();
-        TypeOfRoom.setText("TYPE OF ROOM");
-        TypeOfRoom.setFont(new Font("Mulish", Font.BOLD, 25));
-        TypeOfRoom.setBounds(870, 100, 300, 33); // Increased width for label
-        TypeOfRoom.setForeground(new Color(212, 158, 24));
-        TypeOfRoom.setHorizontalAlignment(SwingConstants.CENTER); // Center-aligned text
-        TypeOfRoom.setVisible(false);
-        panel.add(TypeOfRoom);
-
-        JTextField ChooseTypeOfRoom = new JTextField();
-        panel.add(ChooseTypeOfRoom);
-        ChooseTypeOfRoom.setBounds(925, 150, 193, 28);
-        ChooseTypeOfRoom.setBackground(new Color(168, 161, 150));
-        ChooseTypeOfRoom.setVisible(false);
-        ChooseTypeOfRoom.setBorder(null);
 
         // NUMBER OF GUESTS Section
         JLabel NumberOfGuests = new JLabel();
         NumberOfGuests.setText("NUMBER OF GUESTS");
         NumberOfGuests.setFont(new Font("Mulish", Font.BOLD, 25));
-        NumberOfGuests.setBounds(645, 190, 285, 33); 
+        NumberOfGuests.setBounds(625, 190, 285, 33); 
         NumberOfGuests.setForeground(new Color(212, 158, 24));
         NumberOfGuests.setHorizontalAlignment(SwingConstants.CENTER); 
         NumberOfGuests.setVisible(false); 
@@ -419,7 +401,7 @@ public class CustomerUI {
 
         JTextField EnterNumberOfGuests = new JTextField();
         panel.add(EnterNumberOfGuests);
-        EnterNumberOfGuests.setBounds(655, 230, 275, 28); 
+        EnterNumberOfGuests.setBounds(635, 230, 265, 28); 
         EnterNumberOfGuests.setBackground(new Color(168, 161, 150));
         EnterNumberOfGuests.setVisible(false); 
         EnterNumberOfGuests.setBorder(null);
@@ -588,69 +570,60 @@ public class CustomerUI {
         NextButton.setForeground(new Color(245, 242, 233));
         NextButton.setVisible(false);
         panel.add(NextButton); 
-       NextButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-
-                String checkinDateString = EnterDateIn.getText().trim();
-                String checkoutDateString = EnterDateOut.getText().trim();
-                String numOfGuestsString = EnterNumberOfGuests.getText().trim();
-
-                java.sql.Date checkinDate = java.sql.Date.valueOf(checkinDateString);
-                java.sql.Date checkoutDate = java.sql.Date.valueOf(checkoutDateString);
-                int numOfGuests = Integer.parseInt(numOfGuestsString);
-
-
-                long differenceInMilliseconds = checkoutDate.getTime() - checkinDate.getTime();
-                int totalDays = (int) (differenceInMilliseconds / (1000 * 60 * 60 * 24));
-
-                reservation.setCheckinDate(checkinDate);
-                reservation.setCheckoutDate(checkoutDate);
-                reservation.setNumOfGuests(numOfGuests);
-                reservation.setTotalDays(totalDays);
-
-                List<String> selectedRooms = roomList.getSelectedValuesList(); 
-                if (selectedRooms.isEmpty()) {
-                    JOptionPane.showMessageDialog(panel, "Please select at least one room.", "Warning", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-                for (String selectedRoom : selectedRooms) {
-                    selectedRoomIds = new ArrayList<>() ;
-                    int roomId = Integer.parseInt(selectedRoom.split(" ")[1]);
-                    Room room = roomDaoImpl.getRoomByRoomID(roomId);
-                    if (room == null || !room.getRoomStatus().equalsIgnoreCase("Available")) {
-                        JOptionPane.showMessageDialog(panel, "Room " + roomId + " is not available!", "Error", JOptionPane.ERROR_MESSAGE);
+        NextButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Validate dates and number of guests
+                    String checkinDateString = EnterDateIn.getText().trim();
+                    String checkoutDateString = EnterDateOut.getText().trim();
+                    String numOfGuestsString = EnterNumberOfGuests.getText().trim();
+        
+                    java.sql.Date checkinDate = java.sql.Date.valueOf(checkinDateString);
+                    java.sql.Date checkoutDate = java.sql.Date.valueOf(checkoutDateString);
+                    int numOfGuests = Integer.parseInt(numOfGuestsString);
+        
+                    long differenceInMilliseconds = checkoutDate.getTime() - checkinDate.getTime();
+                    int totalDays = (int) (differenceInMilliseconds / (1000 * 60 * 60 * 24));
+        
+                    // Prepare Reservation
+                    reservation = new Reservation();
+                    reservation.setCheckinDate(checkinDate);
+                    reservation.setCheckoutDate(checkoutDate);
+                    reservation.setNumOfGuests(numOfGuests);
+                    reservation.setTotalDays(totalDays);
+        
+                    List<String> selectedRooms = roomList.getSelectedValuesList();
+                    if (selectedRooms.isEmpty()) {
+                        JOptionPane.showMessageDialog(panel, "Please select at least one room.", "Warning", JOptionPane.WARNING_MESSAGE);
                         return;
-                    } else {
-                        selectedRoomIds.add(roomId);
                     }
+        
+                    selectedRoomIds = new ArrayList<>();
+                    for (String selectedRoom : selectedRooms) {
+                        int roomId = Integer.parseInt(selectedRoom.split(" ")[1]);
+                        Room room = roomDaoImpl.getRoomByRoomID(roomId);
+                        if (room == null || !room.getRoomStatus().equalsIgnoreCase("Available")) {
+                            JOptionPane.showMessageDialog(panel, "Room " + roomId + " is not available!", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        } else {
+                            selectedRoomIds.add(roomId);
+                        }
+                    }
+        
+                    JOptionPane.showMessageDialog(panel, "Fill the information successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(panel, "Please enter valid input for number of guests.", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(panel, "Please enter valid dates in the format YYYY-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, "An unexpected error occurred. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
                 }
-
-                for (String selectedRoom : selectedRooms) {
-                    int roomId = Integer.parseInt(selectedRoom.split(" ")[1]);
-                    Room_Reservation_Pk compositeKey = new Room_Reservation_Pk(roomId, reservation.getReservationId());
-                    Room_Reservation roomReservation = new Room_Reservation();
-                    roomReservation.setPk(compositeKey);
-                    roomReservation.setDate(checkinDate); 
-                    roomReservation.setTime(new java.sql.Time(System.currentTimeMillis())); 
-                    room_ReservationDaoImpl.saveRoomReservation(roomReservation);
-                }
-
-                // Show success message
-                JOptionPane.showMessageDialog(panel, "Fill the information successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(panel, "Please enter valid input for number of guests.", "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (IllegalArgumentException ex) {
-                JOptionPane.showMessageDialog(panel, "Please enter valid dates in the format YYYY-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(panel, "An unexpected error occurred. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-                ex.printStackTrace();
             }
-        }
-});
+        });
+        
 
         JButton SubmitReservationButton = new JButton();
         SubmitReservationButton.setFocusable(false);
@@ -663,50 +636,76 @@ public class CustomerUI {
         SubmitReservationButton.setVisible(false);
         panel.add(SubmitReservationButton); 
         SubmitReservationButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                for (int roomId : selectedRoomIds) {
-                    Room room = roomDaoImpl.getRoomByRoomID(roomId);
-                    room.setRoomStatus("Unavailable");
-                    roomDaoImpl.updateRoom(room);
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Validate phone number and fetch user ID
+                    String phone = BookingPhoneNumber.getText().trim();
+                    int userId = userDaoImpl.getUserIDByPhone(phone);
+                    if (userId == 0) {
+                        JOptionPane.showMessageDialog(panel, "No user found with the provided phone number.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return; // Exit method
+                    }
+        
+                    // Validate payment method
+                    String paymentMethod = selectedPaymentMethod;
+                    if (paymentMethod == null || paymentMethod.trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(panel, "Please select a valid payment method.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return; // Exit method
+                    }
+        
+                    // Validate amount
+                    double amount = Double.parseDouble(BookingAmount.getText().trim());
+        
+                    // Save Reservation
+                    reservation.setUserId(userId);
+                    reservationDaoImpl.saveReservation(reservation); // Save reservation and generate ID
+        
+                    // Create Room_Reservation entries and update room statuses
+                    for (int roomId : selectedRoomIds) {
+                        Room room = roomDaoImpl.getRoomByRoomID(roomId);
+                        if (room == null || !room.getRoomStatus().equalsIgnoreCase("Available")) {
+                            JOptionPane.showMessageDialog(panel, "Room " + roomId + " is not available!", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+        
+                        // Create Room_Reservation
+                        Room_Reservation roomReservation = new Room_Reservation();
+                        Room_Reservation_Pk pk = new Room_Reservation_Pk(roomId, reservation.getReservationId());
+                        roomReservation.setPk(pk);
+                        roomReservation.setRoom(room);
+                        roomReservation.setReservation(reservation);
+                        roomReservation.setDate(reservation.getCheckinDate());
+                        roomReservation.setTime(new java.sql.Time(System.currentTimeMillis()));
+                        room_ReservationDaoImpl.saveRoomReservation(roomReservation);
+                        System.out.println(reservation.getReservationId());
+        
+                        // Update room status
+                        room.setRoomStatus("Unavailable");
+                        roomDaoImpl.updateRoom(room);
+                    }
+        
+                    // Save Billing
+                    java.sql.Date billingDate = new java.sql.Date(System.currentTimeMillis());
+                    Billing billing = new Billing();
+                    billing.setReservation(reservation); // Link to Reservation
+                    billing.setAmount(amount);
+                    billing.setPaymentMethod(paymentMethod);
+                    billing.setDate(billingDate);
+                    billingDaoImpl.saveBilling(billing);
+        
+                    // Show success message
+                    JOptionPane.showMessageDialog(panel, "Reservation and Billing saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(panel, "Invalid amount format. Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, "An error occurred while saving the reservation or billing.", "Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
                 }
-
-                String phone = BookingPhoneNumber.getText().trim();
-                int user_Id = userDaoImpl.getUserIDByPhone(phone);
-                if (user_Id == 0) {
-                    JOptionPane.showMessageDialog(panel, "No user found with the provided phone number.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return; // Exit the method
-                }
-
-                double amount = Double.parseDouble(BookingAmount.getText().trim());
-                reservation.setUserId(user_Id);
-                reservationDaoImpl.saveReservation(reservation);
-                String paymentMethod = selectedPaymentMethod;
-                if (paymentMethod == null || paymentMethod.trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(panel, "Please select a valid payment method.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return; // Exit the method
-                } 
-
-                java.sql.Date billingDate = new java.sql.Date(System.currentTimeMillis());
-
-                Billing billing = new Billing();
-                billing.setReservation(reservation); // Link the Reservation
-                billing.setAmount(amount);
-                billing.setPaymentMethod(paymentMethod);
-                billing.setDate(billingDate);
-                billingDaoImpl.saveBilling(billing);
-
-                JOptionPane.showMessageDialog(panel, "Reservation and Billing saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(panel, "Invalid amount format. Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(panel, "An error occurred while saving the billing or saving the reservation.", "Error", JOptionPane.ERROR_MESSAGE);
-                ex.printStackTrace();
             }
-            
-        }
-    });
+        });
+        
         OurHotelTab = new JButton();
         OurHotelTab.setFocusable(false);
         OurHotelTab.setBackground(new Color(244, 242, 235));
@@ -868,11 +867,9 @@ public class CustomerUI {
             ChooseDateIn.setVisible(false);
             ChooseDateOut.setVisible(false);
             NumberOfGuests.setVisible(false);
-            TypeOfRoom.setVisible(false);
             EnterDateIn.setVisible(false);
             EnterDateOut.setVisible(false);
             EnterNumberOfGuests.setVisible(false);
-            ChooseTypeOfRoom.setVisible(false);
             RoomSelectionField.setVisible(false);
             RoomSelectionLabel.setVisible(false);
             RoomList.setVisible(false);
@@ -1054,11 +1051,9 @@ public class CustomerUI {
             ChooseDateIn.setVisible(true);
             ChooseDateOut.setVisible(true);
             NumberOfGuests.setVisible(true);
-            TypeOfRoom.setVisible(true);
             EnterDateIn.setVisible(true);
             EnterDateOut.setVisible(true);
             EnterNumberOfGuests.setVisible(true);
-            ChooseTypeOfRoom.setVisible(true);
             RoomSelectionField.setVisible(true);
             RoomSelectionLabel.setVisible(true);
             RoomList.setVisible(true);
@@ -1905,11 +1900,9 @@ public class CustomerUI {
             ChooseDateIn.setVisible(false);
             ChooseDateOut.setVisible(false);
             NumberOfGuests.setVisible(false);
-            TypeOfRoom.setVisible(false);
             EnterDateIn.setVisible(false);
             EnterDateOut.setVisible(false);
             EnterNumberOfGuests.setVisible(false);
-            ChooseTypeOfRoom.setVisible(false);
             RoomSelectionField.setVisible(false);
             RoomSelectionLabel.setVisible(false);
             RoomList.setVisible(false);
@@ -2057,11 +2050,9 @@ public class CustomerUI {
             ChooseDateIn.setVisible(false);
             ChooseDateOut.setVisible(false);
             NumberOfGuests.setVisible(false);
-            TypeOfRoom.setVisible(false);
             EnterDateIn.setVisible(false);
             EnterDateOut.setVisible(false);
             EnterNumberOfGuests.setVisible(false);
-            ChooseTypeOfRoom.setVisible(false);
             RoomSelectionField.setVisible(false);
             RoomSelectionLabel.setVisible(false);
             RoomList.setVisible(false);
@@ -2231,10 +2222,8 @@ public class CustomerUI {
             RoomBooking.setVisible(false);
             ChooseDateIn.setVisible(false);
             ChooseDateOut.setVisible(false);
-            TypeOfRoom.setVisible(false);
             EnterDateIn.setVisible(false);
             EnterDateOut.setVisible(false);
-            ChooseTypeOfRoom.setVisible(false);
             RoomList.setVisible(false);
             NumberOfGuests.setVisible(false);
             EnterNumberOfGuests.setVisible(false);
@@ -2384,11 +2373,10 @@ public class CustomerUI {
             ChooseDateIn.setVisible(false);
             ChooseDateOut.setVisible(false);
             NumberOfGuests.setVisible(false);
-            TypeOfRoom.setVisible(false);
+
             EnterDateIn.setVisible(false);
             EnterDateOut.setVisible(false);
             EnterNumberOfGuests.setVisible(false);
-            ChooseTypeOfRoom.setVisible(false);
             RoomList.setVisible(false);
             RoomSelectionLabel.setVisible(false);
             RoomSelectionField.setVisible(false);
