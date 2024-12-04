@@ -2432,14 +2432,23 @@ public class CustomerUI {
                 if (response == JOptionPane.YES_OPTION) {
                     JOptionPane.showMessageDialog(frame, "Thank you for your feedback!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
-                    Review newReview = new Review();
-                    newReview.setRating(ratingStars.getSelectedRating());
-                    newReview.setComment(WriteFeedback.getText());
-                    System.out.println(newReview.getRating());
-                    System.out.println(newReview.getComment());
+                    java.sql.Date reviewDate = new java.sql.Date(System.currentTimeMillis());
 
-                    reviewDAOImpl.saveReview(newReview);
+                    Review review = new Review();
+                    review.setReservation(reservation); // Link the Reservation
+                    review.setRating(ratingStars.getSelectedRating());
+                    review.setComment(WriteFeedback.getText());
+                    review.setReviewDate(reviewDate);
+                    System.out.println(review.getRating());
+                    System.out.println(review.getComment());
 
+                    try {
+                        reviewDAOImpl.saveReview(review);
+                        JOptionPane.showMessageDialog(null, "Review submitted successfully!");
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Error submitting review: " + ex.getMessage());
+                    }
                     WriteFeedback.setText(""); // Clear feedback
                     ratingStars.resetRating(); // Reset the stars
                 }
