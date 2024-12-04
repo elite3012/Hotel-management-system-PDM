@@ -2,7 +2,9 @@ package com.code.hms.daoimpl;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
 import org.hibernate.query.Query;
 
@@ -11,15 +13,19 @@ import com.code.hms.dao.UserDAO;
 import com.code.hms.entities.Reservation;
 import com.code.hms.entities.Review;
 import com.code.hms.entities.User;
+import com.code.hms.utils.LoggingEngine;
 
 
 public class UserDaoImpl implements UserDAO {
 
     private DataSourceFactory dsf = new DataSourceFactory();
     private Session session;
-    
+    private LoggingEngine logging;
+
     public UserDaoImpl() {
-        dsf.createConnection();
+        DataSourceFactory.createConnection();
+        logging = LoggingEngine.getInstance();
+
     }
 
     @Override
@@ -151,6 +157,24 @@ public class UserDaoImpl implements UserDAO {
 
         return reviewList;
     }
+    @Override
+    public void saveUser (User user) {
+        Transaction transaction = null;
+        try {
+            session = dsf.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+
+            session.persist(user);
+
+            transaction.commit();
+            logging.setMessage("User  saved successfully.");
+        } catch (HibernateException e) {
+            if (transaction != null) transaction.rollback();
+            logging.setMessage("Error saving user: " + e.getLocalizedMessage());
+        } finally {
+            if (session != null) session.close();
+        }
+    }
 
     @Override
     public void updateUser(User user) {
@@ -176,7 +200,7 @@ public class UserDaoImpl implements UserDAO {
         
         try {
             session.beginTransaction();
-            MutationQuery query = session.createMutationQuery("delete from user u where u.userId = :userId");
+            MutationQuery query = session.createMutationQuery("delete from User u where u.userId = :userId");
             query.setParameter("userId", userId);
             int result = query.executeUpdate();
 
@@ -221,7 +245,7 @@ public class UserDaoImpl implements UserDAO {
 
     try {
         // Query to get the userId based on the username
-        Query<Integer> query = session.createQuery("Select u.user_Id from User u where u.username = :username", Integer.class);
+        Query<Integer> query = session.createQuery("Select u.userId from User u where u.username = :username", Integer.class);
         query.setParameter("username", username);
         userId = query.uniqueResult();  // Fetch the userId based on the username
         
