@@ -133,11 +133,6 @@ CREATE TABLE IF NOT EXISTS `room_reservation` (
 
 -- Dumping data for table hms.room_reservation: ~3 rows (approximately)
 DELETE FROM `room_reservation`;
-INSERT INTO `room_reservation` (`Room_ID`, `Reservation_ID`, `Time`, `Date`) VALUES
-	(NULL, NULL, '21:00:05', '2000-01-01'),
-	(NULL, NULL, '21:02:59', '2000-01-01'),
-	(NULL, NULL, '21:07:22', '2000-01-01'),
-  (606, 4, '2024-12-03', '21:00:05');
   
 
 -- Dumping structure for table hms.service
@@ -186,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 -- Dumping data for table hms.user: ~3 rows (approximately)
 DELETE FROM `user`;
-INSERT INTO `user` (`User_ID`, `Username`, `Password`, `First_name`, `Last_name`, `Email`, `Phone`, `Role`) VALUES
+INSERT INTO `user` (`User_ID`, `Username`, `Password`, `FirstName`, `LastName`, `Email`, `Phone`, `Role`) VALUES
 	(1, 'admin', '123', 'Quys', 'Tran', 'Quy@gmaii.com', '0923876286', 'Admin'),
 	(2, 'customer', '123', 'Nhan', 'Nguyen', 'Nhan@gmail.com', '0123654789', 'Customer'),
 	(3, 'receptionist', '123', 'Minh', 'Tran', 'Minh@gmail.com', '0321456987', 'Receptionist');
