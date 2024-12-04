@@ -360,7 +360,6 @@ public class StaffUI {
                 FinancialTab.setForeground(new Color(245, 242, 233));
                 UsersTab.setForeground(new Color(43, 42, 38));
 
-                addManageUserComponents();
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
@@ -376,7 +375,6 @@ public class StaffUI {
         removeRoomCleaningTabComponents();
         createAdminRoomMenu();
         createServiceOrderPanel();
-        createManageUserPanel();
         createAllBackgrounds();
         createFinancialPanel();
         addFinancialComponents();
