@@ -13,7 +13,9 @@ import java.awt.event.ActionListener;
 import java.util.Scanner;
 
 import com.code.hms.daoimpl.ReservationDaoImpl;
+import com.code.hms.daoimpl.UserDaoImpl;
 import com.code.hms.entities.Reservation;
+import com.code.hms.entities.User;
 
 import java.util.List;
 
@@ -53,6 +55,7 @@ public class StaffUI {
     static JScrollPane ManageUserScrollPane;
     static JScrollPane billingScrollPane;
     static ReservationDaoImpl reservationDaoImpl;
+    static UserDaoImpl userDaoImpl;
 
     public StaffUI() {
         Scanner scanner = new Scanner(System.in);
@@ -98,6 +101,7 @@ public class StaffUI {
                 System.exit(0);
         }
         reservationDaoImpl = new ReservationDaoImpl();
+        userDaoImpl = new UserDaoImpl();
     }
 
     private void initializeUI() {
@@ -362,9 +366,11 @@ public class StaffUI {
                 removeRoomCleaningTabComponents();
                 removeServiceOrderComponents();
                 removeFinancialComponents();
+                addManageUserComponents();
             }
         });
         addReservationPanel();
+        addManageUserPanel();
         addRoomPanel();
         addRoomCleaningPanel();
         removeRoomCleaningTabComponents();
@@ -1006,25 +1012,355 @@ public class StaffUI {
         panel.add(serviceOrderPanel);
     }
 
-    private void createManageUserPanel() {
-        String[][] ManageUserBaseData = {{" ", " "}};
-        String[] ManageUserColumnNames = {"UserID", "Role"};
-        ManageUserTable = new JTable(ManageUserBaseData, ManageUserColumnNames);
-        ManageUserTable.setBounds(374, 40, 800, 530);
-        ManageUserTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
-        ManageUserTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
-        ManageUserTable.setVisible(false);
+    private void addManageUserPanel() {
+        if (ManageUserPanel == null) {
+            ManageUserPanel = new JPanel();
+            ManageUserPanel.setLayout(new BorderLayout(20, 20));
+            JPanel gridPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+            ManageUserPanel.setBounds(417, 40, 713, 530); //
+            // Define buttons for various reservation actions
+            JButton viewAllButton = createRoundedButton("View All Users");
+            viewAllButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    List<User> users = userDaoImpl.getAllUsers();
+                    if (users != null && !users.isEmpty()) {
+                        String[] columnNames = {"User_ID", "Username", "Password", "First Name",
+                                "Last Name", "Email", "Phone", "Role"};
 
-        ManageUserScrollPane = new JScrollPane(ManageUserTable);
-        ManageUserScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
-        ManageUserScrollPane.setVisible(false);
-        panel.add(ManageUserScrollPane);
+                        Object[][] data = new Object[users.size()][8];
+                        for (int i = 0; i < users.size(); i++) {
+                            User user = users.get(i);
+                            data[i][0] = user.getUserId();
+                            data[i][1] = user.getUsername();
+                            data[i][2] = user.getPassword();
+                            data[i][3] = user.getFirstName();
+                            data[i][4] = user.getLastName();
+                            data[i][5] = user.getEmail();
+                            data[i][6] = user.getPhone();
+                            data[i][7] = user.getRole();
+                        }
 
-        ManageUserPanel = new JPanel();
-        ManageUserPanel.setBounds(374, 40, 800, 530);
-        ManageUserPanel.setOpaque(false);
-        ManageUserPanel.setVisible(false);
+                        JTable table = new JTable(data, columnNames);
+
+                        for (int i = 0; i < table.getColumnCount(); i++) {
+                            int maxWidth = 0;
+
+                            for (int j = 0; j < table.getRowCount(); j++) {
+                                Object value = table.getValueAt(j, i);
+                                if (value != null) {
+                                    int width = value.toString().length();
+                                    maxWidth = Math.max(maxWidth, width);
+                                }
+                            }
+
+                            TableColumn column = table.getColumnModel().getColumn(i);
+                            column.setPreferredWidth(maxWidth * 10);
+                        }
+
+                        JScrollPane scrollPane = new JScrollPane(table);
+
+                        JPanel panel = new JPanel(new BorderLayout());
+                        panel.add(scrollPane, BorderLayout.CENTER);
+
+                        JFrame frame = new JFrame("All User");
+                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frame.add(panel);
+                        frame.setSize(800, 600);
+                        frame.setLocationRelativeTo(null);
+                        frame.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No user found.", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            });
+            JButton createNewButton = createRoundedButton("Create New User");
+            createNewButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        String UserIdInput = JOptionPane.showInputDialog("Enter User ID:");
+                        if (UserIdInput == null || UserIdInput.isEmpty())
+                            throw new IllegalArgumentException("User ID cannot be empty.");
+                        int UserId = Integer.parseInt(UserIdInput);
+
+                        String usernameInput = JOptionPane.showInputDialog("Enter Username:");
+                        if (usernameInput == null || usernameInput.isEmpty())
+                            throw new IllegalArgumentException("Username cannot be empty.");
+
+                        String PasswordInput = JOptionPane.showInputDialog("Enter Password:");
+                        if (PasswordInput == null || PasswordInput.isEmpty())
+                            throw new IllegalArgumentException("Password cannot be empty.");
+
+                        String FirstnameInput = JOptionPane.showInputDialog("Enter First Name:");
+                        if (FirstnameInput == null || FirstnameInput.isEmpty())
+                            throw new IllegalArgumentException("First Name cannot be empty.");
+
+                        String LastnameInput = JOptionPane.showInputDialog("Enter Last Name:");
+                        if (LastnameInput == null || LastnameInput.isEmpty())
+                            throw new IllegalArgumentException("Last Name cannot be empty.");
+
+                        String EmailInput = JOptionPane.showInputDialog("Enter Email:");
+                        if (EmailInput == null || EmailInput.isEmpty())
+                            throw new IllegalArgumentException("Last Name cannot be empty.");
+
+                        String PhoneInput = JOptionPane.showInputDialog("Enter Phone:");
+                        if (PhoneInput == null || PhoneInput.isEmpty())
+                            throw new IllegalArgumentException("Last Name cannot be empty.");
+
+                        String RoleInput = JOptionPane.showInputDialog("Enter Role:");
+                        if (RoleInput == null || RoleInput.isEmpty())
+                            throw new IllegalArgumentException("Last Name cannot be empty.");
+
+                        User newUser = new User();
+                        newUser.setUserId(UserId);
+                        newUser.setUsername(usernameInput);
+                        newUser.setPassword(PasswordInput);
+                        newUser.setFirstName(FirstnameInput);
+                        newUser.setLastName(LastnameInput);
+                        newUser.setEmail(EmailInput);
+                        newUser.setPhone(PhoneInput);
+                        newUser.setRole(RoleInput);
+
+                        userDaoImpl.saveUser(newUser);
+
+                        JOptionPane.showMessageDialog(panel, "User created successfully!");
+
+                    } catch (IllegalArgumentException ex) {
+                        JOptionPane.showMessageDialog(panel, "Error: " + ex.getMessage(), "Input Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(panel, "Failed to create user", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            });
+
+
+            JButton updateButton = createRoundedButton("Update user");
+            updateButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        String userIdInput = JOptionPane.showInputDialog("Enter User ID to Update:");
+                        if (userIdInput == null || userIdInput.isEmpty())
+                            throw new IllegalArgumentException("User ID cannot be empty.");
+                        int reservationId = Integer.parseInt(userIdInput);
+
+                        User existingUser = userDaoImpl.getUserByID(reservationId);
+                        if (existingUser == null) {
+                            JOptionPane.showMessageDialog(panel, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+
+                        String[] options = {"Username", "Password", "First Name", "Last Name", "Email", "Phone", "Role"};
+                        int choice = JOptionPane.showOptionDialog(
+                                panel,
+                                "What would you like to update?",
+                                "Update User",
+                                JOptionPane.DEFAULT_OPTION,
+                                JOptionPane.QUESTION_MESSAGE,
+                                null,
+                                options,
+                                options[0]
+                        );
+
+                        switch (choice) {
+                            case 0:
+                                String newUsername = JOptionPane.showInputDialog("Enter new Username:", existingUser.getUsername());
+                                if (newUsername != null && !newUsername.isEmpty()) {
+                                    existingUser.setUsername(newUsername);
+                                }
+                                break;
+
+                            case 1:
+                                String newPassword = JOptionPane.showInputDialog("Enter new Password:", existingUser.getPassword());
+                                if (newPassword != null && !newPassword.isEmpty()) {
+                                    existingUser.setUsername(newPassword);
+                                }
+                                break;
+
+                            case 2:
+                                String newFirstName = JOptionPane.showInputDialog("Enter new First Name:", existingUser.getFirstName());
+                                if (newFirstName != null && !newFirstName.isEmpty()) {
+                                    existingUser.setFirstName(newFirstName);
+                                }
+                                break;
+
+                            case 3:
+                                String newLastName = JOptionPane.showInputDialog("Enter new Last Name:", existingUser.getLastName());
+                                if (newLastName != null && !newLastName.isEmpty()) {
+                                    existingUser.setFirstName(newLastName);
+                                }
+                                break;
+
+                            case 4:
+                                String newEmail = JOptionPane.showInputDialog("Enter new Email:", existingUser.getEmail());
+                                if (newEmail != null && !newEmail.isEmpty()) {
+                                    existingUser.setFirstName(newEmail);
+                                }
+                                break;
+
+                            case 5:
+                                String newPhone = JOptionPane.showInputDialog("Enter new Phone:", existingUser.getPhone());
+                                if (newPhone != null && !newPhone.isEmpty()) {
+                                    existingUser.setFirstName(newPhone);
+                                }
+                                break;
+
+                            case 6:
+                                String newRole = JOptionPane.showInputDialog("Enter new Role:", existingUser.getRole());
+                                if (newRole != null && !newRole.isEmpty()) {
+                                    existingUser.setFirstName(newRole);
+                                }
+                                break;
+
+                            case 7: // Cancel (do nothing)
+                                JOptionPane.showMessageDialog(panel, "Update canceled.");
+                                return;
+
+                            default:
+                                JOptionPane.showMessageDialog(panel, "Invalid selection.");
+                                return;
+                        }
+
+                        userDaoImpl.updateUser(existingUser);
+                        JOptionPane.showMessageDialog(panel, "User updated successfully!");
+
+                    } catch (IllegalArgumentException ex) {
+                        JOptionPane.showMessageDialog(panel, "Error: " + ex.getMessage(), "Input Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(panel, "Failed to update user", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            });
+
+            JButton cancelButton = createRoundedButton("Delete User");
+            cancelButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String idInput = JOptionPane.showInputDialog("Enter User ID to Delete:");
+                    try {
+                        int userId = Integer.parseInt(idInput);
+                        User user = userDaoImpl.getUserByID(userId);
+                        if (user != null) {
+                            int confirmation = JOptionPane.showConfirmDialog(panel, "Are you sure you want to delete this account?");
+                            if (confirmation == JOptionPane.YES_OPTION) {
+                                userDaoImpl.deleteUser(userId);
+                                JOptionPane.showMessageDialog(panel, "Account deleted successfully!");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(panel, "User not found.");
+                        }
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(panel, "Invalid ID format.");
+                    }
+                }
+            });
+
+            JButton searchButton = createRoundedButton("Search User");
+            searchButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String idInput = JOptionPane.showInputDialog("Enter User ID to Search: ");
+                    try {
+                        int userID = Integer.parseInt(idInput);
+                        User user = userDaoImpl.getUserByID(userID);
+
+                        if (user != null) {
+                            String[] columnNames = {
+                                    "User ID", "Username", "Password",
+                                    "First Name", "Last Name", "Email",
+                                    "Phone", "Role"
+                            };
+                            Object[][] data = {
+                                    {
+                                            user.getUserId(),
+                                            user.getUsername(),
+                                            user.getPassword(),
+                                            user.getFirstName(),
+                                            user.getLastName(),
+                                            user.getEmail(),
+                                            user.getPhone(),
+                                            user.getRole()
+                                    }
+                            };
+                            JTable table = new JTable(data, columnNames);
+
+                            for (int i = 0; i < table.getColumnCount(); i++) {
+                                int maxWidth = 0;
+
+                                for (int j = 0; j < table.getRowCount(); j++) {
+                                    Object value = table.getValueAt(j, i);
+                                    if (value != null) {
+                                        int width = value.toString().length();
+                                        maxWidth = Math.max(maxWidth, width);
+                                    }
+                                }
+
+                                TableColumn column = table.getColumnModel().getColumn(i);
+                                column.setPreferredWidth(maxWidth * 10);
+                            }
+
+                            JScrollPane scrollPane = new JScrollPane(table);
+
+                            JPanel panel = new JPanel(new BorderLayout());
+                            panel.add(scrollPane, BorderLayout.CENTER);
+
+
+                            JFrame frame = new JFrame("User found");
+                            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                            frame.add(panel);
+                            frame.setSize(800, 600);
+                            frame.setLocationRelativeTo(null);
+                            frame.setVisible(true);
+                        } else {
+                            JOptionPane.showMessageDialog(panel, "No user found with ID: " + userID, "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(panel, "Invalid ID format. Please enter a numeric value.", "Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(panel, "An error occurred while fetching the user.", "Error", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
+                    }
+                }
+            });
+
+
+            // Customize the appearance of the buttons
+            Font buttonFont = new Font("Mulish", Font.BOLD, 16);
+            Color buttonColor = Color.decode("#E3DFD5");
+            Color textColor = Color.decode("#000000");
+
+            gridPanel.add(viewAllButton);
+            gridPanel.add(updateButton);
+            gridPanel.add(cancelButton);
+            gridPanel.add(searchButton);
+            JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+            topPanel.add(createNewButton);
+            ManageUserPanel.add(topPanel, BorderLayout.NORTH);
+            ManageUserPanel.add(gridPanel, BorderLayout.CENTER);
+
+            JButton[] buttons = {viewAllButton, createNewButton, updateButton, cancelButton, searchButton};
+
+            for (JButton button : buttons) {
+                button.setPreferredSize(new Dimension(220, 40));
+                button.setFont(buttonFont);
+                button.setBackground(buttonColor);
+                button.setForeground(textColor);
+                button.setFocusable(false);
+                button.setVisible(true);
+            }
+            JLabel dateLabel = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/clock.png", 20, 20));
+            dateLabel.setFont(new Font("Arial", Font.BOLD, 14));
+            dateLabel.setForeground(Color.DARK_GRAY);
+            dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy");
+            String currentDate = dateFormat.format(new Date());
+            dateLabel.setText(" " + currentDate);
+            ManageUserPanel.add(dateLabel, BorderLayout.SOUTH);
+        }
+
         panel.add(ManageUserPanel);
+        ManageUserPanel.setVisible(false);
     }
 
     private void createTaskListPanel() {
@@ -1109,15 +1445,10 @@ public class StaffUI {
     }
 
     private void addManageUserComponents() {
-        ManageUserTable.setVisible(true);
         ManageUserPanel.setVisible(true);
-        ManageUserScrollPane.setVisible(true);
     }
-
     private void removeManageUserComponents() {
-        ManageUserTable.setVisible(false);
         ManageUserPanel.setVisible(false);
-        ManageUserScrollPane.setVisible(false);
     }
 
     private static JButton createRoundedButton(String text) {
