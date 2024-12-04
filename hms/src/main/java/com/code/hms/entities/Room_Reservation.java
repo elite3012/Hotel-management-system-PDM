@@ -1,11 +1,9 @@
 package com.code.hms.entities;
 
-import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
-import java.util.Objects;
 
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -13,23 +11,26 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="Room_Reservation")
+@Table(name = "Room_Reservation")
 public class Room_Reservation {
-    
+
     @EmbeddedId
-    private Room_Reservation_Pk pk;
-    
+    private Room_Reservation_Pk pk; 
+
     @ManyToOne
-    @JoinColumn(name = "Room_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "Room_ID", nullable = false)
     private Room room;
-    
+
     @ManyToOne
-    @JoinColumn(name = "Reservation_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "Reservation_ID", nullable = false) 
     private Reservation reservation;
-    
+
+    @Column(name = "Date")
     private Date date;
+
+    @Column(name = "Time")
     private Time time;
-    
+
     public Room_Reservation_Pk getPk() {
         return pk;
     }
@@ -37,8 +38,7 @@ public class Room_Reservation {
     public void setPk(Room_Reservation_Pk pk) {
         this.pk = pk;
     }
-    
-    // Getter and Setter for room
+
     public Room getRoom() {
         return room;
     }
@@ -47,7 +47,6 @@ public class Room_Reservation {
         this.room = room;
     }
 
-    // Getter and Setter for reservation
     public Reservation getReservation() {
         return reservation;
     }
@@ -56,7 +55,6 @@ public class Room_Reservation {
         this.reservation = reservation;
     }
 
-    // Getter and Setter for date
     public Date getDate() {
         return date;
     }
@@ -65,7 +63,6 @@ public class Room_Reservation {
         this.date = date;
     }
 
-    // Getter and Setter for time
     public Time getTime() {
         return time;
     }
@@ -73,13 +70,28 @@ public class Room_Reservation {
     public void setTime(Time time) {
         this.time = time;
     }
+    
+    public static void main(String[] args) {
+        Room_Reservation_Pk pk = new Room_Reservation_Pk(11, 12);
+    // Create the Room_Reservation object
+    Room_Reservation rr = new Room_Reservation();
+    rr.setPk(pk);
+
+    // Simulate fetching Room and Reservation from the database
+    Room room = new Room(); // Example - replace with actual room fetched from the DB
+    room.setRoomId(11); // Assuming the Room_ID is 11
+    room.setRoomStatus("Available");
+
+    Reservation reservation = new Reservation(); // Example - replace with actual reservation fetched from the DB
+    reservation.setReservationId(12);
+
+    // Set Room and Reservation objects in Room_Reservation
+    rr.setRoom(room);
+    rr.setReservation(reservation);
+
+    // Now accessing getRoom() will return the Room object
+    System.out.println(rr.getPk().getRoomId());
+    System.out.println("Room Status: " + rr.getRoom().getRoomStatus());
+
+    }
 }
-/*
-Example:
-Room_Reservation_Pk compositeKey = new Room_Reservation_Pk
-(roomId, reservationId);
-Room_Reservation roomReservation = new Room_Reservation();
-roomReservation.setPk(compositeKey);
-roomReservation.setDate(someDate);
-roomReservation.setTime(someTime);
- */
