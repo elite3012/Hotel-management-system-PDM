@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.code.hms.connection.DataSourceFactory;
 import com.code.hms.entities.Billing;
 import com.code.hms.entities.Reservation;
 import com.code.hms.entities.Review;
@@ -26,6 +30,7 @@ import com.code.hms.daoimpl.RoomDaoImpl;
 import com.code.hms.daoimpl.Room_ReservationDaoImpl;
 import com.code.hms.daoimpl.ServiceDAOImpl;
 import com.code.hms.daoimpl.UserDaoImpl;
+
 
 public class CustomerUI {
 
@@ -182,6 +187,8 @@ public class CustomerUI {
 
     static List<Integer> selectedRoomIds;
 
+    static DataSourceFactory dsf; 
+
     public CustomerUI() {
         reviewDAOImpl = new ReviewDAOImpl();
         serviceDAOImpl = new ServiceDAOImpl();
@@ -190,6 +197,7 @@ public class CustomerUI {
         billingDaoImpl = new BillingDaoImpl();
         roomDaoImpl = new RoomDaoImpl();
         room_ReservationDaoImpl = new Room_ReservationDaoImpl();
+        dsf = new DataSourceFactory();
 
         createMainGUI();
         CreateSpaInfoBox();
@@ -638,69 +646,68 @@ public class CustomerUI {
         SubmitReservationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    // Validate phone number and fetch user ID
-                    String phone = BookingPhoneNumber.getText().trim();
-                    int userId = userDaoImpl.getUserIDByPhone(phone);
-                    if (userId == 0) {
-                        JOptionPane.showMessageDialog(panel, "No user found with the provided phone number.", "Error", JOptionPane.ERROR_MESSAGE);
-                        return; // Exit method
-                    }
-        
-                    // Validate payment method
-                    String paymentMethod = selectedPaymentMethod;
-                    if (paymentMethod == null || paymentMethod.trim().isEmpty()) {
-                        JOptionPane.showMessageDialog(panel, "Please select a valid payment method.", "Error", JOptionPane.ERROR_MESSAGE);
-                        return; // Exit method
-                    }
-        
-                    // Validate amount
-                    double amount = Double.parseDouble(BookingAmount.getText().trim());
-        
-                    // Save Reservation
-                    reservation.setUserId(userId);
-                    reservationDaoImpl.saveReservation(reservation); // Save reservation and generate ID
-        
-                    // Create Room_Reservation entries and update room statuses
-                    for (int roomId : selectedRoomIds) {
-                        Room room = roomDaoImpl.getRoomByRoomID(roomId);
-                        if (room == null || !room.getRoomStatus().equalsIgnoreCase("Available")) {
-                            JOptionPane.showMessageDialog(panel, "Room " + roomId + " is not available!", "Error", JOptionPane.ERROR_MESSAGE);
+                try (Session session = dsf.getSessionFactory().openSession()) {
+                    Transaction transaction = session.beginTransaction();
+                    
+                    try {
+                        String phone = BookingPhoneNumber.getText().trim();
+                        int userId = userDaoImpl.getUserIDByPhone(phone);
+                        if (userId == 0) {
+                            JOptionPane.showMessageDialog(panel, "No user found with the provided phone number.", "Error", JOptionPane.ERROR_MESSAGE);
                             return;
                         }
         
-                        // Create Room_Reservation
-                        Room_Reservation roomReservation = new Room_Reservation();
-                        Room_Reservation_Pk pk = new Room_Reservation_Pk(roomId, reservation.getReservationId());
-                        roomReservation.setPk(pk);
-                        roomReservation.setRoom(room);
-                        roomReservation.setReservation(reservation);
-                        roomReservation.setDate(reservation.getCheckinDate());
-                        roomReservation.setTime(new java.sql.Time(System.currentTimeMillis()));
-                        room_ReservationDaoImpl.saveRoomReservation(roomReservation);
-                        System.out.println(reservation.getReservationId());
+                        String paymentMethod = selectedPaymentMethod;
+                        if (paymentMethod == null || paymentMethod.trim().isEmpty()) {
+                            JOptionPane.showMessageDialog(panel, "Please select a valid payment method.", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
         
-                        // Update room status
-                        room.setRoomStatus("Unavailable");
-                        roomDaoImpl.updateRoom(room);
+                        double amount = Double.parseDouble(BookingAmount.getText().trim());
+        
+                        reservation.setUserId(userId);
+                        reservationDaoImpl.saveReservation(reservation);
+        
+                        for (int roomId : selectedRoomIds) {
+                            Room room = roomDaoImpl.getRoomByRoomID(roomId);
+                            if (room == null || !room.getRoomStatus().equalsIgnoreCase("Available")) {
+                                JOptionPane.showMessageDialog(panel, "Room " + roomId + " is not available!", "Error", JOptionPane.ERROR_MESSAGE);
+                                throw new Exception("Room " + roomId + " is not available.");
+                            }
+        
+                            Room_Reservation roomReservation = new Room_Reservation();
+                            Room_Reservation_Pk pk = new Room_Reservation_Pk(roomId, reservation.getReservationId());
+                            roomReservation.setPk(pk);
+                            roomReservation.setRoom(room);
+                            roomReservation.setReservation(reservation);
+                            roomReservation.setDate(reservation.getCheckinDate());
+                            roomReservation.setTime(new java.sql.Time(System.currentTimeMillis()));
+                            room_ReservationDaoImpl.saveRoomReservation(roomReservation);
+        
+                            room.setRoomStatus("Unavailable");
+                            roomDaoImpl.updateRoom(room);
+                        }
+        
+                        java.sql.Date billingDate = new java.sql.Date(System.currentTimeMillis());
+                        Billing billing = new Billing();
+                        billing.setReservation(reservation);
+                        billing.setAmount(amount);
+                        billing.setPaymentMethod(paymentMethod);
+                        billing.setDate(billingDate);
+                        billingDaoImpl.saveBilling(billing);
+        
+                        transaction.commit();
+                        JOptionPane.showMessageDialog(panel, "Reservation and Billing saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        
+                    } catch (Exception ex) {
+                        if (transaction != null) {
+                            transaction.rollback();
+                        }
+                        JOptionPane.showMessageDialog(panel, "An error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
                     }
-        
-                    // Save Billing
-                    java.sql.Date billingDate = new java.sql.Date(System.currentTimeMillis());
-                    Billing billing = new Billing();
-                    billing.setReservation(reservation); // Link to Reservation
-                    billing.setAmount(amount);
-                    billing.setPaymentMethod(paymentMethod);
-                    billing.setDate(billingDate);
-                    billingDaoImpl.saveBilling(billing);
-        
-                    // Show success message
-                    JOptionPane.showMessageDialog(panel, "Reservation and Billing saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-        
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(panel, "Invalid amount format. Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(panel, "An error occurred while saving the reservation or billing.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, "An unexpected error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
             }
