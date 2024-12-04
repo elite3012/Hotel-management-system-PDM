@@ -121,12 +121,10 @@ INSERT INTO `room` (`Room_ID`, `Room_Type`, `Price`, `Room_Status`, `Room_Capaci
 
 -- Dumping structure for table hms.room_reservation
 CREATE TABLE IF NOT EXISTS `room_reservation` (
-  `Room_ID` int(11) DEFAULT NULL,
-  `Reservation_ID` int(11) DEFAULT NULL,
+  `Room_ID` int(11) NOT NULL,
+  `Reservation_ID` int(11) NOT NULL,
   `Time` time DEFAULT NULL,
   `Date` date DEFAULT NULL,
-  `reservationId` int(11) NOT NULL,
-  `roomId` int(11) NOT NULL,
   KEY `FK_room_reservation_room` (`Room_ID`),
   KEY `FK_room_reservation_reservation` (`Reservation_ID`),
   CONSTRAINT `FK_room_reservation_reservation` FOREIGN KEY (`Reservation_ID`) REFERENCES `reservation` (`Reservation_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -135,10 +133,12 @@ CREATE TABLE IF NOT EXISTS `room_reservation` (
 
 -- Dumping data for table hms.room_reservation: ~3 rows (approximately)
 DELETE FROM `room_reservation`;
-INSERT INTO `room_reservation` (`Room_ID`, `Reservation_ID`, `Time`, `Date`, `reservationId`, `roomId`) VALUES
-	(NULL, NULL, '21:00:05', '2000-01-01', 0, 0),
-	(NULL, NULL, '21:02:59', '2000-01-01', 0, 0),
-	(NULL, NULL, '21:07:22', '2000-01-01', 0, 103);
+INSERT INTO `room_reservation` (`Room_ID`, `Reservation_ID`, `Time`, `Date`) VALUES
+	(NULL, NULL, '21:00:05', '2000-01-01'),
+	(NULL, NULL, '21:02:59', '2000-01-01'),
+	(NULL, NULL, '21:07:22', '2000-01-01'),
+  (606, 4, '2024-12-03', '21:00:05');
+  
 
 -- Dumping structure for table hms.service
 CREATE TABLE IF NOT EXISTS `service` (

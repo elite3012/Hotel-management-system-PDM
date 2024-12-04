@@ -58,12 +58,15 @@ public class Room_ReservationDaoImpl implements Room_ReservationDAO {
     }
 
     @Override
-    public void saveRoomReservation(Room_Reservation room_Reservation) {
+    public void saveRoomReservation(Room_Reservation roomReservation) {
         session = dsf.getSessionFactory().openSession();
-
         try {
             session.beginTransaction();
-            session.persist(room_Reservation);
+            Room room = session.get(Room.class, roomReservation.getPk().getRoomId());
+            Reservation reservation = session.get(Reservation.class, roomReservation.getPk().getReservationId());
+            roomReservation.setRoom(room);
+            roomReservation.setReservation(reservation);
+            session.persist(roomReservation); 
             session.getTransaction().commit();
         } catch (Exception e) {
             if (session.getTransaction() != null) {
@@ -73,5 +76,6 @@ public class Room_ReservationDaoImpl implements Room_ReservationDAO {
         } finally {
             session.close();
         }
-    }
+}
+
 }
