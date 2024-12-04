@@ -32,7 +32,9 @@ public interface UserDAO {
 
     public int getUserIDByUsername(String Username);
     public int getUserIDByPhone(String phone);
-    
+
+    public void saveUser(User user);
+
     // Common functionalities
     public void updateUser(User user);
     public void deleteUser(int userId);
