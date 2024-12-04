@@ -63,11 +63,11 @@ public class User_Service {
     private User_Service_Pk pk;
 
     @ManyToOne
-    @JoinColumn(name = "User_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "User_ID")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "Service_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "Service_ID")
     private Service service;
 
     private Date date;
