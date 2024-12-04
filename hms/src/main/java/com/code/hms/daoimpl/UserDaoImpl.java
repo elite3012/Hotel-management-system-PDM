@@ -221,7 +221,7 @@ public class UserDaoImpl implements UserDAO {
 
     try {
         // Query to get the userId based on the username
-        Query<Integer> query = session.createQuery("Select u.user_Id from User u where u.username = :username", Integer.class);
+        Query<Integer> query = session.createQuery("Select u.userId from User u where u.username = :username", Integer.class);
         query.setParameter("username", username);
         userId = query.uniqueResult();  // Fetch the userId based on the username
         

@@ -9,22 +9,6 @@ public class ForgotPassword {
     private String generatedResetCode = null; // Store the generated reset code
     private long codeGenerationTime = 0; // Store the time when the reset code was generated
 
-    // Method to change the user's password
-    public boolean changePassword(String userEmail, String inputCode, String newPassword) {
-        // Validate the entered reset code
-        if (isValidResetCode(inputCode)) {
-            // Update the user's password in the database
-            // (For example, call the DAO to update the password)
-            // updateUserPassword(userEmail, newPassword);
-            
-            System.out.println("Password changed successfully for " + userEmail);
-            return true;
-        } else {
-            System.out.println("Invalid or expired reset code.");
-            return false;
-        }
-    }
-
     /**
      * Generates a random reset code.
      * 
@@ -68,7 +52,7 @@ public class ForgotPassword {
      * @param inputCode The code entered by the user.
      * @return true if the input code matches the generated code and is within a valid time window.
      */
-    private boolean isValidResetCode(String inputCode) {
+    public boolean isValidResetCode(String inputCode) {
         // Check if the reset code matches and if it was generated within the last 10 minutes
         long currentTime = System.currentTimeMillis();
         boolean isValidCode = inputCode.equals(generatedResetCode) && (currentTime - codeGenerationTime) <= 10 * 60 * 1000;
@@ -83,13 +67,5 @@ public class ForgotPassword {
         // 1. Send the reset code to the user's email
         forgotPasswordUtility.sendPasswordResetCode("user@example.com");
 
-        // 2. User enters the reset code and new password
-        boolean success = forgotPasswordUtility.changePassword("user@example.com", "123456", "newpassword123");
-
-        if (success) {
-            System.out.println("Password changed successfully.");
-        } else {
-            System.out.println("Password change failed.");
-        }
     }
 }
