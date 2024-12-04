@@ -200,7 +200,7 @@ public class UserDaoImpl implements UserDAO {
         
         try {
             session.beginTransaction();
-            MutationQuery query = session.createMutationQuery("delete from user u where u.userId = :userId");
+            MutationQuery query = session.createMutationQuery("delete from User u where u.userId = :userId");
             query.setParameter("userId", userId);
             int result = query.executeUpdate();
 
