@@ -3,5 +3,5 @@ package com.code.hms.dao;
 import java.util.List;
 
 public interface Service_OrderDAO {
-    public List<Object[]> getAllReservations();
+    public List<Object[]> getAllServiceOrders();
 }
