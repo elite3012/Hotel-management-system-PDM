@@ -1331,8 +1331,8 @@ public class StaffUI {
             JPanel gridPanel = new JPanel(new GridLayout(2, 2, 10, 10));
             ManageUserPanel.setBounds(417, 40, 713, 530); //
             // Define buttons for various reservation actions
-            JButton viewAllButton = createRoundedButton("View All Users");
-            viewAllButton.addActionListener(new ActionListener() {
+            JButton viewAllUserButton = createRoundedButton("View All Users");
+            viewAllUserButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     List<User> users = userDaoImpl.getAllUsers();
@@ -1386,16 +1386,11 @@ public class StaffUI {
                     }
                 }
             });
-            JButton createNewButton = createRoundedButton("Create New User");
-            createNewButton.addActionListener(new ActionListener() {
+            JButton createNewUserButton = createRoundedButton("Create New User");
+            createNewUserButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        String UserIdInput = JOptionPane.showInputDialog("Enter User ID:");
-                        if (UserIdInput == null || UserIdInput.isEmpty())
-                            throw new IllegalArgumentException("User ID cannot be empty.");
-                        int UserId = Integer.parseInt(UserIdInput);
-
                         String usernameInput = JOptionPane.showInputDialog("Enter Username:");
                         if (usernameInput == null || usernameInput.isEmpty())
                             throw new IllegalArgumentException("Username cannot be empty.");
@@ -1414,18 +1409,17 @@ public class StaffUI {
 
                         String EmailInput = JOptionPane.showInputDialog("Enter Email:");
                         if (EmailInput == null || EmailInput.isEmpty())
-                            throw new IllegalArgumentException("Last Name cannot be empty.");
+                            throw new IllegalArgumentException("Email cannot be empty.");
 
                         String PhoneInput = JOptionPane.showInputDialog("Enter Phone:");
                         if (PhoneInput == null || PhoneInput.isEmpty())
-                            throw new IllegalArgumentException("Last Name cannot be empty.");
+                            throw new IllegalArgumentException("Phone cannot be empty.");
 
                         String RoleInput = JOptionPane.showInputDialog("Enter Role:");
                         if (RoleInput == null || RoleInput.isEmpty())
-                            throw new IllegalArgumentException("Last Name cannot be empty.");
+                            throw new IllegalArgumentException("Role cannot be empty.");
 
                         User newUser = new User();
-                        newUser.setUserId(UserId);
                         newUser.setUsername(usernameInput);
                         newUser.setPassword(PasswordInput);
                         newUser.setFirstName(FirstnameInput);
@@ -1447,8 +1441,8 @@ public class StaffUI {
             });
 
 
-            JButton updateButton = createRoundedButton("Update user");
-            updateButton.addActionListener(new ActionListener() {
+            JButton updateUserButton = createRoundedButton("Update user");
+            updateUserButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
@@ -1500,28 +1494,28 @@ public class StaffUI {
                             case 3:
                                 String newLastName = JOptionPane.showInputDialog("Enter new Last Name:", existingUser.getLastName());
                                 if (newLastName != null && !newLastName.isEmpty()) {
-                                    existingUser.setFirstName(newLastName);
+                                    existingUser.setLastName(newLastName);
                                 }
                                 break;
 
                             case 4:
                                 String newEmail = JOptionPane.showInputDialog("Enter new Email:", existingUser.getEmail());
                                 if (newEmail != null && !newEmail.isEmpty()) {
-                                    existingUser.setFirstName(newEmail);
+                                    existingUser.setEmail(newEmail);
                                 }
                                 break;
 
                             case 5:
                                 String newPhone = JOptionPane.showInputDialog("Enter new Phone:", existingUser.getPhone());
                                 if (newPhone != null && !newPhone.isEmpty()) {
-                                    existingUser.setFirstName(newPhone);
+                                    existingUser.setPhone(newPhone);
                                 }
                                 break;
 
                             case 6:
                                 String newRole = JOptionPane.showInputDialog("Enter new Role:", existingUser.getRole());
                                 if (newRole != null && !newRole.isEmpty()) {
-                                    existingUser.setFirstName(newRole);
+                                    existingUser.setRole(newRole);
                                 }
                                 break;
 
@@ -1545,31 +1539,22 @@ public class StaffUI {
                 }
             });
 
-            JButton cancelButton = createRoundedButton("Delete User");
-            cancelButton.addActionListener(new ActionListener() {
+            JButton deleteButton = createRoundedButton("Delete User");
+            deleteButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String idInput = JOptionPane.showInputDialog("Enter User ID to Delete:");
                     try {
                         int userId = Integer.parseInt(idInput);
-                        User user = userDaoImpl.getUserByID(userId);
-                        if (user != null) {
-                            int confirmation = JOptionPane.showConfirmDialog(panel, "Are you sure you want to delete this account?");
-                            if (confirmation == JOptionPane.YES_OPTION) {
-                                userDaoImpl.deleteUser(userId);
-                                JOptionPane.showMessageDialog(panel, "Account deleted successfully!");
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(panel, "User not found.");
-                        }
+                        userDaoImpl.deleteUser(userId);
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(panel, "Invalid ID format.");
                     }
                 }
             });
 
-            JButton searchButton = createRoundedButton("Search User");
-            searchButton.addActionListener(new ActionListener() {
+            JButton searchUserButton = createRoundedButton("Search User");
+            searchUserButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String idInput = JOptionPane.showInputDialog("Enter User ID to Search: ");
@@ -1642,16 +1627,16 @@ public class StaffUI {
             Color buttonColor = Color.decode("#E3DFD5");
             Color textColor = Color.decode("#000000");
 
-            gridPanel.add(viewAllButton);
-            gridPanel.add(updateButton);
-            gridPanel.add(cancelButton);
-            gridPanel.add(searchButton);
+            gridPanel.add(viewAllUserButton);
+            gridPanel.add(updateUserButton);
+            gridPanel.add(deleteButton);
+            gridPanel.add(searchUserButton);
             JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            topPanel.add(createNewButton);
+            topPanel.add(createNewUserButton);
             ManageUserPanel.add(topPanel, BorderLayout.NORTH);
             ManageUserPanel.add(gridPanel, BorderLayout.CENTER);
 
-            JButton[] buttons = {viewAllButton, createNewButton, updateButton, cancelButton, searchButton};
+            JButton[] buttons = {viewAllUserButton, createNewUserButton, updateUserButton, deleteButton, searchUserButton};
 
             for (JButton button : buttons) {
                 button.setPreferredSize(new Dimension(220, 40));
