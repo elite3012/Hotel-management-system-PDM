@@ -35,6 +35,7 @@ import com.code.hms.daoimpl.UserDaoImpl;
 public class CustomerUI {
 
     static String selectedPaymentMethod;
+    private int userId;
 
     private JLabel hotelNameLabel;
     private JLabel dateLabel;
@@ -189,7 +190,9 @@ public class CustomerUI {
 
     static DataSourceFactory dsf; 
 
-    public CustomerUI() {
+    public CustomerUI(int userId) {
+        this.userId = userId;
+
         reviewDAOImpl = new ReviewDAOImpl();
         serviceDAOImpl = new ServiceDAOImpl();
         reservationDaoImpl = new ReservationDaoImpl();
@@ -2437,7 +2440,6 @@ public class CustomerUI {
                     newReview.setComment(WriteFeedback.getText());
                     System.out.println(newReview.getRating());
                     System.out.println(newReview.getComment());
-
                     reviewDAOImpl.saveReview(newReview);
 
                     WriteFeedback.setText(""); // Clear feedback
