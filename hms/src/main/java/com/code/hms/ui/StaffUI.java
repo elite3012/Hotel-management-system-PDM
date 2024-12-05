@@ -100,10 +100,10 @@ public class StaffUI {
                 initializeUI();
                 createReceptionistUI();
                 break;
-            // case 2:
-            //     initializeUI();
-            //     createHousekeeperUI();
-            //     break;
+            case "Housekeeper":
+                initializeUI();
+                createHousekeeperUI();
+                break;
             case "Admin":
                 initializeUI();
                 createAdminUI();
