@@ -15,10 +15,13 @@ public interface BillingDAO {
     public Billing getBillingByID(int billingId);
 
     // Find bill by reservation id
-    public Billing getBillingByReservationID(int reservationId);
+    public Object[] getBillingByReservationID(int reservationId);
 
     // Find bill by room number
     public Billing getBillingByRoomNumber(int roomId);
+
+    //Find bill by user id
+    public List<Object[]> getBillingsByUserId(int userId);
 
     // Find the last bill
     public Billing getLastBilling();

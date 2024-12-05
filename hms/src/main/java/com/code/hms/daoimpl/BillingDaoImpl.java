@@ -82,26 +82,30 @@ public class BillingDaoImpl implements BillingDAO {
     }
 
     @Override
-    public Billing getBillingByReservationID(int reservationId) {
-        Billing billing = null;
+    public Object[] getBillingByReservationID(int reservationId) {
+        Object[] billing = null;
+        Session session = null;
+    
         try {
             session = dataSourceFactory.getSessionFactory().openSession();
-            session.beginTransaction();
-            Query<Billing> query = session.createQuery("from Billing where reservation.id=:reservationId", Billing.class);
-            query.setParameter("reservationId", reservationId);
-            billing = query.uniqueResult();
-            session.getTransaction().commit();
-            logging.setMessage("Fetched billing by Reservation ID: " + reservationId);
-        } catch (NoResultException e) {
-            logging.setMessage("No billing found with Reservation ID: " + reservationId);
-        } catch (HibernateException e) {
-            if (session.getTransaction() != null) session.getTransaction().rollback();
-            logging.setMessage("Error fetching billing by Reservation ID: " + e.getLocalizedMessage());
+            String query = "SELECT b.billing_id, b.reservation_id, r.user_id, b.amount, b.payment_method, b.date " +
+                           "FROM Billing b " +
+                           "JOIN Reservation r ON b.reservation_id = r.reservation_id " +
+                           "WHERE b.reservation_id = :reservationId";
+    
+            billing = (Object[]) session.createNativeQuery(query)
+                    .setParameter("reservationId", reservationId)
+                    .uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
-            if (session != null) session.close();
+            if (session != null) {
+                session.close();
+            }
         }
+    
         return billing;
-    }
+    }    
 
     @Override
     public Billing getBillingByRoomNumber(int roomId) {
@@ -170,6 +174,33 @@ public class BillingDaoImpl implements BillingDAO {
 
         return billings;
         }
+
+    @Override
+    public List<Object[]> getBillingsByUserId(int userId) {
+        List<Object[]> billings = null;
+        Session session = null;
+    
+        try {
+            session = dataSourceFactory.getSessionFactory().openSession();
+            String query = "SELECT b.billing_id, b.reservation_id, r.user_id, b.amount, b.payment_method, b.date " +
+                           "FROM Billing b " +
+                           "JOIN Reservation r ON b.reservation_id = r.reservation_id " +
+                           "WHERE r.user_id = :userId";
+    
+            billings = session.createNativeQuery(query)
+                    .setParameter("userId", userId)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    
+        return billings;
+    }
+    
 }
 
 
