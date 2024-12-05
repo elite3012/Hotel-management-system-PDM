@@ -100,10 +100,10 @@ public class StaffUI {
                 initializeUI();
                 createReceptionistUI();
                 break;
-            // case 2:
-            //     initializeUI();
-            //     createHousekeeperUI();
-            //     break;
+            case "Housekeeper":
+                initializeUI();
+                createHousekeeperUI();
+                break;
             case "Admin":
                 initializeUI();
                 createAdminUI();
@@ -510,11 +510,6 @@ public class StaffUI {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        String userIdInput = JOptionPane.showInputDialog("Enter User ID:");
-                        if (userIdInput == null || userIdInput.isEmpty())
-                            throw new IllegalArgumentException("User ID cannot be empty.");
-                        int userId = Integer.parseInt(userIdInput);
-
                         String checkinDateInput = JOptionPane.showInputDialog("Enter Check-in Date (YYYY-MM-DD):");
                         if (checkinDateInput == null || checkinDateInput.isEmpty())
                             throw new IllegalArgumentException("Check-in date cannot be empty.");
@@ -562,7 +557,6 @@ public class StaffUI {
                         }
 
                         Reservation newReservation = new Reservation();
-                        newReservation.setUserId(userId);
                         newReservation.setCheckinDate(checkinDate);
                         newReservation.setCheckoutDate(checkoutDate);
                         newReservation.setTotalDays(totalDays);

@@ -92,15 +92,6 @@ public class LoginWindow extends JFrame {
             String username = usernameField.getText().trim();
             String password = new String(passwordField.getPassword()).trim();
 
-            DatabaseServerPreparingInitializer initConnection = new DatabaseServerPreparingInitializer();
-            // initConnection.runScriptFile();
-
-            if (initConnection.getStatus()) {
-                System.out.println("Database initialized successfully.");
-            } else {
-                System.out.println("Database initialization failed.");
-            }
-
             if (username.isEmpty() || password.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Username or Password cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
@@ -110,7 +101,8 @@ public class LoginWindow extends JFrame {
                     String role = userdao.getUserByID(userdao.checkLogin(username, password)).getRole();
                     switch (role) {
                         case "Customer":
-                            JOptionPane.showMessageDialog(null, "Logging in for user: " + userdao.checkLogin(username, password));
+                            JOptionPane.showMessageDialog(null, "Logging in for user: " 
+                            + userdao.checkLogin(username, password) + ", " + role);
                             SwingUtilities.invokeLater(new Runnable() {
                                 public void run() {
                                     new CustomerUI(userdao.checkLogin(username, password));
@@ -119,7 +111,8 @@ public class LoginWindow extends JFrame {
                             dispose();
                             break;
                         case "Receptionist":
-                            JOptionPane.showMessageDialog(null, "Logging in for user: " + userdao.checkLogin(username, password));
+                            JOptionPane.showMessageDialog(null, "Logging in for user: " 
+                            + userdao.checkLogin(username, password) + ", " + role);
                             SwingUtilities.invokeLater(new Runnable() {
                                 public void run() {
                                     new StaffUI(role);
@@ -127,8 +120,19 @@ public class LoginWindow extends JFrame {
                             });
                             dispose();
                             break;
+                        case "Housekeeper":
+                            JOptionPane.showMessageDialog(null, "Logging in for user: " 
+                            + userdao.checkLogin(username, password) + ", " + role);
+                            SwingUtilities.invokeLater(new Runnable() {
+                                public void run() {
+                                    new StaffUI(role);
+                                }
+                            });
+                            dispose();
+                        break;
                         case "Admin":
-                            JOptionPane.showMessageDialog(null, "Logging in for user: " + userdao.checkLogin(username, password));
+                            JOptionPane.showMessageDialog(null, "Logging in for user: " 
+                            + userdao.checkLogin(username, password) + ", " + role);
                             SwingUtilities.invokeLater(new Runnable() {
                                 public void run() {
                                     new StaffUI(role);

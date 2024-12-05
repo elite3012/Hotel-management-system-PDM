@@ -179,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 -- Dumping data for table hms.user: ~3 rows (approximately)
 DELETE FROM `user`;
-INSERT INTO `user` (`User_ID`, `Username`, `Password`, `First_name`, `Last_name`, `Email`, `Phone`, `Role`) VALUES
+INSERT INTO `user` (`User_ID`, `Username`, `Password`, `FirstName`, `LastName`, `Email`, `Phone`, `Role`) VALUES
 	(1, 'admin', '123', 'Quys', 'Tran', 'Quy@gmaii.com', '0923876286', 'Admin'),
 	(2, 'customer', '123', 'Nhan', 'Nguyen', 'Nhan@gmail.com', '0123654789', 'Customer'),
 	(3, 'receptionist', '123', 'Minh', 'Tran', 'Minh@gmail.com', '0321456987', 'Receptionist');
