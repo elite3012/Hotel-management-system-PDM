@@ -1,5 +1,7 @@
 package com.code.hms.dao;
 
+import java.util.List;
+
 import com.code.hms.entities.Billing;
 
 public interface BillingDAO {
@@ -20,4 +22,7 @@ public interface BillingDAO {
 
     // Find the last bill
     public Billing getLastBilling();
+
+    // Find all billings
+    public List<Object[]> getAllBillings();
 }

@@ -1,11 +1,14 @@
 package com.code.hms.daoimpl;
 
-import com.code.hms.connection.DataSourceFactory;
-import com.code.hms.dao.BillingDAO;
-import com.code.hms.entities.Billing;
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+
+import com.code.hms.connection.DataSourceFactory;
+import com.code.hms.dao.BillingDAO;
+import com.code.hms.entities.Billing;
 import com.code.hms.utils.LoggingEngine;
 
 import jakarta.persistence.NoResultException;
@@ -143,5 +146,30 @@ public class BillingDaoImpl implements BillingDAO {
         }
         return lastBilling;
     }
+
+    @Override
+    public List<Object[]> getAllBillings() {
+        List<Object[]> billings = null;
+        Session session = null;
+
+        try {
+            session = dataSourceFactory.getSessionFactory().openSession();
+
+            // HQL query to fetch all required fields
+            String query = "SELECT b.billingId, b.amount, b.paymentMethod, b.date, b.reservation.reservationId, b.reservation.user.userId " +
+                        "FROM Billing b";
+
+            billings = session.createQuery(query).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return billings;
+        }
 }
+
 
