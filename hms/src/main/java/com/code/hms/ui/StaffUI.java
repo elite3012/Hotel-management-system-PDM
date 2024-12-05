@@ -12,15 +12,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicReference;
 
 import com.code.hms.daoimpl.ReservationDaoImpl;
 import com.code.hms.daoimpl.UserDaoImpl;
+import com.code.hms.entities.Billing;
 import com.code.hms.entities.Reservation;
 import com.code.hms.entities.Room;
 import com.code.hms.entities.User;
 
 import java.util.List;
 
+import com.code.hms.daoimpl.BillingDaoImpl;
 import com.code.hms.daoimpl.RoomDaoImpl;
 import com.code.hms.daoimpl.Room_ReservationDaoImpl;
 import com.code.hms.entities.Room;
@@ -66,6 +69,7 @@ public class StaffUI {
     static RoomDaoImpl roomDaoImpl;
     static Room_ReservationDaoImpl room_ReservationDaoImpl; 
     static UserDaoImpl userDaoImpl;
+    static BillingDaoImpl billingDaoImpl;
 
     public StaffUI() {
         Scanner scanner = new Scanner(System.in);
@@ -95,6 +99,7 @@ public class StaffUI {
         reservationDaoImpl = new ReservationDaoImpl();
         room_ReservationDaoImpl = new Room_ReservationDaoImpl();
         roomDaoImpl = new RoomDaoImpl();
+        billingDaoImpl = new BillingDaoImpl();
         switch (role) {
             case "Receptionist":
                 initializeUI();
@@ -380,7 +385,8 @@ public class StaffUI {
                 addManageUserComponents();
             }
         });
-        addReservationPanel();
+        addFinancialPanel();
+        addAdminReservationPanel();
         addManageUserPanel();
         addAdminReservationPanel();
         addRoomPanel();
@@ -1049,7 +1055,233 @@ public class StaffUI {
         reservationPanel.setVisible(false);
     }
 
-
+    private void addFinancialPanel() {
+        if (financialPanel == null) {
+            financialPanel = new JPanel();
+            financialPanel.setLayout(new BorderLayout(20, 20));
+            financialPanel.setBounds(417, 40, 713, 530);
+    
+            // Create the grid panel for buttons
+            JPanel gridPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+            JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    
+            // Define buttons
+            JButton viewAllButton = createRoundedButton("View All Billings");
+            JButton createNewButton = createRoundedButton("Create New Billing");
+            JButton findBillingsButton = createRoundedButton("Find Billings");
+            JButton deleteButton = createRoundedButton("Delete Billing");
+    
+            // Button font and colors
+            Font buttonFont = new Font("Mulish", Font.BOLD, 16);
+            Color buttonColor = Color.decode("#E3DFD5");
+            Color textColor = Color.decode("#000000");
+    
+            // Add Action Listeners for each button
+            viewAllButton.addActionListener(e -> {
+                List<Object[]> billings = billingDaoImpl.getAllBillings();
+                if (billings != null && !billings.isEmpty()) {
+                    String[] columnNames = {"Billing ID", "Reservation ID", "User ID", "Amount", "Payment Method", "Date"};
+                    Object[][] data = new Object[billings.size()][6];
+                    for (int i = 0; i < billings.size(); i++) {
+                        Object[] row = billings.get(i);
+                        data[i][0] = row[0]; // Billing ID
+                        data[i][1] = row[1]; // Reservation ID
+                        data[i][2] = row[2]; // User ID
+                        data[i][3] = row[3]; // Amount
+                        data[i][4] = row[4]; // Payment Method
+                        data[i][5] = row[5]; // Date
+                    }
+                    JTable table = new JTable(data, columnNames);
+                    JScrollPane scrollPane = new JScrollPane(table);
+    
+                    JFrame frame = new JFrame("All Billings");
+                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frame.add(scrollPane);
+                    frame.setSize(800, 600);
+                    frame.setLocationRelativeTo(null);
+                    frame.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No billings found.", "Information", JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
+    
+            createNewButton.addActionListener(e -> {
+                try {
+                    String reservationIdInput = JOptionPane.showInputDialog("Enter Reservation ID:");
+                    int reservationId = Integer.parseInt(reservationIdInput);
+                    Reservation reservation = reservationDaoImpl.getReservationByID(reservationId);
+    
+                    if (reservation == null) {
+                        JOptionPane.showMessageDialog(null, "Reservation not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+    
+                    String amountInput = JOptionPane.showInputDialog("Enter Amount:");
+                    double amount = Double.parseDouble(amountInput);
+    
+                    // Get payment method
+                    String paymentMethod = getPaymentMethodSelection();
+                    if (paymentMethod == null) {
+                        JOptionPane.showMessageDialog(null, "No payment method selected.", "Warning", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+    
+                    Billing billing = new Billing();
+                    billing.setReservation(reservation);
+                    billing.setAmount(amount);
+                    billing.setPaymentMethod(paymentMethod);
+                    billing.setDate(new java.sql.Date(System.currentTimeMillis()));
+    
+                    billingDaoImpl.saveBilling(billing);
+                    JOptionPane.showMessageDialog(null, "Billing created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Error creating billing: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            });
+    
+            findBillingsButton.addActionListener(e -> {
+                String[] options = {"Find by Reservation ID", "Find by User ID"};
+                int choice = JOptionPane.showOptionDialog(
+                        null,
+                        "Select the search criteria:",
+                        "Find Billings",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE,
+                        null,
+                        options,
+                        options[0]
+                );
+            
+                if (choice == 0) { // Search by Reservation ID
+                    String reservationIdInput = JOptionPane.showInputDialog("Enter Reservation ID:");
+                    try {
+                        int reservationId = Integer.parseInt(reservationIdInput);
+            
+                        // Fetch billing for the Reservation ID
+                        Object[] billing = billingDaoImpl.getBillingByReservationID(reservationId);
+                        if (billing == null) {
+                            JOptionPane.showMessageDialog(null, "No billing found for Reservation ID: " + reservationId, "Information", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            // Create table and display the result
+                            String[] columnNames = {"Billing ID", "Reservation ID", "User ID", "Amount", "Payment Method", "Date"};
+            
+                            Object[][] data = new Object[1][6];
+                            data[0][0] = billing[0]; // Billing ID
+                            data[0][1] = billing[1]; // Reservation ID
+                            data[0][2] = billing[2]; // User ID
+                            data[0][3] = billing[3]; // Amount
+                            data[0][4] = billing[4]; // Payment Method
+                            data[0][5] = billing[5]; // Date
+            
+                            JTable table = new JTable(data, columnNames);
+                            JScrollPane scrollPane = new JScrollPane(table);
+            
+                            JPanel panel = new JPanel(new BorderLayout());
+                            panel.add(scrollPane, BorderLayout.CENTER);
+            
+                            JFrame frame = new JFrame("Billing Details");
+                            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                            frame.add(panel);
+                            frame.setSize(800, 200);
+                            frame.setLocationRelativeTo(null);
+                            frame.setVisible(true);
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Error finding billing: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else if (choice == 1) { // Search by User ID
+                    String userIdInput = JOptionPane.showInputDialog("Enter User ID:");
+                    try {
+                        int userId = Integer.parseInt(userIdInput);
+            
+                        // Fetch all billings for the User ID
+                        List<Object[]> billings = billingDaoImpl.getBillingsByUserId(userId);
+                        if (billings.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "No billings found for User ID: " + userId, "Information", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            // Create table and display the result
+                            String[] columnNames = {"Billing ID", "Reservation ID", "User ID", "Amount", "Payment Method", "Date"};
+            
+                            Object[][] data = new Object[billings.size()][6];
+                            for (int i = 0; i < billings.size(); i++) {
+                                Object[] row = billings.get(i);
+                                data[i][0] = row[0]; // Billing ID
+                                data[i][1] = row[1]; // Reservation ID
+                                data[i][2] = row[2]; // User ID
+                                data[i][3] = row[3]; // Amount
+                                data[i][4] = row[4]; // Payment Method
+                                data[i][5] = row[5]; // Date
+                            }
+            
+                            JTable table = new JTable(data, columnNames);
+                            JScrollPane scrollPane = new JScrollPane(table);
+            
+                            JPanel panel = new JPanel(new BorderLayout());
+                            panel.add(scrollPane, BorderLayout.CENTER);
+            
+                            JFrame frame = new JFrame("Billing Details");
+                            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                            frame.add(panel);
+                            frame.setSize(800, 400);
+                            frame.setLocationRelativeTo(null);
+                            frame.setVisible(true);
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Error finding billings: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            });            
+    
+            deleteButton.addActionListener(e -> {
+                try {
+                    String billingIdInput = JOptionPane.showInputDialog("Enter Billing ID to Delete:");
+                    int billingId = Integer.parseInt(billingIdInput);
+                    Billing billing = billingDaoImpl.getBillingByID(billingId);
+                    if (billing == null) {
+                        JOptionPane.showMessageDialog(null, "Billing not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+    
+                    int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this billing?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                    if (confirmation == JOptionPane.YES_OPTION) {
+                        billingDaoImpl.deleteBilling(billingId);
+                        JOptionPane.showMessageDialog(null, "Billing deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Error deleting billing: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            });
+    
+            gridPanel.add(viewAllButton);
+            gridPanel.add(createNewButton);
+            gridPanel.add(findBillingsButton);
+            gridPanel.add(deleteButton);
+    
+            JButton[] buttons = {viewAllButton, createNewButton, findBillingsButton, deleteButton};
+            for (JButton button : buttons) {
+                button.setPreferredSize(new Dimension(220, 40));
+                button.setFont(buttonFont);
+                button.setBackground(buttonColor);
+                button.setForeground(textColor);
+                button.setFocusable(false);
+            }
+    
+            JLabel dateLabel = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/clock.png", 20, 20));
+            dateLabel.setFont(new Font("Arial", Font.BOLD, 14));
+            dateLabel.setForeground(Color.DARK_GRAY);
+            dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy");
+            dateLabel.setText(" " + dateFormat.format(new Date()));
+    
+            financialPanel.add(topPanel, BorderLayout.NORTH);
+            financialPanel.add(gridPanel, BorderLayout.CENTER);
+            financialPanel.add(dateLabel, BorderLayout.SOUTH);
+        }
+    
+        panel.add(financialPanel);
+        financialPanel.setVisible(false);
+    }
+     
     private void createRoomTab() {
         // ReservationTab setup
         RoomManagementTab = new JButton();
@@ -1740,6 +1972,46 @@ public class StaffUI {
     }
     private void removeManageUserComponents() {
         ManageUserPanel.setVisible(false);
+    }
+
+    private String getPaymentMethodSelection() {
+        String[] paymentMethods = {"Visa", "MasterCard", "PayPal", "Discover"};
+        String[] iconPaths = {
+            "hms/src/main/java/com/code/hms/assets/visaIcon.png",
+            "hms/src/main/java/com/code/hms/assets/mastercardIcon.png",
+            "hms/src/main/java/com/code/hms/assets/PaypalIcon.png",
+            "hms/src/main/java/com/code/hms/assets/DiscoverIcon.png"
+        };
+
+        JDialog dialog = new JDialog((Frame) null, "Select Payment Method", true);
+        dialog.setLayout(new GridLayout(1, paymentMethods.length, 10, 10));
+        dialog.setSize(500, 150);
+        dialog.setLocationRelativeTo(null);
+
+        AtomicReference<String> selectedMethod = new AtomicReference<>(null);
+
+        for (int i = 0; i < paymentMethods.length; i++) {
+            String method = paymentMethods[i];
+            String iconPath = iconPaths[i];
+
+            // Create button with image and text
+            JButton button = new JButton(method, LoadImage.loadScaledImage(iconPath, 80, 40));
+            button.setVerticalTextPosition(SwingConstants.BOTTOM);
+            button.setHorizontalTextPosition(SwingConstants.CENTER);
+            button.setFocusable(false);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    selectedMethod.set(method); // Save selected method
+                    dialog.dispose();          // Close dialog
+                }
+            });
+
+            dialog.add(button);
+        }
+
+        dialog.setVisible(true);
+        return selectedMethod.get(); 
     }
 
     private static JButton createRoundedButton(String text) {
