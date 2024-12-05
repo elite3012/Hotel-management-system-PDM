@@ -97,8 +97,10 @@ public class LoginWindow extends JFrame {
             } else {
                 UserDaoImpl userdao = new UserDaoImpl();
                 if (userdao.checkLogin(username, password) > 0) {
+                    int userId = userdao.checkLogin(username, password); // Get the user ID
+                    UserSession.getInstance().setUserId(userId); // Store it in the session
+                    String role = userdao.getUserByID(userId).getRole();
 
-                    String role = userdao.getUserByID(userdao.checkLogin(username, password)).getRole();
                     switch (role) {
                         case "Customer":
                             JOptionPane.showMessageDialog(null, "Logging in for user: " 
