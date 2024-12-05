@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.code.hms.loginwindow.UserSession;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -2435,9 +2436,11 @@ public class CustomerUI {
                 if (response == JOptionPane.YES_OPTION) {
                     JOptionPane.showMessageDialog(frame, "Thank you for your feedback!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
+                    int currentUserId = UserSession.getInstance().getUserId();
                     java.sql.Date reviewDate = new java.sql.Date(System.currentTimeMillis());
 
                     Review review = new Review();
+                    review.setUserId(currentUserId);
                     review.setReservation(reservation); // Link the Reservation
                     review.setRating(ratingStars.getSelectedRating());
                     review.setComment(WriteFeedback.getText());
