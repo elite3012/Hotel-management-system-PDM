@@ -14,8 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.code.hms.daoimpl.ReservationDaoImpl;
-import com.code.hms.daoimpl.UserDaoImpl;
+import com.code.hms.daoimpl.*;
 import com.code.hms.entities.Billing;
 import com.code.hms.entities.Reservation;
 import com.code.hms.entities.Room;
@@ -23,9 +22,6 @@ import com.code.hms.entities.User;
 
 import java.util.List;
 
-import com.code.hms.daoimpl.BillingDaoImpl;
-import com.code.hms.daoimpl.RoomDaoImpl;
-import com.code.hms.daoimpl.Room_ReservationDaoImpl;
 import com.code.hms.entities.Room;
 import com.code.hms.entities.Room_Reservation;
 import com.code.hms.entities.Room_Reservation_Pk;
@@ -70,6 +66,7 @@ public class StaffUI {
     static Room_ReservationDaoImpl room_ReservationDaoImpl; 
     static UserDaoImpl userDaoImpl;
     static BillingDaoImpl billingDaoImpl;
+    static Service_OrderDAOImpl serviceOrderDaoImpl;
 
     public StaffUI() {
         Scanner scanner = new Scanner(System.in);
@@ -314,7 +311,8 @@ public class StaffUI {
                 FinancialTab.setForeground(new Color(245, 242, 233));
                 UsersTab.setForeground(new Color(245, 242, 233));
 
-                addServiceOrderComponents();
+                //addServiceOrderComponents();
+                createServiceOrderPanel();
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
@@ -393,7 +391,7 @@ public class StaffUI {
         addRoomCleaningPanel();
         removeRoomCleaningTabComponents();
         createAdminRoomMenu();
-        createServiceOrderPanel();
+        //createServiceOrderPanel();
         createAllBackgrounds();
         createFinancialPanel();
         addFinancialComponents();
@@ -1530,7 +1528,7 @@ public class StaffUI {
     }
 
     private void createServiceOrderPanel() {
-        String[][] serviceOrderBaseData = {{" ", " ", " ", " ", " "}};
+        /*String[][] serviceOrderBaseData = {{" ", " ", " ", " ", " "}};
         String[] serviceOrderColumnNames = {"CustomerID", "ServiceType", "Date", "Time", "Assigned to"};
         serviceOrderTable = new JTable(serviceOrderBaseData, serviceOrderColumnNames);
         serviceOrderTable.setBounds(374, 40, 800, 530);
@@ -1547,7 +1545,65 @@ public class StaffUI {
         serviceOrderPanel.setBounds(374, 40, 800, 530);
         serviceOrderPanel.setOpaque(false);
         serviceOrderPanel.setVisible(false);
-        panel.add(serviceOrderPanel);
+        panel.add(serviceOrderPanel);*/
+
+        List<Object[]> serviceOrders = serviceOrderDaoImpl.getAllServiceOrders();
+        if (serviceOrders != null && !serviceOrders.isEmpty()) {
+            String[] columnNames = {"User ID", "ServiceType", "Date", "Time"};
+
+            Object[][] data = new Object[serviceOrders.size()][4];
+            for (int i = 0; i < serviceOrders.size(); i++) {
+                Object[] row = serviceOrders.get(i);
+                data[i][0] = row[0]; // User ID
+                data[i][1] = row[1]; // ServiceType
+                data[i][2] = row[2]; // Date
+                data[i][3] = row[3]; // Time
+            }
+
+            serviceOrderTable = new JTable(data, columnNames);
+            serviceOrderTable.setBounds(374, 40, 800, 530);
+            serviceOrderTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
+            serviceOrderTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
+            serviceOrderTable.setVisible(true);
+
+            for (int i = 0; i < serviceOrderTable.getColumnCount(); i++) {
+                int maxWidth = 0;
+
+                for (int j = 0; j < serviceOrderTable.getRowCount(); j++) {
+                    Object value = serviceOrderTable.getValueAt(j, i);
+                    if (value != null) {
+                        int width = value.toString().length();
+                        maxWidth = Math.max(maxWidth, width);
+                    }
+                }
+
+                TableColumn column = serviceOrderTable.getColumnModel().getColumn(i);
+                column.setPreferredWidth(maxWidth * 10);
+            }
+
+            serviceOrderScrollPane = new JScrollPane(serviceOrderTable);
+            serviceOrderScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
+            serviceOrderScrollPane.setVisible(true);
+            panel.add(serviceOrderScrollPane);
+
+            serviceOrderPanel = new JPanel();
+            serviceOrderPanel.setBounds(374, 40, 800, 530);
+            serviceOrderPanel.setOpaque(false);
+            serviceOrderPanel.setVisible(true);
+            panel.add(serviceOrderPanel);
+
+            /*JPanel panel = new JPanel(new BorderLayout());
+            panel.add(scrollPane, BorderLayout.CENTER);
+
+            JFrame frame = new JFrame("All Service Orders");
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.add(panel);
+            frame.setSize(800, 600);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);*/
+        } else {
+            JOptionPane.showMessageDialog(null, "No service orders found.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     private void addManageUserPanel() {
@@ -1936,9 +1992,9 @@ public class StaffUI {
     }
 
     private void addServiceOrderComponents() {
-        serviceOrderPanel.setVisible(true);
+        /*serviceOrderPanel.setVisible(true);
         serviceOrderTable.setVisible(true);
-        serviceOrderScrollPane.setVisible(true);
+        serviceOrderScrollPane.setVisible(true);*/
     }
 
     private void removeServiceOrderComponents() {
