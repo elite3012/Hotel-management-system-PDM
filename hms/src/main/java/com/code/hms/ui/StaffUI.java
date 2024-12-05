@@ -68,7 +68,9 @@ public class StaffUI {
     static BillingDaoImpl billingDaoImpl;
     static Service_OrderDAOImpl serviceOrderDaoImpl;
 
+    static List<Object[]> serviceOrders;
     public StaffUI() {
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose: Receptionist(1)/Housekeeper(2)/Admin(3)\n");
         int choice = scanner.nextInt();
@@ -93,10 +95,15 @@ public class StaffUI {
     }
 
     public StaffUI(String role) {
+        serviceOrderDaoImpl = new Service_OrderDAOImpl();
+        serviceOrders = serviceOrderDaoImpl.getAllServiceOrders();
+
         reservationDaoImpl = new ReservationDaoImpl();
         room_ReservationDaoImpl = new Room_ReservationDaoImpl();
         roomDaoImpl = new RoomDaoImpl();
         billingDaoImpl = new BillingDaoImpl();
+        reservationDaoImpl = new ReservationDaoImpl();
+        userDaoImpl = new UserDaoImpl();
         switch (role) {
             case "Receptionist":
                 initializeUI();
@@ -114,8 +121,7 @@ public class StaffUI {
                 System.out.println("Invalid choice!");
                 System.exit(0);
         }
-        reservationDaoImpl = new ReservationDaoImpl();
-        userDaoImpl = new UserDaoImpl();
+
     }
 
     private void initializeUI() {
@@ -255,6 +261,7 @@ public class StaffUI {
                 addAdminRoomMenu();
                 removeServiceOrderComponents();
                 removeReservationTabComponents();
+                removeFinancialComponents();
             }
         });
 
@@ -285,6 +292,7 @@ public class StaffUI {
                 removeRoomCleaningTabComponents();
                 removeServiceOrderComponents();
                 removeManageUserComponents();
+                removeFinancialComponents();
                 addReservationTabComponents();
             }
         });
@@ -311,13 +319,18 @@ public class StaffUI {
                 FinancialTab.setForeground(new Color(245, 242, 233));
                 UsersTab.setForeground(new Color(245, 242, 233));
 
-                //addServiceOrderComponents();
-                createServiceOrderPanel();
+                
+                if (serviceOrders != null && !serviceOrders.isEmpty()) {
+                    addServiceOrderComponents();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No service orders found.", "Information", JOptionPane.INFORMATION_MESSAGE);
+                }
                 removeRoomTabComponents();
                 removeAdminRoomMenu();
                 removeRoomCleaningTabComponents();
                 removeManageUserComponents();
                 removeReservationTabComponents();
+                removeFinancialComponents();
             }
         });
 
@@ -383,19 +396,19 @@ public class StaffUI {
                 addManageUserComponents();
             }
         });
+        createServiceOrderPanel();
+        
         addFinancialPanel();
         addAdminReservationPanel();
         addManageUserPanel();
         addAdminReservationPanel();
         addRoomPanel();
         addRoomCleaningPanel();
-        removeRoomCleaningTabComponents();
+        
         createAdminRoomMenu();
-        //createServiceOrderPanel();
         createAllBackgrounds();
-        createFinancialPanel();
-        addFinancialComponents();
-        removeFinancialComponents();
+        
+        removeRoomCleaningTabComponents();
         removeReservationTabComponents();
 
     }
@@ -1056,6 +1069,7 @@ public class StaffUI {
     private void addFinancialPanel() {
         if (financialPanel == null) {
             financialPanel = new JPanel();
+            System.out.println("addpanel");
             financialPanel.setLayout(new BorderLayout(20, 20));
             financialPanel.setBounds(417, 40, 713, 530);
     
@@ -1382,29 +1396,6 @@ public class StaffUI {
 
     }
 
-    private void createFinancialPanel() {
-        String[][] billingBaseData = {{" ", " ", " "}};
-        String[] billingColumnNames = {"Amount", "Payment Method", "Date"};
-
-        billingTable = new JTable(billingBaseData, billingColumnNames);
-        billingTable.setBounds(374, 40, 800, 530);
-        billingTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
-        billingTable.setFont(new Font("Arial", Font.PLAIN, 12));
-        billingTable.setVisible(false);
-
-        billingScrollPane = new JScrollPane(billingTable);
-        billingScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
-        billingScrollPane.setVisible(false);
-        panel.add(billingScrollPane);
-
-        financialPanel = new JPanel();
-        financialPanel.setBounds(374, 40, 800, 530);
-        financialPanel.setOpaque(false);
-        financialPanel.setVisible(false);
-        panel.add(financialPanel);
-        financialPanel.add(billingScrollPane);
-    }
-
     private void createUsersTab() {
         // UsersTab setup
         UsersTab = new JButton();
@@ -1535,20 +1526,8 @@ public class StaffUI {
         serviceOrderTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
         serviceOrderTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
         serviceOrderTable.setVisible(false);
-
-        serviceOrderScrollPane = new JScrollPane(serviceOrderTable);
-        serviceOrderScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
-        serviceOrderScrollPane.setVisible(false);
-        panel.add(serviceOrderScrollPane);
-
-        serviceOrderPanel = new JPanel();
-        serviceOrderPanel.setBounds(374, 40, 800, 530);
-        serviceOrderPanel.setOpaque(false);
-        serviceOrderPanel.setVisible(false);
-        panel.add(serviceOrderPanel);*/
-
-        List<Object[]> serviceOrders = serviceOrderDaoImpl.getAllServiceOrders();
-        if (serviceOrders != null && !serviceOrders.isEmpty()) {
+*/
+        
             String[] columnNames = {"User ID", "ServiceType", "Date", "Time"};
 
             Object[][] data = new Object[serviceOrders.size()][4];
@@ -1583,15 +1562,16 @@ public class StaffUI {
 
             serviceOrderScrollPane = new JScrollPane(serviceOrderTable);
             serviceOrderScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane
-            serviceOrderScrollPane.setVisible(true);
+            serviceOrderScrollPane.setVisible(false);
             panel.add(serviceOrderScrollPane);
 
             serviceOrderPanel = new JPanel();
             serviceOrderPanel.setBounds(374, 40, 800, 530);
             serviceOrderPanel.setOpaque(false);
-            serviceOrderPanel.setVisible(true);
+            serviceOrderPanel.setVisible(false);
             panel.add(serviceOrderPanel);
 
+            
             /*JPanel panel = new JPanel(new BorderLayout());
             panel.add(scrollPane, BorderLayout.CENTER);
 
@@ -1601,9 +1581,7 @@ public class StaffUI {
             frame.setSize(800, 600);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);*/
-        } else {
-            JOptionPane.showMessageDialog(null, "No service orders found.", "Information", JOptionPane.INFORMATION_MESSAGE);
-        }
+        
     }
 
     private void addManageUserPanel() {
@@ -1993,15 +1971,17 @@ public class StaffUI {
     }
 
     private void addServiceOrderComponents() {
-        /*serviceOrderPanel.setVisible(true);
+        serviceOrderPanel.setVisible(true);
         serviceOrderTable.setVisible(true);
-        serviceOrderScrollPane.setVisible(true);*/
+        serviceOrderScrollPane.setVisible(true);
     }
 
     private void removeServiceOrderComponents() {
-        serviceOrderPanel.setVisible(false);
-        serviceOrderTable.setVisible(false);
-        serviceOrderScrollPane.setVisible(false);
+        if (serviceOrderPanel != null && serviceOrderTable != null && serviceOrderScrollPane != null) {
+            serviceOrderPanel.setVisible(false);
+            serviceOrderTable.setVisible(false);
+            serviceOrderScrollPane.setVisible(false);
+        }
     }
 
     private void addTaskListComponents() {
@@ -2108,15 +2088,14 @@ public class StaffUI {
     }
 
     private void addFinancialComponents() {
-        billingTable.setVisible(true); // Make the billing table visible
+
         financialPanel.setVisible(true); // Make the financial panel visible
-        billingScrollPane.setVisible(true); // Make the scroll pane visible
+
     }
 
     private void removeFinancialComponents() {
-        billingTable.setVisible(false); // Hide the billing table
+
         financialPanel.setVisible(false); // Hide the financial panel
-        billingScrollPane.setVisible(false); // Hide the scroll pane
 
     }
 }
