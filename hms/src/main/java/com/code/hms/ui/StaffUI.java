@@ -1950,6 +1950,7 @@ public class StaffUI {
         taskListTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
         taskListTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
         taskListTable.setVisible(false);
+        panel.add(taskListTable);
 
         taskListScrollPane = new JScrollPane(taskListTable);
         taskListScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane

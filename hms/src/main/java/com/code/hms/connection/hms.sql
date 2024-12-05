@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `billing` (
   PRIMARY KEY (`Billing_ID`),
   KEY `FK_billing_reservation` (`Reservation_ID`),
   CONSTRAINT `FK_billing_reservation` FOREIGN KEY (`Reservation_ID`) REFERENCES `reservation` (`Reservation_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table hms.billing: ~0 rows (approximately)
 DELETE FROM `billing`;
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   PRIMARY KEY (`Reservation_ID`),
   KEY `FK_reservation_user` (`User_ID`),
   CONSTRAINT `FK_reservation_user` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table hms.reservation: ~0 rows (approximately)
 DELETE FROM `reservation`;
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `review` (
   KEY `FK_review_reservation` (`Reservation_ID`),
   CONSTRAINT `FK_review_reservation` FOREIGN KEY (`Reservation_ID`) REFERENCES `reservation` (`Reservation_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_review_user` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table hms.review: ~0 rows (approximately)
 DELETE FROM `review`;
@@ -131,9 +131,8 @@ CREATE TABLE IF NOT EXISTS `room_reservation` (
   CONSTRAINT `FK_room_reservation_room` FOREIGN KEY (`Room_ID`) REFERENCES `room` (`Room_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table hms.room_reservation: ~3 rows (approximately)
+-- Dumping data for table hms.room_reservation: ~0 rows (approximately)
 DELETE FROM `room_reservation`;
-  
 
 -- Dumping structure for table hms.service
 CREATE TABLE IF NOT EXISTS `service` (
@@ -142,7 +141,6 @@ CREATE TABLE IF NOT EXISTS `service` (
   `ServiceAvailability` varchar(255) DEFAULT NULL,
   `Price` double DEFAULT NULL,
   `Type_Max` int(11) DEFAULT NULL,
-  `TypeMax` int(11) DEFAULT NULL,
   PRIMARY KEY (`Service_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -175,14 +173,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   `Phone` varchar(255) DEFAULT NULL,
   `Role` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`User_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table hms.user: ~3 rows (approximately)
+-- Dumping data for table hms.user: ~4 rows (approximately)
 DELETE FROM `user`;
 INSERT INTO `user` (`User_ID`, `Username`, `Password`, `FirstName`, `LastName`, `Email`, `Phone`, `Role`) VALUES
 	(1, 'admin', '123', 'Quys', 'Tran', 'Quy@gmaii.com', '0923876286', 'Admin'),
 	(2, 'customer', '123', 'Nhan', 'Nguyen', 'Nhan@gmail.com', '0123654789', 'Customer'),
-	(3, 'receptionist', '123', 'Minh', 'Tran', 'Minh@gmail.com', '0321456987', 'Receptionist');
+	(3, 'receptionist', '123', 'Minh', 'Tran', 'Minh@gmail.com', '0321456987', 'Receptionist'),
+	(4, 'housekeeper', '123', 'Hoang', 'Nguyen', 'Hoang@gmail.com', '0321456987', 'Housekeeper');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
