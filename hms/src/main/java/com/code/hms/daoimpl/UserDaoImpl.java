@@ -195,7 +195,7 @@ public class UserDaoImpl implements UserDAO {
     }
 
     @Override
-    public User deleteUser(int userId) {
+    public void deleteUser(int userId) {
         session = dsf.getSessionFactory().openSession();
         
         try {
@@ -217,7 +217,6 @@ public class UserDaoImpl implements UserDAO {
         } finally {
             session.close();
         }
-        return null;
     }
 
     @Override
