@@ -166,10 +166,10 @@ public class CustomerUI {
     static JLabel AmountPos;
     static JLabel SecCodePos;
 
-    static JTextField BookingFirstName;
-    static JTextField BookingLastName;
-    static JTextField BookingPhoneNumber;
-    static JTextField BookingEmail;
+    static JLabel BookingFirstName;
+    static JLabel BookingLastName;
+    static JLabel BookingPhoneNumber;
+    static JLabel BookingEmail;
     static JTextField BookingCredit;
     static JTextField BookingNamecard;
     static JTextField BookingAmount;
@@ -663,6 +663,16 @@ public class CustomerUI {
                             selectedRoomIds.add(roomId);
                         }
                     }
+                    User user = userDaoImpl.getUserByUserId(userId); 
+                    if (user != null) {
+                        BookingFirstName.setText(user.getFirstName());
+                        BookingLastName.setText(user.getLastName());
+                        BookingPhoneNumber.setText(user.getPhone());
+                        BookingEmail.setText(user.getEmail());
+                    } else {
+                        JOptionPane.showMessageDialog(panel, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
         
                     JOptionPane.showMessageDialog(panel, "Fill the information successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
         
@@ -695,13 +705,6 @@ public class CustomerUI {
                     Transaction transaction = session.beginTransaction();
                     
                     try {
-                        String phone = BookingPhoneNumber.getText().trim();
-                        int userId = userDaoImpl.getUserIDByPhone(phone);
-                        if (userId == 0) {
-                            JOptionPane.showMessageDialog(panel, "No user found with the provided phone number.", "Error", JOptionPane.ERROR_MESSAGE);
-                            return;
-                        }
-        
                         String paymentMethod = selectedPaymentMethod;
                         if (paymentMethod == null || paymentMethod.trim().isEmpty()) {
                             JOptionPane.showMessageDialog(panel, "Please select a valid payment method.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -2737,7 +2740,7 @@ public class CustomerUI {
 
     public void CreateBookingInfo() {
         //box for first name
-        BookingFirstName = new JTextField();
+        BookingFirstName = new JLabel();
         panel.add(BookingFirstName);
         BookingFirstName.setBounds(352, 201, 295, 28);
         BookingFirstName.setBackground(new Color(244, 242, 235));
@@ -2745,7 +2748,7 @@ public class CustomerUI {
         BookingFirstName.setBorder(null);
 
         //box for last name
-        BookingLastName = new JTextField();
+        BookingLastName = new JLabel();
         panel.add(BookingLastName);
         BookingLastName.setBounds(752, 201, 295, 28);
         BookingLastName.setBackground(new Color(244, 242, 235));
@@ -2753,7 +2756,7 @@ public class CustomerUI {
         BookingLastName.setBorder(null);
 
         //box for phone number
-        BookingPhoneNumber = new JTextField();
+        BookingPhoneNumber = new JLabel();
         panel.add(BookingPhoneNumber);
         BookingPhoneNumber.setBounds(352, 281, 295, 28);
         BookingPhoneNumber.setBackground(new Color(244, 242, 235));
@@ -2761,7 +2764,7 @@ public class CustomerUI {
         BookingPhoneNumber.setBorder(null);
 
         //box for email
-        BookingEmail = new JTextField();
+        BookingEmail = new JLabel();
         panel.add(BookingEmail);
         BookingEmail.setBounds(752, 281, 295, 28);
         BookingEmail.setBackground(new Color(244, 242, 235));
