@@ -755,6 +755,8 @@ public class CustomerUI {
         
                         transaction.commit();
                         JOptionPane.showMessageDialog(panel, "Reservation and Billing saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        reservationPackage.addItem(reservation);
+                        reservationPackage.repaint();
         
                     } catch (Exception ex) {
                         if (transaction != null) {
@@ -2518,6 +2520,8 @@ public class CustomerUI {
                     try {
                         reviewDAOImpl.saveReview(review);
                         System.out.println("Review submitted successfully!");
+                        reservationPackage.removeItem(selectedReservation);
+                        reservationPackage.repaint();
                     } catch (Exception ex) {
                         ex.printStackTrace();
                         System.out.println("Error submitting review!");
