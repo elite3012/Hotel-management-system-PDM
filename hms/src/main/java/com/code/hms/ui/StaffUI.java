@@ -48,7 +48,6 @@ public class StaffUI {
     static JComboBox adminRoomMenu;
     static JButton RoomManagementTab;
     static JButton ReservationTab;
-    static JButton CurrencyExchangeTab;
     static JButton TaskListTab;
     static JButton ServiceOrderTab;
     static JButton FinancialTab;
@@ -149,10 +148,8 @@ public class StaffUI {
                 Tab3_background.setVisible(false);
                 RoomManagementTab.setBackground(new Color(244, 242, 235));
                 ReservationTab.setBackground(new Color(132, 121, 102));
-                CurrencyExchangeTab.setBackground(new Color(132, 121, 102));
                 RoomManagementTab.setForeground(new Color(43, 42, 38));
                 ReservationTab.setForeground(new Color(245, 242, 233));
-                CurrencyExchangeTab.setForeground(new Color(245, 242, 233));
                 removeReservationTabComponents();
                 addRoomTabComponents();
             }
@@ -167,30 +164,10 @@ public class StaffUI {
                 Tab3_background.setVisible(false);
                 RoomManagementTab.setBackground(new Color(132, 121, 102));
                 ReservationTab.setBackground(new Color(244, 242, 235));
-                CurrencyExchangeTab.setBackground(new Color(132, 121, 102));
                 ReservationTab.setForeground(new Color(43, 42, 38));
                 RoomManagementTab.setForeground(new Color(245, 242, 233));
-                CurrencyExchangeTab.setForeground(new Color(245, 242, 233));
                 removeRoomTabComponents();
                 addReservationTabComponents();
-            }
-        });
-
-        createCurrencyExchangeTab();
-        CurrencyExchangeTab.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Tab1_background.setVisible(false);
-                Tab2_background.setVisible(false);
-                Tab3_background.setVisible(true);
-                RoomManagementTab.setBackground(new Color(132, 121, 102));
-                ReservationTab.setBackground(new Color(132, 121, 102));
-                CurrencyExchangeTab.setBackground(new Color(244, 242, 235));
-                CurrencyExchangeTab.setForeground(new Color(43, 42, 38));
-                RoomManagementTab.setForeground(new Color(245, 242, 233));
-                ReservationTab.setForeground(new Color(245, 242, 233));
-                removeRoomTabComponents();
-                removeReservationTabComponents();
             }
         });
         addReservationPanel();
@@ -1350,23 +1327,6 @@ public class StaffUI {
         ReservationTab.setVisible(true);
         new Interaction(ReservationTab, false);
         panel.add(ReservationTab);
-    }
-
-    private void createCurrencyExchangeTab() {
-        // CurrencyTab setup
-        CurrencyExchangeTab = new JButton();
-        CurrencyExchangeTab.setFocusable(false);
-        CurrencyExchangeTab.setBackground(new Color(132, 121, 102));
-        CurrencyExchangeTab.setBorderPainted(false);
-        CurrencyExchangeTab.setText("CURRENCY EXCH.");
-        CurrencyExchangeTab.setFont(new Font("Mulish", Font.BOLD, 21));
-        CurrencyExchangeTab.setBounds(16, 209, 235, 33);
-        CurrencyExchangeTab.setForeground(new Color(245, 242, 233));
-        CurrencyExchangeTab.setHorizontalTextPosition(SwingConstants.LEFT);
-        CurrencyExchangeTab.setHorizontalAlignment(SwingConstants.LEFT);
-        CurrencyExchangeTab.setVisible(true);
-        new Interaction(CurrencyExchangeTab, false);
-        panel.add(CurrencyExchangeTab);
     }
 
     private void createTaskListTab() {
