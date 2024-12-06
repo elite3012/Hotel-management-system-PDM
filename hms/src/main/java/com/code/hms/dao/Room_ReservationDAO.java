@@ -15,4 +15,7 @@ public interface Room_ReservationDAO {
 
     // Save to database
     public void saveRoomReservation(Room_Reservation room_Reservation);
+
+    // Delete the room_reservation
+    public void deleteRoomReservation(Room_Reservation room_Reservation);
 }

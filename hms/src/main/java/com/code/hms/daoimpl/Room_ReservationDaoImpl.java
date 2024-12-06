@@ -76,6 +76,28 @@ public class Room_ReservationDaoImpl implements Room_ReservationDAO {
         } finally {
             session.close();
         }
-}
+    }
+
+    @Override
+    public void deleteRoomReservation(Room_Reservation roomReservation) {
+        session = dsf.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            Room_Reservation existingReservation = session.get(Room_Reservation.class, roomReservation.getPk());
+            if (existingReservation != null) {
+                session.delete(existingReservation); 
+            } else {
+                System.out.println("Room_Reservation does not exist for the given composite key.");
+            }
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
 
 }
