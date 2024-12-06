@@ -6,7 +6,6 @@ import com.code.hms.connection.DataSourceFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.hibernate.query.SelectionQuery;
 import org.hibernate.query.MutationQuery;
 import java.util.List;
 
@@ -107,6 +106,30 @@ public class RoomDaoImpl implements RoomDAO {
                 room.setRoomStatus("Available");
                 session.merge(room); 
                 System.out.println("Room status updated to 'Available' for room ID: " + roomId);
+            } else {
+                System.out.println("No room found for the provided room ID: " + roomId);
+            }
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void setRoomCheckedIn(int roomId) {
+        Session session = dataSourceFactory.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            Room room = session.get(Room.class, roomId);
+            if (room != null) {
+                room.setRoomStatus("Unavailable");
+                session.merge(room);
+                System.out.println("Room status updated to 'Unavailable' for room ID: " + roomId);
             } else {
                 System.out.println("No room found for the provided room ID: " + roomId);
             }

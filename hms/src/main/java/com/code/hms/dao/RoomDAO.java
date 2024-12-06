@@ -23,6 +23,8 @@ public interface RoomDAO {
 	// Set room availability after check out
 	public void setRoomCheckedOut(int roomId);
 
+	void setRoomCheckedIn(int roomId);
+
 	// Set Clean
 	public void setAllRoomsAtClean(String clean);
 	public void setSingleRoomAsCleanByRoomID(int roomId);
