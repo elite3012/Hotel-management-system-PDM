@@ -17,6 +17,7 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Review_ID", nullable = false)
     private int reviewId;
 
     @ManyToOne

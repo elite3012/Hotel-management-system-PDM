@@ -57,6 +57,7 @@ public class CustomerUI {
     static Room_ReservationDaoImpl room_ReservationDaoImpl;
 
     static Reservation reservation;
+    static Reservation selectedReservation;
 
     static JLabel Tab1_background;
     static JLabel Tab2_background;
@@ -331,7 +332,7 @@ public class CustomerUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Fetch available rooms
-                List<Room> availableRooms = roomDaoImpl.getAllAvailableRooms(); 
+                List<Room> availableRooms = roomDaoImpl.getAllAvailableRooms();
 
                 if (availableRooms != null && !availableRooms.isEmpty()) {
                     String[] columnNames = {"Room ID", "Room Type", "Price", "Room Status", "Cleaning Status", "Room Capacity"};
@@ -370,9 +371,9 @@ public class CustomerUI {
         JLabel ChooseDateIn = new JLabel();
         ChooseDateIn.setText("CHECK-IN DATE");
         ChooseDateIn.setFont(new Font("Mulish", Font.BOLD, 25));
-        ChooseDateIn.setBounds(390, 100, 300, 33); 
+        ChooseDateIn.setBounds(390, 100, 300, 33);
         ChooseDateIn.setForeground(new Color(212, 158, 24));
-        ChooseDateIn.setHorizontalAlignment(SwingConstants.CENTER); 
+        ChooseDateIn.setHorizontalAlignment(SwingConstants.CENTER);
         ChooseDateIn.setVisible(false);
         panel.add(ChooseDateIn);
 
@@ -395,7 +396,7 @@ public class CustomerUI {
 
         JTextField EnterDateOut = new JTextField();
         panel.add(EnterDateOut);
-        EnterDateOut.setBounds(900, 150, 220, 28); 
+        EnterDateOut.setBounds(900, 150, 220, 28);
         EnterDateOut.setBackground(new Color(168, 161, 150));
         EnterDateOut.setVisible(false);
         EnterDateOut.setBorder(null);
@@ -404,32 +405,33 @@ public class CustomerUI {
         JLabel NumberOfGuests = new JLabel();
         NumberOfGuests.setText("NUMBER OF GUESTS");
         NumberOfGuests.setFont(new Font("Mulish", Font.BOLD, 25));
-        NumberOfGuests.setBounds(625, 190, 285, 33); 
+        NumberOfGuests.setBounds(625, 190, 285, 33);
         NumberOfGuests.setForeground(new Color(212, 158, 24));
-        NumberOfGuests.setHorizontalAlignment(SwingConstants.CENTER); 
-        NumberOfGuests.setVisible(false); 
+        NumberOfGuests.setHorizontalAlignment(SwingConstants.CENTER);
+        NumberOfGuests.setVisible(false);
         panel.add(NumberOfGuests);
 
         JTextField EnterNumberOfGuests = new JTextField();
         panel.add(EnterNumberOfGuests);
-        EnterNumberOfGuests.setBounds(635, 230, 265, 28); 
+        EnterNumberOfGuests.setBounds(635, 230, 265, 28);
         EnterNumberOfGuests.setBackground(new Color(168, 161, 150));
-        EnterNumberOfGuests.setVisible(false); 
+        EnterNumberOfGuests.setVisible(false);
         EnterNumberOfGuests.setBorder(null);
 
         // ROOM SELECTION Section
         JLabel RoomSelectionLabel = new JLabel();
         RoomSelectionLabel.setText("SELECT ROOM");
         RoomSelectionLabel.setFont(new Font("Mulish", Font.BOLD, 25));
-        RoomSelectionLabel.setBounds(645, 460, 285, 33);  RoomSelectionLabel.setVisible(false);
+        RoomSelectionLabel.setBounds(645, 460, 285, 33);
+        RoomSelectionLabel.setVisible(false);
         RoomSelectionLabel.setForeground(new Color(212, 158, 24));
-        RoomSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER); 
+        RoomSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(RoomSelectionLabel);
 
         List<Room> availableRooms = roomDaoImpl.getAllAvailableRooms();
         if (availableRooms == null || availableRooms.isEmpty()) {
             JOptionPane.showMessageDialog(panel, "No rooms are available for booking.", "Error", JOptionPane.ERROR_MESSAGE);
-            return; 
+            return;
         }
         String[] roomOptions = new String[availableRooms.size()];
         for (int i = 0; i < availableRooms.size(); i++) {
@@ -442,8 +444,8 @@ public class CustomerUI {
         roomList.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102)));
 
         JScrollPane RoomSelectionField = new JScrollPane(roomList);
-        RoomSelectionField.setBounds(670, 500, 220, 100); 
-        RoomSelectionField.setVisible(false); 
+        RoomSelectionField.setBounds(670, 500, 220, 100);
+        RoomSelectionField.setVisible(false);
         panel.add(RoomSelectionField);
 
 
@@ -485,7 +487,7 @@ public class CustomerUI {
         panel.add(WriteFeedback);
 
         // Set bounds and appearance
-        WriteFeedback.setBounds(300, 180, 940, 300);
+        WriteFeedback.setBounds(300, 180, 600, 300);
         WriteFeedback.setBackground(new Color(244, 242, 235));
         WriteFeedback.setVisible(false);
         WriteFeedback.setLineWrap(true); // Enable word wrapping
@@ -493,6 +495,46 @@ public class CustomerUI {
         WriteFeedback.setMargin(new Insets(5, 5, 5, 5)); // Add padding for better appearance
         WriteFeedback.setFont(new Font("Mulish", Font.PLAIN, 16)); // Set the font size and style
         WriteFeedback.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102), 1));
+
+        // reservation SELECTION Section
+        JLabel ReservationSelectionLabel = new JLabel();
+        ReservationSelectionLabel.setText("SELECT RERSERVATION");
+        ReservationSelectionLabel.setFont(new Font("Mulish", Font.BOLD, 25));
+        ReservationSelectionLabel.setBounds(950, 150, 350, 33);
+        ReservationSelectionLabel.setVisible(false);
+        ReservationSelectionLabel.setForeground(new Color(212, 158, 24));
+        ReservationSelectionLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        panel.add(ReservationSelectionLabel);
+
+        List<Reservation> reservationList = userDaoImpl.getReservationsByCustomer(userId);
+        JComboBox<Reservation> reservationPackage = new JComboBox<>();
+        for (Reservation reservation : reservationList) {
+            reservationPackage.addItem(reservation);
+        }
+        reservationPackage.setBounds(950, 200, 300, 30);
+        reservationPackage.setFont(new Font("Mulish", Font.BOLD, 16));
+        reservationPackage.setBackground(new Color(244, 242, 235));
+        reservationPackage.setFocusable(false);
+        reservationPackage.setVisible(false);
+        panel.add(reservationPackage);
+
+        reservationPackage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectedReservation = (Reservation) reservationPackage.getSelectedItem();
+            }
+        });
+
+//        List<Reservation> reservationList = userDaoImpl.getReservationsByCustomer(userId);
+//        if (availableRooms == null || availableRooms.isEmpty()) {
+//            JOptionPane.showMessageDialog(panel, "No rooms are available for booking.", "Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+//
+//        String[] roomOptions = new String[availableRooms.size()];
+//        for (int i = 0; i < availableRooms.size(); i++) {
+//            Room room = availableRooms.get(i);
+//            roomOptions[i] = "Room " + room.getRoomId() + " - " + room.getRoomType();
 
         PaymentMethod = new JLabel();
         PaymentMethod.setText("II. Payment Method");
@@ -872,6 +914,8 @@ public class CustomerUI {
             ratingStars.setVisible(false);
             WriteFeedback.setVisible(false);
             Feedback.setVisible(false);
+            ReservationSelectionLabel.setVisible(false);
+            reservationPackage.setVisible(false);
 
             RoomBooking.setVisible(false);
             ChooseDateIn.setVisible(false);
@@ -1056,6 +1100,8 @@ public class CustomerUI {
             ratingStars.setVisible(false);
             WriteFeedback.setVisible(false);
             Feedback.setVisible(false);
+            ReservationSelectionLabel.setVisible(false);
+            reservationPackage.setVisible(false);
 
             RoomBooking.setVisible(true);
             ChooseDateIn.setVisible(true);
@@ -1905,6 +1951,8 @@ public class CustomerUI {
             ratingStars.setVisible(false);
             WriteFeedback.setVisible(false);
             Feedback.setVisible(false);
+            ReservationSelectionLabel.setVisible(false);
+            reservationPackage.setVisible(false);
 
             RoomBooking.setVisible(false);
             ChooseDateIn.setVisible(false);
@@ -2055,6 +2103,8 @@ public class CustomerUI {
             ratingStars.setVisible(false);
             WriteFeedback.setVisible(false);
             Feedback.setVisible(false);
+            ReservationSelectionLabel.setVisible(false);
+            reservationPackage.setVisible(false);
 
             RoomBooking.setVisible(false);
             ChooseDateIn.setVisible(false);
@@ -2228,6 +2278,8 @@ public class CustomerUI {
             ratingStars.setVisible(true);
             WriteFeedback.setVisible(true);
             Feedback.setVisible(true);
+            ReservationSelectionLabel.setVisible(true);
+            reservationPackage.setVisible(true);
 
             RoomBooking.setVisible(false);
             ChooseDateIn.setVisible(false);
@@ -2378,6 +2430,8 @@ public class CustomerUI {
             ratingStars.setVisible(true);
             WriteFeedback.setVisible(true);
             Feedback.setVisible(true);
+            ReservationSelectionLabel.setVisible(true);
+            reservationPackage.setVisible(true);
 
             RoomBooking.setVisible(false);
             ChooseDateIn.setVisible(false);
@@ -2437,9 +2491,12 @@ public class CustomerUI {
 
                     java.sql.Date reviewDate = new java.sql.Date(System.currentTimeMillis());
 
+//                    reservation.setUserId(userId);
+//                    reservationDaoImpl.saveReservation(reservation);
+
                     Review review = new Review();
                     review.setUser(userDaoImpl.getUserByID(userId));
-                    review.setReservation(reservation); // Link the Reservation
+                    review.setReservation(selectedReservation); // Link the Reservation
                     review.setRating(ratingStars.getSelectedRating());
                     review.setComment(WriteFeedback.getText());
                     review.setReviewDate(reviewDate);
@@ -2448,17 +2505,17 @@ public class CustomerUI {
 
                     try {
                         reviewDAOImpl.saveReview(review);
-                        JOptionPane.showMessageDialog(null, "Review submitted successfully!");
+                        System.out.println("Review submitted successfully!");
                     } catch (Exception ex) {
                         ex.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Error submitting review: " + ex.getMessage());
+                        System.out.println("Error submitting review!");
                     }
-                    Review newReview = new Review();
-                    newReview.setRating(ratingStars.getSelectedRating());
-                    newReview.setComment(WriteFeedback.getText());
-                    System.out.println(newReview.getRating());
-                    System.out.println(newReview.getComment());
-                    reviewDAOImpl.saveReview(newReview);
+//                    Review newReview = new Review();
+//                    newReview.setRating(ratingStars.getSelectedRating());
+//                    newReview.setComment(WriteFeedback.getText());
+//                    System.out.println(newReview.getRating());
+//                    System.out.println(newReview.getComment());
+//                    reviewDAOImpl.saveReview(newReview);
 
                     WriteFeedback.setText(""); // Clear feedback
                     ratingStars.resetRating(); // Reset the stars
