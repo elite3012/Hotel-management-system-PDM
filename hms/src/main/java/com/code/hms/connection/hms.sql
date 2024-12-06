@@ -125,6 +125,8 @@ CREATE TABLE IF NOT EXISTS `room_reservation` (
   `Reservation_ID` int(11) NOT NULL,
   `Time` time DEFAULT NULL,
   `Date` date DEFAULT NULL,
+  `reservationId` int(11) NOT NULL,
+  `roomId` int(11) NOT NULL,
   KEY `FK_room_reservation_room` (`Room_ID`),
   KEY `FK_room_reservation_reservation` (`Reservation_ID`),
   CONSTRAINT `FK_room_reservation_reservation` FOREIGN KEY (`Reservation_ID`) REFERENCES `reservation` (`Reservation_ID`) ON DELETE CASCADE ON UPDATE NO ACTION,
@@ -142,10 +144,15 @@ CREATE TABLE IF NOT EXISTS `service` (
   `Price` double DEFAULT NULL,
   `Type_Max` int(11) DEFAULT NULL,
   PRIMARY KEY (`Service_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table hms.service: ~0 rows (approximately)
+-- Dumping data for table hms.service: ~4 rows (approximately)
 DELETE FROM `service`;
+INSERT INTO `service` (`Service_ID`, `ServiceName`, `ServiceAvailability`, `Price`, `Type_Max`) VALUES
+	(1, 'Spa Center', 'Available', 50, 4),
+	(2, 'Restaurant', 'Available', 100, 4),
+	(3, 'Room Cleaning', 'Available', 0, 4),
+	(4, 'Music Lounge', 'Available', 150, 4);
 
 -- Dumping structure for table hms.service_order
 CREATE TABLE IF NOT EXISTS `service_order` (
@@ -153,6 +160,8 @@ CREATE TABLE IF NOT EXISTS `service_order` (
   `Time` time DEFAULT NULL,
   `Date` date DEFAULT NULL,
   `User_ID` int(11) DEFAULT NULL,
+  `serviceId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
   KEY `FK_service_order_service` (`Service_ID`),
   KEY `FK_service_order_user` (`User_ID`),
   CONSTRAINT `FK_service_order_service` FOREIGN KEY (`Service_ID`) REFERENCES `service` (`Service_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
