@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `billing` (
   `Date` date DEFAULT NULL,
   PRIMARY KEY (`Billing_ID`),
   KEY `FK_billing_reservation` (`Reservation_ID`),
-  CONSTRAINT `FK_billing_reservation` FOREIGN KEY (`Reservation_ID`) REFERENCES `reservation` (`Reservation_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `FK_billing_reservation` FOREIGN KEY (`Reservation_ID`) REFERENCES `reservation` (`Reservation_ID`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table hms.billing: ~0 rows (approximately)
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `review` (
   PRIMARY KEY (`Review_ID`),
   KEY `FK_review_user` (`User_ID`),
   KEY `FK_review_reservation` (`Reservation_ID`),
-  CONSTRAINT `FK_review_reservation` FOREIGN KEY (`Reservation_ID`) REFERENCES `reservation` (`Reservation_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_review_reservation` FOREIGN KEY (`Reservation_ID`) REFERENCES `reservation` (`Reservation_ID`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `FK_review_user` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `room_reservation` (
   `Date` date DEFAULT NULL,
   KEY `FK_room_reservation_room` (`Room_ID`),
   KEY `FK_room_reservation_reservation` (`Reservation_ID`),
-  CONSTRAINT `FK_room_reservation_reservation` FOREIGN KEY (`Reservation_ID`) REFERENCES `reservation` (`Reservation_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_room_reservation_reservation` FOREIGN KEY (`Reservation_ID`) REFERENCES `reservation` (`Reservation_ID`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `FK_room_reservation_room` FOREIGN KEY (`Room_ID`) REFERENCES `room` (`Room_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
