@@ -3,7 +3,6 @@ package com.code.hms.entities;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.Instant;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -60,8 +59,9 @@ public class User_Service {
         return date;
     }
 
-    public void setDate(Instant instant) {
-        this.date = (Date) Date.from(instant);}
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     // Getter and Setter for time
     public Time getTime() {
