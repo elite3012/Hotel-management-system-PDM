@@ -22,6 +22,12 @@ public interface RoomDAO {
 
 	String getRoomStatus(int roomId);
 
+	String getRoomCleaningStatus(int roomId);
+
+	void setRoomCleaned(int roomId);
+
+	void setRoomUncleaned(int roomId);
+
 	// Set room availability after check out
 	public void setRoomCheckedOut(int roomId);
 

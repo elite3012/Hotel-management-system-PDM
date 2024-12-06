@@ -110,6 +110,68 @@ public class RoomDaoImpl implements RoomDAO {
         }
     }
 
+    @Override
+    public String getRoomCleaningStatus(int roomId) {
+        Session session = dataSourceFactory.getSessionFactory().openSession();
+        try {
+            Room room = session.get(Room.class, roomId);
+            return room != null ? room.getCleaningStatus() : "Unknown";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Unknown";
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void setRoomCleaned(int roomId) {
+        Session session = dataSourceFactory.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            Room room = session.get(Room.class, roomId);
+            if (room != null) {
+                room.setRoomCleaningStatus("Clean");
+                session.merge(room);
+                System.out.println("Cleaning status updated to 'Clean' for room ID: " + roomId);
+            } else {
+                System.out.println("No room found for the provided room ID: " + roomId);
+            }
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void setRoomUncleaned(int roomId) {
+        Session session = dataSourceFactory.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            Room room = session.get(Room.class, roomId);
+            if (room != null) {
+                room.setRoomCleaningStatus("Unclean");
+                session.merge(room);
+                System.out.println("Cleaning status updated to 'Unclean' for room ID: " + roomId);
+            } else {
+                System.out.println("No room found for the provided room ID: " + roomId);
+            }
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
 
     @Override
     public void setRoomCheckedOut(int roomId) {
