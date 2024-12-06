@@ -159,9 +159,9 @@ public class BillingDaoImpl implements BillingDAO {
         try {
             session = dataSourceFactory.getSessionFactory().openSession();
 
-            // HQL query to fetch all required fields
-            String query = "SELECT b.billingId, b.amount, b.paymentMethod, b.date, b.reservation.reservationId, b.reservation.user.userId " +
-                        "FROM Billing b";
+            String query = "SELECT b.billingId, b.amount, b.paymentMethod, b.date, b.reservation.reservationId, b.reservation.userId " +
+               "FROM Billing b";
+
 
             billings = session.createQuery(query).getResultList();
         } catch (Exception e) {
