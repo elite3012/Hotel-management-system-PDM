@@ -14,7 +14,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import com.code.hms.connection.DatabaseServerPreparingInitializer;
 import com.code.hms.daoimpl.UserDaoImpl;
 import com.code.hms.ui.CustomerUI;
 import com.code.hms.ui.StaffUI;
@@ -98,7 +97,6 @@ public class LoginWindow extends JFrame {
                 UserDaoImpl userdao = new UserDaoImpl();
                 if (userdao.checkLogin(username, password) > 0) {
                     int userId = userdao.checkLogin(username, password); // Get the user ID
-                    UserSession.getInstance().setUserId(userId); // Store it in the session
                     String role = userdao.getUserByID(userId).getRole();
 
                     switch (role) {
@@ -107,14 +105,14 @@ public class LoginWindow extends JFrame {
                             + userdao.checkLogin(username, password) + ", " + role);
                             SwingUtilities.invokeLater(new Runnable() {
                                 public void run() {
-                                    new CustomerUI(userdao.checkLogin(username, password));
+                                    new CustomerUI(userId);
                                 }
                             });
                             dispose();
                             break;
                         case "Receptionist":
                             JOptionPane.showMessageDialog(null, "Logging in for user: " 
-                            + userdao.checkLogin(username, password) + ", " + role);
+                            + userId + ", " + role);
                             SwingUtilities.invokeLater(new Runnable() {
                                 public void run() {
                                     new StaffUI(role);
@@ -124,7 +122,7 @@ public class LoginWindow extends JFrame {
                             break;
                         case "Housekeeper":
                             JOptionPane.showMessageDialog(null, "Logging in for user: " 
-                            + userdao.checkLogin(username, password) + ", " + role);
+                            + userId + ", " + role);
                             SwingUtilities.invokeLater(new Runnable() {
                                 public void run() {
                                     new StaffUI(role);
@@ -134,7 +132,7 @@ public class LoginWindow extends JFrame {
                         break;
                         case "Admin":
                             JOptionPane.showMessageDialog(null, "Logging in for user: " 
-                            + userdao.checkLogin(username, password) + ", " + role);
+                            + userId + ", " + role);
                             SwingUtilities.invokeLater(new Runnable() {
                                 public void run() {
                                     new StaffUI(role);
