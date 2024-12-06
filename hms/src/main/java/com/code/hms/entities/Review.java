@@ -61,7 +61,7 @@ public class Review {
         return userId;
     }
 
-    public void setUserId(User userId) {
+    public void setUser(User userId) {
         this.userId = userId;
     }
 
