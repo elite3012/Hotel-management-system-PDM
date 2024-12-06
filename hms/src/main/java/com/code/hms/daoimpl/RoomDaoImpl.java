@@ -98,25 +98,22 @@ public class RoomDaoImpl implements RoomDAO {
     }
 
     @Override
-    public void setRoomCheckedOut(int reservationId) {
-        Transaction transaction = null;
+    public void setRoomCheckedOut(int roomId) {
         Session session = dataSourceFactory.getSessionFactory().openSession();
         try {
-            transaction = session.beginTransaction();
-            MutationQuery query = session.createMutationQuery(
-                    "UPDATE Room r SET r.roomStatus = 'Available' WHERE r.roomId = (SELECT res.roomId FROM Reservation res WHERE res.reservationId = :reservationId)"
-            );
-            query.setParameter("reservationId", reservationId);
-            int result = query.executeUpdate();
-            if (result > 0) {
-                System.out.println("Room updated to available after checkout.");
+            session.beginTransaction();
+            Room room = session.get(Room.class, roomId);   
+            if (room != null) {
+                room.setRoomStatus("Available");
+                session.merge(room); 
+                System.out.println("Room status updated to 'Available' for room ID: " + roomId);
             } else {
-                System.out.println("No room found for the provided reservation ID.");
+                System.out.println("No room found for the provided room ID: " + roomId);
             }
-            transaction.commit();
+            session.getTransaction().commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
             }
             e.printStackTrace();
         } finally {
