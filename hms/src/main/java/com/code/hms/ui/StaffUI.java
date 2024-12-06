@@ -1069,26 +1069,21 @@ public class StaffUI {
     private void addFinancialPanel() {
         if (financialPanel == null) {
             financialPanel = new JPanel();
-            System.out.println("addpanel");
             financialPanel.setLayout(new BorderLayout(20, 20));
             financialPanel.setBounds(417, 40, 713, 530);
     
-            // Create the grid panel for buttons
             JPanel gridPanel = new JPanel(new GridLayout(2, 2, 10, 10));
             JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     
-            // Define buttons
             JButton viewAllButton = createRoundedButton("View All Billings");
             JButton createNewButton = createRoundedButton("Create New Billing");
             JButton findBillingsButton = createRoundedButton("Find Billings");
             JButton deleteButton = createRoundedButton("Delete Billing");
-    
-            // Button font and colors
+
             Font buttonFont = new Font("Mulish", Font.BOLD, 16);
             Color buttonColor = Color.decode("#E3DFD5");
             Color textColor = Color.decode("#000000");
     
-            // Add Action Listeners for each button
             viewAllButton.addActionListener(e -> {
                 List<Object[]> billings = billingDaoImpl.getAllBillings();
                 if (billings != null && !billings.isEmpty()) {
@@ -1097,11 +1092,11 @@ public class StaffUI {
                     for (int i = 0; i < billings.size(); i++) {
                         Object[] row = billings.get(i);
                         data[i][0] = row[0]; // Billing ID
-                        data[i][1] = row[1]; // Reservation ID
-                        data[i][2] = row[2]; // User ID
-                        data[i][3] = row[3]; // Amount
-                        data[i][4] = row[4]; // Payment Method
-                        data[i][5] = row[5]; // Date
+                        data[i][1] = row[4]; // Reservation ID
+                        data[i][2] = row[5]; // User ID
+                        data[i][3] = row[1]; // Amount
+                        data[i][4] = row[2]; // Payment Method
+                        data[i][5] = row[3]; // Date
                     }
                     JTable table = new JTable(data, columnNames);
                     JScrollPane scrollPane = new JScrollPane(table);
