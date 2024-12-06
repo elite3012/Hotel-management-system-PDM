@@ -454,8 +454,8 @@ public class StaffUI {
             if ("Available".equals(status)) {
                 roomButton.setBackground(Color.decode("#E3DFD5")); // Available color
                 roomButton.setForeground(Color.decode("#000000"));
-            } else if ("Cleaning".equals(status)) {
-                roomButton.setBackground(Color.decode("#FFD700")); // Cleaning color
+            } else if ("Unavailable".equals(status)) {
+                roomButton.setBackground(Color.decode("#E1756E")); // Cleaning color
                 roomButton.setForeground(Color.decode("#000000"));
             }
         } catch (Exception e) {
@@ -1459,7 +1459,7 @@ public class StaffUI {
                             String cleaningStatus = roomDaoImpl.getRoomCleaningStatus(roomNumber);
 
                             if ("Clean".equals(cleaningStatus)) {
-                                // Change to 'Unavailable' and update the database
+                                // Change to 'Unclean' and update the database
                                 roomCleanButton.setBackground(Color.decode("#E1756E")); // unclean color
                                 roomCleanButton.setForeground(Color.decode("#F5F2E9"));
                                 roomDaoImpl.setRoomUncleaned(roomNumber);
