@@ -30,7 +30,6 @@ Before using the application, ensure you have the following installed:
 - **Room Management:** Add, update, and remove rooms.
 - **Guest Management:** Add and manage guest details.
 - **Booking System:** Book rooms for guests with date and time management.
-- **Reports:** Generate booking and guest reports.
 
 ## Running the Application
 
