@@ -426,26 +426,30 @@ public class StaffUI {
 
                 JButton roomButton = new JButton(String.valueOf(roomNumber));
                 roomButton.setPreferredSize(new Dimension(96, 71));
-                roomButton.setBackground(Color.decode("#E3DFD5")); // Default: Available color
                 roomButton.setFont(new Font("Mulish", Font.BOLD, 20));
-                roomButton.setForeground(Color.decode("#000000"));
                 roomButton.setOpaque(true);
                 roomButton.setBorderPainted(true);
                 roomButton.setFocusable(false);
+
+                // Initialize button color based on room status in the database
+                initializeRoomButtonColor(roomButton, roomNumber);
 
                 // Add action listener to toggle room status
                 roomButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         try {
-                            if (roomButton.getBackground().equals(Color.decode("#E3DFD5"))) {
-                                // Change to 'Unavailable' and update database
-                                roomButton.setBackground(Color.decode("#E1756E"));
+                            // Fetch current status from the database
+                            String currentStatus = roomDaoImpl.getRoomStatus(roomNumber);
+
+                            if ("Available".equals(currentStatus)) {
+                                // Change to 'Unavailable' and update the database
+                                roomButton.setBackground(Color.decode("#E1756E")); // Unavailable color
                                 roomButton.setForeground(Color.decode("#F5F2E9"));
                                 roomDaoImpl.setRoomCheckedIn(roomNumber);
                             } else {
-                                // Change to 'Available' and update database
-                                roomButton.setBackground(Color.decode("#E3DFD5"));
+                                // Change to 'Available' and update the database
+                                roomButton.setBackground(Color.decode("#E3DFD5")); // Available color
                                 roomButton.setForeground(Color.decode("#000000"));
                                 roomDaoImpl.setRoomCheckedOut(roomNumber);
                             }
@@ -466,6 +470,25 @@ public class StaffUI {
         available_unavailable.setVisible(true);
         panel.add(available_unavailable);
     }
+
+    private void initializeRoomButtonColor(JButton roomButton, int roomNumber) {
+        try {
+            String status = roomDaoImpl.getRoomStatus(roomNumber); // Query the room's status
+            if ("Available".equals(status)) {
+                roomButton.setBackground(Color.decode("#E3DFD5")); // Available color
+                roomButton.setForeground(Color.decode("#000000"));
+            } else if ("Unavailable".equals(status)) {
+                roomButton.setBackground(Color.decode("#E1756E")); // Unavailable color
+                roomButton.setForeground(Color.decode("#F5F2E9"));
+            } else if ("Cleaning".equals(status)) {
+                roomButton.setBackground(Color.decode("#FFD700")); // Cleaning color
+                roomButton.setForeground(Color.decode("#000000"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void addReservationPanel() {
         if (reservationPanel == null) {
@@ -1496,21 +1519,28 @@ public class StaffUI {
 
     private void createAdminRoomMenu() {
         // Create buttons to replace the JComboBox dropdown
-        JButton showAvailableButton = new JButton("Show Available Rooms");
-        JButton showUnavailableButton = new JButton("Show Unavailable Rooms");
+        JButton showAvailableButton = new JButton("Available");
+        JButton showUnavailableButton = new JButton("Unavailable");
+        JButton showCleaningRoomButton = new JButton("CLeaning");
 
         // Set properties for the buttons
-        showAvailableButton.setBounds(277, 6, 180, 36);
+        showAvailableButton.setBounds(277, 5, 120, 36);
         showAvailableButton.setFont(new Font("Mulish", Font.BOLD, 14));
         showAvailableButton.setBackground(new Color(102, 204, 102));
         showAvailableButton.setForeground(Color.WHITE);
         showAvailableButton.setFocusable(false);
 
-        showUnavailableButton.setBounds(467, 6, 200, 36);
+        showUnavailableButton.setBounds(277, 55, 120, 36);
         showUnavailableButton.setFont(new Font("Mulish", Font.BOLD, 14));
         showUnavailableButton.setBackground(new Color(255, 102, 102));
         showUnavailableButton.setForeground(Color.WHITE);
         showUnavailableButton.setFocusable(false);
+
+        showCleaningRoomButton.setBounds(277, 105, 120, 36);
+        showCleaningRoomButton.setFont(new Font("Mulish", Font.BOLD, 14));
+        showCleaningRoomButton.setBackground(new Color(255, 102, 102));
+        showCleaningRoomButton.setForeground(Color.WHITE);
+        showCleaningRoomButton.setFocusable(false);
 
         // Add action listeners for each button
         showAvailableButton.addActionListener(new ActionListener() {
@@ -1529,9 +1559,18 @@ public class StaffUI {
             }
         });
 
+        showCleaningRoomButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addRoomCleaningTabComponents();
+                removeRoomTabComponents();
+            }
+        });
+
         // Add buttons to the panel
         panel.add(showAvailableButton);
         panel.add(showUnavailableButton);
+        panel.add(showCleaningRoomButton);
     }
 
 
