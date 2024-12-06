@@ -6,23 +6,18 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.code.hms.entities.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.code.hms.connection.DataSourceFactory;
-import com.code.hms.entities.Billing;
-import com.code.hms.entities.Reservation;
-import com.code.hms.entities.Review;
-import com.code.hms.entities.Room;
-import com.code.hms.entities.Room_Reservation;
-import com.code.hms.entities.Room_Reservation_Pk;
-import com.code.hms.loginwindow.LoginWindow;
-import com.code.hms.ui.LoadImage;
 import com.code.hms.daoimpl.BillingDaoImpl;
 import com.code.hms.daoimpl.ReservationDaoImpl;
 import com.code.hms.daoimpl.ReviewDAOImpl;
@@ -30,6 +25,9 @@ import com.code.hms.daoimpl.RoomDaoImpl;
 import com.code.hms.daoimpl.Room_ReservationDaoImpl;
 import com.code.hms.daoimpl.ServiceDAOImpl;
 import com.code.hms.daoimpl.UserDaoImpl;
+import com.code.hms.daoimpl.User_ServiceDAOImpl;
+
+import static java.util.Date.*;
 
 
 public class CustomerUI {
@@ -190,7 +188,7 @@ public class CustomerUI {
 
     static DataSourceFactory dsf; 
 
-    public CustomerUI(int userId) {
+    public CustomerUI() {
         this.userId = userId;
 
         reviewDAOImpl = new ReviewDAOImpl();
@@ -1285,16 +1283,46 @@ public class CustomerUI {
                     String hour = SpaHourEnter.getText();
                     String minute = SpaMinuteEnter.getText();
                     String second = SpaSecondEnter.getText();
-                    String servicepackage = SpaPackBox.getText();
+                    String packageName = spaPackageMenu.getSelectedItem().toString();
 
-
-                    if (firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() ||
-                            day.isEmpty() || month.isEmpty() || year.isEmpty() ||
-                            hour.isEmpty() || minute.isEmpty() || second.isEmpty()) {
-                        JOptionPane.showMessageDialog(frame, "Please fill in all required fields.", "Warning", JOptionPane.WARNING_MESSAGE);
+                    // Validate input
+                    if (firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() || packageName.isEmpty()) {
+                        JOptionPane.showMessageDialog(frame, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                    try {
+                        // Create User_Service composite key
+                        int userId = 2; // Replace with actual user ID (e.g., fetched from session or login context)
+                        int serviceId = 1; // Replace with Spa service ID
+
+                        User_Service_Pk pk = new User_Service_Pk(userId, serviceId);
+
+                        // Create User_Service entity
+                        User_Service userService = new User_Service();
+                        userService.setPk(pk);
+                        userService.setDate((Instant.parse(day + "-" + month + "-" + year)));
+                        userService.setTime(Time.valueOf(hour + ":" + minute + ":" + second));
+
+                        // Set associations
+                        User user = new User();
+                        user.setUserId(userId); // Populate with actual user data
+                        userService.setUser(user);
+
+                        Service service = new Service();
+                        service.setServiceId(serviceId); // Populate with actual service data
+                        service.setServiceName(packageName); // Optionally, set package name
+                        userService.setService(service);
+
+                        // Save using User_ServiceDAOImpl
+                        User_ServiceDAOImpl userServiceDAO = new User_ServiceDAOImpl();
+                        userServiceDAO.saveServiceOrder(userService);
+
+                        JOptionPane.showMessageDialog(frame, "Spa service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(frame, "An error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
                     }
                 }
             });
@@ -1455,8 +1483,32 @@ public class CustomerUI {
                             hour.isEmpty() || minute.isEmpty() || second.isEmpty()) {
                         JOptionPane.showMessageDialog(frame, "Please fill in all required fields.", "Warning", JOptionPane.WARNING_MESSAGE);
                         return;
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                    try {
+                        User_Service_Pk pk = new User_Service_Pk(2, 2); // Example: userId=2, serviceId=2
+                        User_Service userService = new User_Service();
+                        userService.setPk(pk);
+                        userService.setDate((Instant.parse(day + "-" + month + "-" + year)));
+                        userService.setTime(Time.valueOf(hour + ":" + minute + ":" + second));
+
+                        User user = new User();
+                        user.setUserId(2);
+                        userService.setUser(user);
+
+                        Service service = new Service();
+                        service.setServiceId(2);
+                        service.setServiceName("Restaurant");
+                        userService.setService(service);
+
+                        User_ServiceDAOImpl dao = new User_ServiceDAOImpl();
+                        dao.saveServiceOrder(userService);
+
+                        JOptionPane.showMessageDialog(frame, "Restaurant service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(frame, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
                     }
                 }
             });
@@ -1616,8 +1668,32 @@ public class CustomerUI {
                             hour.isEmpty() || minute.isEmpty() || second.isEmpty()) {
                         JOptionPane.showMessageDialog(frame, "Please fill in all required fields.", "Warning", JOptionPane.WARNING_MESSAGE);
                         return;
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                    try {
+                        User_Service_Pk pk = new User_Service_Pk(2, 3); // Example: userId=2, serviceId=3
+                        User_Service userService = new User_Service();
+                        userService.setPk(pk);
+                        userService.setDate((Instant.parse(day + "-" + month + "-" + year)));
+                        userService.setTime(Time.valueOf(hour + ":" + minute + ":" + second));
+
+                        User user = new User();
+                        user.setUserId(2);
+                        userService.setUser(user);
+
+                        Service service = new Service();
+                        service.setServiceId(3);
+                        service.setServiceName("Room Cleaning");
+                        userService.setService(service);
+
+                        User_ServiceDAOImpl dao = new User_ServiceDAOImpl();
+                        dao.saveServiceOrder(userService);
+
+                        JOptionPane.showMessageDialog(frame, "Room Cleaning service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(frame, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
                     }
                 }
             });
@@ -1777,8 +1853,32 @@ public class CustomerUI {
                             hour.isEmpty() || minute.isEmpty() || second.isEmpty()) {
                         JOptionPane.showMessageDialog(frame, "Please fill in all required fields.", "Warning", JOptionPane.WARNING_MESSAGE);
                         return;
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                    try {
+                        User_Service_Pk pk = new User_Service_Pk(2, 4); // Example: userId=2, serviceId=4
+                        User_Service userService = new User_Service();
+                        userService.setPk(pk);
+                        userService.setDate((Instant.parse(day + "-" + month + "-" + year)));
+                        userService.setTime(Time.valueOf(hour + ":" + minute + ":" + second));
+
+                        User user = new User();
+                        user.setUserId(2);
+                        userService.setUser(user);
+
+                        Service service = new Service();
+                        service.setServiceId(4);
+                        service.setServiceName("Music Lounge");
+                        userService.setService(service);
+
+                        User_ServiceDAOImpl dao = new User_ServiceDAOImpl();
+                        dao.saveServiceOrder(userService);
+
+                        JOptionPane.showMessageDialog(frame, "Music Lounge service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(frame, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
                     }
                 }
             });
