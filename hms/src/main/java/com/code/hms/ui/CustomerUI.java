@@ -21,6 +21,7 @@ import com.code.hms.entities.Review;
 import com.code.hms.entities.Room;
 import com.code.hms.entities.Room_Reservation;
 import com.code.hms.entities.Room_Reservation_Pk;
+import com.code.hms.entities.User;
 import com.code.hms.loginwindow.LoginWindow;
 import com.code.hms.ui.LoadImage;
 import com.code.hms.daoimpl.BillingDaoImpl;
@@ -36,6 +37,7 @@ public class CustomerUI {
 
     static String selectedPaymentMethod;
     private int userId;
+    private User user;
 
     private JLabel hotelNameLabel;
     private JLabel dateLabel;
@@ -203,6 +205,8 @@ public class CustomerUI {
         room_ReservationDaoImpl = new Room_ReservationDaoImpl();
         dsf = new DataSourceFactory();
 
+        user = userDaoImpl.getUserByID(userId); 
+        
         createMainGUI();
         CreateSpaInfoBox();
         CreateRestaurantInfoBox();
@@ -214,6 +218,20 @@ public class CustomerUI {
         createResDropdown();
         createRoomCleanDropdown();
         createMusicLoungeDropdown();
+
+        if (user != null) {
+            BookingFirstName.setText(user.getFirstName());
+            BookingLastName.setText(user.getLastName());
+            BookingPhoneNumber.setText(user.getPhone());
+            BookingEmail.setText(user.getEmail());
+            panel.setComponentZOrder(BookingFirstName,0);
+            panel.setComponentZOrder(BookingLastName, 0);
+            panel.setComponentZOrder(BookingPhoneNumber,0);
+            panel.setComponentZOrder(BookingEmail, 0);
+        } else {
+            JOptionPane.showMessageDialog(panel, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }
 
     private void createMainGUI() {
@@ -663,16 +681,7 @@ public class CustomerUI {
                             selectedRoomIds.add(roomId);
                         }
                     }
-                    User user = userDaoImpl.getUserByUserId(userId); 
-                    if (user != null) {
-                        BookingFirstName.setText(user.getFirstName());
-                        BookingLastName.setText(user.getLastName());
-                        BookingPhoneNumber.setText(user.getPhone());
-                        BookingEmail.setText(user.getEmail());
-                    } else {
-                        JOptionPane.showMessageDialog(panel, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
+
         
                     JOptionPane.showMessageDialog(panel, "Fill the information successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
         
