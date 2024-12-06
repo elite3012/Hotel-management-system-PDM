@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.hibernate.query.MutationQuery;
+
 import java.util.List;
 
 public class RoomDaoImpl implements RoomDAO {
@@ -95,6 +96,20 @@ public class RoomDaoImpl implements RoomDAO {
         }
         return rooms;
     }
+    @Override
+    public String getRoomStatus(int roomId) {
+        Session session = dataSourceFactory.getSessionFactory().openSession();
+        try {
+            Room room = session.get(Room.class, roomId);
+            return room != null ? room.getRoomStatus() : "Unknown";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Unknown";
+        } finally {
+            session.close();
+        }
+    }
+
 
     @Override
     public void setRoomCheckedOut(int roomId) {
