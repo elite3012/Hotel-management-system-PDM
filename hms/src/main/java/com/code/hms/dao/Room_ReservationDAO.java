@@ -18,4 +18,7 @@ public interface Room_ReservationDAO {
 
     // Delete the room_reservation
     public void deleteRoomReservation(Room_Reservation room_Reservation);
+
+    // Find room_reservation by reservation ID
+    public void getRoomReservationsByReservationID(int reservationId);
 }

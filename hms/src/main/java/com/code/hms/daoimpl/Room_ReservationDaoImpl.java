@@ -100,4 +100,21 @@ public class Room_ReservationDaoImpl implements Room_ReservationDAO {
         }
     }
 
+    @Override
+    public List<Room_Reservation> getRoomReservationsByReservationID(int reservationId) {
+        session = dsf.getSessionFactory().openSession();
+        List<Room_Reservation> roomReservationList = null;
+        try {
+            roomReservationList = session.createQuery(
+                "from Room_Reservation rr where rr.pk.reservationId = :reservationId", 
+                Room_Reservation.class
+            ).setParameter("reservationId", reservationId).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return roomReservationList;
+    }
+
 }
