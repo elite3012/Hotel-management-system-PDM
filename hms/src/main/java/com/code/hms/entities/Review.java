@@ -21,7 +21,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "User_ID", nullable = false) // Specifies the foreign key column
-    private int userId;
+    private User userId;
 
     @ManyToOne
     @JoinColumn(name = "Reservation_ID", nullable = false) // Specifies the foreign key column
@@ -41,7 +41,7 @@ public class Review {
     }
 
     // Constructor
-    public Review(int userId, Reservation reservation, int rating, String comment, Date reviewDate) {
+    public Review(User userId, Reservation reservation, int rating, String comment, Date reviewDate) {
         this.userId = userId;
         this.reservation = reservation;
         this.rating = rating;
@@ -57,11 +57,11 @@ public class Review {
         this.reviewId = reviewId;
     }
 
-    public int getUserID() {
+    public User getUserID() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 
