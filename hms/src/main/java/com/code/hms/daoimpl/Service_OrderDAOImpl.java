@@ -2,6 +2,9 @@ package com.code.hms.daoimpl;
 
 import com.code.hms.connection.DataSourceFactory;
 import com.code.hms.dao.Service_OrderDAO;
+import com.code.hms.entities.Service;
+import com.code.hms.entities.User;
+import com.code.hms.entities.User_Service;
 import com.code.hms.utils.LoggingEngine;
 import org.hibernate.Session;
 
@@ -37,5 +40,24 @@ public class Service_OrderDAOImpl implements Service_OrderDAO {
             }
         }
         return serviceOrders;
+    }
+    @Override
+    public void saveServiceOrder(User_Service user_Service) {
+        session = dataSourceFactory.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+            User user = session.get(User.class, user_Service.getPk().getUserId());
+            Service service = session.get(Service.class, user_Service.getPk().getServiceId());
+            user_Service.setUser(user);
+            user_Service.setService(service);
+            session.persist(user_Service);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 }
