@@ -207,6 +207,10 @@ public class CustomerUI {
 
     static JList<String> roomList;
 
+    static List<Room> availableRooms;
+
+    static String[] roomOptions;
+
     static DataSourceFactory dsf; 
 
     public CustomerUI(int userId) {
@@ -768,12 +772,10 @@ public class CustomerUI {
                         billing.setPaymentMethod(paymentMethod);
                         billing.setDate(billingDate);
                         billingDaoImpl.saveBilling(billing);
-        
                         transaction.commit();
                         JOptionPane.showMessageDialog(panel, "Reservation and Billing saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                         reservationPackage.addItem(reservation);
                         reservationPackage.repaint();
-                        resetFields();
                     } catch (Exception ex) {
                         if (transaction != null) {
                             transaction.rollback();
@@ -785,6 +787,7 @@ public class CustomerUI {
                     JOptionPane.showMessageDialog(panel, "An unexpected error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
+                resetFields();
             }
         });
         
@@ -3224,25 +3227,17 @@ public class CustomerUI {
         EnterNumberOfGuests.setText("");
         roomList.clearSelection();
         selectedPaymentMethod = null;
-        BookingCredit.setVisible(false);
-        BookingNamecard.setVisible(false);
-        BookingAmount.setVisible(false);
-        BookingSecCode.setVisible(false);
-        RoomSelectionField.setVisible(false);
-        List<Room> availableRooms = roomDaoImpl.getAllAvailableRooms();
+        availableRooms = roomDaoImpl.getAllAvailableRooms();
         if (availableRooms == null || availableRooms.isEmpty()) {
             JOptionPane.showMessageDialog(panel, "No rooms are available for booking.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+        } else {
+            roomOptions = new String[availableRooms.size()];
+            for (int i = 0; i < availableRooms.size(); i++) {
+                Room room = availableRooms.get(i);
+                roomOptions[i] = "Room " + room.getRoomId() + " - " + room.getRoomType();
+            }
+            roomList.setListData(roomOptions);
         }
-        String[] roomOptions = new String[availableRooms.size()];
-        for (int i = 0; i < availableRooms.size(); i++) {
-            Room room = availableRooms.get(i);
-            roomOptions[i] = "Room " + room.getRoomId() + " - " + room.getRoomType();
-        }
-        roomList = new JList<>(roomOptions);
-        roomList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        roomList.setBackground(new Color(168, 161, 150));
-        roomList.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102)));
         panel.repaint();
     }
 
