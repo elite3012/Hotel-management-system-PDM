@@ -500,49 +500,14 @@ public class CustomerUI {
         reservationPackage.setFocusable(false);
         reservationPackage.setVisible(false);
 
+        Reservation placeholderReservation = new Reservation();  // Create a placeholder reservation
+        reservationPackage.addItem(placeholderReservation);
         for (Reservation reservation : reservationList) {
             reservationPackage.addItem(reservation);
         }
+        reservationPackage.setSelectedItem(placeholderReservation);
 
         panel.add(reservationPackage);
-
-        reservationPackage.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (reservationPackage.getSelectedIndex() == 0) {
-                    // Handle the case where no reservation is selected
-                    WriteFeedback.setText(""); // Clear feedback field
-                    ratingStars.setSelectedRating(0); // Reset rating stars
-                    WriteFeedback.setEditable(false); // Disable feedback input
-                    ratingStars.setEnabled(false); // Disable rating stars
-                } else {
-                    selectedReservation = (Reservation) reservationPackage.getSelectedItem();
-
-                    if (selectedReservation != null) {
-                        // Fetch the existing review for this reservation
-                        Review existingReview = reviewDAOImpl.getReviewsByReservationID(selectedReservation.getReservationId());
-
-                        if (existingReview != null) {
-                            // Display the existing review in the text fields
-                            WriteFeedback.setText(existingReview.getComment());
-                            ratingStars.setSelectedRating(existingReview.getRating());
-
-                            // Allow updating the review
-                            WriteFeedback.setEditable(true);
-                            ratingStars.setEnabled(true);
-                        } else {
-                            // Allow the user to submit a new review
-                            WriteFeedback.setText("");
-                            ratingStars.setSelectedRating(0);
-
-                            // Allow creating a new review
-                            WriteFeedback.setEditable(true);
-                            ratingStars.setEnabled(true);
-                        }
-                    }
-                }
-            }
-        });
 
         PaymentMethod = new JLabel();
         PaymentMethod.setText("II. Payment Method");
@@ -804,6 +769,44 @@ public class CustomerUI {
                     ex.printStackTrace();
                 }
                 resetFields();
+            }
+        });
+
+        reservationPackage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (reservationPackage.getSelectedIndex() == 0) {
+                    // Handle the case where no reservation is selected
+                    WriteFeedback.setText(""); // Clear feedback field
+                    ratingStars.setSelectedRating(0); // Reset rating stars
+                    WriteFeedback.setEditable(false); // Disable feedback input
+                    ratingStars.setEnabled(false); // Disable rating stars
+                    sendButton.setEnabled(false);
+                } else {
+                    selectedReservation = (Reservation) reservationPackage.getSelectedItem();
+
+                    if (selectedReservation != null) {
+                        // Fetch the existing review for this reservation
+                        Review existingReview = reviewDAOImpl.getReviewsByReservationID(selectedReservation.getReservationId());
+
+                        if (existingReview != null) {
+                            // Display the existing review in the text fields
+                            WriteFeedback.setText(existingReview.getComment());
+                            ratingStars.setSelectedRating(existingReview.getRating());
+                            sendButton.setEnabled(false);
+
+                        } else {
+                            // Allow the user to submit a new review
+                            WriteFeedback.setText("");
+                            ratingStars.setSelectedRating(0);
+
+                            // Allow creating a new review
+                            sendButton.setEnabled(true);
+                            WriteFeedback.setEditable(true);
+                            ratingStars.setEnabled(true);
+                        }
+                    }
+                }
             }
         });
         
@@ -2104,8 +2107,7 @@ public class CustomerUI {
                         System.out.println("Error sending review!");
                     }
 
-                    WriteFeedback.setText(""); // Clear feedback
-                    ratingStars.resetRating(); // Reset the stars
+                    sendButton.setEnabled(false);
                 }
             }
         });
