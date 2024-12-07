@@ -371,7 +371,6 @@ public class CustomerUI {
             public void actionPerformed(ActionEvent e) {
                 // Fetch available rooms
                 List<Room> availableRooms = roomDaoImpl.getAllAvailableRooms();
-
                 if (availableRooms != null && !availableRooms.isEmpty()) {
                     String[] columnNames = {"Room ID", "Room Type", "Price", "Room Status", "Cleaning Status", "Room Capacity"};
                     Object[][] tableData = new Object[availableRooms.size()][columnNames.length];
@@ -465,6 +464,26 @@ public class CustomerUI {
         RoomSelectionLabel.setForeground(new Color(212, 158, 24));
         RoomSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(RoomSelectionLabel);
+
+        List<Room> availableRooms = roomDaoImpl.getAllAvailableRooms();
+        if (availableRooms == null || availableRooms.isEmpty()) {
+            JOptionPane.showMessageDialog(panel, "No rooms are available for booking.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String[] roomOptions = new String[availableRooms.size()];
+        for (int i = 0; i < availableRooms.size(); i++) {
+            Room room = availableRooms.get(i);
+            roomOptions[i] = "Room " + room.getRoomId() + " - " + room.getRoomType();
+        }
+        roomList = new JList<>(roomOptions);
+        roomList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        roomList.setBackground(new Color(168, 161, 150));
+        roomList.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102)));
+
+        JScrollPane RoomSelectionField = new JScrollPane(roomList);
+        RoomSelectionField.setBounds(670, 500, 220, 100);
+        RoomSelectionField.setVisible(false);
+        panel.add(RoomSelectionField);
 
         JLabel BookingTitle = new JLabel();
         BookingTitle.setText("YOUR RESERVATION");
@@ -1208,26 +1227,6 @@ public class CustomerUI {
 
             MusicLoungePackageMenu.setVisible(false);
             MusicLoungePackPosition.setVisible(false);
-
-            availableRooms = roomDaoImpl.getAllAvailableRooms();
-            if (availableRooms == null || availableRooms.isEmpty()) {
-                JOptionPane.showMessageDialog(panel, "No rooms are available for booking.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            roomOptions = new String[availableRooms.size()];
-            for (int i = 0; i < availableRooms.size(); i++) {
-                Room room = availableRooms.get(i);
-                roomOptions[i] = "Room " + room.getRoomId() + " - " + room.getRoomType();
-            }
-            roomList = new JList<>(roomOptions);
-            roomList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-            roomList.setBackground(new Color(168, 161, 150));
-            roomList.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102)));
-
-            JScrollPane RoomSelectionField = new JScrollPane(roomList);
-            RoomSelectionField.setBounds(670, 500, 220, 100);
-            RoomSelectionField.setVisible(false);
-            panel.add(RoomSelectionField);
         });
 
         // ReservationTab setup
