@@ -11,26 +11,14 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.code.hms.daoimpl.*;
+import com.code.hms.entities.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.code.hms.connection.DataSourceFactory;
-import com.code.hms.entities.Billing;
-import com.code.hms.entities.Reservation;
-import com.code.hms.entities.Review;
-import com.code.hms.entities.Room;
-import com.code.hms.entities.Room_Reservation;
-import com.code.hms.entities.Room_Reservation_Pk;
-import com.code.hms.entities.User;
 import com.code.hms.loginwindow.LoginWindow;
 import com.code.hms.ui.LoadImage;
-import com.code.hms.daoimpl.BillingDaoImpl;
-import com.code.hms.daoimpl.ReservationDaoImpl;
-import com.code.hms.daoimpl.ReviewDAOImpl;
-import com.code.hms.daoimpl.RoomDaoImpl;
-import com.code.hms.daoimpl.Room_ReservationDaoImpl;
-import com.code.hms.daoimpl.ServiceDAOImpl;
-import com.code.hms.daoimpl.UserDaoImpl;
 
 
 public class CustomerUI {
@@ -67,6 +55,7 @@ public class CustomerUI {
     static ReservationDaoImpl reservationDaoImpl;
     static RoomDaoImpl roomDaoImpl;
     static Room_ReservationDaoImpl room_ReservationDaoImpl;
+    static User_ServiceDAOImpl userServiceDAOImpl;
 
     static Reservation reservation;
     static Reservation selectedReservation;
@@ -223,6 +212,7 @@ public class CustomerUI {
         billingDaoImpl = new BillingDaoImpl();
         roomDaoImpl = new RoomDaoImpl();
         room_ReservationDaoImpl = new Room_ReservationDaoImpl();
+        userServiceDAOImpl = new User_ServiceDAOImpl();
         dsf = new DataSourceFactory();
 
         user = userDaoImpl.getUserByID(userId); 
@@ -1280,6 +1270,19 @@ public class CustomerUI {
         Spa.setVisible(false);
         panel.add(Spa);
         Spa.addActionListener(e -> {
+            Service service = serviceDAOImpl.getServiceByID(1);
+            if (service == null) {
+                JOptionPane.showMessageDialog(frame, "Service not found!", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Exit if the service does not exist
+            }
+
+            if (service.getServiceAvailability() != null && service.getServiceAvailability().equals("Unavailable")) {
+                JOptionPane.showMessageDialog(frame, "The Spa service is currently unavailable. Please try again later.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Exit if the service is unavailable
+            }
+
+            JOptionPane.showMessageDialog(frame, "The Spa service is available. You can proceed to book!", "Info", JOptionPane.INFORMATION_MESSAGE);
+
             FNamePosition.setVisible(true);
             LNamePosition.setVisible(true);
             PNumberPosition.setVisible(true);
@@ -1292,7 +1295,6 @@ public class CustomerUI {
             Tab3_background.setVisible(true);
             Tab4_background.setVisible(false);
 
-            
             hotelNameLabel.setVisible(false);
             welcomeLabel.setVisible(false);
             dateLabel.setVisible(false);
@@ -1412,7 +1414,6 @@ public class CustomerUI {
                     String second = SpaSecondEnter.getText();
                     String servicepackage = SpaPackBox.getText();
 
-
                     if (firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() ||
                             day.isEmpty() || month.isEmpty() || year.isEmpty() ||
                             hour.isEmpty() || minute.isEmpty() || second.isEmpty()) {
@@ -1420,6 +1421,24 @@ public class CustomerUI {
                         return;
                     } else {
                         JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                        String serviceDateString = year + "-" + month + "-" + day;
+                        String serviceTimeString = hour + ":" + minute + ":" + second;
+
+                        java.sql.Date serviceDate = java.sql.Date.valueOf(serviceDateString);
+                        java.sql.Time serviceTime = java.sql.Time.valueOf(serviceTimeString);
+
+                        User_Service_Pk userServicePk = new User_Service_Pk(userId, 1);
+                        User_Service userService = new User_Service();
+                        userService.setPk(userServicePk);
+                        userService.setUser(userDaoImpl.getUserByID(userId));
+                        userService.setService(serviceDAOImpl.getServiceByID(1));
+                        userService.setDate(serviceDate);
+                        userService.setTime(serviceTime);
+                        userServiceDAOImpl.saveServiceOrder(userService);
+
+                        service.setServiceAvailability("Unavailable");
+                        serviceDAOImpl.updateService(service);
                     }
                 }
             });
@@ -1451,6 +1470,19 @@ public class CustomerUI {
         Restaurant.setVisible(false);
         panel.add(Restaurant);
         Restaurant.addActionListener(e -> {
+            Service service = serviceDAOImpl.getServiceByID(2);
+            if (service == null) {
+                JOptionPane.showMessageDialog(frame, "Service not found!", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Exit if the service does not exist
+            }
+
+            if (service.getServiceAvailability() != null && service.getServiceAvailability().equals("Unavailable")) {
+                JOptionPane.showMessageDialog(frame, "The Restaurant service is currently unavailable. Please try again later.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Exit if the service is unavailable
+            }
+
+            JOptionPane.showMessageDialog(frame, "The Restaurant service is available. You can proceed to book!", "Info", JOptionPane.INFORMATION_MESSAGE);
+
             Tab1_background.setVisible(false);
             Tab2_background.setVisible(false);
             Tab3_background.setVisible(true);
@@ -1588,6 +1620,24 @@ public class CustomerUI {
                         return;
                     } else {
                         JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                        String serviceDateString = year + "-" + month + "-" + day;
+                        String serviceTimeString = hour + ":" + minute + ":" + second;
+
+                        java.sql.Date serviceDate = java.sql.Date.valueOf(serviceDateString);
+                        java.sql.Time serviceTime = java.sql.Time.valueOf(serviceTimeString);
+
+                        User_Service_Pk userServicePk = new User_Service_Pk(userId, 2);
+                        User_Service userService = new User_Service();
+                        userService.setPk(userServicePk);
+                        userService.setUser(userDaoImpl.getUserByID(userId));
+                        userService.setService(serviceDAOImpl.getServiceByID(2));
+                        userService.setDate(serviceDate);
+                        userService.setTime(serviceTime);
+                        userServiceDAOImpl.saveServiceOrder(userService);
+
+                        service.setServiceAvailability("Unavailable");
+                        serviceDAOImpl.updateService(service);
                     }
                 }
             });
@@ -1619,6 +1669,19 @@ public class CustomerUI {
         RoomCleaning.setVisible(false);
         panel.add(RoomCleaning);
         RoomCleaning.addActionListener(e -> {
+            Service service = serviceDAOImpl.getServiceByID(3);
+            if (service == null) {
+                JOptionPane.showMessageDialog(frame, "Service not found!", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Exit if the service does not exist
+            }
+
+            if (service.getServiceAvailability() != null && service.getServiceAvailability().equals("Unavailable")) {
+                JOptionPane.showMessageDialog(frame, "The Room Cleaning service is currently unavailable. Please try again later.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Exit if the service is unavailable
+            }
+
+            JOptionPane.showMessageDialog(frame, "The Room Cleaning service is available. You can proceed to book!", "Info", JOptionPane.INFORMATION_MESSAGE);
+
             Tab1_background.setVisible(false);
             Tab2_background.setVisible(false);
             Tab3_background.setVisible(true);
@@ -1755,6 +1818,21 @@ public class CustomerUI {
                         return;
                     } else {
                         JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                        String serviceDateString = year + "-" + month + "-" + day;
+                        String serviceTimeString = hour + ":" + minute + ":" + second;
+
+                        java.sql.Date serviceDate = java.sql.Date.valueOf(serviceDateString);
+                        java.sql.Time serviceTime = java.sql.Time.valueOf(serviceTimeString);
+
+                        User_Service_Pk userServicePk = new User_Service_Pk(userId, 3);
+                        User_Service userService = new User_Service();
+                        userService.setPk(userServicePk);
+                        userService.setUser(userDaoImpl.getUserByID(userId));
+                        userService.setService(serviceDAOImpl.getServiceByID(3));
+                        userService.setDate(serviceDate);
+                        userService.setTime(serviceTime);
+                        userServiceDAOImpl.saveServiceOrder(userService);
                     }
                 }
             });
@@ -1786,6 +1864,19 @@ public class CustomerUI {
         MusicLounge.setVisible(false);
         panel.add(MusicLounge);
         MusicLounge.addActionListener(e -> {
+            Service service = serviceDAOImpl.getServiceByID(4);
+            if (service == null) {
+                JOptionPane.showMessageDialog(frame, "Service not found!", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Exit if the service does not exist
+            }
+
+            if (service.getServiceAvailability() != null && service.getServiceAvailability().equals("Unavailable")) {
+                JOptionPane.showMessageDialog(frame, "The Music Lounge service is currently unavailable. Please try again later.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Exit if the service is unavailable
+            }
+
+            JOptionPane.showMessageDialog(frame, "The Music Lounge service is available. You can proceed to book!", "Info", JOptionPane.INFORMATION_MESSAGE);
+
             Tab1_background.setVisible(false);
             Tab2_background.setVisible(false);
             Tab3_background.setVisible(true);
@@ -1922,6 +2013,24 @@ public class CustomerUI {
                         return;
                     } else {
                         JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                        String serviceDateString = year + "-" + month + "-" + day;
+                        String serviceTimeString = hour + ":" + minute + ":" + second;
+
+                        java.sql.Date serviceDate = java.sql.Date.valueOf(serviceDateString);
+                        java.sql.Time serviceTime = java.sql.Time.valueOf(serviceTimeString);
+
+                        User_Service_Pk userServicePk = new User_Service_Pk(userId, 4);
+                        User_Service userService = new User_Service();
+                        userService.setPk(userServicePk);
+                        userService.setUser(userDaoImpl.getUserByID(userId));
+                        userService.setService(serviceDAOImpl.getServiceByID(4));
+                        userService.setDate(serviceDate);
+                        userService.setTime(serviceTime);
+                        userServiceDAOImpl.saveServiceOrder(userService);
+
+                        service.setServiceAvailability("Unavailable");
+                        serviceDAOImpl.updateService(service);
                     }
                 }
             });
@@ -2620,12 +2729,12 @@ public class CustomerUI {
                     review.setReviewDate(reviewDate);
                     try {
                         reviewDAOImpl.saveReview(review);
-                        System.out.println("Review submitted successfully!");
+                        System.out.println("Review sent successfully!");
                         reservationPackage.removeItem(selectedReservation);
                         reservationPackage.repaint();
                     } catch (Exception ex) {
                         ex.printStackTrace();
-                        System.out.println("Error submitting review!");
+                        System.out.println("Error sending review!");
                     }
 //                    Review newReview = new Review();
 //                    newReview.setRating(ratingStars.getSelectedRating());
