@@ -29,8 +29,8 @@ public class Service_OrderDAOImpl implements Service_OrderDAO {
             session = dataSourceFactory.getSessionFactory().openSession();
 
             String query = "SELECT so.User_ID, s.ServiceName, so.Date, so.Time " +
-            "FROM User_Service us, Service s, User u " +
-            "WHERE us.Service_ID = s.Service_ID AND us.User_ID = u.User_ID";
+            "FROM Service_Order so, Service s, User u " +
+            "WHERE so.Service_ID = s.Service_ID AND so.User_ID = u.User_ID";
 
             serviceOrders = session.createNativeQuery(query).getResultList();
         } catch (Exception e) {
