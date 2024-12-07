@@ -420,8 +420,8 @@ public class CustomerUI {
         ChooseDateOut.setHorizontalAlignment(SwingConstants.CENTER); // Center-aligned text
         ChooseDateOut.setVisible(false);
         panel.add(ChooseDateOut);
-
-        JTextField EnterDateOut = new JTextField();
+        
+        EnterDateOut = new JTextField();
         panel.add(EnterDateOut);
         EnterDateOut.setBounds(900, 150, 220, 28);
         EnterDateOut.setBackground(new Color(168, 161, 150));
@@ -455,12 +455,12 @@ public class CustomerUI {
         RoomSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(RoomSelectionLabel);
 
-        List<Room> availableRooms = roomDaoImpl.getAllAvailableRooms();
+        availableRooms = roomDaoImpl.getAllAvailableRooms();
         if (availableRooms == null || availableRooms.isEmpty()) {
             JOptionPane.showMessageDialog(panel, "No rooms are available for booking.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String[] roomOptions = new String[availableRooms.size()];
+        roomOptions = new String[availableRooms.size()];
         for (int i = 0; i < availableRooms.size(); i++) {
             Room room = availableRooms.get(i);
             roomOptions[i] = "Room " + room.getRoomId() + " - " + room.getRoomType();
@@ -470,7 +470,7 @@ public class CustomerUI {
         roomList.setBackground(new Color(168, 161, 150));
         roomList.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102)));
 
-        JScrollPane RoomSelectionField = new JScrollPane(roomList);
+        RoomSelectionField = new JScrollPane(roomList);
         RoomSelectionField.setBounds(670, 500, 220, 100);
         RoomSelectionField.setVisible(false);
         panel.add(RoomSelectionField);
@@ -853,7 +853,7 @@ public class CustomerUI {
         panel.add(averageRatingLabel);
 
         OurHotelTab.addActionListener(e -> {
-
+            
             hotelNameLabel.setVisible(true);
             welcomeLabel.setVisible(true);
             dateLabel.setVisible(true);
@@ -1044,6 +1044,22 @@ public class CustomerUI {
         new Interaction(RoomTab, false);
         panel.add(RoomTab);
         RoomTab.addActionListener(e -> {
+            
+            availableRooms = roomDaoImpl.getAllAvailableRooms();
+            if (availableRooms == null || availableRooms.isEmpty()) {
+                JOptionPane.showMessageDialog(panel, "No rooms are available for booking.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            roomOptions = new String[availableRooms.size()];
+
+            for (int i = 0; i < availableRooms.size(); i++) {
+                Room room = availableRooms.get(i);
+                roomOptions[i] = "Room " + room.getRoomId() + " - " + room.getRoomType();
+            }
+            roomList.setListData(roomOptions);
+    
+            RoomSelectionField.setViewportView(roomList);
+            
             Tab1_background.setVisible(false);
             Tab2_background.setVisible(true);
             Tab3_background.setVisible(false);
@@ -3324,8 +3340,8 @@ public class CustomerUI {
         BookingAmount.setText("");
         BookingSecCode.setText("");   
         EnterDateIn.setText("");   
-        EnterDateOut.setText("");
         EnterNumberOfGuests.setText("");
+        EnterDateOut.setText("");
         roomList.clearSelection();
         selectedPaymentMethod = null;
         availableRooms = roomDaoImpl.getAllAvailableRooms();
