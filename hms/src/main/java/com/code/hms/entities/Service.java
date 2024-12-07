@@ -20,21 +20,17 @@ public class Service {
     @Column(name = "Price")
     private double Price;
 
-    @Column(name = "TypeMax")
-    private int typeMax;
-
     // No-argument constructor (required for JPA)
     public Service() {
         
     }
 
     // Constructor with fields (excluding the generated ID)
-    public Service(int serviceId, String serviceName, String serviceAvailability, String price, double price1, int typeMax) {
+    public Service(int serviceId, String serviceName, String serviceAvailability, String price, double price1) {
         this.serviceId = serviceId;
         this.serviceName = serviceName;
         this.serviceAvailability = serviceAvailability;
         Price = price1;
-        this.typeMax = typeMax;
     }
 
     public int getServiceId() {
@@ -65,15 +61,6 @@ public class Service {
         Price = price;
     }
 
-    public int getTypeMax() {
-        return typeMax;
-    }
-
-    public void setTypeMax(int typeMax) {
-        this.typeMax = typeMax;
-    }
-
-
     @Override
     public String toString() {
         return "Service{" +
@@ -81,7 +68,6 @@ public class Service {
                 ", serviceName='" + serviceName + '\'' +
                 ", serviceAvailability='" + serviceAvailability + '\'' +
                 ", Price=" + Price +
-                ", typeMax=" + typeMax +
                 '}';
     }
 }

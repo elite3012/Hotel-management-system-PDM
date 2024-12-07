@@ -6,7 +6,7 @@ import java.util.Objects;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-class User_Service_Pk implements Serializable {
+public class User_Service_Pk implements Serializable {
     private int userId;
     private int serviceId;
 
