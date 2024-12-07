@@ -59,6 +59,7 @@ public class CustomerUI {
     static JButton RoomTab;
     static JButton ServiceTab;
     static JButton ReviewTab;
+
     static ReviewDAOImpl reviewDAOImpl;
     static ServiceDAOImpl serviceDAOImpl;
     static BillingDaoImpl billingDaoImpl;
@@ -146,6 +147,10 @@ public class CustomerUI {
     static JTextField MusicLoungeMinuteEnter;
     static JTextField MusicLoungeSecondEnter;
 
+    static JTextField EnterDateIn;
+    static JTextField EnterDateOut;
+    static JTextField EnterNumberOfGuests;
+
     static JLabel ServiceMenu;
     static JLabel SpaCenter;
     static JLabel RestaurantCenter;
@@ -199,6 +204,8 @@ public class CustomerUI {
     static JScrollPane RoomSelectionField;
 
     static List<Integer> selectedRoomIds;
+
+    static JList<String> roomList;
 
     static DataSourceFactory dsf; 
 
@@ -404,7 +411,7 @@ public class CustomerUI {
         ChooseDateIn.setVisible(false);
         panel.add(ChooseDateIn);
 
-        JTextField EnterDateIn = new JTextField();
+        EnterDateIn = new JTextField();
         panel.add(EnterDateIn);
         EnterDateIn.setBounds(450, 150, 190, 28);
         EnterDateIn.setBackground(new Color(168, 161, 150));
@@ -438,7 +445,7 @@ public class CustomerUI {
         NumberOfGuests.setVisible(false);
         panel.add(NumberOfGuests);
 
-        JTextField EnterNumberOfGuests = new JTextField();
+        EnterNumberOfGuests = new JTextField();
         panel.add(EnterNumberOfGuests);
         EnterNumberOfGuests.setBounds(635, 230, 265, 28);
         EnterNumberOfGuests.setBackground(new Color(168, 161, 150));
@@ -465,7 +472,7 @@ public class CustomerUI {
             Room room = availableRooms.get(i);
             roomOptions[i] = "Room " + room.getRoomId() + " - " + room.getRoomType();
         }
-        JList<String> roomList = new JList<>(roomOptions);
+        roomList = new JList<>(roomOptions);
         roomList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         roomList.setBackground(new Color(168, 161, 150));
         roomList.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102)));
@@ -766,7 +773,7 @@ public class CustomerUI {
                         JOptionPane.showMessageDialog(panel, "Reservation and Billing saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                         reservationPackage.addItem(reservation);
                         reservationPackage.repaint();
-        
+                        resetFields();
                     } catch (Exception ex) {
                         if (transaction != null) {
                             transaction.rollback();
@@ -3205,6 +3212,38 @@ public class CustomerUI {
                 }
             }
         });
+    }
+
+    private void resetFields() {
+        BookingCredit.setText("");
+        BookingNamecard.setText("");
+        BookingAmount.setText("");
+        BookingSecCode.setText("");   
+        EnterDateIn.setText("");   
+        EnterDateOut.setText("");
+        EnterNumberOfGuests.setText("");
+        roomList.clearSelection();
+        selectedPaymentMethod = null;
+        BookingCredit.setVisible(false);
+        BookingNamecard.setVisible(false);
+        BookingAmount.setVisible(false);
+        BookingSecCode.setVisible(false);
+        RoomSelectionField.setVisible(false);
+        List<Room> availableRooms = roomDaoImpl.getAllAvailableRooms();
+        if (availableRooms == null || availableRooms.isEmpty()) {
+            JOptionPane.showMessageDialog(panel, "No rooms are available for booking.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String[] roomOptions = new String[availableRooms.size()];
+        for (int i = 0; i < availableRooms.size(); i++) {
+            Room room = availableRooms.get(i);
+            roomOptions[i] = "Room " + room.getRoomId() + " - " + room.getRoomType();
+        }
+        roomList = new JList<>(roomOptions);
+        roomList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        roomList.setBackground(new Color(168, 161, 150));
+        roomList.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102)));
+        panel.repaint();
     }
 
     private void addBoothTableComponents() {
