@@ -17,14 +17,23 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.code.hms.connection.DataSourceFactory;
-import com.code.hms.loginwindow.LoginWindow;
+import com.code.hms.entities.Billing;
+import com.code.hms.entities.Reservation;
+import com.code.hms.entities.Review;
+import com.code.hms.entities.Room;
+import com.code.hms.entities.Room_Reservation;
+import com.code.hms.entities.Room_Reservation_Pk;
+import com.code.hms.entities.Service;
+import com.code.hms.entities.User;
+import com.code.hms.entities.User_Service;
+import com.code.hms.entities.User_Service_Pk;
 import com.code.hms.ui.LoadImage;
 
 
 public class CustomerUI {
 
     static String selectedPaymentMethod;
-    private int userId;
+    private int userId, serviceId;
     private User user;
 
     private JLabel hotelNameLabel;
@@ -49,6 +58,7 @@ public class CustomerUI {
     static JButton ServiceTab;
     static JButton ReviewTab;
 
+    static Service_OrderDAOImpl serviceOrderDAOImpl;
     static ReviewDAOImpl reviewDAOImpl;
     static ServiceDAOImpl serviceDAOImpl;
     static BillingDaoImpl billingDaoImpl;
@@ -71,25 +81,10 @@ public class CustomerUI {
     static JLabel EnterBoxPNumber;
     static JLabel EnterBoxEmail;
 
-    static JTextField SpaFirstName;
-    static JTextField SpaLastName;
-    static JTextField SpaPhoneNumber;
-    static JTextField SpaEmail;
-
-    static JTextField RestaurantFirstName;
-    static JTextField RestaurantLastName;
-    static JTextField RestaurantPhoneNumber;
-    static JTextField RestaurantEmail;
-
-    static JTextField RoomCleaningFirstName;
-    static JTextField RoomCleaningLastName;
-    static JTextField RoomCleaningPhoneNumber;
-    static JTextField RoomCleaningEmail;
-
-    static JTextField MusicLoungeFirstName;
-    static JTextField MusicLoungeLastName;
-    static JTextField MusicLoungePhoneNumber;
-    static JTextField MusicLoungeEmail;
+    static JLabel SpaFirstName;
+    static JLabel SpaLastName;
+    static JLabel SpaPhoneNumber;
+    static JLabel SpaEmail;
 
     static JLabel Daybox;
     static JLabel Monthbox;
@@ -106,36 +101,6 @@ public class CustomerUI {
     static JTextField SpaHourEnter;
     static JTextField SpaMinuteEnter;
     static JTextField SpaSecondEnter;
-
-    static JLabel SpaPackBox;
-    static JLabel SpaPackPosition;
-    static JLabel ResPackPosition;
-    static JLabel RoomcleanPackPosition;
-    static JLabel MusicLoungePackPosition;
-
-    static JTextField ResDayEnter;
-    static JTextField ResMonthEnter;
-    static JTextField ResYearEnter;
-
-    static JTextField ResHourEnter;
-    static JTextField ResMinuteEnter;
-    static JTextField ResSecondEnter;
-
-    static JTextField RoomCleanDayEnter;
-    static JTextField RoomCleanMonthEnter;
-    static JTextField RoomCleanYearEnter;
-
-    static JTextField RoomCleanHourEnter;
-    static JTextField RoomCleanMinuteEnter;
-    static JTextField RoomCleanSecondEnter;
-
-    static JTextField MusicLoungeDayEnter;
-    static JTextField MusicLoungeMonthEnter;
-    static JTextField MusicLoungeYearEnter;
-
-    static JTextField MusicLoungeHourEnter;
-    static JTextField MusicLoungeMinuteEnter;
-    static JTextField MusicLoungeSecondEnter;
 
     static JTextField EnterDateIn;
     static JTextField EnterDateOut;
@@ -181,14 +146,9 @@ public class CustomerUI {
     static JTextField BookingAmount;
     static JTextField BookingSecCode;
 
-    static JComboBox<String> spaPackageMenu;
-    static JComboBox<String> ResPackageMenu;
-    static JComboBox<String> RcleaningPackageMenu;
-    static JComboBox<String> MusicLoungePackageMenu;
-
     static JButton NextButton;
     static JButton sendButton;
-    static JButton submitButton;
+    static JButton SubmitServiceButton;
     static JButton SubmitReservationButton;
 
     static JScrollPane RoomSelectionField;
@@ -208,6 +168,7 @@ public class CustomerUI {
 
         reviewDAOImpl = new ReviewDAOImpl();
         serviceDAOImpl = new ServiceDAOImpl();
+        serviceOrderDAOImpl = new Service_OrderDAOImpl();
         reservationDaoImpl = new ReservationDaoImpl();
         userDaoImpl = new UserDaoImpl();
         billingDaoImpl = new BillingDaoImpl();
@@ -219,16 +180,9 @@ public class CustomerUI {
         user = userDaoImpl.getUserByID(userId); 
         
         createMainGUI();
-        CreateSpaInfoBox();
-        CreateRestaurantInfoBox();
-        CreateRoomCleaningInfoBox();
-        CreateMusicLoungeInfoBox();
+        CreateServiceInfoBox();
         CreateDate_TimeBox();
         CreateBookingInfo();
-        createSpaDropdown();
-        createResDropdown();
-        createRoomCleanDropdown();
-        createMusicLoungeDropdown();
 
         if (user != null) {
             BookingFirstName.setText(user.getFirstName());
@@ -239,6 +193,10 @@ public class CustomerUI {
             panel.setComponentZOrder(BookingLastName, 0);
             panel.setComponentZOrder(BookingPhoneNumber,0);
             panel.setComponentZOrder(BookingEmail, 0);
+            panel.setComponentZOrder(SpaFirstName,0);
+            panel.setComponentZOrder(SpaLastName, 0);
+            panel.setComponentZOrder(SpaPhoneNumber,0);
+            panel.setComponentZOrder(SpaEmail, 0);
         } else {
             JOptionPane.showMessageDialog(panel, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -552,17 +510,6 @@ public class CustomerUI {
             }
         });
 
-//        List<Reservation> reservationList = userDaoImpl.getReservationsByCustomer(userId);
-//        if (availableRooms == null || availableRooms.isEmpty()) {
-//            JOptionPane.showMessageDialog(panel, "No rooms are available for booking.", "Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//
-//        String[] roomOptions = new String[availableRooms.size()];
-//        for (int i = 0; i < availableRooms.size(); i++) {
-//            Room room = availableRooms.get(i);
-//            roomOptions[i] = "Room " + room.getRoomId() + " - " + room.getRoomType();
-
         PaymentMethod = new JLabel();
         PaymentMethod.setText("II. Payment Method");
         PaymentMethod.setFont(new Font("Mulish", Font.BOLD, 33));
@@ -631,14 +578,14 @@ public class CustomerUI {
         sendButton.setVisible(false);
         panel.add(sendButton);
 
-        JButton submitButton = new JButton("SUBMIT");
-        submitButton.setBounds(960, 520, 180, 50);
-        submitButton.setFont(new Font("Mulish", Font.BOLD, 20));
-        submitButton.setBackground(new Color(132, 121, 102));
-        submitButton.setForeground(Color.WHITE);
-        submitButton.setFocusable(false);
-        submitButton.setVisible(false);
-        panel.add(submitButton);
+        JButton SubmitServiceButton = new JButton("SUBMIT");
+        SubmitServiceButton.setBounds(960, 520, 180, 50);
+        SubmitServiceButton.setFont(new Font("Mulish", Font.BOLD, 20));
+        SubmitServiceButton.setBackground(new Color(132, 121, 102));
+        SubmitServiceButton.setForeground(Color.WHITE);
+        SubmitServiceButton.setFocusable(false);
+        SubmitServiceButton.setVisible(false);
+        panel.add(SubmitServiceButton);
 
         JButton NextButton = new JButton();
         NextButton.setFocusable(false);
@@ -765,6 +712,11 @@ public class CustomerUI {
                         JOptionPane.showMessageDialog(panel, "Reservation and Billing saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                         reservationPackage.addItem(reservation);
                         reservationPackage.repaint();
+                        if (userDaoImpl.getReservationsByCustomer(userId).isEmpty()) {
+                            ServiceTab.setEnabled(false);
+                        } else {
+                            ServiceTab.setEnabled(true);
+                        }
                     } catch (Exception ex) {
                         if (transaction != null) {
                             transaction.rollback();
@@ -904,21 +856,6 @@ public class CustomerUI {
             EnterBoxPNumber.setVisible(false);
             EnterBoxEmail.setVisible(false);
 
-            RestaurantFirstName.setVisible(false);
-            RestaurantLastName.setVisible(false);
-            RestaurantPhoneNumber.setVisible(false);
-            RestaurantEmail.setVisible(false);
-
-            RoomCleaningFirstName.setVisible(false);
-            RoomCleaningLastName.setVisible(false);
-            RoomCleaningPhoneNumber.setVisible(false);
-            RoomCleaningEmail.setVisible(false);
-
-            MusicLoungeFirstName.setVisible(false);
-            MusicLoungeLastName.setVisible(false);
-            MusicLoungePhoneNumber.setVisible(false);
-            MusicLoungeEmail.setVisible(false);
-
             FNamePosition.setVisible(false);
             LNamePosition.setVisible(false);
             PNumberPosition.setVisible(false);
@@ -941,30 +878,6 @@ public class CustomerUI {
             SpaHourEnter.setVisible(false);
             SpaMinuteEnter.setVisible(false);
             SpaSecondEnter.setVisible(false);
-
-            ResDayEnter.setVisible(false);
-            ResMonthEnter.setVisible(false);
-            ResYearEnter.setVisible(false);
-
-            ResHourEnter.setVisible(false);
-            ResMinuteEnter.setVisible(false);
-            ResSecondEnter.setVisible(false);
-
-            RoomCleanDayEnter.setVisible(false);
-            RoomCleanMonthEnter.setVisible(false);
-            RoomCleanYearEnter.setVisible(false);
-
-            RoomCleanHourEnter.setVisible(false);
-            RoomCleanMinuteEnter.setVisible(false);
-            RoomCleanSecondEnter.setVisible(false);
-
-            MusicLoungeDayEnter.setVisible(false);
-            MusicLoungeMonthEnter.setVisible(false);
-            MusicLoungeYearEnter.setVisible(false);
-
-            MusicLoungeHourEnter.setVisible(false);
-            MusicLoungeMinuteEnter.setVisible(false);
-            MusicLoungeSecondEnter.setVisible(false);
 
             Hourbox.setVisible(false);
             Minutebox.setVisible(false);
@@ -990,7 +903,7 @@ public class CustomerUI {
 
             NextButton.setVisible(false);
             sendButton.setVisible(false);
-            submitButton.setVisible(false);
+            SubmitServiceButton.setVisible(false);
             SubmitReservationButton.setVisible(false);
 
             BookingTitle.setVisible(false);
@@ -1018,18 +931,6 @@ public class CustomerUI {
             BookingNamecard.setVisible(false);
             BookingAmount.setVisible(false);
             BookingSecCode.setVisible(false);
-
-            spaPackageMenu.setVisible(false);
-            SpaPackBox.setVisible(false);
-            SpaPackPosition.setVisible(false);
-
-            ResPackageMenu.setVisible(false);
-
-            RcleaningPackageMenu.setVisible(false);
-            RoomcleanPackPosition.setVisible(false);
-
-            MusicLoungePackageMenu.setVisible(false);
-            MusicLoungePackPosition.setVisible(false);
         });
 
         // RoomTab setup
@@ -1083,7 +984,7 @@ public class CustomerUI {
 
             NextButton.setVisible(true);
             sendButton.setVisible(false);
-            submitButton.setVisible(false);
+            SubmitServiceButton.setVisible(false);
             SubmitReservationButton.setVisible(false);
 
             
@@ -1116,21 +1017,6 @@ public class CustomerUI {
             EnterBoxPNumber.setVisible(false);
             EnterBoxEmail.setVisible(false);
 
-            RestaurantFirstName.setVisible(false);
-            RestaurantLastName.setVisible(false);
-            RestaurantPhoneNumber.setVisible(false);
-            RestaurantEmail.setVisible(false);
-
-            RoomCleaningFirstName.setVisible(false);
-            RoomCleaningLastName.setVisible(false);
-            RoomCleaningPhoneNumber.setVisible(false);
-            RoomCleaningEmail.setVisible(false);
-
-            MusicLoungeFirstName.setVisible(false);
-            MusicLoungeLastName.setVisible(false);
-            MusicLoungePhoneNumber.setVisible(false);
-            MusicLoungeEmail.setVisible(false);
-
             FNamePosition.setVisible(false);
             LNamePosition.setVisible(false);
             PNumberPosition.setVisible(false);
@@ -1153,30 +1039,6 @@ public class CustomerUI {
             SpaHourEnter.setVisible(false);
             SpaMinuteEnter.setVisible(false);
             SpaSecondEnter.setVisible(false);
-
-            ResDayEnter.setVisible(false);
-            ResMonthEnter.setVisible(false);
-            ResYearEnter.setVisible(false);
-
-            ResHourEnter.setVisible(false);
-            ResMinuteEnter.setVisible(false);
-            ResSecondEnter.setVisible(false);
-
-            RoomCleanDayEnter.setVisible(false);
-            RoomCleanMonthEnter.setVisible(false);
-            RoomCleanYearEnter.setVisible(false);
-
-            RoomCleanHourEnter.setVisible(false);
-            RoomCleanMinuteEnter.setVisible(false);
-            RoomCleanSecondEnter.setVisible(false);
-
-            MusicLoungeDayEnter.setVisible(false);
-            MusicLoungeMonthEnter.setVisible(false);
-            MusicLoungeYearEnter.setVisible(false);
-
-            MusicLoungeHourEnter.setVisible(false);
-            MusicLoungeMinuteEnter.setVisible(false);
-            MusicLoungeSecondEnter.setVisible(false);
 
             RateExp.setVisible(false);
             ratingStars.setVisible(false);
@@ -1203,8 +1065,6 @@ public class CustomerUI {
             PaypalImage.setVisible(false);
             DiscoverImage.setVisible(false);
 
-            CreditNumber.setVisible(true);
-
             CreditNumber.setVisible(false);
             NameOnCard.setVisible(false);
             Amount.setVisible(false);
@@ -1224,18 +1084,6 @@ public class CustomerUI {
             BookingAmount.setVisible(false);
             BookingSecCode.setVisible(false);
 
-            spaPackageMenu.setVisible(false);
-            SpaPackBox.setVisible(false);
-            SpaPackPosition.setVisible(false);
-
-            ResPackageMenu.setVisible(false);
-            ResPackPosition.setVisible(false);
-
-            RcleaningPackageMenu.setVisible(false);
-            RoomcleanPackPosition.setVisible(false);
-
-            MusicLoungePackageMenu.setVisible(false);
-            MusicLoungePackPosition.setVisible(false);
         });
 
         // ReservationTab setup
@@ -1270,14 +1118,6 @@ public class CustomerUI {
         SpaCenter.setForeground(new Color(212, 158, 24));
         SpaCenter.setVisible(false);
         panel.add(SpaCenter);
-
-        SpaPackPosition = new JLabel();
-        SpaPackPosition.setText("Spa Package");
-        SpaPackPosition.setFont(new Font("Mulish", Font.BOLD, 20));
-        SpaPackPosition.setBounds(350, 460, 500, 30);
-        SpaPackPosition.setForeground(new Color(136, 120, 81));
-        SpaPackPosition.setVisible(false);
-        panel.add(SpaPackPosition);
 
         Spa = new JButton();
         Spa.setText("Spa Center");
@@ -1334,7 +1174,7 @@ public class CustomerUI {
             SpaCenter.setVisible(true);
             CustomerInfo.setVisible(true);
             BookingInformation.setVisible(true);
-            submitButton.setVisible(true);
+            SubmitServiceButton.setVisible(true);
 
             EnterBoxFName.setVisible(true);
             EnterBoxLName.setVisible(true);
@@ -1346,99 +1186,67 @@ public class CustomerUI {
             SpaPhoneNumber.setVisible(true);
             SpaEmail.setVisible(true);
 
-            RestaurantFirstName.setVisible(false);
-            RestaurantLastName.setVisible(false);
-            RestaurantPhoneNumber.setVisible(false);
-            RestaurantEmail.setVisible(false);
-
-            RoomCleaningFirstName.setVisible(false);
-            RoomCleaningLastName.setVisible(false);
-            RoomCleaningPhoneNumber.setVisible(false);
-            RoomCleaningEmail.setVisible(false);
-
-            MusicLoungeFirstName.setVisible(false);
-            MusicLoungeLastName.setVisible(false);
-            MusicLoungePhoneNumber.setVisible(false);
-            MusicLoungeEmail.setVisible(false);
-
             Daybox.setVisible(true);
             Monthbox.setVisible(true);
             Yearbox.setVisible(true);
-
             Hourbox.setVisible(true);
             Minutebox.setVisible(true);
             Secondbox.setVisible(true);
+            //Clear Date Time Textfields
+            SpaDayEnter.setText("");
+            SpaMonthEnter.setText("");
+            SpaYearEnter.setText("");
+            SpaHourEnter.setText("");
+            SpaMinuteEnter.setText("");
+            SpaSecondEnter.setText("");
 
             SpaDayEnter.setVisible(true);
             SpaMonthEnter.setVisible(true);
             SpaYearEnter.setVisible(true);
-
             SpaHourEnter.setVisible(true);
             SpaMinuteEnter.setVisible(true);
             SpaSecondEnter.setVisible(true);
 
-            ResDayEnter.setVisible(false);
-            ResMonthEnter.setVisible(false);
-            ResYearEnter.setVisible(false);
-
-            ResHourEnter.setVisible(false);
-            ResMinuteEnter.setVisible(false);
-            ResSecondEnter.setVisible(false);
-
-            RoomCleanDayEnter.setVisible(false);
-            RoomCleanMonthEnter.setVisible(false);
-            RoomCleanYearEnter.setVisible(false);
-
-            RoomCleanHourEnter.setVisible(false);
-            RoomCleanMinuteEnter.setVisible(false);
-            RoomCleanSecondEnter.setVisible(false);
-
-            MusicLoungeDayEnter.setVisible(false);
-            MusicLoungeMonthEnter.setVisible(false);
-            MusicLoungeYearEnter.setVisible(false);
-
-            MusicLoungeHourEnter.setVisible(false);
-            MusicLoungeMinuteEnter.setVisible(false);
-            MusicLoungeSecondEnter.setVisible(false);
-
             RateExp.setVisible(false);
             ratingStars.setVisible(false);
 
-            SpaPackPosition.setVisible(true);
-            spaPackageMenu.setVisible(true);
-            SpaPackBox.setVisible(true);
-
-            ResPackageMenu.setVisible(false);
-            ResPackPosition.setVisible(false);
-
-            RcleaningPackageMenu.setVisible(false);
-            RoomcleanPackPosition.setVisible(false);
-
-            MusicLoungePackageMenu.setVisible(false);
-            MusicLoungePackPosition.setVisible(false);
-
-            submitButton.addActionListener(new ActionListener() {
+            serviceId = 1;
+            SubmitServiceButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // Collect customer information
-                    String firstName = SpaFirstName.getText();
-                    String lastName = SpaLastName.getText();
-                    String phoneNumber = SpaPhoneNumber.getText();
-                    String email = SpaEmail.getText();
-                    String day = SpaDayEnter.getText();
-                    String month = SpaMonthEnter.getText();
-                    String year = SpaYearEnter.getText();
-                    String hour = SpaHourEnter.getText();
-                    String minute = SpaMinuteEnter.getText();
-                    String second = SpaSecondEnter.getText();
-                    String servicepackage = SpaPackBox.getText();
+                    String day = SpaDayEnter.getText().trim();
+                    String month = SpaMonthEnter.getText().trim();
+                    String year = SpaYearEnter.getText().trim();
+                    String hour = SpaHourEnter.getText().trim();
+                    String minute = SpaMinuteEnter.getText().trim();
+                    String second = SpaSecondEnter.getText().trim();
+                    // String servicepackage = SpaPackBox.getText();
 
-                    if (firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() ||
-                            day.isEmpty() || month.isEmpty() || year.isEmpty() ||
-                            hour.isEmpty() || minute.isEmpty() || second.isEmpty()) {
+                    if (day.isEmpty() || month.isEmpty() || year.isEmpty() || hour.isEmpty() || minute.isEmpty() || second.isEmpty()) {
                         JOptionPane.showMessageDialog(frame, "Please fill in all required fields.", "Warning", JOptionPane.WARNING_MESSAGE);
                         return;
                     } else {
+                        User_Service_Pk user_Service_Pk = new User_Service_Pk(userId, serviceId);
+                        Service service = serviceDAOImpl.getServiceByID(serviceId);
+
+                        if (service.getServiceAvailability().equals("Available")) {
+                            
+                            User_Service user_Service = new User_Service();
+                            user_Service.setPk(user_Service_Pk);
+                            user_Service.setDate(java.sql.Date.valueOf(year + "-" + month + "-" + day));
+                            user_Service.setTime(java.sql.Time.valueOf(hour + ":" + minute + ":" + second));
+                            user_Service.setUser(userDaoImpl.getUserByID(userId));
+                            user_Service.setService(service);
+
+                            serviceOrderDAOImpl.saveServiceOrder(user_Service);
+    
+                            service.setServiceAvailability("Unavailable");
+                            serviceDAOImpl.updateService(service);
+                        } else {
+                            JOptionPane.showMessageDialog(frame, "Service unavailable", "Sorry", JOptionPane.INFORMATION_MESSAGE);
+                            return;
+                        }
                         JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
                         String serviceDateString = year + "-" + month + "-" + day;
@@ -1470,14 +1278,6 @@ public class CustomerUI {
         RestaurantCenter.setForeground(new Color(212, 158, 24));
         RestaurantCenter.setVisible(false);
         panel.add(RestaurantCenter);
-
-        ResPackPosition = new JLabel();
-        ResPackPosition.setText("Type of Tables");
-        ResPackPosition.setFont(new Font("Mulish", Font.BOLD, 20));
-        ResPackPosition.setBounds(350, 460, 500, 30);
-        ResPackPosition.setForeground(new Color(136, 120, 81));
-        ResPackPosition.setVisible(false);
-        panel.add(ResPackPosition);
 
         Restaurant = new JButton();
         Restaurant.setText("Restaurant");
@@ -1526,32 +1326,17 @@ public class CustomerUI {
             BookingInformation.setVisible(true);
             RestaurantCenter.setVisible(true);
             ServiceMenu.setVisible(false);
-            submitButton.setVisible(true);
+            SubmitServiceButton.setVisible(true);
 
             EnterBoxFName.setVisible(true);
             EnterBoxLName.setVisible(true);
             EnterBoxPNumber.setVisible(true);
             EnterBoxEmail.setVisible(true);
 
-            SpaFirstName.setVisible(false);
-            SpaLastName.setVisible(false);
-            SpaPhoneNumber.setVisible(false);
-            SpaEmail.setVisible(false);
-
-            RestaurantFirstName.setVisible(true);
-            RestaurantLastName.setVisible(true);
-            RestaurantPhoneNumber.setVisible(true);
-            RestaurantEmail.setVisible(true);
-
-            RoomCleaningFirstName.setVisible(false);
-            RoomCleaningLastName.setVisible(false);
-            RoomCleaningPhoneNumber.setVisible(false);
-            RoomCleaningEmail.setVisible(false);
-
-            MusicLoungeFirstName.setVisible(false);
-            MusicLoungeLastName.setVisible(false);
-            MusicLoungePhoneNumber.setVisible(false);
-            MusicLoungeEmail.setVisible(false);
+            SpaFirstName.setVisible(true);
+            SpaLastName.setVisible(true);
+            SpaPhoneNumber.setVisible(true);
+            SpaEmail.setVisible(true);
 
             FNamePosition.setVisible(true);
             LNamePosition.setVisible(true);
@@ -1563,103 +1348,27 @@ public class CustomerUI {
             Daybox.setVisible(true);
             Monthbox.setVisible(true);
             Yearbox.setVisible(true);
-
             Hourbox.setVisible(true);
             Minutebox.setVisible(true);
             Secondbox.setVisible(true);
+            //Clear Date Time Textfields
+            SpaDayEnter.setText("");
+            SpaMonthEnter.setText("");
+            SpaYearEnter.setText("");
+            SpaHourEnter.setText("");
+            SpaMinuteEnter.setText("");
+            SpaSecondEnter.setText("");
 
-            SpaDayEnter.setVisible(false);
-            SpaMonthEnter.setVisible(false);
-            SpaYearEnter.setVisible(false);
-
-            SpaHourEnter.setVisible(false);
-            SpaMinuteEnter.setVisible(false);
-            SpaSecondEnter.setVisible(false);
-
-            ResDayEnter.setVisible(true);
-            ResMonthEnter.setVisible(true);
-            ResYearEnter.setVisible(true);
-
-            ResHourEnter.setVisible(true);
-            ResMinuteEnter.setVisible(true);
-            ResSecondEnter.setVisible(true);
-
-            RoomCleanDayEnter.setVisible(false);
-            RoomCleanMonthEnter.setVisible(false);
-            RoomCleanYearEnter.setVisible(false);
-
-            RoomCleanHourEnter.setVisible(false);
-            RoomCleanMinuteEnter.setVisible(false);
-            RoomCleanSecondEnter.setVisible(false);
-
-            MusicLoungeDayEnter.setVisible(false);
-            MusicLoungeMonthEnter.setVisible(false);
-            MusicLoungeYearEnter.setVisible(false);
-
-            MusicLoungeHourEnter.setVisible(false);
-            MusicLoungeMinuteEnter.setVisible(false);
-            MusicLoungeSecondEnter.setVisible(false);
+            SpaDayEnter.setVisible(true);
+            SpaMonthEnter.setVisible(true);
+            SpaYearEnter.setVisible(true);
+            SpaHourEnter.setVisible(true);
+            SpaMinuteEnter.setVisible(true);
+            SpaSecondEnter.setVisible(true);
 
             RateExp.setVisible(false);
+            serviceId = 2;
 
-            spaPackageMenu.setVisible(false);
-            SpaPackBox.setVisible(false);
-            SpaPackPosition.setVisible(false);
-
-            ResPackageMenu.setVisible(true);
-            SpaPackBox.setVisible(true);
-            ResPackPosition.setVisible(true);
-
-            RcleaningPackageMenu.setVisible(false);
-            RoomcleanPackPosition.setVisible(false);
-
-            MusicLoungePackageMenu.setVisible(false);
-            MusicLoungePackPosition.setVisible(false);
-
-            submitButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Collect customer information
-                    String firstName = RestaurantFirstName.getText();
-                    String lastName = RestaurantLastName.getText();
-                    String phoneNumber = RestaurantPhoneNumber.getText();
-                    String email = RestaurantEmail.getText();
-                    String day = ResDayEnter.getText();
-                    String month = ResMonthEnter.getText();
-                    String year = ResYearEnter.getText();
-                    String hour = ResHourEnter.getText();
-                    String minute = ResMonthEnter.getText();
-                    String second = ResSecondEnter.getText();
-
-
-                    if (firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() ||
-                            day.isEmpty() || month.isEmpty() || year.isEmpty() ||
-                            hour.isEmpty() || minute.isEmpty() || second.isEmpty()) {
-                        JOptionPane.showMessageDialog(frame, "Please fill in all required fields.", "Warning", JOptionPane.WARNING_MESSAGE);
-                        return;
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-                        String serviceDateString = year + "-" + month + "-" + day;
-                        String serviceTimeString = hour + ":" + minute + ":" + second;
-
-                        java.sql.Date serviceDate = java.sql.Date.valueOf(serviceDateString);
-                        java.sql.Time serviceTime = java.sql.Time.valueOf(serviceTimeString);
-
-                        User_Service_Pk userServicePk = new User_Service_Pk(userId, 2);
-                        User_Service userService = new User_Service();
-                        userService.setPk(userServicePk);
-                        userService.setUser(userDaoImpl.getUserByID(userId));
-                        userService.setService(serviceDAOImpl.getServiceByID(2));
-                        userService.setDate(serviceDate);
-                        userService.setTime(serviceTime);
-                        userServiceDAOImpl.saveServiceOrder(userService);
-
-                        service.setServiceAvailability("Unavailable");
-                        serviceDAOImpl.updateService(service);
-                    }
-                }
-            });
         });
 
         RoomCleaningCenter = new JLabel();
@@ -1669,14 +1378,6 @@ public class CustomerUI {
         RoomCleaningCenter.setForeground(new Color(212, 158, 24));
         RoomCleaningCenter.setVisible(false);
         panel.add(RoomCleaningCenter);
-
-        RoomcleanPackPosition = new JLabel();
-        RoomcleanPackPosition.setText("Cleaning Type");
-        RoomcleanPackPosition.setFont(new Font("Mulish", Font.BOLD, 20));
-        RoomcleanPackPosition.setBounds(350, 460, 500, 30);
-        RoomcleanPackPosition.setForeground(new Color(136, 120, 81));
-        RoomcleanPackPosition.setVisible(false);
-        panel.add(RoomcleanPackPosition);
 
         RoomCleaning = new JButton();
         RoomCleaning.setText("Room Cleaning");
@@ -1725,32 +1426,17 @@ public class CustomerUI {
             BookingInformation.setVisible(true);
             RoomCleaningCenter.setVisible(true);
             ServiceMenu.setVisible(false);
-            submitButton.setVisible(true);
+            SubmitServiceButton.setVisible(true);
 
             EnterBoxFName.setVisible(true);
             EnterBoxLName.setVisible(true);
             EnterBoxPNumber.setVisible(true);
             EnterBoxEmail.setVisible(true);
 
-            SpaFirstName.setVisible(false);
-            SpaLastName.setVisible(false);
-            SpaPhoneNumber.setVisible(false);
-            SpaEmail.setVisible(false);
-
-            RestaurantFirstName.setVisible(false);
-            RestaurantLastName.setVisible(false);
-            RestaurantPhoneNumber.setVisible(false);
-            RestaurantEmail.setVisible(false);
-
-            RoomCleaningFirstName.setVisible(true);
-            RoomCleaningLastName.setVisible(true);
-            RoomCleaningPhoneNumber.setVisible(true);
-            RoomCleaningEmail.setVisible(true);
-
-            MusicLoungeFirstName.setVisible(false);
-            MusicLoungeLastName.setVisible(false);
-            MusicLoungePhoneNumber.setVisible(false);
-            MusicLoungeEmail.setVisible(false);
+            SpaFirstName.setVisible(true);
+            SpaLastName.setVisible(true);
+            SpaPhoneNumber.setVisible(true);
+            SpaEmail.setVisible(true);
 
             FNamePosition.setVisible(true);
             LNamePosition.setVisible(true);
@@ -1762,99 +1448,26 @@ public class CustomerUI {
             Daybox.setVisible(true);
             Monthbox.setVisible(true);
             Yearbox.setVisible(true);
-
             Hourbox.setVisible(true);
             Minutebox.setVisible(true);
             Secondbox.setVisible(true);
+            //Clear Date Time Textfields
+            SpaDayEnter.setText("");
+            SpaMonthEnter.setText("");
+            SpaYearEnter.setText("");
+            SpaHourEnter.setText("");
+            SpaMinuteEnter.setText("");
+            SpaSecondEnter.setText("");
 
-            SpaDayEnter.setVisible(false);
-            SpaMonthEnter.setVisible(false);
-            SpaYearEnter.setVisible(false);
-
-            SpaHourEnter.setVisible(false);
-            SpaMinuteEnter.setVisible(false);
-            SpaSecondEnter.setVisible(false);
-
-            ResDayEnter.setVisible(false);
-            ResMonthEnter.setVisible(false);
-            ResYearEnter.setVisible(false);
-
-            ResHourEnter.setVisible(false);
-            ResMinuteEnter.setVisible(false);
-            ResSecondEnter.setVisible(false);
-
-            RoomCleanDayEnter.setVisible(true);
-            RoomCleanMonthEnter.setVisible(true);
-            RoomCleanYearEnter.setVisible(true);
-
-            RoomCleanHourEnter.setVisible(true);
-            RoomCleanMinuteEnter.setVisible(true);
-            RoomCleanSecondEnter.setVisible(true);
-
-            MusicLoungeDayEnter.setVisible(false);
-            MusicLoungeMonthEnter.setVisible(false);
-            MusicLoungeYearEnter.setVisible(false);
-
-            MusicLoungeHourEnter.setVisible(false);
-            MusicLoungeMinuteEnter.setVisible(false);
-            MusicLoungeSecondEnter.setVisible(false);
+            SpaDayEnter.setVisible(true);
+            SpaMonthEnter.setVisible(true);
+            SpaYearEnter.setVisible(true);
+            SpaHourEnter.setVisible(true);
+            SpaMinuteEnter.setVisible(true);
+            SpaSecondEnter.setVisible(true);
 
             RateExp.setVisible(false);
-
-            spaPackageMenu.setVisible(false);
-            SpaPackBox.setVisible(true);
-            SpaPackPosition.setVisible(false);
-
-            ResPackageMenu.setVisible(false);
-            ResPackPosition.setVisible(false);
-
-            RcleaningPackageMenu.setVisible(true);
-            RoomcleanPackPosition.setVisible(true);
-
-            MusicLoungePackageMenu.setVisible(false);
-            MusicLoungePackPosition.setVisible(false);
-
-            submitButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Collect customer information
-                    String firstName = RoomCleaningFirstName.getText();
-                    String lastName = RoomCleaningLastName.getText();
-                    String phoneNumber = RoomCleaningPhoneNumber.getText();
-                    String email = RoomCleaningEmail.getText();
-                    String day = RoomCleanDayEnter.getText();
-                    String month = RoomCleanMonthEnter.getText();
-                    String year = RoomCleanYearEnter.getText();
-                    String hour = RoomCleanHourEnter.getText();
-                    String minute = RoomCleanMinuteEnter.getText();
-                    String second = RoomCleanSecondEnter.getText();
-
-
-                    if (firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() ||
-                            day.isEmpty() || month.isEmpty() || year.isEmpty() ||
-                            hour.isEmpty() || minute.isEmpty() || second.isEmpty()) {
-                        JOptionPane.showMessageDialog(frame, "Please fill in all required fields.", "Warning", JOptionPane.WARNING_MESSAGE);
-                        return;
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-                        String serviceDateString = year + "-" + month + "-" + day;
-                        String serviceTimeString = hour + ":" + minute + ":" + second;
-
-                        java.sql.Date serviceDate = java.sql.Date.valueOf(serviceDateString);
-                        java.sql.Time serviceTime = java.sql.Time.valueOf(serviceTimeString);
-
-                        User_Service_Pk userServicePk = new User_Service_Pk(userId, 3);
-                        User_Service userService = new User_Service();
-                        userService.setPk(userServicePk);
-                        userService.setUser(userDaoImpl.getUserByID(userId));
-                        userService.setService(serviceDAOImpl.getServiceByID(3));
-                        userService.setDate(serviceDate);
-                        userService.setTime(serviceTime);
-                        userServiceDAOImpl.saveServiceOrder(userService);
-                    }
-                }
-            });
+            serviceId = 3;
         });
 
         MusicLoungeCenter = new JLabel();
@@ -1864,14 +1477,6 @@ public class CustomerUI {
         MusicLoungeCenter.setForeground(new Color(212, 158, 24));
         MusicLoungeCenter.setVisible(false);
         panel.add(MusicLoungeCenter);
-
-        MusicLoungePackPosition = new JLabel();
-        MusicLoungePackPosition.setText("Ticket");
-        MusicLoungePackPosition.setFont(new Font("Mulish", Font.BOLD, 20));
-        MusicLoungePackPosition.setBounds(350, 460, 500, 30);
-        MusicLoungePackPosition.setForeground(new Color(136, 120, 81));
-        MusicLoungePackPosition.setVisible(false);
-        panel.add(MusicLoungePackPosition);
 
         MusicLounge = new JButton();
         MusicLounge.setText("Music Lounge");
@@ -1920,32 +1525,17 @@ public class CustomerUI {
             BookingInformation.setVisible(true);
             MusicLoungeCenter.setVisible(true);
             ServiceMenu.setVisible(false);
-            submitButton.setVisible(true);
+            SubmitServiceButton.setVisible(true);
 
             EnterBoxFName.setVisible(true);
             EnterBoxLName.setVisible(true);
             EnterBoxPNumber.setVisible(true);
             EnterBoxEmail.setVisible(true);
 
-            SpaFirstName.setVisible(false);
-            SpaLastName.setVisible(false);
-            SpaPhoneNumber.setVisible(false);
-            SpaEmail.setVisible(false);
-
-            RestaurantFirstName.setVisible(false);
-            RestaurantLastName.setVisible(false);
-            RestaurantPhoneNumber.setVisible(false);
-            RestaurantEmail.setVisible(false);
-
-            RoomCleaningFirstName.setVisible(false);
-            RoomCleaningLastName.setVisible(false);
-            RoomCleaningPhoneNumber.setVisible(false);
-            RoomCleaningEmail.setVisible(false);
-
-            MusicLoungeFirstName.setVisible(true);
-            MusicLoungeLastName.setVisible(true);
-            MusicLoungePhoneNumber.setVisible(true);
-            MusicLoungeEmail.setVisible(true);
+            SpaFirstName.setVisible(true);
+            SpaLastName.setVisible(true);
+            SpaPhoneNumber.setVisible(true);
+            SpaEmail.setVisible(true);
 
             FNamePosition.setVisible(true);
             LNamePosition.setVisible(true);
@@ -1957,102 +1547,26 @@ public class CustomerUI {
             Daybox.setVisible(true);
             Monthbox.setVisible(true);
             Yearbox.setVisible(true);
-
             Hourbox.setVisible(true);
             Minutebox.setVisible(true);
             Secondbox.setVisible(true);
+            //Clear Date Time Textfields
+            SpaDayEnter.setText("");
+            SpaMonthEnter.setText("");
+            SpaYearEnter.setText("");
+            SpaHourEnter.setText("");
+            SpaMinuteEnter.setText("");
+            SpaSecondEnter.setText("");
 
-            SpaDayEnter.setVisible(false);
-            SpaMonthEnter.setVisible(false);
-            SpaYearEnter.setVisible(false);
-
-            SpaHourEnter.setVisible(false);
-            SpaMinuteEnter.setVisible(false);
-            SpaSecondEnter.setVisible(false);
-
-            ResDayEnter.setVisible(false);
-            ResMonthEnter.setVisible(false);
-            ResYearEnter.setVisible(false);
-
-            ResHourEnter.setVisible(false);
-            ResMinuteEnter.setVisible(false);
-            ResSecondEnter.setVisible(false);
-
-            RoomCleanDayEnter.setVisible(false);
-            RoomCleanMonthEnter.setVisible(false);
-            RoomCleanYearEnter.setVisible(false);
-
-            RoomCleanHourEnter.setVisible(false);
-            RoomCleanMinuteEnter.setVisible(false);
-            RoomCleanSecondEnter.setVisible(false);
-
-            MusicLoungeDayEnter.setVisible(true);
-            MusicLoungeMonthEnter.setVisible(true);
-            MusicLoungeYearEnter.setVisible(true);
-
-            MusicLoungeHourEnter.setVisible(true);
-            MusicLoungeMinuteEnter.setVisible(true);
-            MusicLoungeSecondEnter.setVisible(true);
+            SpaDayEnter.setVisible(true);
+            SpaMonthEnter.setVisible(true);
+            SpaYearEnter.setVisible(true);
+            SpaHourEnter.setVisible(true);
+            SpaMinuteEnter.setVisible(true);
+            SpaSecondEnter.setVisible(true);
 
             RateExp.setVisible(false);
-
-            spaPackageMenu.setVisible(false);
-            SpaPackBox.setVisible(true);
-            SpaPackPosition.setVisible(false);
-
-            ResPackageMenu.setVisible(false);
-            ResPackPosition.setVisible(false);
-
-            RcleaningPackageMenu.setVisible(false);
-            RoomcleanPackPosition.setVisible(false);
-
-            MusicLoungePackageMenu.setVisible(true);
-            MusicLoungePackPosition.setVisible(true);
-
-            submitButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Collect customer information
-                    String firstName = MusicLoungeFirstName.getText();
-                    String lastName = MusicLoungeLastName.getText();
-                    String phoneNumber = MusicLoungePhoneNumber.getText();
-                    String email = MusicLoungeEmail.getText();
-                    String day = MusicLoungeDayEnter.getText();
-                    String month = MusicLoungeMonthEnter.getText();
-                    String year = MusicLoungeYearEnter.getText();
-                    String hour = MusicLoungeHourEnter.getText();
-                    String minute = MusicLoungeMinuteEnter.getText();
-                    String second = MusicLoungeSecondEnter.getText();
-
-
-                    if (firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() ||
-                            day.isEmpty() || month.isEmpty() || year.isEmpty() ||
-                            hour.isEmpty() || minute.isEmpty() || second.isEmpty()) {
-                        JOptionPane.showMessageDialog(frame, "Please fill in all required fields.", "Warning", JOptionPane.WARNING_MESSAGE);
-                        return;
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-                        String serviceDateString = year + "-" + month + "-" + day;
-                        String serviceTimeString = hour + ":" + minute + ":" + second;
-
-                        java.sql.Date serviceDate = java.sql.Date.valueOf(serviceDateString);
-                        java.sql.Time serviceTime = java.sql.Time.valueOf(serviceTimeString);
-
-                        User_Service_Pk userServicePk = new User_Service_Pk(userId, 4);
-                        User_Service userService = new User_Service();
-                        userService.setPk(userServicePk);
-                        userService.setUser(userDaoImpl.getUserByID(userId));
-                        userService.setService(serviceDAOImpl.getServiceByID(4));
-                        userService.setDate(serviceDate);
-                        userService.setTime(serviceTime);
-                        userServiceDAOImpl.saveServiceOrder(userService);
-
-                        service.setServiceAvailability("Unavailable");
-                        serviceDAOImpl.updateService(service);
-                    }
-                }
-            });
+            serviceId = 4;
         });
 
         ServiceTab = new JButton();
@@ -2068,6 +1582,11 @@ public class CustomerUI {
         ServiceTab.setVisible(true);
         new Interaction(ServiceTab, false);
         panel.add(ServiceTab);
+        if (userDaoImpl.getReservationsByCustomer(userId).isEmpty()) {
+            ServiceTab.setEnabled(false);
+        } else {
+            ServiceTab.setEnabled(true);
+        }
         ServiceTab.addActionListener(e -> {
             Tab1_background.setVisible(false);
             Tab2_background.setVisible(false);
@@ -2116,21 +1635,6 @@ public class CustomerUI {
             room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
 
-            RestaurantFirstName.setVisible(false);
-            RestaurantLastName.setVisible(false);
-            RestaurantPhoneNumber.setVisible(false);
-            RestaurantEmail.setVisible(false);
-
-            RoomCleaningFirstName.setVisible(false);
-            RoomCleaningLastName.setVisible(false);
-            RoomCleaningPhoneNumber.setVisible(false);
-            RoomCleaningEmail.setVisible(false);
-
-            MusicLoungeFirstName.setVisible(false);
-            MusicLoungeLastName.setVisible(false);
-            MusicLoungePhoneNumber.setVisible(false);
-            MusicLoungeEmail.setVisible(false);
-
             FNamePosition.setVisible(false);
             LNamePosition.setVisible(false);
             PNumberPosition.setVisible(false);
@@ -2154,30 +1658,6 @@ public class CustomerUI {
             SpaMinuteEnter.setVisible(false);
             SpaSecondEnter.setVisible(false);
 
-            ResDayEnter.setVisible(false);
-            ResMonthEnter.setVisible(false);
-            ResYearEnter.setVisible(false);
-
-            ResHourEnter.setVisible(false);
-            ResMinuteEnter.setVisible(false);
-            ResSecondEnter.setVisible(false);
-
-            RoomCleanDayEnter.setVisible(false);
-            RoomCleanMonthEnter.setVisible(false);
-            RoomCleanYearEnter.setVisible(false);
-
-            RoomCleanHourEnter.setVisible(false);
-            RoomCleanMinuteEnter.setVisible(false);
-            RoomCleanSecondEnter.setVisible(false);
-
-            MusicLoungeDayEnter.setVisible(false);
-            MusicLoungeMonthEnter.setVisible(false);
-            MusicLoungeYearEnter.setVisible(false);
-
-            MusicLoungeHourEnter.setVisible(false);
-            MusicLoungeMinuteEnter.setVisible(false);
-            MusicLoungeSecondEnter.setVisible(false);
-
             RateExp.setVisible(false);
             ratingStars.setVisible(false);
             WriteFeedback.setVisible(false);
@@ -2198,7 +1678,7 @@ public class CustomerUI {
 
             NextButton.setVisible(false);
             sendButton.setVisible(false);
-            submitButton.setVisible(false);
+            SubmitServiceButton.setVisible(false);
             SubmitReservationButton.setVisible(false);
 
             BookingTitle.setVisible(false);
@@ -2227,18 +1707,6 @@ public class CustomerUI {
             BookingAmount.setVisible(false);
             BookingSecCode.setVisible(false);
 
-            spaPackageMenu.setVisible(false);
-            SpaPackBox.setVisible(false);
-            SpaPackPosition.setVisible(false);
-
-            ResPackageMenu.setVisible(false);
-            ResPackPosition.setVisible(false);
-
-            RcleaningPackageMenu.setVisible(false);
-            RoomcleanPackPosition.setVisible(false);
-
-            MusicLoungePackageMenu.setVisible(false);
-            MusicLoungePackPosition.setVisible(false);
         });
 
         NextButton.addActionListener(e -> {
@@ -2262,7 +1730,7 @@ public class CustomerUI {
 
             NextButton.setVisible(false);
             sendButton.setVisible(false);
-            submitButton.setVisible(false);
+            SubmitServiceButton.setVisible(false);
             SubmitReservationButton.setVisible(true);
 
             hotelNameLabel.setVisible(false);
@@ -2312,30 +1780,6 @@ public class CustomerUI {
             SpaMinuteEnter.setVisible(false);
             SpaSecondEnter.setVisible(false);
 
-            ResDayEnter.setVisible(false);
-            ResMonthEnter.setVisible(false);
-            ResYearEnter.setVisible(false);
-
-            ResHourEnter.setVisible(false);
-            ResMinuteEnter.setVisible(false);
-            ResSecondEnter.setVisible(false);
-
-            RoomCleanDayEnter.setVisible(false);
-            RoomCleanMonthEnter.setVisible(false);
-            RoomCleanYearEnter.setVisible(false);
-
-            RoomCleanHourEnter.setVisible(false);
-            RoomCleanMinuteEnter.setVisible(false);
-            RoomCleanSecondEnter.setVisible(false);
-
-            MusicLoungeDayEnter.setVisible(false);
-            MusicLoungeMonthEnter.setVisible(false);
-            MusicLoungeYearEnter.setVisible(false);
-
-            MusicLoungeHourEnter.setVisible(false);
-            MusicLoungeMinuteEnter.setVisible(false);
-            MusicLoungeSecondEnter.setVisible(false);
-
             RateExp.setVisible(false);
             ratingStars.setVisible(false);
             WriteFeedback.setVisible(false);
@@ -2379,19 +1823,6 @@ public class CustomerUI {
             BookingNamecard.setVisible(true);
             BookingAmount.setVisible(true);
             BookingSecCode.setVisible(true);
-
-            spaPackageMenu.setVisible(false);
-            SpaPackBox.setVisible(false);
-            SpaPackPosition.setVisible(false);
-
-            ResPackageMenu.setVisible(false);
-
-            RcleaningPackageMenu.setVisible(false);
-            RoomcleanPackPosition.setVisible(false);
-
-            MusicLoungePackageMenu.setVisible(false);
-            MusicLoungePackPosition.setVisible(false);
-
         });
 
         ReviewTab = new JButton();
@@ -2455,21 +1886,6 @@ public class CustomerUI {
             EnterBoxPNumber.setVisible(false);
             EnterBoxEmail.setVisible(false);
 
-            RestaurantFirstName.setVisible(false);
-            RestaurantLastName.setVisible(false);
-            RestaurantPhoneNumber.setVisible(false);
-            RestaurantEmail.setVisible(false);
-
-            RoomCleaningFirstName.setVisible(false);
-            RoomCleaningLastName.setVisible(false);
-            RoomCleaningPhoneNumber.setVisible(false);
-            RoomCleaningEmail.setVisible(false);
-
-            MusicLoungeFirstName.setVisible(false);
-            MusicLoungeLastName.setVisible(false);
-            MusicLoungePhoneNumber.setVisible(false);
-            MusicLoungeEmail.setVisible(false);
-
             FNamePosition.setVisible(false);
             LNamePosition.setVisible(false);
             PNumberPosition.setVisible(false);
@@ -2493,30 +1909,6 @@ public class CustomerUI {
             SpaMinuteEnter.setVisible(false);
             SpaSecondEnter.setVisible(false);
 
-            ResDayEnter.setVisible(false);
-            ResMonthEnter.setVisible(false);
-            ResYearEnter.setVisible(false);
-
-            ResHourEnter.setVisible(false);
-            ResMinuteEnter.setVisible(false);
-            ResSecondEnter.setVisible(false);
-
-            RoomCleanDayEnter.setVisible(false);
-            RoomCleanMonthEnter.setVisible(false);
-            RoomCleanYearEnter.setVisible(false);
-
-            RoomCleanHourEnter.setVisible(false);
-            RoomCleanMinuteEnter.setVisible(false);
-            RoomCleanSecondEnter.setVisible(false);
-
-            MusicLoungeDayEnter.setVisible(false);
-            MusicLoungeMonthEnter.setVisible(false);
-            MusicLoungeYearEnter.setVisible(false);
-
-            MusicLoungeHourEnter.setVisible(false);
-            MusicLoungeMinuteEnter.setVisible(false);
-            MusicLoungeSecondEnter.setVisible(false);
-
             RateExp.setVisible(true);
             ratingStars.setVisible(true);
             WriteFeedback.setVisible(true);
@@ -2537,7 +1929,7 @@ public class CustomerUI {
 
             NextButton.setVisible(false);
             sendButton.setVisible(true);
-            submitButton.setVisible(false);
+            SubmitServiceButton.setVisible(false);
             SubmitReservationButton.setVisible(false);
 
             BookingTitle.setVisible(false);
@@ -2566,18 +1958,6 @@ public class CustomerUI {
             BookingAmount.setVisible(false);
             BookingSecCode.setVisible(false);
 
-            spaPackageMenu.setVisible(false);
-            SpaPackBox.setVisible(false);
-            SpaPackPosition.setVisible(false);
-
-            ResPackageMenu.setVisible(false);
-            ResPackPosition.setVisible(false);
-
-            RcleaningPackageMenu.setVisible(false);
-            RoomcleanPackPosition.setVisible(false);
-
-            MusicLoungePackageMenu.setVisible(false);
-            MusicLoungePackPosition.setVisible(false);
         });
 
         sendButton.addActionListener(e -> {
@@ -2591,17 +1971,10 @@ public class CustomerUI {
             RoomCleaning.setVisible(false);
             MusicLounge.setVisible(false);
             OurHotelTab.setBackground(new Color(132, 121, 102));
-//            RoomTab.setBackground(new Color(244, 242, 235));
-//            ServiceTab.setBackground(new Color(132, 121, 102));
-//            ReviewTab.setBackground(new Color(132, 121, 102));
-//            RoomTab.setForeground(new Color(43, 42, 38));
-//            OurHotelTab.setForeground(new Color(245, 242, 233));
-//            ServiceTab.setForeground(new Color(245, 242, 233));
-//            ReviewTab.setForeground(new Color(245, 242, 233));
 
             NextButton.setVisible(false);
             sendButton.setVisible(true);
-            submitButton.setVisible(false);
+            SubmitServiceButton.setVisible(false);
             SubmitReservationButton.setVisible(false);
             
             hotelNameLabel.setVisible(false);
@@ -2651,30 +2024,6 @@ public class CustomerUI {
             SpaMinuteEnter.setVisible(false);
             SpaSecondEnter.setVisible(false);
 
-            ResDayEnter.setVisible(false);
-            ResMonthEnter.setVisible(false);
-            ResYearEnter.setVisible(false);
-
-            ResHourEnter.setVisible(false);
-            ResMinuteEnter.setVisible(false);
-            ResSecondEnter.setVisible(false);
-
-            RoomCleanDayEnter.setVisible(false);
-            RoomCleanMonthEnter.setVisible(false);
-            RoomCleanYearEnter.setVisible(false);
-
-            RoomCleanHourEnter.setVisible(false);
-            RoomCleanMinuteEnter.setVisible(false);
-            RoomCleanSecondEnter.setVisible(false);
-
-            MusicLoungeDayEnter.setVisible(false);
-            MusicLoungeMonthEnter.setVisible(false);
-            MusicLoungeYearEnter.setVisible(false);
-
-            MusicLoungeHourEnter.setVisible(false);
-            MusicLoungeMinuteEnter.setVisible(false);
-            MusicLoungeSecondEnter.setVisible(false);
-
             RateExp.setVisible(true);
             ratingStars.setVisible(true);
             WriteFeedback.setVisible(true);
@@ -2695,11 +2044,6 @@ public class CustomerUI {
             RoomSelectionField.setVisible(false);
             BookingTitle.setVisible(false);
 
-//            visaImage.setVisible(true);
-//            mastercardImage.setVisible(true);
-//            PaypalImage.setVisible(true);
-//            DiscoverImage.setVisible(true);
-
             CreditNumber.setVisible(false);
             NameOnCard.setVisible(false);
             Amount.setVisible(false);
@@ -2718,18 +2062,6 @@ public class CustomerUI {
             BookingNamecard.setVisible(false);
             BookingAmount.setVisible(false);
             BookingSecCode.setVisible(false);
-
-            spaPackageMenu.setVisible(false);
-            SpaPackBox.setVisible(false);
-            SpaPackPosition.setVisible(false);
-
-            ResPackageMenu.setVisible(false);
-
-            RcleaningPackageMenu.setVisible(false);
-            RoomcleanPackPosition.setVisible(false);
-
-            MusicLoungePackageMenu.setVisible(false);
-            MusicLoungePackPosition.setVisible(false);
 
             if (ratingStars.getSelectedRating() == 0) {
                 JOptionPane.showMessageDialog(frame, "Please select a rating before sending your review.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -2755,12 +2087,6 @@ public class CustomerUI {
                         ex.printStackTrace();
                         System.out.println("Error sending review!");
                     }
-//                    Review newReview = new Review();
-//                    newReview.setRating(ratingStars.getSelectedRating());
-//                    newReview.setComment(WriteFeedback.getText());
-//                    System.out.println(newReview.getRating());
-//                    System.out.println(newReview.getComment());
-//                    reviewDAOImpl.saveReview(newReview);
 
                     WriteFeedback.setText(""); // Clear feedback
                     ratingStars.resetRating(); // Reset the stars
@@ -2790,7 +2116,7 @@ public class CustomerUI {
 
     }
 
-    public void CreateSpaInfoBox() {
+    public void CreateServiceInfoBox() {
         //box for first name
         EnterBoxFName = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
         EnterBoxFName.setBounds(350, 200, 300, 30);
@@ -2798,7 +2124,7 @@ public class CustomerUI {
         panel.setComponentZOrder(EnterBoxFName, 0); // Brings it to the top of the component stack
         EnterBoxFName.setVisible(false);
 
-        SpaFirstName = new JTextField();
+        SpaFirstName = new JLabel(userDaoImpl.getUserByID(userId).getFirstName());
         panel.add(SpaFirstName);
         SpaFirstName.setBounds(352, 201, 295, 28);
         SpaFirstName.setBackground(new Color(244, 242, 235));
@@ -2812,7 +2138,7 @@ public class CustomerUI {
         panel.setComponentZOrder(EnterBoxLName, 0); // Brings it to the top of the component stack
         EnterBoxLName.setVisible(false);
 
-        SpaLastName = new JTextField();
+        SpaLastName = new JLabel(userDaoImpl.getUserByID(userId).getLastName());
         panel.add(SpaLastName);
         SpaLastName.setBounds(752, 201, 295, 28);
         SpaLastName.setBackground(new Color(244, 242, 235));
@@ -2826,7 +2152,7 @@ public class CustomerUI {
         panel.setComponentZOrder(EnterBoxPNumber, 0); // Brings it to the top of the component stack
         EnterBoxPNumber.setVisible(false);
 
-        SpaPhoneNumber = new JTextField();
+        SpaPhoneNumber = new JLabel(userDaoImpl.getUserByID(userId).getPhone());
         panel.add(SpaPhoneNumber);
         SpaPhoneNumber.setBounds(352, 281, 295, 28);
         SpaPhoneNumber.setBackground(new Color(244, 242, 235));
@@ -2840,18 +2166,12 @@ public class CustomerUI {
         panel.setComponentZOrder(EnterBoxEmail, 0); // Brings it to the top of the component stack
         EnterBoxEmail.setVisible(false);
 
-        SpaEmail = new JTextField();
+        SpaEmail = new JLabel(userDaoImpl.getUserByID(userId).getEmail());
         panel.add(SpaEmail);
         SpaEmail.setBounds(752, 281, 295, 28);
         SpaEmail.setBackground(new Color(244, 242, 235));
         SpaEmail.setVisible(false);
         SpaEmail.setBorder(null);
-
-        SpaPackBox = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
-        SpaPackBox.setBounds(350, 490, 300, 30);
-        panel.add(SpaPackBox);
-        panel.setComponentZOrder(SpaPackBox, 0); // Brings it to the top of the component stack
-        SpaPackBox.setVisible(false);
 
         CreditNumber = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/EnterBox.png", 300, 30));
         CreditNumber.setBounds(350, 450, 300, 30);
@@ -2876,108 +2196,6 @@ public class CustomerUI {
         panel.add(SecCode);
         panel.setComponentZOrder(SecCode, 0); // Brings it to the top of the component stack
         SecCode.setVisible(false);
-    }
-
-    public void CreateRestaurantInfoBox() {
-        //box for first name
-        RestaurantFirstName = new JTextField();
-        panel.add(RestaurantFirstName);
-        RestaurantFirstName.setBounds(352, 201, 295, 28);
-        RestaurantFirstName.setBackground(new Color(244, 242, 235));
-        RestaurantFirstName.setVisible(false);
-        RestaurantFirstName.setBorder(null);
-
-        //box for last name
-        RestaurantLastName = new JTextField();
-        panel.add(RestaurantLastName);
-        RestaurantLastName.setBounds(752, 201, 295, 28);
-        RestaurantLastName.setBackground(new Color(244, 242, 235));
-        RestaurantLastName.setVisible(false);
-        RestaurantLastName.setBorder(null);
-
-        //box for phone number
-        RestaurantPhoneNumber = new JTextField();
-        panel.add(RestaurantPhoneNumber);
-        RestaurantPhoneNumber.setBounds(352, 281, 295, 28);
-        RestaurantPhoneNumber.setBackground(new Color(244, 242, 235));
-        RestaurantPhoneNumber.setVisible(false);
-        RestaurantPhoneNumber.setBorder(null);
-
-        //box for email
-        RestaurantEmail = new JTextField();
-        panel.add(RestaurantEmail);
-        RestaurantEmail.setBounds(752, 281, 295, 28);
-        RestaurantEmail.setBackground(new Color(244, 242, 235));
-        RestaurantEmail.setVisible(false);
-        RestaurantEmail.setBorder(null);
-    }
-
-    public void CreateRoomCleaningInfoBox() {
-        //box for first name
-        RoomCleaningFirstName = new JTextField();
-        panel.add(RoomCleaningFirstName);
-        RoomCleaningFirstName.setBounds(352, 201, 295, 28);
-        RoomCleaningFirstName.setBackground(new Color(244, 242, 235));
-        RoomCleaningFirstName.setVisible(false);
-        RoomCleaningFirstName.setBorder(null);
-
-        //box for last name
-        RoomCleaningLastName = new JTextField();
-        panel.add(RoomCleaningLastName);
-        RoomCleaningLastName.setBounds(752, 201, 295, 28);
-        RoomCleaningLastName.setBackground(new Color(244, 242, 235));
-        RoomCleaningLastName.setVisible(false);
-        RoomCleaningLastName.setBorder(null);
-
-        //box for phone number
-        RoomCleaningPhoneNumber = new JTextField();
-        panel.add(RoomCleaningPhoneNumber);
-        RoomCleaningPhoneNumber.setBounds(352, 281, 295, 28);
-        RoomCleaningPhoneNumber.setBackground(new Color(244, 242, 235));
-        RoomCleaningPhoneNumber.setVisible(false);
-        RoomCleaningPhoneNumber.setBorder(null);
-
-        //box for email
-        RoomCleaningEmail = new JTextField();
-        panel.add(RoomCleaningEmail);
-        RoomCleaningEmail.setBounds(752, 281, 295, 28);
-        RoomCleaningEmail.setBackground(new Color(244, 242, 235));
-        RoomCleaningEmail.setVisible(false);
-        RoomCleaningEmail.setBorder(null);
-    }
-
-    public void CreateMusicLoungeInfoBox() {
-        //box for first name
-        MusicLoungeFirstName = new JTextField();
-        panel.add(MusicLoungeFirstName);
-        MusicLoungeFirstName.setBounds(352, 201, 295, 28);
-        MusicLoungeFirstName.setBackground(new Color(244, 242, 235));
-        MusicLoungeFirstName.setVisible(false);
-        MusicLoungeFirstName.setBorder(null);
-
-        //box for last name
-        MusicLoungeLastName = new JTextField();
-        panel.add(MusicLoungeLastName);
-        MusicLoungeLastName.setBounds(752, 201, 295, 28);
-        MusicLoungeLastName.setBackground(new Color(244, 242, 235));
-        MusicLoungeLastName.setVisible(false);
-        MusicLoungeLastName.setBorder(null);
-
-        //box for phone number
-        MusicLoungePhoneNumber = new JTextField();
-        panel.add(MusicLoungePhoneNumber);
-        MusicLoungePhoneNumber.setBounds(352, 281, 295, 28);
-        MusicLoungePhoneNumber.setBackground(new Color(244, 242, 235));
-        MusicLoungePhoneNumber.setVisible(false);
-        MusicLoungePhoneNumber.setBorder(null);
-
-        //box for email
-        MusicLoungeEmail = new JTextField();
-        panel.add(MusicLoungeEmail);
-        MusicLoungeEmail.setBounds(752, 281, 295, 28);
-        MusicLoungeEmail.setBackground(new Color(244, 242, 235));
-        MusicLoungeEmail.setVisible(false);
-        MusicLoungeEmail.setBorder(null);
     }
 
     public void CreateBookingInfo() {
@@ -3120,221 +2338,6 @@ public class CustomerUI {
         SpaSecondEnter.setBackground(new Color(244, 242, 235));
         SpaSecondEnter.setVisible(false);
         SpaSecondEnter.setBorder(null);
-
-        ResDayEnter = new JTextField();
-        panel.add(ResDayEnter);
-        ResDayEnter.setBounds(351, 421, 98, 28);
-        ResDayEnter.setBackground(new Color(244, 242, 235));
-        ResDayEnter.setVisible(false);
-        ResDayEnter.setBorder(null);
-
-        ResMonthEnter = new JTextField();
-        panel.add(ResMonthEnter);
-        ResMonthEnter.setBounds(461, 421, 98, 28);
-        ResMonthEnter.setBackground(new Color(244, 242, 235));
-        ResMonthEnter.setVisible(false);
-        ResMonthEnter.setBorder(null);
-
-        ResYearEnter = new JTextField();
-        panel.add(ResYearEnter);
-        ResYearEnter.setBounds(571, 421, 98, 28);
-        ResYearEnter.setBackground(new Color(244, 242, 235));
-        ResYearEnter.setVisible(false);
-        ResYearEnter.setBorder(null);
-
-        ResHourEnter = new JTextField();
-        panel.add(ResHourEnter);
-        ResHourEnter.setBounds(801, 421, 98, 28);
-        ResHourEnter.setBackground(new Color(244, 242, 235));
-        ResHourEnter.setVisible(false);
-        ResHourEnter.setBorder(null);
-
-        ResMinuteEnter = new JTextField();
-        panel.add(ResMinuteEnter);
-        ResMinuteEnter.setBounds(911, 421, 98, 28);
-        ResMinuteEnter.setBackground(new Color(244, 242, 235));
-        ResMinuteEnter.setVisible(false);
-        ResMinuteEnter.setBorder(null);
-
-        ResSecondEnter = new JTextField();
-        panel.add(ResSecondEnter);
-        ResSecondEnter.setBounds(1021, 421, 98, 28);
-        ResSecondEnter.setBackground(new Color(244, 242, 235));
-        ResSecondEnter.setVisible(false);
-        ResSecondEnter.setBorder(null);
-
-        RoomCleanDayEnter = new JTextField();
-        panel.add(RoomCleanDayEnter);
-        RoomCleanDayEnter.setBounds(351, 421, 98, 28);
-        RoomCleanDayEnter.setBackground(new Color(244, 242, 235));
-        RoomCleanDayEnter.setVisible(false);
-        RoomCleanDayEnter.setBorder(null);
-
-        RoomCleanMonthEnter = new JTextField();
-        panel.add(RoomCleanMonthEnter);
-        RoomCleanMonthEnter.setBounds(461, 421, 98, 28);
-        RoomCleanMonthEnter.setBackground(new Color(244, 242, 235));
-        RoomCleanMonthEnter.setVisible(false);
-        RoomCleanMonthEnter.setBorder(null);
-
-        RoomCleanYearEnter = new JTextField();
-        panel.add(RoomCleanMonthEnter);
-        RoomCleanMonthEnter.setBounds(571, 421, 98, 28);
-        RoomCleanMonthEnter.setBackground(new Color(244, 242, 235));
-        RoomCleanMonthEnter.setVisible(false);
-        RoomCleanMonthEnter.setBorder(null);
-
-        RoomCleanHourEnter = new JTextField();
-        panel.add(RoomCleanHourEnter);
-        RoomCleanHourEnter.setBounds(801, 421, 98, 28);
-        RoomCleanHourEnter.setBackground(new Color(244, 242, 235));
-        RoomCleanHourEnter.setVisible(false);
-        RoomCleanHourEnter.setBorder(null);
-
-        RoomCleanMinuteEnter = new JTextField();
-        panel.add(RoomCleanMinuteEnter);
-        RoomCleanMinuteEnter.setBounds(911, 421, 98, 28);
-        RoomCleanMinuteEnter.setBackground(new Color(244, 242, 235));
-        RoomCleanMinuteEnter.setVisible(false);
-        RoomCleanMinuteEnter.setBorder(null);
-
-        RoomCleanSecondEnter = new JTextField();
-        panel.add(RoomCleanSecondEnter);
-        RoomCleanSecondEnter.setBounds(1021, 421, 98, 28);
-        RoomCleanSecondEnter.setBackground(new Color(244, 242, 235));
-        RoomCleanSecondEnter.setVisible(false);
-        RoomCleanSecondEnter.setBorder(null);
-
-        MusicLoungeDayEnter = new JTextField();
-        panel.add(MusicLoungeDayEnter);
-        MusicLoungeDayEnter.setBounds(351, 421, 98, 28);
-        MusicLoungeDayEnter.setBackground(new Color(244, 242, 235));
-        MusicLoungeDayEnter.setVisible(false);
-        MusicLoungeDayEnter.setBorder(null);
-
-        MusicLoungeMonthEnter = new JTextField();
-        panel.add(MusicLoungeMonthEnter);
-        MusicLoungeMonthEnter.setBounds(461, 421, 98, 28);
-        MusicLoungeMonthEnter.setBackground(new Color(244, 242, 235));
-        MusicLoungeMonthEnter.setVisible(false);
-        MusicLoungeMonthEnter.setBorder(null);
-
-        MusicLoungeYearEnter = new JTextField();
-        panel.add(MusicLoungeYearEnter);
-        MusicLoungeYearEnter.setBounds(571, 421, 98, 28);
-        MusicLoungeYearEnter.setBackground(new Color(244, 242, 235));
-        MusicLoungeYearEnter.setVisible(false);
-        MusicLoungeYearEnter.setBorder(null);
-
-        MusicLoungeHourEnter = new JTextField();
-        panel.add(MusicLoungeHourEnter);
-        MusicLoungeHourEnter.setBounds(801, 421, 98, 28);
-        MusicLoungeHourEnter.setBackground(new Color(244, 242, 235));
-        MusicLoungeHourEnter.setVisible(false);
-        MusicLoungeHourEnter.setBorder(null);
-
-        MusicLoungeMinuteEnter = new JTextField();
-        panel.add(MusicLoungeMinuteEnter);
-        MusicLoungeMinuteEnter.setBounds(911, 421, 98, 28);
-        MusicLoungeMinuteEnter.setBackground(new Color(244, 242, 235));
-        MusicLoungeMinuteEnter.setVisible(false);
-        MusicLoungeMinuteEnter.setBorder(null);
-
-        MusicLoungeSecondEnter = new JTextField();
-        panel.add(MusicLoungeSecondEnter);
-        MusicLoungeSecondEnter.setBounds(1021, 421, 98, 28);
-        MusicLoungeSecondEnter.setBackground(new Color(244, 242, 235));
-        MusicLoungeSecondEnter.setVisible(false);
-        MusicLoungeSecondEnter.setBorder(null);
-    }
-
-    private void createSpaDropdown() {
-        // Step 1: Update the options for Spa Packages
-        String spaPackageMenuOption[] = {"Massage", "Facial", "Sauna", "Body Scrub"};
-
-        // Step 2: Create the JComboBox with new options
-        spaPackageMenu = new JComboBox(spaPackageMenuOption);
-        spaPackageMenu.setBounds(350, 488, 300, 30);
-        spaPackageMenu.setFont(new Font("Mulish", Font.BOLD, 16));
-        spaPackageMenu.setBackground(new Color(244, 242, 235));
-        spaPackageMenu.setFocusable(false);
-        spaPackageMenu.setVisible(false);
-        panel.add(spaPackageMenu);
-
-        // Step 3: Add an ActionListener to handle selection changes
-        spaPackageMenu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Get the selected spa package
-                String selectedPackage = (String) spaPackageMenu.getSelectedItem();
-
-                // Perform actions based on the selected package
-                if ("Massage".equals(selectedPackage)) {
-                    addMassageComponents();  // Display massage-related UI or logic
-                } else if ("Facial".equals(selectedPackage)) {
-                    addFacialComponents();  // Display facial-related UI or logic
-                } else if ("Sauna".equals(selectedPackage)) {
-                    addSaunaComponents();  // Display sauna-related UI or logic
-                } else if ("Body Scrub".equals(selectedPackage)) {
-                    addBodyScrubComponents();  // Display body scrub-related UI or logic
-                }
-            }
-        });
-    }
-
-    private void addMassageComponents() {
-        // Code to add components related to Massage
-        System.out.println("Massage Package Selected");
-    }
-
-    private void addFacialComponents() {
-        // Code to add components related to Facial
-        System.out.println("Facial Package Selected");
-    }
-
-    private void addSaunaComponents() {
-        // Code to add components related to Massage
-        System.out.println("Massage Package Selected");
-    }
-
-    private void addBodyScrubComponents() {
-        // Code to add components related to Massage
-        System.out.println("Massage Package Selected");
-
-    }
-
-    private void createResDropdown() {
-        // Step 1: Update the options for Res Packages
-        String ResPackageMenuOption[] = {"Booth Tables", "Outdoor Tables", "Indoor Tables", "Specialty Tables"};
-
-        // Step 2: Create the JComboBox with new options
-        ResPackageMenu = new JComboBox(ResPackageMenuOption);
-        ResPackageMenu.setBounds(350, 488, 300, 30);
-        ResPackageMenu.setFont(new Font("Mulish", Font.BOLD, 16));
-        ResPackageMenu.setBackground(new Color(244, 242, 235));
-        ResPackageMenu.setFocusable(false);
-        ResPackageMenu.setVisible(false);
-        panel.add(ResPackageMenu);
-
-        // Step 3: Add an ActionListener to handle selection changes
-        ResPackageMenu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Get the selected res package
-                String selectedPackage = (String) ResPackageMenu.getSelectedItem();
-
-                // Perform actions based on the selected package
-                if ("Booth Tables".equals(selectedPackage)) {
-                    addBoothTableComponents();  // Display massage-related UI or logic
-                } else if ("Outdoor Tables".equals(selectedPackage)) {
-                    addOutdoorTableComponents();  // Display facial-related UI or logic
-                } else if ("Indoor Tables".equals(selectedPackage)) {
-                    addIndoorTableComponents();  // Display sauna-related UI or logic
-                } else if ("Specialty Tables".equals(selectedPackage)) {
-                    addSpecTableComponents();  // Display body scrub-related UI or logic
-                }
-            }
-        });
     }
 
     private void resetFields() {
@@ -3343,6 +2346,7 @@ public class CustomerUI {
         BookingAmount.setText("");
         BookingSecCode.setText("");   
         EnterDateIn.setText("");   
+        EnterDateOut.setText("");
         EnterNumberOfGuests.setText("");
         EnterDateOut.setText("");
         roomList.clearSelection();
@@ -3359,136 +2363,6 @@ public class CustomerUI {
             roomList.setListData(roomOptions);
         }
         panel.repaint();
-    }
-
-    private void addBoothTableComponents() {
-        // Code to add components related to Booth table
-        System.out.println("Massage Package Selected");
-    }
-
-    private void addOutdoorTableComponents() {
-        // Code to add components related to Outdoor table
-        System.out.println("Facial Package Selected");
-    }
-
-    private void addIndoorTableComponents() {
-        // Code to add components related to Indoor table
-        System.out.println("Massage Package Selected");
-    }
-
-    private void addSpecTableComponents() {
-        // Code to add components related to Speciality table
-        System.out.println("Massage Package Selected");
-
-    }
-
-    private void createRoomCleanDropdown() {
-        // Step 1: Update the options for Room cleaning Packages
-        String ResPackageMenuOption[] = {"Daily cleaning", "Deep cleaning ", "Turnover cleaning", "Emergency Cleaning"};
-
-        // Step 2: Create the JComboBox with new options
-        RcleaningPackageMenu = new JComboBox(ResPackageMenuOption);
-        RcleaningPackageMenu.setBounds(350, 488, 300, 30);
-        RcleaningPackageMenu.setFont(new Font("Mulish", Font.BOLD, 16));
-        RcleaningPackageMenu.setBackground(new Color(244, 242, 235));
-        RcleaningPackageMenu.setFocusable(false);
-        RcleaningPackageMenu.setVisible(false);
-        panel.add(RcleaningPackageMenu);
-
-        // Step 3: Add an ActionListener to handle selection changes
-        RcleaningPackageMenu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Get the selected res package
-                String selectedPackage = (String) RcleaningPackageMenu.getSelectedItem();
-
-                // Perform actions based on the selected package
-                if ("Daily cleaning".equals(selectedPackage)) {
-                    addDailyComponents();  // Display massage-related UI or logic
-                } else if ("Deep cleaning".equals(selectedPackage)) {
-                    addDeepComponents();  // Display facial-related UI or logic
-                } else if ("Turnover cleaning".equals(selectedPackage)) {
-                    addTurnoverComponents();  // Display sauna-related UI or logic
-                } else if ("Emergency cleaning".equals(selectedPackage)) {
-                    addEmergencyComponents();  // Display body scrub-related UI or logic
-                }
-            }
-        });
-    }
-
-    private void addDailyComponents() {
-        // Code to add components related to Booth table
-        System.out.println("Massage Package Selected");
-    }
-
-    private void addDeepComponents() {
-        // Code to add components related to Outdoor table
-        System.out.println("Facial Package Selected");
-    }
-
-    private void addTurnoverComponents() {
-        // Code to add components related to Indoor table
-        System.out.println("Massage Package Selected");
-    }
-
-    private void addEmergencyComponents() {
-        // Code to add components related to Speciality table
-        System.out.println("Massage Package Selected");
-
-    }
-
-    private void createMusicLoungeDropdown() {
-        // Step 1: Update the options for Room cleaning Packages
-        String MusicLoungePackageMenuOption[] = {"General Admission", "VIP Ticket", "Drink-Inclusive Tickets", "Standing"};
-
-        // Step 2: Create the JComboBox with new options
-        MusicLoungePackageMenu = new JComboBox(MusicLoungePackageMenuOption);
-        MusicLoungePackageMenu.setBounds(350, 488, 300, 30);
-        MusicLoungePackageMenu.setFont(new Font("Mulish", Font.BOLD, 16));
-        MusicLoungePackageMenu.setBackground(new Color(244, 242, 235));
-        MusicLoungePackageMenu.setFocusable(false);
-        MusicLoungePackageMenu.setVisible(false);
-        panel.add(MusicLoungePackageMenu);
-
-        // Step 3: Add an ActionListener to handle selection changes
-        MusicLoungePackageMenu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Get the selected res package
-                String selectedPackage = (String) MusicLoungePackageMenu.getSelectedItem();
-
-                // Perform actions based on the selected package
-                if ("General Admission".equals(selectedPackage)) {
-                    addGeneralAdComponents();  // Display massage-related UI or logic
-                } else if ("VIP Ticket".equals(selectedPackage)) {
-                    addVipComponents();  // Display facial-related UI or logic
-                } else if ("Drink-Inclusive Tickets".equals(selectedPackage)) {
-                    addDrinkComponents();  // Display sauna-related UI or logic
-                } else if ("Standing".equals(selectedPackage)) {
-                    addStandComponents();  // Display body scrub-related UI or logic
-                }
-            }
-        });
-    }
-
-    private void addGeneralAdComponents() {
-        // Code to add components related to Booth table
-        System.out.println("Massage Package Selected");
-    }
-
-    private void addVipComponents() {
-        // Code to add components related to Outdoor table
-        System.out.println("Facial Package Selected");
-    }
-
-    private void addDrinkComponents() {
-        // Code to add components related to Indoor table
-        System.out.println("Massage Package Selected");
-    }
-
-    private void addStandComponents() {
-        // Code to add components related to Speciality table
-        System.out.println("Massage Package Selected");
     }
 
     private double getAverageRatingFromDatabase() {
