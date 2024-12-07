@@ -533,6 +533,10 @@ public class StaffUI {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        String userIdInput = JOptionPane.showInputDialog("Enter User ID:");
+                        if (userIdInput == null || userIdInput.trim().isEmpty())
+                            throw new IllegalArgumentException("User ID cannot be empty.");
+                        int userId = Integer.parseInt(userIdInput.trim());
                         String checkinDateInput = JOptionPane.showInputDialog("Enter Check-in Date (YYYY-MM-DD):");
                         if (checkinDateInput == null || checkinDateInput.isEmpty())
                             throw new IllegalArgumentException("Check-in date cannot be empty.");
@@ -580,6 +584,7 @@ public class StaffUI {
                         }
 
                         Reservation newReservation = new Reservation();
+                        newReservation.setUserId(userId);
                         newReservation.setCheckinDate(checkinDate);
                         newReservation.setCheckoutDate(checkoutDate);
                         newReservation.setTotalDays(totalDays);
