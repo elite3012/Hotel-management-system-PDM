@@ -52,6 +52,7 @@ public class CustomerUI {
     static JLabel room3Label;
 
     static JLabel averageRatingLabel;
+    static Double averageRating;
 
     static JFrame frame;
     static JPanel panel;
@@ -858,7 +859,7 @@ public class CustomerUI {
         averageRatingLabel.setFont(new Font("Mulish", Font.PLAIN, 15));
         averageRatingLabel.setForeground(new Color(43, 42, 38));
         averageRatingLabel.setBounds(680, 570, 400, 30);
-        double averageRating = getAverageRatingFromDatabase();
+        averageRating = getAverageRatingFromDatabase();
         averageRatingLabel.setText("Customer Average Rating: " + String.format("%.1f", averageRating) + " / 5.0");
         panel.add(averageRatingLabel);
 
@@ -873,8 +874,10 @@ public class CustomerUI {
             room1Label.setVisible(true);
             room2Label.setVisible(true);
             room3Label.setVisible(true);
+            averageRating = getAverageRatingFromDatabase();
+            averageRatingLabel.setText("Customer Average Rating: " + String.format("%.1f", averageRating) + " / 5.0");
             averageRatingLabel.setVisible(true);
-
+            
             Tab1_background.setVisible(true);
             Tab2_background.setVisible(false);
             Tab3_background.setVisible(false);
