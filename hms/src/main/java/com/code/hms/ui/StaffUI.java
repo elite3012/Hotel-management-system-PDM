@@ -700,6 +700,12 @@ public class StaffUI {
                         if (reservation != null) {
                             int confirmation = JOptionPane.showConfirmDialog(panel, "Are you sure you want to cancel this reservation?");
                             if (confirmation == JOptionPane.YES_OPTION) {
+                                List<Room> associatedRooms = room_ReservationDaoImpl.getRoomByReservationID(reservationId);
+                                for (Room room : associatedRooms) {
+                                    room.setRoomStatus("Available"); 
+                                    roomDaoImpl.updateRoom(room); 
+                                }
+                    
                                 reservationDaoImpl.deleteReservation(reservationId);
                                 JOptionPane.showMessageDialog(panel, "Reservation canceled successfully!");
                             }
