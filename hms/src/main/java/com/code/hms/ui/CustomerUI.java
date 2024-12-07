@@ -42,7 +42,16 @@ public class CustomerUI {
     private JLabel hotelNameLabel;
     private JLabel dateLabel;
     private JLabel welcomeLabel;
-    private JLabel averageRatingLabel;
+
+    static JLabel roomType1;
+    static JLabel roomType2;
+    static JLabel roomType3;
+
+    static JLabel room1Label;
+    static JLabel room2Label;
+    static JLabel room3Label;
+
+    static JLabel averageRatingLabel;
 
     static JFrame frame;
     static JPanel panel;
@@ -789,14 +798,44 @@ public class CustomerUI {
         hotelNameLabel = new JLabel("Hotel Group 3");   
         hotelNameLabel.setFont(new Font("Mulish", Font.BOLD, 50));
         hotelNameLabel.setForeground(new Color(43, 42, 38));
-        hotelNameLabel.setBounds(630, 150, 500, 50);
+        hotelNameLabel.setBounds(630, 50, 500, 50);
         panel.add(hotelNameLabel);
+
+        roomType1 = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/RoomType1.jpg", 250, 250));
+        roomType1.setBounds(400, 200, 250, 250);
+        panel.add(roomType1);
+
+        roomType2 = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/RoomType2.jpg", 250, 250));
+        roomType2.setBounds(670, 200, 250, 250);
+        panel.add(roomType2);
+
+        roomType3 = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/RoomType3.jpg", 250, 250));
+        roomType3.setBounds(940, 200, 250, 250);
+        panel.add(roomType3);
 
         welcomeLabel = new JLabel("Welcome to Our Hotel!");
         welcomeLabel.setFont(new Font("Mulish", Font.ITALIC, 50));
         welcomeLabel.setForeground(new Color(132, 121, 102));
-        welcomeLabel.setBounds(550, 220, 1000, 50);
+        welcomeLabel.setBounds(550, 120, 1000, 50);
         panel.add(welcomeLabel);
+
+        room1Label = new JLabel("Single Room");
+        room1Label.setFont(new Font("Mulish", Font.ITALIC, 35));
+        room1Label.setForeground(new Color(132, 121, 102));
+        room1Label.setBounds(420, 470, 250, 50);
+        panel.add(room1Label);
+
+        room2Label = new JLabel("Double Room");
+        room2Label.setFont(new Font("Mulish", Font.ITALIC, 35));
+        room2Label.setForeground(new Color(132, 121, 102));
+        room2Label.setBounds(685, 470, 250, 50);
+        panel.add(room2Label);
+
+        room3Label = new JLabel("Triple Room");
+        room3Label.setFont(new Font("Mulish", Font.ITALIC, 35));
+        room3Label.setForeground(new Color(132, 121, 102));
+        room3Label.setBounds(960, 470, 250, 50);
+        panel.add(room3Label);
 
         dateLabel = new JLabel();
         dateLabel.setFont(new Font("Mulish", Font.PLAIN, 30));
@@ -808,9 +847,9 @@ public class CustomerUI {
         panel.add(dateLabel);
 
         averageRatingLabel = new JLabel();
-        averageRatingLabel.setFont(new Font("Mulish", Font.PLAIN, 25));
+        averageRatingLabel.setFont(new Font("Mulish", Font.PLAIN, 15));
         averageRatingLabel.setForeground(new Color(43, 42, 38));
-        averageRatingLabel.setBounds(600, 480, 400, 30);
+        averageRatingLabel.setBounds(680, 570, 400, 30);
         double averageRating = getAverageRatingFromDatabase();
         averageRatingLabel.setText("Customer Average Rating: " + String.format("%.1f", averageRating) + " / 5.0");
         panel.add(averageRatingLabel);
@@ -820,6 +859,12 @@ public class CustomerUI {
             hotelNameLabel.setVisible(true);
             welcomeLabel.setVisible(true);
             dateLabel.setVisible(true);
+            roomType1.setVisible(true);
+            roomType2.setVisible(true);
+            roomType3.setVisible(true);
+            room1Label.setVisible(true);
+            room2Label.setVisible(true);
+            room3Label.setVisible(true);
             averageRatingLabel.setVisible(true);
 
             Tab1_background.setVisible(true);
@@ -1028,6 +1073,12 @@ public class CustomerUI {
             hotelNameLabel.setVisible(false);
             welcomeLabel.setVisible(false);
             dateLabel.setVisible(false);
+            roomType1.setVisible(false);
+            roomType2.setVisible(false);
+            roomType3.setVisible(false);
+            room1Label.setVisible(false);
+            room2Label.setVisible(false);
+            room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
 
             SpaCenter.setVisible(false);
@@ -1237,6 +1288,12 @@ public class CustomerUI {
             hotelNameLabel.setVisible(false);
             welcomeLabel.setVisible(false);
             dateLabel.setVisible(false);
+            roomType1.setVisible(false);
+            roomType2.setVisible(false);
+            roomType3.setVisible(false);
+            room1Label.setVisible(false);
+            room2Label.setVisible(false);
+            room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
 
             Restaurant.setVisible(false);
@@ -1398,6 +1455,12 @@ public class CustomerUI {
             hotelNameLabel.setVisible(false);
             welcomeLabel.setVisible(false);
             dateLabel.setVisible(false);
+            roomType1.setVisible(false);
+            roomType2.setVisible(false);
+            roomType3.setVisible(false);
+            room1Label.setVisible(false);
+            room2Label.setVisible(false);
+            room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
 
             CustomerInfo.setVisible(true);
@@ -1560,6 +1623,12 @@ public class CustomerUI {
             hotelNameLabel.setVisible(false);
             welcomeLabel.setVisible(false);
             dateLabel.setVisible(false);
+            roomType1.setVisible(false);
+            roomType2.setVisible(false);
+            roomType3.setVisible(false);
+            room1Label.setVisible(false);
+            room2Label.setVisible(false);
+            room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
 
             CustomerInfo.setVisible(true);
@@ -1721,6 +1790,12 @@ public class CustomerUI {
             hotelNameLabel.setVisible(false);
             welcomeLabel.setVisible(false);
             dateLabel.setVisible(false);
+            roomType1.setVisible(false);
+            roomType2.setVisible(false);
+            roomType3.setVisible(false);
+            room1Label.setVisible(false);
+            room2Label.setVisible(false);
+            room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
 
             CustomerInfo.setVisible(true);
@@ -1897,6 +1972,12 @@ public class CustomerUI {
             hotelNameLabel.setVisible(false);
             welcomeLabel.setVisible(false);
             dateLabel.setVisible(false);
+            roomType1.setVisible(false);
+            roomType2.setVisible(false);
+            roomType3.setVisible(false);
+            room1Label.setVisible(false);
+            room2Label.setVisible(false);
+            room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
 
             RestaurantFirstName.setVisible(false);
@@ -2051,6 +2132,12 @@ public class CustomerUI {
             hotelNameLabel.setVisible(false);
             welcomeLabel.setVisible(false);
             dateLabel.setVisible(false);
+            roomType1.setVisible(false);
+            roomType2.setVisible(false);
+            roomType3.setVisible(false);
+            room1Label.setVisible(false);
+            room2Label.setVisible(false);
+            room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
 
             SpaCenter.setVisible(false);
@@ -2206,6 +2293,12 @@ public class CustomerUI {
             hotelNameLabel.setVisible(false);
             welcomeLabel.setVisible(false);
             dateLabel.setVisible(false);
+            roomType1.setVisible(false);
+            roomType2.setVisible(false);
+            roomType3.setVisible(false);
+            room1Label.setVisible(false);
+            room2Label.setVisible(false);
+            room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
 
             SpaCenter.setVisible(false);
@@ -2378,6 +2471,12 @@ public class CustomerUI {
             hotelNameLabel.setVisible(false);
             welcomeLabel.setVisible(false);
             dateLabel.setVisible(false);
+            roomType1.setVisible(false);
+            roomType2.setVisible(false);
+            roomType3.setVisible(false);
+            room1Label.setVisible(false);
+            room2Label.setVisible(false);
+            room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
 
             SpaCenter.setVisible(false);
@@ -3236,7 +3335,6 @@ public class CustomerUI {
     private void addStandComponents() {
         // Code to add components related to Speciality table
         System.out.println("Massage Package Selected");
-
     }
 
     private double getAverageRatingFromDatabase() {
