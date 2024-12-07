@@ -158,6 +158,7 @@ public class CustomerUI {
     static JList<String> roomList;
 
     static List<Room> availableRooms;
+    static List<Reservation> reviewedList;
 
     static String[] roomOptions;
 
@@ -493,20 +494,53 @@ public class CustomerUI {
 
         List<Reservation> reservationList = userDaoImpl.getReservationsByCustomer(userId);
         JComboBox<Reservation> reservationPackage = new JComboBox<>();
-        for (Reservation reservation : reservationList) {
-            reservationPackage.addItem(reservation);
-        }
         reservationPackage.setBounds(950, 200, 300, 30);
         reservationPackage.setFont(new Font("Mulish", Font.BOLD, 16));
         reservationPackage.setBackground(new Color(244, 242, 235));
         reservationPackage.setFocusable(false);
         reservationPackage.setVisible(false);
+
+        for (Reservation reservation : reservationList) {
+            reservationPackage.addItem(reservation);
+        }
+
         panel.add(reservationPackage);
 
         reservationPackage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                selectedReservation = (Reservation) reservationPackage.getSelectedItem();
+                if (reservationPackage.getSelectedIndex() == 0) {
+                    // Handle the case where no reservation is selected
+                    WriteFeedback.setText(""); // Clear feedback field
+                    ratingStars.setSelectedRating(0); // Reset rating stars
+                    WriteFeedback.setEditable(false); // Disable feedback input
+                    ratingStars.setEnabled(false); // Disable rating stars
+                } else {
+                    selectedReservation = (Reservation) reservationPackage.getSelectedItem();
+
+                    if (selectedReservation != null) {
+                        // Fetch the existing review for this reservation
+                        Review existingReview = reviewDAOImpl.getReviewsByReservationID(selectedReservation.getReservationId());
+
+                        if (existingReview != null) {
+                            // Display the existing review in the text fields
+                            WriteFeedback.setText(existingReview.getComment());
+                            ratingStars.setSelectedRating(existingReview.getRating());
+
+                            // Allow updating the review
+                            WriteFeedback.setEditable(true);
+                            ratingStars.setEnabled(true);
+                        } else {
+                            // Allow the user to submit a new review
+                            WriteFeedback.setText("");
+                            ratingStars.setSelectedRating(0);
+
+                            // Allow creating a new review
+                            WriteFeedback.setEditable(true);
+                            ratingStars.setEnabled(true);
+                        }
+                    }
+                }
             }
         });
 
@@ -585,7 +619,48 @@ public class CustomerUI {
         SubmitServiceButton.setForeground(Color.WHITE);
         SubmitServiceButton.setFocusable(false);
         SubmitServiceButton.setVisible(false);
+        SubmitServiceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Collect customer information
+                String day = SpaDayEnter.getText().trim();
+                String month = SpaMonthEnter.getText().trim();
+                String year = SpaYearEnter.getText().trim();
+                String hour = SpaHourEnter.getText().trim();
+                String minute = SpaMinuteEnter.getText().trim();
+                String second = SpaSecondEnter.getText().trim();
+                // String servicepackage = SpaPackBox.getText();
+
+                if (day.isEmpty() || month.isEmpty() || year.isEmpty() || hour.isEmpty() || minute.isEmpty() || second.isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "Please fill in all required fields.", "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                } else {
+                    User_Service_Pk user_Service_Pk = new User_Service_Pk(userId, serviceId);
+                    Service service = serviceDAOImpl.getServiceByID(serviceId);
+
+                    if (service.getServiceAvailability().equals("Available")) {
+
+                        User_Service user_Service = new User_Service();
+                        user_Service.setPk(user_Service_Pk);
+                        user_Service.setDate(java.sql.Date.valueOf(year + "-" + month + "-" + day));
+                        user_Service.setTime(java.sql.Time.valueOf(hour + ":" + minute + ":" + second));
+                        user_Service.setUser(userDaoImpl.getUserByID(userId));
+                        user_Service.setService(service);
+
+                        serviceOrderDAOImpl.saveServiceOrder(user_Service);
+
+                        service.setServiceAvailability("Unavailable");
+                        serviceDAOImpl.updateService(service);
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Service unavailable", "Sorry", JOptionPane.INFORMATION_MESSAGE);
+                        return;
+                    }
+                    JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
         panel.add(SubmitServiceButton);
+
 
         JButton NextButton = new JButton();
         NextButton.setFocusable(false);
@@ -1211,64 +1286,7 @@ public class CustomerUI {
             ratingStars.setVisible(false);
 
             serviceId = 1;
-            SubmitServiceButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Collect customer information
-                    String day = SpaDayEnter.getText().trim();
-                    String month = SpaMonthEnter.getText().trim();
-                    String year = SpaYearEnter.getText().trim();
-                    String hour = SpaHourEnter.getText().trim();
-                    String minute = SpaMinuteEnter.getText().trim();
-                    String second = SpaSecondEnter.getText().trim();
-                    // String servicepackage = SpaPackBox.getText();
 
-                    if (day.isEmpty() || month.isEmpty() || year.isEmpty() || hour.isEmpty() || minute.isEmpty() || second.isEmpty()) {
-                        JOptionPane.showMessageDialog(frame, "Please fill in all required fields.", "Warning", JOptionPane.WARNING_MESSAGE);
-                        return;
-                    } else {
-                        User_Service_Pk user_Service_Pk = new User_Service_Pk(userId, serviceId);
-                        Service service = serviceDAOImpl.getServiceByID(serviceId);
-
-                        if (service.getServiceAvailability().equals("Available")) {
-                            
-                            User_Service user_Service = new User_Service();
-                            user_Service.setPk(user_Service_Pk);
-                            user_Service.setDate(java.sql.Date.valueOf(year + "-" + month + "-" + day));
-                            user_Service.setTime(java.sql.Time.valueOf(hour + ":" + minute + ":" + second));
-                            user_Service.setUser(userDaoImpl.getUserByID(userId));
-                            user_Service.setService(service);
-
-                            serviceOrderDAOImpl.saveServiceOrder(user_Service);
-    
-                            service.setServiceAvailability("Unavailable");
-                            serviceDAOImpl.updateService(service);
-                        } else {
-                            JOptionPane.showMessageDialog(frame, "Service unavailable", "Sorry", JOptionPane.INFORMATION_MESSAGE);
-                            return;
-                        }
-                        JOptionPane.showMessageDialog(frame, "Service booked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-                        String serviceDateString = year + "-" + month + "-" + day;
-                        String serviceTimeString = hour + ":" + minute + ":" + second;
-
-                        java.sql.Date serviceDate = java.sql.Date.valueOf(serviceDateString);
-                        java.sql.Time serviceTime = java.sql.Time.valueOf(serviceTimeString);
-
-                        User_Service_Pk userServicePk = new User_Service_Pk(userId, 1);
-                        User_Service userService = new User_Service();
-                        userService.setPk(userServicePk);
-                        userService.setUser(userDaoImpl.getUserByID(userId));
-                        userService.setService(serviceDAOImpl.getServiceByID(1));
-                        userService.setDate(serviceDate);
-                        userService.setTime(serviceTime);
-                        userServiceDAOImpl.saveServiceOrder(userService);
-
-                        service.setServiceAvailability("Unavailable");
-                        serviceDAOImpl.updateService(service);
-                    }
-                }
-            });
         });
 
         RestaurantCenter = new JLabel();
@@ -2081,8 +2099,6 @@ public class CustomerUI {
                     try {
                         reviewDAOImpl.saveReview(review);
                         System.out.println("Review sent successfully!");
-                        reservationPackage.removeItem(selectedReservation);
-                        reservationPackage.repaint();
                     } catch (Exception ex) {
                         ex.printStackTrace();
                         System.out.println("Error sending review!");

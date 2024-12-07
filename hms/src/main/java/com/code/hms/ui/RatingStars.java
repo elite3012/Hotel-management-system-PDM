@@ -92,4 +92,9 @@ class RatingStars extends JPanel {
     public int getSelectedRating() {
         return selectedRating;
     }
+
+    public void setSelectedRating(int selectedRating) {
+        this.selectedRating = selectedRating;
+        repaint();
+    }
 }
