@@ -1,6 +1,7 @@
 package com.code.hms.ui;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -28,6 +29,7 @@ import com.code.hms.entities.Room_Reservation_Pk;
 
 
 public class StaffUI {
+    static List<Room> uncleanRoom;
     static JLabel Tab1_background;
     static JLabel Tab2_background;
     static JLabel Tab3_background;
@@ -202,11 +204,22 @@ public class StaffUI {
                 RoomManagementTab.setForeground(new Color(245, 242, 233));
                 removeRoomCleaningTabComponents();
                 addTaskListComponents();
+                String[] columnNames = {"Assigned Room", "Cleaning Status"};
+                RoomDaoImpl roomDaoImpl = new RoomDaoImpl();
+                uncleanRoom = roomDaoImpl.getAllDirtyRooms();
+                Object[][] data = new Object[uncleanRoom.size()][2];
+                for (int i = 0; i < uncleanRoom.size(); i++) {
+                    Room rooms = uncleanRoom.get(i);
+                    data[i][0] = rooms.getRoomId(); 
+                    data[i][1] = rooms.getCleaningStatus(); 
+                }
+                DefaultTableModel model = new DefaultTableModel(data, columnNames);
+                taskListTable.setModel(model);
             }
         });
+        createTaskListPanel();
         addRoomCleaningPanel();
         createAllBackgrounds();
-        createTaskListPanel();
     }
 
     private void createAdminUI() {
@@ -1940,14 +1953,46 @@ public class StaffUI {
     }
 
     private void createTaskListPanel() {
-        String[][] taskListBaseData = {{" ", " "}};
-        String[] taskListColumnNames = {"Assigned Room", "Cleaning Status"};
-        taskListTable = new JTable(taskListBaseData, taskListColumnNames);
+        String[] columnNames = {"Assigned Room", "Cleaning Status"};
+
+        RoomDaoImpl roomDaoImpl = new RoomDaoImpl();
+
+        uncleanRoom = roomDaoImpl.getAllDirtyRooms();
+        Object[][] data = new Object[uncleanRoom.size()][2];
+        for (int i = 0; i < uncleanRoom.size(); i++) {
+            Room rooms = uncleanRoom.get(i);
+            data[i][0] = rooms.getRoomId(); 
+            data[i][1] = rooms.getCleaningStatus(); 
+        }
+
+        taskListTable = new JTable(data, columnNames);
         taskListTable.setBounds(374, 40, 800, 530);
         taskListTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
         taskListTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
-        taskListTable.setVisible(false);
-        panel.add(taskListTable);
+        taskListTable.setVisible(true);
+
+        for (int i = 0; i < taskListTable.getColumnCount(); i++) {
+            int maxWidth = 0;
+
+            for (int j = 0; j < taskListTable.getRowCount(); j++) {
+                Object value = taskListTable.getValueAt(j, i);
+                if (value != null) {
+                    int width = value.toString().length();
+                    maxWidth = Math.max(maxWidth, width);
+                }
+            }
+
+            TableColumn column = taskListTable.getColumnModel().getColumn(i);
+            column.setPreferredWidth(maxWidth * 10);
+        }
+        
+        // String[][] taskListBaseData = {{" ", " "}};
+        // String[] taskListColumnNames = {"Assigned Room", "Cleaning Status"};
+        // taskListTable = new JTable(taskListBaseData, taskListColumnNames);
+        // taskListTable.setBounds(374, 40, 800, 530);
+        // taskListTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
+        // taskListTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
+        // taskListTable.setVisible(false);
 
         taskListScrollPane = new JScrollPane(taskListTable);
         taskListScrollPane.setBounds(374, 40, 800, 530); // Set bounds for JScrollPane

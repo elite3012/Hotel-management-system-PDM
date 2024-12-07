@@ -1,14 +1,15 @@
 package com.code.hms.daoimpl;
 
-import com.code.hms.dao.RoomDAO;
-import com.code.hms.entities.Room;
-import com.code.hms.connection.DataSourceFactory;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.hibernate.query.MutationQuery;
+import org.hibernate.query.Query;
 
-import java.util.List;
+import com.code.hms.connection.DataSourceFactory;
+import com.code.hms.dao.RoomDAO;
+import com.code.hms.entities.Room;
 
 public class RoomDaoImpl implements RoomDAO {
     private DataSourceFactory dataSourceFactory;
@@ -349,5 +350,23 @@ public class RoomDaoImpl implements RoomDAO {
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public List<Room> getAllDirtyRooms() {
+        Session session = dataSourceFactory.getSessionFactory().openSession();
+        List<Room> dirtyRooms = null;
+        try {
+            String hql = "FROM Room r WHERE r.cleaningStatus = :status";
+            Query<Room> query = session.createQuery(hql, Room.class);
+            query.setParameter("status", "unclean");
+            dirtyRooms = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return dirtyRooms;
     }
 }

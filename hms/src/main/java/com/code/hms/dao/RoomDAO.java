@@ -10,6 +10,8 @@ public interface RoomDAO {
 
 	// Find  all available rooms
 	public List<Room> getAllAvailableRooms();
+
+	public List<Room> getAllDirtyRooms();
 	
 	// Save to database
 	public void saveRoom(Room room);
@@ -43,4 +45,5 @@ public interface RoomDAO {
 
 	// Set DND
 	public void setSingleRoomAsDNDByRoomID(int roomId);
+	
 }
