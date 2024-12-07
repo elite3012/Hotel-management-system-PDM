@@ -1,14 +1,10 @@
 package com.code.hms.daoimpl;
 
 import com.code.hms.dao.ServiceDAO;
-import com.code.hms.entities.Billing;
+
 import com.code.hms.entities.Service;
 import com.code.hms.utils.LoggingEngine;
 import com.code.hms.connection.DataSourceFactory;
-
-import jakarta.persistence.NoResultException;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -20,6 +16,11 @@ public class ServiceDAOImpl implements ServiceDAO{
     private DataSourceFactory dataSourceFactory;
     private LoggingEngine logging;
 
+    public ServiceDAOImpl() {
+        DataSourceFactory.createConnection();
+        dataSourceFactory = new DataSourceFactory();
+        logging = LoggingEngine.getInstance();
+    }
     // Update the service availability
     public void updateService(Service service){
          try {
@@ -51,6 +52,21 @@ public class ServiceDAOImpl implements ServiceDAO{
         } finally {
             if (session != null) session.close();
         }
+    }
+
+    @Override
+    public Service getServiceByID(int serviceId) {
+        session = dataSourceFactory.getSessionFactory().openSession();
+        Service service = null;
+
+        try { 
+            service = session.get(Service.class, serviceId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return service;
     }
     
 }

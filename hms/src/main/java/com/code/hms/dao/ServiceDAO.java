@@ -9,4 +9,6 @@ public interface ServiceDAO {
 
     // Update the service availability
     public void updateService(Service service);
+
+    public Service getServiceByID(int serviceId);
 }
