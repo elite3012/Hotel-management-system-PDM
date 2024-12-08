@@ -134,7 +134,10 @@ public class Reservation implements Serializable {
 
     @Override
     public String toString() {
-        return "Reservation [reservationId=" + reservationId + ", userId=" + userId + ", checkinDate=" + checkinDate
-                + ", checkoutDate=" + checkoutDate + ", totalDays=" + totalDays + ", numOfGuests=" + numOfGuests + "]";
+        if (reservationId < 1) {
+            return "Select a reservation";
+        } else {
+            return "Reservation ID: " + reservationId + " | Date: " + checkinDate;
+        }
     }
 }

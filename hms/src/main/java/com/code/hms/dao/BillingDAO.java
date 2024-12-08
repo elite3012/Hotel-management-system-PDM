@@ -1,5 +1,7 @@
 package com.code.hms.dao;
 
+import java.util.List;
+
 import com.code.hms.entities.Billing;
 
 public interface BillingDAO {
@@ -13,11 +15,17 @@ public interface BillingDAO {
     public Billing getBillingByID(int billingId);
 
     // Find bill by reservation id
-    public Billing getBillingByReservationID(int reservationId);
+    public Object[] getBillingByReservationID(int reservationId);
 
     // Find bill by room number
     public Billing getBillingByRoomNumber(int roomId);
 
+    //Find bill by user id
+    public List<Object[]> getBillingsByUserId(int userId);
+
     // Find the last bill
     public Billing getLastBilling();
+
+    // Find all billings
+    public List<Object[]> getAllBillings();
 }

@@ -17,11 +17,12 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Review_ID", nullable = false)
     private int reviewId;
 
     @ManyToOne
     @JoinColumn(name = "User_ID", nullable = false) // Specifies the foreign key column
-    private User user;
+    private User userId;
 
     @ManyToOne
     @JoinColumn(name = "Reservation_ID", nullable = false) // Specifies the foreign key column
@@ -41,8 +42,8 @@ public class Review {
     }
 
     // Constructor
-    public Review(User user, Reservation reservation, int rating, String comment, Date reviewDate) {
-        this.user = user;
+    public Review(User userId, Reservation reservation, int rating, String comment, Date reviewDate) {
+        this.userId = userId;
         this.reservation = reservation;
         this.rating = rating;
         this.comment = comment;
@@ -57,12 +58,12 @@ public class Review {
         this.reviewId = reviewId;
     }
 
-    public User getUser() {
-        return user;
+    public User getUserID() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(User userId) {
+        this.userId = userId;
     }
 
     public Reservation getReservation() {
@@ -101,7 +102,7 @@ public class Review {
     public String toString() {
         return "Review{" +
                 "reviewId=" + reviewId +
-                ", userId=" + user.getUserId() +
+                ", userId=" + userId +
                 ", reservationId=" + reservation.getReservationId() +
                 ", rating=" + rating +
                 ", comment='" + comment + '\'' +

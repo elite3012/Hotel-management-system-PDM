@@ -12,12 +12,15 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import com.code.hms.daoimpl.UserDaoImpl;
+import com.code.hms.entities.User;
+
 public class SignUpWindow extends JFrame {
 
     private JTextField firstNameField, lastNameField, dateOfBirthField, idNumberField, nationalityField, addressField, phoneNumberField, emailField, usernameField;
     private JPasswordField passwordField, confirmPasswordField;
     private JComboBox<String> roleDropdown;
-
+    
     public SignUpWindow() {
         setTitle("Sign Up");
         setSize(1280, 672);
@@ -28,7 +31,7 @@ public class SignUpWindow extends JFrame {
         panel.setLayout(null);
 
         // Background
-        LoadImage loader = new LoadImage("hms/src/main/java/com/code/hms/assets/bg.png", getWidth(), getHeight());
+        LoadImage loader = new LoadImage("hms/src/main/java/com/code/hms/assets/Login_BG.png", getWidth(), getHeight());
         JLabel backgroundLbl = new JLabel(loader.getImageIcon());
         backgroundLbl.setBounds(0, 0, getWidth(), getHeight());
         panel.add(backgroundLbl);
@@ -88,13 +91,18 @@ public class SignUpWindow extends JFrame {
         roleDropdown = new JComboBox<>(new String[]{"Customer", "Admin", "Receptionist"});
         roleDropdown.setBounds(x2, y + 25, width, height);
         signUpPanel.add(roleDropdown);
-
+        roleDropdown.addActionListener(e -> {
+            signUpPanel.revalidate();
+            signUpPanel.repaint();
+        });        
+        
         // Sign-Up Button
         JButton signUpButton = new JButton("Sign Up");
         signUpButton.setBounds(440, y + 75, 300, 40);
         signUpButton.setBackground(Color.decode("#847966"));
         signUpButton.setForeground(Color.WHITE);
         signUpPanel.add(signUpButton);
+        
 
         // Action Listener
         signUpButton.addActionListener(e -> validateAndSubmitForm());
@@ -103,19 +111,36 @@ public class SignUpWindow extends JFrame {
     }
 
     private void validateAndSubmitForm() {
+
         String firstName = firstNameField.getText();
         String lastName = lastNameField.getText();
         String email = emailField.getText();
+        String phone = phoneNumberField.getText();
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
         String confirmPassword = new String(confirmPasswordField.getPassword());
+        String role = roleDropdown.getSelectedItem().toString();
 
         if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             JOptionPane.showMessageDialog(this, "All fields must be filled!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (!password.equals(confirmPassword)) {
             JOptionPane.showMessageDialog(this, "Passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            UserDaoImpl userdao = new UserDaoImpl();
+            User user = new User();
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setEmail(email);
+            user.setPhone(phone);
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setRole(role);
+
+            userdao.addUser(user);
             JOptionPane.showMessageDialog(this, "Sign-Up successful for: " + username, "Success", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+            LoginWindow lg = new LoginWindow();
+            lg.setVisible(true);
         }
     }
 

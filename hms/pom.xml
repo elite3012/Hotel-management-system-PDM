@@ -13,7 +13,6 @@
   <url>http://www.example.com</url>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>
   </properties>
@@ -27,6 +26,19 @@
       <version>1.4</version>
     </dependency>
     
+    <dependency>
+      <groupId>jakarta.mail</groupId>
+      <artifactId>jakarta.mail-api</artifactId>
+      <version>2.0.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.activation</groupId>
+      <artifactId>jakarta.activation-api</artifactId>
+      <version>2.0.0</version>
+    </dependency>
+  
+  
     <!-- https://mvnrepository.com/artifact/com.jtattoo/JTattoo -->
     <!-- Thư viện tùy chỉnh giao diện Swing. -->
     <dependency>
@@ -74,7 +86,6 @@
       <artifactId>jakarta.mail</artifactId>
       <version>2.0.1</version>
     </dependency>
-
     <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
     <!-- Thư viện chuyển đổi giữa JSON và Java object. -->
 		<dependency>

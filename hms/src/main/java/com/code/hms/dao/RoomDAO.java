@@ -1,6 +1,7 @@
 package com.code.hms.dao;
 
 import java.util.List;
+
 import com.code.hms.entities.Room;
 
 public interface RoomDAO {
@@ -9,6 +10,8 @@ public interface RoomDAO {
 
 	// Find  all available rooms
 	public List<Room> getAllAvailableRooms();
+
+	public List<Room> getAllDirtyRooms();
 	
 	// Save to database
 	public void saveRoom(Room room);
@@ -19,10 +22,20 @@ public interface RoomDAO {
 	// Show all the room (including both empty and not empty)
 	public List<Room> getAllRooms();
 
-	// Set room availability after check out
-	public void setRoomCheckedOut(int reservationId);
+	String getRoomStatus(int roomId);
 
-	// Set Clean
+	String getRoomCleaningStatus(int roomId);
+
+	void setRoomCleaned(int roomId);
+
+	void setRoomUncleaned(int roomId);
+
+	// Set room availability after check out
+	public void setRoomCheckedOut(int roomId);
+
+	void setRoomCheckedIn(int roomId);
+
+    // Set Clean
 	public void setAllRoomsAtClean(String clean);
 	public void setSingleRoomAsCleanByRoomID(int roomId);
 	
@@ -32,4 +45,5 @@ public interface RoomDAO {
 
 	// Set DND
 	public void setSingleRoomAsDNDByRoomID(int roomId);
+	
 }
