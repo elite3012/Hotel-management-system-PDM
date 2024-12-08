@@ -28,18 +28,19 @@ public class User_ServiceDAOImpl implements User_ServiceDAO {
     }
 
     // find services by user id
-    public List<Service> getServicesByUserID(int userId) {
-        List<Service> services = null;
+    public Service getServicesByUserID(int userId) {
+        Service service = null;
         try {
             session = dataSourceFactory.getSessionFactory().openSession();
             session.beginTransaction();
 
             // HQL to fetch services associated with a user
-            Query<Service> query = session.createQuery("FROM Service s WHERE s.User_ID = :userId", Service.class);
+            Query<Service> query = session.createQuery("FROM Service s WHERE s.serviceId IN (SELECT us.service.id FROM User_Service us WHERE us.user.id = :userId)", Service.class);
             query.setParameter("userId", userId); // Correct parameter for userId
 
             // Get the list of services associated with the user
-            services = query.list();
+            service = query.uniqueResult();
+            System.out.println(service.toString());
             session.getTransaction().commit();
 
             loggingEngine.setMessage("Fetched Services by User ID: " + userId);
@@ -52,7 +53,7 @@ public class User_ServiceDAOImpl implements User_ServiceDAO {
             if (session != null) session.close();
         }
 
-        return services;
+        return service;
     }
 
     // find users by service id

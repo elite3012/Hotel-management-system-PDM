@@ -62,18 +62,18 @@ public class Service_OrderDAOImpl implements Service_OrderDAO {
         }
     }
     @Override
-    public void deleteServiceOrderByID(int serviceOrderID) {
+    public void deleteServiceOrderByUserID(int userID) {
         session = dataSourceFactory.getSessionFactory().openSession();
 
         try {
             session.beginTransaction();
-            MutationQuery query = session.createMutationQuery("delete from User_Service us where us.service = :service");
-            query.setParameter("service", serviceOrderID);
+            MutationQuery query = session.createMutationQuery("delete from User_Service us where us.user.id = :user");
+            query.setParameter("user", userID);
             int result = query.executeUpdate();
 
             if (result == 0) {
                 System.out.println(result + " service order has been deleted.");
-            } else System.out.println("Service Order " + serviceOrderID + " has been deleted.");
+            } else System.out.println("Service orders of " + userID + " has been deleted.");
 
             session.getTransaction().commit();
         } catch (Exception e) {

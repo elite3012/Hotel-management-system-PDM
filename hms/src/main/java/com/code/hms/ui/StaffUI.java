@@ -18,17 +18,12 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
 import com.code.hms.daoimpl.*;
-import com.code.hms.entities.Billing;
-import com.code.hms.entities.Reservation;
-import com.code.hms.entities.Room;
-import com.code.hms.entities.User;
+import com.code.hms.entities.*;
 import com.code.hms.loginwindow.LoginWindow;
 
 import java.util.List;
 
 import com.code.hms.entities.Room;
-import com.code.hms.entities.Room_Reservation;
-import com.code.hms.entities.Room_Reservation_Pk;
 
 
 public class StaffUI {
@@ -60,6 +55,7 @@ public class StaffUI {
     static JButton ServiceOrderTab;
     static JButton FinancialTab;
     static JButton UsersTab;
+    static JButton deleteServiceOrderButton;
     static JTable serviceOrderTable;
     static JTable taskListTable;
     static JTable ManageUserTable;
@@ -74,6 +70,8 @@ public class StaffUI {
     static UserDaoImpl userDaoImpl;
     static BillingDaoImpl billingDaoImpl;
     static Service_OrderDAOImpl serviceOrderDaoImpl;
+    static User_ServiceDAOImpl user_serviceDaoImpl;
+    static ServiceDAOImpl serviceDaoImpl;
 
     static List<Object[]> serviceOrders;
 
@@ -87,6 +85,9 @@ public class StaffUI {
         billingDaoImpl = new BillingDaoImpl();
         reservationDaoImpl = new ReservationDaoImpl();
         userDaoImpl = new UserDaoImpl();
+        user_serviceDaoImpl = new User_ServiceDAOImpl();
+        serviceDaoImpl = new ServiceDAOImpl();
+
         switch (role) {
             case "Receptionist":
                 initializeUI();
@@ -329,6 +330,20 @@ public class StaffUI {
                 removeReservationTabComponents();
                 removeFinancialComponents();
                 addLogOutComponents();
+
+                String[] columnNames = {"User ID", "ServiceType", "Date", "Time"};
+                serviceOrders = serviceOrderDaoImpl.getAllServiceOrders();
+                Object[][] data = new Object[serviceOrders.size()][4];
+
+                for (int i = 0; i < serviceOrders.size(); i++) {
+                    Object[] row = serviceOrders.get(i);
+                    data[i][0] = row[0]; // User ID
+                    data[i][1] = row[1]; // ServiceType
+                    data[i][2] = row[2]; // Date
+                    data[i][3] = row[3]; // Time
+                }
+                DefaultTableModel model = new DefaultTableModel(data, columnNames);
+                serviceOrderTable.setModel(model);
 
             }
         });
@@ -1572,15 +1587,6 @@ public class StaffUI {
 
 
     private void createServiceOrderPanel() {
-        /*String[][] serviceOrderBaseData = {{" ", " ", " ", " ", " "}};
-        String[] serviceOrderColumnNames = {"CustomerID", "ServiceType", "Date", "Time", "Assigned to"};
-        serviceOrderTable = new JTable(serviceOrderBaseData, serviceOrderColumnNames);
-        serviceOrderTable.setBounds(374, 40, 800, 530);
-        serviceOrderTable.getTableHeader().setFont(new Font("Mulish", Font.BOLD, 13));
-        serviceOrderTable.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
-        serviceOrderTable.setVisible(false);
-*/
-        
             String[] columnNames = {"User ID", "ServiceType", "Date", "Time"};
 
             Object[][] data = new Object[serviceOrders.size()][4];
@@ -1624,17 +1630,51 @@ public class StaffUI {
             serviceOrderPanel.setVisible(false);
             panel.add(serviceOrderPanel);
 
-            
-            /*JPanel panel = new JPanel(new BorderLayout());
-            panel.add(scrollPane, BorderLayout.CENTER);
+        deleteServiceOrderButton = new JButton("Delete Service Order");
+        deleteServiceOrderButton.setBounds(277, 6, 170, 30);
+        deleteServiceOrderButton.setBackground(Color.decode("#E3DFD5"));
+        deleteServiceOrderButton.setVisible(false);
+        panel.add(deleteServiceOrderButton);
+        deleteServiceOrderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String idInput = JOptionPane.showInputDialog("Enter User ID to Delete:");
+                try {
+                    int userId = Integer.parseInt(idInput);
+                    User user = userDaoImpl.getUserByID(userId);
+                    if (user != null) {
+                        int confirmation = JOptionPane.showConfirmDialog(panel, "Are you sure you want to delete this order?");
+                        if (confirmation == JOptionPane.YES_OPTION) {
+                            Service associatedService = user_serviceDaoImpl.getServicesByUserID(userId);
+                            serviceOrderDaoImpl.deleteServiceOrderByUserID(userId);
+                            associatedService.setServiceAvailability("Available");
+                            serviceDaoImpl.updateService(associatedService);
 
-            JFrame frame = new JFrame("All Service Orders");
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.add(panel);
-            frame.setSize(800, 600);
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);*/
-        
+                            JOptionPane.showMessageDialog(panel, "Service order deleted successfully!");
+
+                            String[] columnNames = {"User ID", "ServiceType", "Date", "Time"};
+                            serviceOrders = serviceOrderDaoImpl.getAllServiceOrders();
+                            Object[][] data = new Object[serviceOrders.size()][4];
+
+                            for (int i = 0; i < serviceOrders.size(); i++) {
+                                Object[] row = serviceOrders.get(i);
+                                data[i][0] = row[0]; // User ID
+                                data[i][1] = row[1]; // ServiceType
+                                data[i][2] = row[2]; // Date
+                                data[i][3] = row[3]; // Time
+                            }
+
+                            DefaultTableModel model = new DefaultTableModel(data, columnNames);
+                            serviceOrderTable.setModel(model);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(panel, "Service order not found.");
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(panel, "Invalid ID format.");
+                }
+            }
+        });
     }
 
     private void addManageUserPanel() {
@@ -2059,6 +2099,7 @@ public class StaffUI {
         serviceOrderPanel.setVisible(true);
         serviceOrderTable.setVisible(true);
         serviceOrderScrollPane.setVisible(true);
+        deleteServiceOrderButton.setVisible(true);
     }
 
     private void removeServiceOrderComponents() {
@@ -2066,6 +2107,7 @@ public class StaffUI {
             serviceOrderPanel.setVisible(false);
             serviceOrderTable.setVisible(false);
             serviceOrderScrollPane.setVisible(false);
+            deleteServiceOrderButton.setVisible(false);
         }
     }
 

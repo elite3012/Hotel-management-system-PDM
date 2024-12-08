@@ -8,5 +8,5 @@ public interface Service_OrderDAO {
     public List<Object[]> getAllServiceOrders();
 
     public void saveServiceOrder(User_Service user_Service);
-    public void deleteServiceOrderByID(int serviceOrderID);
+    public void deleteServiceOrderByUserID(int userID);
 }
