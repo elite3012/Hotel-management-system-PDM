@@ -173,6 +173,9 @@ public class ForgotPasswordWindow extends JFrame {
                     String newPassword = emailField.getText();
                     int userId = userdao.getUserIDByUsername(username);
                     userdao.changePassword(userId, newPassword);
+                    JOptionPane.showMessageDialog(rootPane, "Changed password successfully");
+                    dispose();
+                    SwingUtilities.invokeLater(() -> new LoginWindow().setVisible(true));
                 }
             }
         });
