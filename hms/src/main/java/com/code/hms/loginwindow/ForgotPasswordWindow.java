@@ -81,7 +81,7 @@ public class ForgotPasswordWindow extends JFrame {
         button.setBounds(150, 380, 200, 50);
         button.setBackground(Color.decode("#847966"));
         button.setForeground(Color.WHITE);
-        button.setFont(new Font("SansSerif", Font.BOLD, 18));
+        button.setFont(new Font("SansSerif", Font.BOLD, 14));
         button.setFocusable(false);
         forgotPasswordPanel.add(button);
 
@@ -160,9 +160,9 @@ public class ForgotPasswordWindow extends JFrame {
         button.setVisible(false);
 
         title.setText("Change password");
-        emailLbl.setText("Enter new password");
+        emailLbl.setText("Re-enter new password");
         emailField.setText("");
-        usernameLbl.setText("Re-enter new password");
+        usernameLbl.setText("Enter new password");
         usernameField.setText("");
         button.setText("Confirm new password");
         removeActionListeners(button);
