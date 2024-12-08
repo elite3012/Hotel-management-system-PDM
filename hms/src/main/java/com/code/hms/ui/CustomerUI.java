@@ -1,22 +1,49 @@
 package com.code.hms.ui;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
+import java.awt.Color;
 import java.awt.*;
+import javax.swing.*;
+import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import com.code.hms.daoimpl.*;
-import com.code.hms.entities.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.code.hms.connection.DataSourceFactory;
+import com.code.hms.daoimpl.BillingDaoImpl;
+import com.code.hms.daoimpl.ReservationDaoImpl;
+import com.code.hms.daoimpl.ReviewDAOImpl;
+import com.code.hms.daoimpl.RoomDaoImpl;
+import com.code.hms.daoimpl.Room_ReservationDaoImpl;
+import com.code.hms.daoimpl.ServiceDAOImpl;
+import com.code.hms.daoimpl.Service_OrderDAOImpl;
+import com.code.hms.daoimpl.UserDaoImpl;
+import com.code.hms.daoimpl.User_ServiceDAOImpl;
 import com.code.hms.entities.Billing;
 import com.code.hms.entities.Reservation;
 import com.code.hms.entities.Review;
@@ -27,7 +54,7 @@ import com.code.hms.entities.Service;
 import com.code.hms.entities.User;
 import com.code.hms.entities.User_Service;
 import com.code.hms.entities.User_Service_Pk;
-import com.code.hms.ui.LoadImage;
+import com.code.hms.loginwindow.LoginWindow;
 
 
 public class CustomerUI {
@@ -48,6 +75,8 @@ public class CustomerUI {
     static JLabel room2Label;
     static JLabel room3Label;
 
+    static JPanel logOutPanel;
+
     static JLabel averageRatingLabel;
     static Double averageRating;
 
@@ -57,6 +86,7 @@ public class CustomerUI {
     static JButton RoomTab;
     static JButton ServiceTab;
     static JButton ReviewTab;
+    static JButton logOutButton;
 
     static Service_OrderDAOImpl serviceOrderDAOImpl;
     static ReviewDAOImpl reviewDAOImpl;
@@ -184,6 +214,8 @@ public class CustomerUI {
         CreateServiceInfoBox();
         CreateDate_TimeBox();
         CreateBookingInfo();
+        logOutPanel.setVisible(true);
+        logOutButton.setVisible(true);
 
         if (user != null) {
             BookingFirstName.setText(user.getFirstName());
@@ -205,7 +237,6 @@ public class CustomerUI {
     }
 
     private void createMainGUI() {
-
         // Frame setup
         frame = new JFrame();
         frame.setSize(1280, 672);
@@ -311,7 +342,7 @@ public class CustomerUI {
         JButton RoomList = new JButton();
         RoomList.setText("LIST OF AVAILABLE ROOMS");
         RoomList.setFont(new Font("Mulish", Font.BOLD, 33));
-        RoomList.setBounds(400, 390, 710, 33);
+        RoomList.setBounds(430, 220, 710, 150);
         RoomList.setVisible(false);
         RoomList.setBackground(new Color(132, 121, 102));
         RoomList.setForeground(new Color(245, 242, 233));
@@ -358,7 +389,7 @@ public class CustomerUI {
         JLabel ChooseDateIn = new JLabel();
         ChooseDateIn.setText("CHECK-IN DATE");
         ChooseDateIn.setFont(new Font("Mulish", Font.BOLD, 25));
-        ChooseDateIn.setBounds(390, 100, 300, 33);
+        ChooseDateIn.setBounds(300, 100, 300, 33);
         ChooseDateIn.setForeground(new Color(212, 158, 24));
         ChooseDateIn.setHorizontalAlignment(SwingConstants.CENTER);
         ChooseDateIn.setVisible(false);
@@ -366,16 +397,16 @@ public class CustomerUI {
 
         EnterDateIn = new JTextField();
         panel.add(EnterDateIn);
-        EnterDateIn.setBounds(450, 150, 190, 28);
-        EnterDateIn.setBackground(new Color(168, 161, 150));
+        EnterDateIn.setBounds(350, 150, 220, 28);
+        EnterDateIn.setBackground(new Color(255, 255, 255));
         EnterDateIn.setVisible(false);
-        EnterDateIn.setBorder(null);
+        EnterDateIn.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102)));
 
         // CHECK-OUT DATE Section
         JLabel ChooseDateOut = new JLabel();
         ChooseDateOut.setText("CHECK-OUT DATE");
         ChooseDateOut.setFont(new Font("Mulish", Font.BOLD, 25));
-        ChooseDateOut.setBounds(850, 100, 315, 33); // Increased width for label
+        ChooseDateOut.setBounds(950, 100, 315, 33); // Increased width for label
         ChooseDateOut.setForeground(new Color(212, 158, 24));
         ChooseDateOut.setHorizontalAlignment(SwingConstants.CENTER); // Center-aligned text
         ChooseDateOut.setVisible(false);
@@ -383,16 +414,17 @@ public class CustomerUI {
         
         EnterDateOut = new JTextField();
         panel.add(EnterDateOut);
-        EnterDateOut.setBounds(900, 150, 220, 28);
-        EnterDateOut.setBackground(new Color(168, 161, 150));
+        EnterDateOut.setBounds(1000, 150, 220, 28);
+        EnterDateOut.setBackground(new Color(255, 255, 255));
         EnterDateOut.setVisible(false);
         EnterDateOut.setBorder(null);
+        EnterDateOut.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102)));
 
         // NUMBER OF GUESTS Section
         JLabel NumberOfGuests = new JLabel();
         NumberOfGuests.setText("NUMBER OF GUESTS");
         NumberOfGuests.setFont(new Font("Mulish", Font.BOLD, 25));
-        NumberOfGuests.setBounds(625, 190, 285, 33);
+        NumberOfGuests.setBounds(645, 100, 285, 33);
         NumberOfGuests.setForeground(new Color(212, 158, 24));
         NumberOfGuests.setHorizontalAlignment(SwingConstants.CENTER);
         NumberOfGuests.setVisible(false);
@@ -400,20 +432,30 @@ public class CustomerUI {
 
         EnterNumberOfGuests = new JTextField();
         panel.add(EnterNumberOfGuests);
-        EnterNumberOfGuests.setBounds(635, 230, 265, 28);
-        EnterNumberOfGuests.setBackground(new Color(168, 161, 150));
+        EnterNumberOfGuests.setBounds(655, 150, 265, 28);
+        EnterNumberOfGuests.setBackground(new Color(255, 255, 255));
         EnterNumberOfGuests.setVisible(false);
         EnterNumberOfGuests.setBorder(null);
+        EnterNumberOfGuests.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102)));
 
         // ROOM SELECTION Section
         JLabel RoomSelectionLabel = new JLabel();
         RoomSelectionLabel.setText("SELECT ROOM");
         RoomSelectionLabel.setFont(new Font("Mulish", Font.BOLD, 25));
-        RoomSelectionLabel.setBounds(645, 460, 285, 33);
+        RoomSelectionLabel.setBounds(645, 400, 285, 33);
         RoomSelectionLabel.setVisible(false);
         RoomSelectionLabel.setForeground(new Color(212, 158, 24));
         RoomSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(RoomSelectionLabel);
+
+        JLabel IntroducitonLabel = new JLabel();
+        IntroducitonLabel.setText("(Press and hold Ctrl to select multiple rooms)");
+        IntroducitonLabel.setFont(new Font("Mulish", Font.BOLD, 15));
+        IntroducitonLabel.setBounds(525, 560, 500, 20);
+        IntroducitonLabel.setVisible(false);
+        IntroducitonLabel.setForeground(new Color(212, 158, 24));
+        IntroducitonLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(IntroducitonLabel);
 
         availableRooms = roomDaoImpl.getAllAvailableRooms();
         if (availableRooms == null || availableRooms.isEmpty()) {
@@ -427,11 +469,11 @@ public class CustomerUI {
         }
         roomList = new JList<>(roomOptions);
         roomList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        roomList.setBackground(new Color(168, 161, 150));
+        roomList.setBackground(new Color(255, 255, 255));
         roomList.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102)));
 
         RoomSelectionField = new JScrollPane(roomList);
-        RoomSelectionField.setBounds(670, 500, 220, 100);
+        RoomSelectionField.setBounds(635, 450, 300, 100);
         RoomSelectionField.setVisible(false);
         panel.add(RoomSelectionField);
 
@@ -884,7 +926,8 @@ public class CustomerUI {
         panel.add(averageRatingLabel);
 
         OurHotelTab.addActionListener(e -> {
-            
+            logOutPanel.setVisible(true);
+            logOutButton.setVisible(true);
             hotelNameLabel.setVisible(true);
             welcomeLabel.setVisible(true);
             dateLabel.setVisible(true);
@@ -894,6 +937,7 @@ public class CustomerUI {
             room1Label.setVisible(true);
             room2Label.setVisible(true);
             room3Label.setVisible(true);
+            IntroducitonLabel.setVisible(false);
             averageRating = getAverageRatingFromDatabase();
             averageRatingLabel.setText("Customer Average Rating: " + String.format("%.1f", averageRating) + " / 5.0");
             averageRatingLabel.setVisible(true);
@@ -1026,7 +1070,8 @@ public class CustomerUI {
         new Interaction(RoomTab, false);
         panel.add(RoomTab);
         RoomTab.addActionListener(e -> {
-            
+            logOutPanel.setVisible(true);
+            logOutButton.setVisible(true);
             availableRooms = roomDaoImpl.getAllAvailableRooms();
             if (availableRooms == null || availableRooms.isEmpty()) {
                 JOptionPane.showMessageDialog(panel, "No rooms are available for booking.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1135,6 +1180,8 @@ public class CustomerUI {
             RoomSelectionField.setVisible(true);
             RoomSelectionLabel.setVisible(true);
             RoomList.setVisible(true);
+            IntroducitonLabel.setVisible(true);
+
 
             BookingTitle.setVisible(false);
 
@@ -1207,6 +1254,8 @@ public class CustomerUI {
         Spa.setVisible(false);
         panel.add(Spa);
         Spa.addActionListener(e -> {
+            logOutPanel.setVisible(true);
+            logOutButton.setVisible(true);
             Service service = serviceDAOImpl.getServiceByID(1);
             if (service == null) {
                 JOptionPane.showMessageDialog(frame, "Service not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1242,6 +1291,8 @@ public class CustomerUI {
             room2Label.setVisible(false);
             room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
+            IntroducitonLabel.setVisible(false);
+
 
             Restaurant.setVisible(false);
             Spa.setVisible(false);
@@ -1310,6 +1361,8 @@ public class CustomerUI {
         Restaurant.setVisible(false);
         panel.add(Restaurant);
         Restaurant.addActionListener(e -> {
+            logOutPanel.setVisible(true);
+            logOutButton.setVisible(true);
             Service service = serviceDAOImpl.getServiceByID(2);
             if (service == null) {
                 JOptionPane.showMessageDialog(frame, "Service not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1342,6 +1395,8 @@ public class CustomerUI {
             room2Label.setVisible(false);
             room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
+            IntroducitonLabel.setVisible(false);
+
 
             CustomerInfo.setVisible(true);
             BookingInformation.setVisible(true);
@@ -1410,6 +1465,8 @@ public class CustomerUI {
         RoomCleaning.setVisible(false);
         panel.add(RoomCleaning);
         RoomCleaning.addActionListener(e -> {
+            logOutPanel.setVisible(true);
+            logOutButton.setVisible(true);
             Service service = serviceDAOImpl.getServiceByID(3);
             if (service == null) {
                 JOptionPane.showMessageDialog(frame, "Service not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1442,6 +1499,8 @@ public class CustomerUI {
             room2Label.setVisible(false);
             room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
+            IntroducitonLabel.setVisible(false);
+
 
             CustomerInfo.setVisible(true);
             BookingInformation.setVisible(true);
@@ -1509,6 +1568,8 @@ public class CustomerUI {
         MusicLounge.setVisible(false);
         panel.add(MusicLounge);
         MusicLounge.addActionListener(e -> {
+            logOutPanel.setVisible(true);
+            logOutButton.setVisible(true);
             Service service = serviceDAOImpl.getServiceByID(4);
             if (service == null) {
                 JOptionPane.showMessageDialog(frame, "Service not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1541,6 +1602,8 @@ public class CustomerUI {
             room2Label.setVisible(false);
             room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
+            IntroducitonLabel.setVisible(false);
+
 
             CustomerInfo.setVisible(true);
             BookingInformation.setVisible(true);
@@ -1609,6 +1672,8 @@ public class CustomerUI {
             ServiceTab.setEnabled(true);
         }
         ServiceTab.addActionListener(e -> {
+            logOutPanel.setVisible(true);
+            logOutButton.setVisible(true);
             Tab1_background.setVisible(false);
             Tab2_background.setVisible(false);
             Tab3_background.setVisible(true);
@@ -1655,6 +1720,8 @@ public class CustomerUI {
             room2Label.setVisible(false);
             room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
+            IntroducitonLabel.setVisible(false);
+
 
             FNamePosition.setVisible(false);
             LNamePosition.setVisible(false);
@@ -1731,6 +1798,8 @@ public class CustomerUI {
         });
 
         NextButton.addActionListener(e -> {
+            logOutPanel.setVisible(true);
+            logOutButton.setVisible(true);
             Tab1_background.setVisible(false);
             Tab2_background.setVisible(true);
             Tab3_background.setVisible(false);
@@ -1764,6 +1833,8 @@ public class CustomerUI {
             room2Label.setVisible(false);
             room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
+            IntroducitonLabel.setVisible(false);
+
 
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
@@ -1860,6 +1931,8 @@ public class CustomerUI {
         new Interaction(ReviewTab, false);
         panel.add(ReviewTab);
         ReviewTab.addActionListener(e -> {
+            logOutPanel.setVisible(true);
+            logOutButton.setVisible(true);
             Tab1_background.setVisible(false);
             Tab2_background.setVisible(false);
             Tab3_background.setVisible(false);
@@ -1888,6 +1961,8 @@ public class CustomerUI {
             room2Label.setVisible(false);
             room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
+            IntroducitonLabel.setVisible(false);
+
 
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
@@ -1982,6 +2057,8 @@ public class CustomerUI {
         });
 
         sendButton.addActionListener(e -> {
+            logOutPanel.setVisible(true);
+            logOutButton.setVisible(true);
             Tab1_background.setVisible(false);
             Tab2_background.setVisible(false);
             Tab3_background.setVisible(false);
@@ -2008,6 +2085,8 @@ public class CustomerUI {
             room2Label.setVisible(false);
             room3Label.setVisible(false);
             averageRatingLabel.setVisible(false);
+            IntroducitonLabel.setVisible(false);
+
 
             SpaCenter.setVisible(false);
             RestaurantCenter.setVisible(false);
@@ -2128,7 +2207,8 @@ public class CustomerUI {
         Tab4_background = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/Tab4_BG.png", 1280, 672));
         Tab4_background.setBounds(0, 0, 1280, 672);
         panel.add(Tab4_background);
-
+        addLogOutPanel();
+        logOutPanel.setVisible(true);
         // Make frame visible
         frame.setVisible(true);
 
@@ -2279,6 +2359,7 @@ public class CustomerUI {
     }
 
     public void CreateDate_TimeBox() {
+        
         Daybox = new JLabel(LoadImage.loadScaledImage("hms/src/main/java/com/code/hms/assets/BookingBox.png", 100, 30));
         Daybox.setBounds(350, 420, 100, 30);
         panel.add(Daybox);
@@ -2356,6 +2437,34 @@ public class CustomerUI {
         SpaSecondEnter.setBackground(new Color(244, 242, 235));
         SpaSecondEnter.setVisible(false);
         SpaSecondEnter.setBorder(null);
+    }
+
+
+    private void addLogOutPanel() {
+            createLogOutButton();
+            logOutPanel = new JPanel();
+            logOutPanel.setBounds(20, 550, 100, 35);
+            logOutPanel.setBackground(new Color(132, 121, 102));
+            logOutPanel.add(logOutButton);
+            panel.add(logOutPanel);
+            panel.setComponentZOrder(logOutPanel, 0);
+    }
+
+    private void createLogOutButton() {
+        logOutButton = new JButton("Log Out");
+        logOutButton.setBounds(20, 550, 100, 35);
+        logOutButton.setFont(new Font("Mulish", Font.BOLD, 17));
+        logOutButton.setBackground(Color.decode("#847966"));
+        logOutButton.setForeground(new Color(255, 255, 255));
+        logOutButton.setBorder(new LineBorder(new Color(255, 255, 255), 1));
+        logOutButton.setVisible(false);
+        logOutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {          
+                SwingUtilities.invokeLater(() -> new LoginWindow().setVisible(true));
+                frame.dispose();
+            }
+        });
     }
 
     private void resetFields() {

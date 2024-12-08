@@ -1,6 +1,7 @@
 package com.code.hms.ui;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -21,6 +22,7 @@ import com.code.hms.entities.Billing;
 import com.code.hms.entities.Reservation;
 import com.code.hms.entities.Room;
 import com.code.hms.entities.User;
+import com.code.hms.loginwindow.LoginWindow;
 
 import java.util.List;
 
@@ -36,6 +38,8 @@ public class StaffUI {
     static JLabel Tab3_background;
     static JLabel Tab4_background;
     static JLabel Tab5_background;
+    static JPanel logOutPanel;
+    static JButton logOutButton;
     static JFrame frame;
     static JPanel panel;
     static JPanel roomPanel;
@@ -72,30 +76,6 @@ public class StaffUI {
     static Service_OrderDAOImpl serviceOrderDaoImpl;
 
     static List<Object[]> serviceOrders;
-    public StaffUI() {
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose: Receptionist(1)/Housekeeper(2)/Admin(3)\n");
-        int choice = scanner.nextInt();
-
-        switch (choice) {
-            case 1:
-                initializeUI();
-                createReceptionistUI();
-                break;
-            case 2:
-                initializeUI();
-                createHousekeeperUI();
-                break;
-            case 3:
-                initializeUI();
-                createAdminUI();
-                break;
-            default:
-                System.out.println("Invalid choice!");
-                System.exit(0);
-        }
-    }
 
     public StaffUI(String role) {
         serviceOrderDaoImpl = new Service_OrderDAOImpl();
@@ -124,7 +104,8 @@ public class StaffUI {
                 System.out.println("Invalid choice!");
                 System.exit(0);
         }
-
+        addLogOutPanel();
+        addLogOutComponents();
     }
 
     private void initializeUI() {
@@ -156,6 +137,7 @@ public class StaffUI {
                 ReservationTab.setForeground(new Color(245, 242, 233));
                 removeReservationTabComponents();
                 addRoomTabComponents();
+                addLogOutComponents();
                 
                 for (int floor = 1; floor <= 6; floor++) {
                     for (int room = 1; room <= 6; room++) {
@@ -180,6 +162,8 @@ public class StaffUI {
                 RoomManagementTab.setForeground(new Color(245, 242, 233));
                 removeRoomTabComponents();
                 addReservationTabComponents();
+                addLogOutComponents();
+
             }
         });
         addReservationPanel();
@@ -204,6 +188,7 @@ public class StaffUI {
                 TaskListTab.setForeground(new Color(245, 242, 233));
                 addRoomCleaningTabComponents();
                 removeTaskListComponents();
+                addLogOutComponents();
             }
         });
         TaskListTab.addActionListener(new ActionListener() {
@@ -263,6 +248,8 @@ public class StaffUI {
                 removeServiceOrderComponents();
                 removeReservationTabComponents();
                 removeFinancialComponents();
+                addLogOutComponents();
+
 
                 for (int floor = 1; floor <= 6; floor++) {
                     for (int room = 1; room <= 6; room++) {
@@ -302,6 +289,8 @@ public class StaffUI {
                 removeManageUserComponents();
                 removeFinancialComponents();
                 addReservationTabComponents();
+                addLogOutComponents();
+
             }
         });
 
@@ -339,6 +328,8 @@ public class StaffUI {
                 removeManageUserComponents();
                 removeReservationTabComponents();
                 removeFinancialComponents();
+                addLogOutComponents();
+
             }
         });
 
@@ -371,6 +362,8 @@ public class StaffUI {
                 removeReservationTabComponents();
                 removeServiceOrderComponents();
                 addFinancialComponents();
+                addLogOutComponents();
+
             }
         });
 
@@ -402,6 +395,8 @@ public class StaffUI {
                 removeServiceOrderComponents();
                 removeFinancialComponents();
                 addManageUserComponents();
+                addLogOutComponents();
+
             }
         });
         createServiceOrderPanel();
@@ -418,6 +413,7 @@ public class StaffUI {
         
         removeRoomCleaningTabComponents();
         removeReservationTabComponents();
+        addLogOutComponents();
 
     }
 
@@ -2182,10 +2178,45 @@ public class StaffUI {
 
     }
 
+    private void addLogOutComponents() {
+        addLogOutPanel();
+        logOutButton.setVisible(true);
+        logOutPanel.setVisible(true);
+    }
+
     private void removeFinancialComponents() {
 
         financialPanel.setVisible(false); // Hide the financial panel
 
+    }
+
+    private void addLogOutPanel() {
+            createLogOutButton();
+            logOutPanel = new JPanel();
+            logOutPanel.setBounds(20, 550, 100, 35);
+            logOutPanel.setBackground(new Color(132, 121, 102));
+            logOutPanel.add(logOutButton);
+            panel.add(logOutPanel);
+            panel.setComponentZOrder(logOutPanel, 0);
+            panel.setComponentZOrder(logOutButton, 0);
+    }
+
+    private void createLogOutButton() {
+        logOutButton = new JButton("Log Out");
+        logOutButton.setBounds(20, 550, 100, 35);
+        logOutButton.setFont(new Font("Mulish", Font.BOLD, 17));
+        logOutButton.setBackground(Color.decode("#847966"));
+        logOutButton.setForeground(new Color(255, 255, 255));
+        logOutButton.setBorder(new LineBorder(new Color(255, 255, 255), 1));
+        logOutButton.setVisible(true);
+        logOutButton.setFocusable(false);
+        logOutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                SwingUtilities.invokeLater(() -> new LoginWindow().setVisible(true));
+            }
+        });
     }
 }
 //debug commit command
