@@ -524,6 +524,17 @@ public class CustomerUI {
         WriteFeedback.setFont(new Font("Mulish", Font.PLAIN, 16)); // Set the font size and style
         WriteFeedback.setBorder(BorderFactory.createLineBorder(new Color(132, 121, 102), 1));
 
+        JButton sendButton = new JButton();
+        sendButton.setFocusable(false);
+        sendButton.setBackground(new Color(132, 121, 102));
+        sendButton.setBorderPainted(false);
+        sendButton.setText("Send");
+        sendButton.setFont(new Font("Mulish", Font.BOLD, 20));
+        sendButton.setBounds(674, 520, 200, 50);
+        sendButton.setForeground(new Color(245, 242, 233));
+        sendButton.setVisible(false);
+        panel.add(sendButton);
+
         // reservation SELECTION Section
         JLabel ReservationSelectionLabel = new JLabel();
         ReservationSelectionLabel.setText("SELECT RERSERVATION");
@@ -548,6 +559,7 @@ public class CustomerUI {
             reservationPackage.addItem(reservation);
         }
         reservationPackage.setSelectedItem(placeholderReservation);
+        sendButton.setEnabled(false);
 
         panel.add(reservationPackage);
 
@@ -607,17 +619,6 @@ public class CustomerUI {
                 JOptionPane.showMessageDialog(panel, "Discover selected as payment method.", "Payment Method", JOptionPane.INFORMATION_MESSAGE);
             }
         });
-
-        JButton sendButton = new JButton();
-        sendButton.setFocusable(false);
-        sendButton.setBackground(new Color(132, 121, 102));
-        sendButton.setBorderPainted(false);
-        sendButton.setText("Send");
-        sendButton.setFont(new Font("Mulish", Font.BOLD, 20));
-        sendButton.setBounds(674, 520, 200, 50);
-        sendButton.setForeground(new Color(245, 242, 233));
-        sendButton.setVisible(false);
-        panel.add(sendButton);
 
         JButton SubmitServiceButton = new JButton("SUBMIT");
         SubmitServiceButton.setBounds(960, 520, 180, 50);
