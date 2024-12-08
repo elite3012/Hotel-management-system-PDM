@@ -263,6 +263,13 @@ public class StaffUI {
                 removeServiceOrderComponents();
                 removeReservationTabComponents();
                 removeFinancialComponents();
+
+                for (int floor = 1; floor <= 6; floor++) {
+                    for (int room = 1; room <= 6; room++) {
+                        int roomNumber = floor * 100 + room;
+                        initializeRoomButtonColor(buttons[floor - 1][room - 1], roomNumber);                        
+                    }
+                }   
             }
         });
 
@@ -993,7 +1000,12 @@ public class StaffUI {
                         if (reservation != null) {
                             int confirmation = JOptionPane.showConfirmDialog(panel, "Are you sure you want to cancel this reservation?");
                             if (confirmation == JOptionPane.YES_OPTION) {
+                                List<Room> associatedRooms = room_ReservationDaoImpl.getRoomByReservationID(reservationId);
                                 reservationDaoImpl.deleteReservation(reservationId);
+                                for (Room room : associatedRooms) {
+                                    room.setRoomStatus("Available"); 
+                                    roomDaoImpl.updateRoom(room);
+                                }
                                 JOptionPane.showMessageDialog(panel, "Reservation canceled successfully!");
                             }
                         } else {
