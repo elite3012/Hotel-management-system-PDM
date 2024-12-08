@@ -7,6 +7,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import java.awt.*;
@@ -49,6 +50,7 @@ public class StaffUI {
     static JLabel cleaned_uncleaned;
     static JComboBox adminRoomMenu;
     static JButton RoomManagementTab;
+    static JButton[][] buttons;
     static JButton ReservationTab;
     static JButton TaskListTab;
     static JButton ServiceOrderTab;
@@ -139,7 +141,7 @@ public class StaffUI {
         panel.setLayout(null);
         frame.getContentPane().add(panel);
     }
-
+    
     private void createReceptionistUI() {
         createRoomTab();
         RoomManagementTab.addActionListener(new ActionListener() {
@@ -154,9 +156,17 @@ public class StaffUI {
                 ReservationTab.setForeground(new Color(245, 242, 233));
                 removeReservationTabComponents();
                 addRoomTabComponents();
+                
+                for (int floor = 1; floor <= 6; floor++) {
+                    for (int room = 1; room <= 6; room++) {
+                        int roomNumber = floor * 100 + room;
+                        initializeRoomButtonColor(buttons[floor - 1][room - 1], roomNumber);                        
+                    }
+                }          
             }
+            
         });
-
+        
         createReservationTab();
         ReservationTab.addActionListener(new ActionListener() {
             @Override
@@ -176,9 +186,13 @@ public class StaffUI {
         addRoomPanel();
         createAllBackgrounds();
     }
-
+    
     private void createHousekeeperUI() {
         createRoomTab();
+        createTaskListTab();
+        createTaskListPanel();
+        addRoomCleaningPanel();
+        createAllBackgrounds();
         RoomManagementTab.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -192,7 +206,6 @@ public class StaffUI {
                 removeTaskListComponents();
             }
         });
-        createTaskListTab();
         TaskListTab.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -217,9 +230,6 @@ public class StaffUI {
                 taskListTable.setModel(model);
             }
         });
-        createTaskListPanel();
-        addRoomCleaningPanel();
-        createAllBackgrounds();
     }
 
     private void createAdminUI() {
@@ -411,11 +421,14 @@ public class StaffUI {
         roomPanel.setBounds(417, 40, 713, 530);
 
         // Generate buttons
+        buttons = new JButton[6][6];
+
         for (int floor = 1; floor <= 6; floor++) {
             for (int room = 1; room <= 6; room++) {
                 int roomNumber = floor * 100 + room;
 
                 JButton roomButton = new JButton(String.valueOf(roomNumber));
+                buttons[floor - 1][room - 1] = roomButton;
                 roomButton.setPreferredSize(new Dimension(96, 71));
                 roomButton.setFont(new Font("Mulish", Font.BOLD, 20));
                 roomButton.setOpaque(true);

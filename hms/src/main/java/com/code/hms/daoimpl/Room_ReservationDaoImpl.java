@@ -46,7 +46,7 @@ public class Room_ReservationDaoImpl implements Room_ReservationDAO {
 
         try {
             roomList = session.createQuery("from Room r where r.roomId in "
-            + "(select rr.roomId from Room_Reservation rr where rr.reservationId = :reservationId)", Room.class).
+            + "(select rr.room.roomId from Room_Reservation rr where rr.reservation.reservationId = :reservationId)", Room.class).
             setParameter("reservationId", reservationId).list();
         } catch (Exception e) {
             e.printStackTrace();
